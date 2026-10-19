@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raymond Riley | Cloud & Systems Professional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black">
+
+    <!-- Header Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-green-500">&lt;</span>Raymond E. Riley<span class="text-green-500">/&gt;</span>
+            </a>
+            
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-400">
+                <a href="index.html" class="nav-link hover:text-white transition-colors">Home</a>
+                <a href="about.html" class="nav-link hover:text-white transition-colors">About</a>
+                <a href="experience.html" class="nav-link hover:text-white transition-colors">Experience</a>
+                <a href="certificates.html" class="nav-link hover:text-white transition-colors">Certification/Training</a>
+                <a href="skills.html" class="nav-link hover:text-white transition-colors">Skills</a>
+                <a href="contact.html" class="px-4 py-2 rounded-lg bg-white text-black font-semibold hover:bg-neutral-200 transition-all">Contact</a>
+            </nav>
+
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-black border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="index.html" class="block text-neutral-300 hover:text-white">Home</a>
+            <a href="about.html" class="block text-neutral-300 hover:text-white">About</a>
+            <a href="experience.html" class="block text-neutral-300 hover:text-white">Experience</a>
+            <a href="certificates.html" class="block text-neutral-300 hover:text-white">Certification/Training</a>
+            <a href="skills.html" class="block text-neutral-300 hover:text-white">Skills</a>
+            <a href="contact.html" class="block text-white font-semibold">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Content -->
+    <main class="flex-grow pt-32 pb-20 px-6 max-w-6xl mx-auto flex flex-col justify-center items-start">
+
+        <!-- Row with items split to the far left and far right -->
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; white-space: nowrap;" class="mb-6">
+            <!-- Left Side -->
+            <div style="display: flex; align-items: center; gap: 0.5rem;" class="px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider">
+                <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
+                <span>Disaster Recovery & Cyber-Recovery Specialist</span>
+            </div>
+
+            <!-- Right Side -->
+            <div style="display: flex; align-items: center; gap: 0.5rem;" class="px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider">
+                <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
+                <span>Identity, Automation, Infrastructure & Cloud Specialist</span>
+            </div>
+        </div>
+        <div class="my-photo-container my-8 flex justify-center self-center">
+        <img src="assets/images/picinsuit.jpg" alt="Raymond E. Riley" class="rounded-full border border-neutral-800 shadow-2xl w-36 h-36 object-cover aspect-square">
+        </div>
+
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6">
+            Engineering resilient systems & <span class="text-neutral-400">hybrid solutions.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-neutral-400 max-w-2xl mb-10 leading-relaxed">
+            Hi, I'm Raymond E. Riley. I specialize in disaster recovery, cyber-recovery & complex architecture implementations.  I also have experience in identity and access management, automation frameworks, and various cloud architecture.
+        </p>
+        <div class="flex flex-wrap gap-4">
+            <a href="experience.html" class="px-6 py-3 rounded-xl bg-white text-black font-semibold hover:bg-neutral-200 transition-all flex items-center gap-2">
+                Explore Experience <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a href="contact.html" class="px-6 py-3 rounded-xl bg-neutral-900 border border-neutral-800 text-white font-medium hover:bg-neutral-800 transition-all">
+                Get in Touch
+            </a>
+        </div>
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-neutral-900 text-center text-xs text-neutral-500">
+        <p>© <span id="year"></span> Raymond E. Riley. Precision and depth.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
