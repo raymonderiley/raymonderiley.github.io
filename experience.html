@@ -7,9 +7,26 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* Canvas background styling locking it to the viewport behind all site content */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: 0;
+            pointer-events: none; /* Ensures mouse clicks pass straight through to the page */
+        }
+    </style>
 </head>
-<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black">
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
 
+    <!-- The Scrolling Slanted Recovery Diagram Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Header Navigation (Elevated z-index) -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
         <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
             <a href="index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
@@ -35,8 +52,9 @@
         </div>
     </header>
 
-    <main class="flex-grow pt-32 pb-20 px-6 max-w-4xl mx-auto">
-        <div class="mb-12">
+    <!-- Main Experience Content (Elevated z-index with semi-translucent cards for readability) -->
+    <main class="flex-grow pt-32 pb-20 px-6 max-w-4xl mx-auto relative z-10">
+        <div class="mb-12 bg-black/60 p-6 rounded-2xl backdrop-blur-sm border border-neutral-900">
             <span class="text-neutral-400 text-xs font-semibold uppercase tracking-wider">Career Journey</span>
             <h1 class="text-3xl md:text-4xl font-bold text-white mt-2">Professional Experience</h1>
         </div>
@@ -46,19 +64,22 @@
             <!-- Job 1 -->
             <div class="relative">
                 <span class="absolute -left-[37px] md:-left-[45px] top-1.5 w-4 h-4 rounded-full bg-white ring-4 ring-black"></span>
-                <div class="bg-neutral-950 border border-neutral-800 rounded-2xl p-6 md:p-8">
+                <div class="bg-neutral-950/90 border border-neutral-800 rounded-2xl p-6 md:p-8 backdrop-blur-sm shadow-xl">
+                    <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Caterpillar Disaster Recovery Tenure</span>
                     <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Aug 2023 – Present</span>
-                    <h2 class="text-xl font-bold text-white mt-1">Lead Disaster Recovery & Resilience Architect</h2>
+                    <h2 class="text-xl font-bold text-white mt-1">Lead Disaster Recovery & Resilience Matrix Architect</h2>
                     <p class="text-neutral-400 text-sm mb-4">Caterpillar Inc.</p>
                     <p class="text-neutral-300 text-sm leading-relaxed mb-4">
                         Direct enterprise-wide disaster recovery, cyber-recovery, and operational resilience strategies. Lead high-impact engineering teams through complex technical architectures, ensuring robust business continuity across global hybrid cloud infrastructures.
                     </p>
                     <ul class="space-y-2 text-sm text-neutral-400 list-disc list-inside">
-                        <li>Managed and mentored 10 person team</li>
+                        <li>Managed and mentored global follow-the-sun 10 person team</li>
                         <li>Provided strategic guidance and technical leadership for enterprise-wide disaster recovery and business continuity initiatives.</li>
                         <li>Architect and validate comprehensive disaster recovery (DR) frameworks integrating multi-cloud and on-premise infrastructure.</li>
                         <li>Provide strategic leadership, governance, and cross-functional alignment for cyber-resilience initiatives and incident response frameworks.</li>
-                        <li>Drive modernization across IAM and enterprise systems, utilizing VMware, Zerto, Rubrik, and advanced automation platforms.</li>
+                        <li>Design and execute tabletop and technical disaster recovery exercises for technical teams and leadership. 
+                            The scenarios incorporate realistic ransomware and disasters to test system recovery, uncover control gaps, and enforce necessary remediation.</li>
+                        <li>Built third party (SaaS, etc.) risk management program, from inception, into the disaster recovery framework.</li>
                     </ul>
                 </div>
             </div>
@@ -66,18 +87,18 @@
             <!-- Job 2: Humana Government Business / Humana Military -->
             <div class="relative">
                 <span class="absolute -left-[37px] md:-left-[45px] top-1.5 w-4 h-4 rounded-full bg-neutral-600 ring-4 ring-black"></span>
-                <div class="bg-neutral-950 border border-neutral-800 rounded-2xl p-6 md:p-8">
-                    <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Humana Leadership Tenure</span>
+                <div class="bg-neutral-950/90 border border-neutral-800 rounded-2xl p-6 md:p-8 backdrop-blur-sm shadow-xl">
+                    <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Humana Tenure 2021-2025</span>
                     <h2 class="text-xl font-bold text-white mt-1">Senior Infrastructure & Disaster Recovery Leadership</h2>
                     <p class="text-neutral-400 text-sm mb-4">Humana Government Business</p>
                     <p class="text-neutral-300 text-sm leading-relaxed mb-4">
                         Spearheaded mission-critical infrastructure availability, high-stakes recovery programs, and enterprise-grade operational resilience for large-scale federal and government-backed healthcare programs. Focused on aligning complex technical architectures with stringent compliance mandates, zero downtime requirements, and rigorous government security standards.
                     </p>
                     <ul class="space-y-2 text-sm text-neutral-400 list-disc list-inside">
-                        <li>Architected comprehensive disaster recovery programs from inception, significantly reducing RTO and RPO metrics for critical healthcare services.
-                        <li>Achitected resilient high-availability systems to assist with business continuity planning</li>
-                        <li>Engineered enterprise identity, access management, and directory services solutions across Active Directory, Microsoft Entra ID, and PKI</li>
-                        <li>Managed and mentored small team </li>
+                        <li>Architected comprehensive disaster recovery programs from inception, significantly reducing RTO and RPO metrics for critical healthcare services.</li>
+                        <li>Architected resilient high-availability systems to assist with business continuity planning.</li>
+                        <li>Engineered enterprise identity, access management, and directory services solutions across Active Directory, Microsoft Entra ID, and PKI.</li>
+                        <li>Managed and mentored small team.</li>
                         <li>Mentored multi-disciplinary engineering teams, governed cross-functional technical roadmaps, and established rigorous incident response playbooks for high-threat scenarios.</li>
                     </ul>
                 </div>
@@ -86,8 +107,8 @@
             <!-- Job 3: McKesson (2019-2020) -->
             <div class="relative">
                 <span class="absolute -left-[37px] md:-left-[45px] top-1.5 w-4 h-4 rounded-full bg-neutral-600 ring-4 ring-black"></span>
-                <div class="bg-neutral-950 border border-neutral-800 rounded-2xl p-6 md:p-8">
-                    <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">2019 – 2020</span>
+                <div class="bg-neutral-950/90 border border-neutral-800 rounded-2xl p-6 md:p-8 backdrop-blur-sm shadow-xl">
+                    <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">McKesson IAM & Disaster Recovery Tenure 2019 – 2020</span>
                     <h2 class="text-xl font-bold text-white mt-1">Senior Systems & Resilience Architect</h2>
                     <p class="text-neutral-400 text-sm mb-4">McKesson Corporation</p>
                     <p class="text-neutral-300 text-sm leading-relaxed mb-4">
@@ -96,7 +117,7 @@
                     <ul class="space-y-2 text-sm text-neutral-400 list-disc list-inside">
                         <li>From inception, built and maintained our disaster recovery and business continuity program & frameworks, ensuring enterprise-wide operational resilience.</li>
                         <li>Led targeted cyber-recovery protocols and infrastructure stabilization initiatives to protect sensitive enterprise workloads.</li>
-                        <li>Led and participated in cyber-recovery efforts that recovered a compromised business unit and smaller subset of another</li>
+                        <li>Led and participated in cyber-recovery efforts that recovered a compromised business unit and smaller subset of another.</li>
                         <li>Optimized data backup and replication pipelines using enterprise frameworks like Zerto, VMware, and advanced storage solutions.</li>
                         <li>Streamlined enterprise architecture workflows to ensure continuous compliance and uncompromised uptime for mission-critical medical distribution platforms.</li>
                     </ul>
@@ -106,7 +127,8 @@
             <!-- Job 4: McKesson (2000-2019) -->
             <div class="relative">
                 <span class="absolute -left-[37px] md:-left-[45px] top-1.5 w-4 h-4 rounded-full bg-neutral-600 ring-4 ring-black"></span>
-                <div class="bg-neutral-950 border border-neutral-800 rounded-2xl p-6 md:p-8">
+                <div class="bg-neutral-950/90 border border-neutral-800 rounded-2xl p-6 md:p-8 backdrop-blur-sm shadow-xl">
+                    <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">McKesson Infrastructure and Disaster Recovery Tenure</span>
                     <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">2000 – 2019</span>
                     <h2 class="text-xl font-bold text-white mt-1">Enterprise Infrastructure & Systems Engineering Tenure</h2>
                     <p class="text-neutral-400 text-sm mb-4">McKesson Corporation</p>
@@ -114,11 +136,11 @@
                         Spent nearly two decades driving the evolution of enterprise infrastructure, core server virtualization, and foundational business continuity architectures at scale. Played a vital role in transforming legacy systems into robust, highly-available corporate datacenters supporting extensive enterprise operations.
                     </p>
                     <ul class="space-y-2 text-sm text-neutral-400 list-disc list-inside">
-                        <li>From inception, I architected, engineered and maintained our disaster recovery and business continuity frameworks, ensuring enterprise-wide operational resilience.</li>
+                        <li>From inception, I architected, engineered and maintained our disaster recovery and business continuity frameworks, ensuring enterprise-wide operational resilience for the flagship OneCloud platform.</li>
                         <li>Architected, engineered and maintained massive multi-site Active Directory domains, core network topologies, and foundational identity management protocols.</li>
                         <li>As a solutions architect, I architected, engineered & delivered hands-on technical solutions for server virtualization migrations; as well as storage area networks (SAN), and early automated task frameworks.</li>
                         <li>Provided reliable operational support and engineering governance across multiple generations of enterprise technology transformations.</li>
-                        <li>Managed and mentored a national 20 person team</li>
+                        <li>Led end-to-end cyber incident response and business continuity operations following a severe cyber event, directing critical system restoration.</li>
                     </ul>
                 </div>
             </div>
@@ -126,12 +148,12 @@
             <!-- Job 5: Foundational Career History -->
             <div class="relative">
                 <span class="absolute -left-[37px] md:-left-[45px] top-1.5 w-4 h-4 rounded-full bg-neutral-600 ring-4 ring-black"></span>
-                <div class="bg-neutral-950 border border-neutral-800 rounded-2xl p-6 md:p-8">
+                <div class="bg-neutral-950/90 border border-neutral-800 rounded-2xl p-6 md:p-8 backdrop-blur-sm shadow-xl">
                     <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">The Start Of A Foundational Career History</span>
                     <h2 class="text-xl font-bold text-white mt-1">Technical Consulting & Systems Engineering / Administration</h2>
                     <p class="text-neutral-400 text-sm mb-4">Entre Business Technology Center & Goodrich Federal Credit Union</p>
                     <p class="text-neutral-300 text-sm leading-relaxed mb-4">
-                        Started a career by spending 5 years in technical consulting, and systems integration.  This established the foundation of a 25+ year career in enterprise infrastructure administration.
+                        Started a career by spending 5 years in technical consulting, and systems integration. This established the foundation of a 25+ year career in enterprise infrastructure administration.
                     </p>
                     <ul class="space-y-2 text-sm text-neutral-400 list-disc list-inside">
                         <li>Designed, deployed, and maintained complex network topologies, server deployments, and secure storage platforms.</li>
@@ -143,9 +165,103 @@
         </div>
     </main>
 
-    <footer class="py-8 border-t border-neutral-900 text-center text-xs text-neutral-500">
+    <!-- Footer -->
+    <footer class="py-8 border-t border-neutral-900 text-center text-xs text-neutral-500 relative z-10 bg-black/80">
         <p>© <span id="year"></span> Raymond E. Riley.</p>
     </footer>
+
+    <!-- Background Animation Script -->
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // The exact recovery diagram text data[span_0](start_span)[span_0](end_span)
+        const diagramLines = [
+            "Recovery after Ransomware attack",
+            "ATTACK DETECTED",
+            "|",
+            "DFIR + CONTAINMENT",
+            "|",
+            "CLEANROOM ESTABLISHED",
+            "|",
+            "IDENTITY RECOVERY (AD/OTHER TIER0)",
+            "|",
+            "CORE NETWORK SERVICES",
+            "DNS | DHCP | NTP | VPN | LB",
+            "|",
+            "SECURITY TOOLS",
+            "EDR | SIEM | IAM | PKI",
+            "|",
+            "CRITICAL BUSINESS APPS",
+            "ERP | EHR | FINANCE",
+            "|",
+            "VALIDATION & TESTING",
+            "|",
+            "PRODUCTION RECONNECTION"
+        ];
+
+        // Setup multiple scrolling columns across the screen
+        const columns = [];
+        const columnCount = Math.max(3, Math.floor(window.innerWidth / 300));
+
+        for (let i = 0; i < columnCount; i++) {
+            columns.push({
+                x: (i * 320) + 50,
+                y: Math.random() * canvas.height,
+                speed: 0.5 + Math.random() * 0.7,
+                opacity: 0.12 + Math.random() * 0.28 // Subdued opacity to keep foreground cards legible
+            });
+        }
+
+        function animate() {
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = '15px "Courier New", Courier, monospace';
+
+            // Apply the slant transformation
+            ctx.save();
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate(-0.12); // Angle rotation
+            ctx.transform(1, 0, -0.2, 1, 0, 0); // Horizontal skew/slanting effect
+            ctx.translate(-canvas.width / 2, -canvas.height / 2);
+
+            // Draw and update each column
+            columns.forEach(col => {
+                let currentY = col.y;
+                
+                diagramLines.forEach(line => {
+                    if (currentY > -50 && currentY < canvas.height + 100) {
+                        ctx.fillStyle = `rgba(0, 255, 102, ${col.opacity})`; // Mainframe green
+                        ctx.fillText(line, col.x, currentY);
+                    }
+                    currentY += 26;
+                });
+
+                // Move column downward
+                col.y += col.speed;
+
+                // Loop back to top when off screen
+                const totalBlockHeight = diagramLines.length * 26;
+                if (col.y > canvas.height + 50) {
+                    col.y = -totalBlockHeight - 50;
+                    col.x = Math.random() * canvas.width;
+                }
+            });
+
+            ctx.restore();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
 
     <script src="js/main.js"></script>
 </body>
