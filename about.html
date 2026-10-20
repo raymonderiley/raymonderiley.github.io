@@ -7,8 +7,24 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* Canvas background styling locking it to the viewport behind all site content */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
 </head>
-<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black">
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <!-- The Scrolling Slanted Recovery Diagram Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
 
     <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
         <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -35,148 +51,163 @@
         </div>
     </header>
 
-    <main class="flex-grow pt-32 pb-20 px-6 max-w-6xl mx-auto">
-        <!--<div class="mb-12">
-            <h1 class="text-3xl md:text-4xl font-bold text-white mt-2">Professional Summary & Bio</h1>
+    <main class="flex-grow pt-32 pb-20 px-6 max-w-6xl mx-auto relative z-10">          
+        <div class="three-column-container">
+            <div class="column">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-2" style="text-align: center;">Professional Summary & Bio</h2>
+                <p>With over 25 years of enterprise IT experience—including a decade dedicated to disaster recovery, cyber-recovery, and business continuity. As someone who has built two successful disaster recovery programs, I specialize in fortifying organizational resilience against complex operational disruptions. My background spans the design and implementation of robust enterprise infrastructure across IAM - Active Directory, Microsoft Entra ID, Okta, VMware, Zerto, VEEAM, and virtualized environments such as containerization technology.</p>
+            </div>
+            <div class="column">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-2" style="text-align: center;">Leadership & Strategy</h2>
+                <p>True technological resilience requires strategic vision, cross-functional alignment, and empowering high-performing engineering teams. I excel at mentoring multi-disciplinary teams, fostering collaborative cultures of continuous learning, and driving accountability during critical incident management. By establishing clear incident response playbooks and governance frameworks, I bridge the gap between executive stakeholders and technical operators.</p>
+            </div>
+            <div class="column">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-2" style="text-align: center;">Innovation & Engineering</h2>
+                <p>I truly love exploring emerging technologies and integrating innovative solutions into legacy and modern cloud environments and helps drive my daily workflow. In an era where AI and advanced automation redefine infrastructure capability, I embrace complex technical challenges head-on. The true reward lies in the collaborative rush of resolving critical problems and allowing the business to get back to normal swiftly and securely.</p>
+            </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-            <div class="space-y-4 text-neutral-300 leading-relaxed">
-                <p>
-                    With over 25 years of enterprise IT experience—including a decade dedicated to disaster recovery, cyber-recovery, and business continuity—I specialize in fortifying organizational resilience against complex operational disruptions. My background spans the design and implementation of robust enterprise infrastructure across Active Directory, Microsoft Entra ID, Okta, VMware, Zerto, Rubrik, and Fortinet firewalls. Whether navigating high-stakes crisis responses or architecting proactive zero-trust and cyber-resilience frameworks, my focus remains steadfast: ensuring operational continuity, mitigating risk, and safeguarding enterprise assets.
-                </p>
-                <h1 class="text-3xl md:text-4xl font-bold text-white mt-2">Leadership & Strategic Governance</h1>
-                <p>
-                    True technological resilience requires more than advanced tooling; it demands strategic vision, cross-functional alignment, and empowering high-performing engineering teams. Throughout my leadership career, I have championed operational excellence by aligning technical roadmaps with overarching business objectives. I excel at mentoring multi-disciplinary teams, fostering collaborative cultures of continuous learning, and driving accountability during critical incident management. By establishing clear incident response playbooks, governance frameworks, and insider risk programs, I bridge the gap between executive stakeholders and technical operators—ensuring organizations remain agile, compliant, and prepared for evolving threats.
-                </p>
-                <h1 class="text-3xl md:text-4xl font-bold text-white mt-2">Innovation, Engineering, & The AI Frontier</h1>
-                <p>
-                    Exploring emerging technologies and integrating innovative solutions into legacy and modern cloud environments drive my daily workflow. In an era where AI and advanced automation redefine the boundaries of infrastructure capability, I embrace complex technical challenges head-on to leave a meaningful engineering footprint. Whether stabilizing critical infrastructure components under pressure or architecting next-generation recovery architectures, the true reward lies in the collaborative rush of resolving the problem at hand and allowing the business to get back to normal swiftly and securely.
-                </p>
-                <p>
-                    The past 10 years have been a journey of disaster recovery, cyber-recovery, and cloud computing. I have been fortunate to work with some of the most talented engineers in the industry, and I have learned a great deal from them. My experience has taught me that the key to success in this field is to be adaptable, to be willing to learn, and to be willing to help others succeed in return.
-                </p>
-                <p>
-                    Exploring emerging technologies, continuous learning, and fostering innovative solutions are what drive my daily workflow. As someone deeply passionate about recovering the business when needed, I also love diving into complex challenges and leaving a real technical footprint.  Especially in the era of AI where it seems to be the sky is the limit 
-                </p>
-                <p>
-                    Every project and/or challenge is a chance to expand my horizons and enjoy the engineering journey. The best part of my technical career? The rush of resolving the problem at hand, stabilizing infrastructure components, and allowing the business to get back to normal.
-                </p>
-                <div class="pt-6 grid grid-cols-2 gap-4 border-t border-neutral-900">
-                    <div><strong class="text-white block text-sm">Focus:</strong> <span class="text-neutral-400 text-sm">Disaster/Cyber Recovery & Automation - a combination that should always be paired as much as possible to meet/beat expectations!</span></div>
-                    <div><strong class="text-white block text-sm">Location:</strong> <span class="text-neutral-400 text-sm">United States</span></div>
-                </div>
-            </div>-->
-<!-- One-Column Container Placed Above -->
-<!-- <div class="single-column-container">
-    <div class="single-column">
-        <h3 class="text-3xl md:text-4xl font-bold text-white mt-2 text-center">Executive Overview</h3>
-        <p>Throughout my career leading enterprise resilience and IT infrastructure initiatives, I have focused on aligning high-impact technical architectures with organizational goals. Bridging the gap between hands-on engineering and executive governance ensures that critical systems remain secure, scalable, and fully prepared for any operational disruption.</p>
-    </div>
-</div> 
--->           
-<div class="three-column-container">
-    <div class="column">
-        <h2 class="text-3xl md:text-4xl font-bold text-white mt-2" style="text-align: center;">Professional Summary & Bio</h2>
-        <p>With over 25 years of enterprise IT experience—including a decade dedicated to disaster recovery, cyber-recovery, and business continuity.  As someone who has built two successful disaster recovery programs, I specialize in fortifying organizational resilience against complex operational disruptions. My background spans the design and implementation of robust enterprise infrastructure across IAM - Active Directory, Microsoft Entra ID, Okta, VMware, Zerto, VEEAM, and virtualized environments such as containerization technology.</p>
-    </div>
-    <div class="column">
-        <h2 class="text-3xl md:text-4xl font-bold text-white mt-2" style="text-align: center;">Leadership & Strategy</h2>
-        <p>True technological resilience requires strategic vision, cross-functional alignment, and empowering high-performing engineering teams. I excel at mentoring multi-disciplinary teams, fostering collaborative cultures of continuous learning, and driving accountability during critical incident management. By establishing clear incident response playbooks and governance frameworks, I bridge the gap between executive stakeholders and technical operators.</p>
-    </div>
-    <div class="column">
-        <h2 class="text-3xl md:text-4xl font-bold text-white mt-2" style="text-align: center;">Innovation & Engineering</h2>
-        <p>I truly love exploring emerging technologies and integrating innovative solutions into legacy and modern cloud environments and helps drive my daily workflow. In an era where AI and advanced automation redefine infrastructure capability, I embrace complex technical challenges head-on. The true reward lies in the collaborative rush of resolving critical problems and allowing the business to get back to normal swiftly and securely.</p>
-    </div>
-</div>
+        <style>
+            .three-column-container {
+                display: flex;
+                gap: 2rem;
+                width: 100vw;
+                margin-left: calc(-50vw + 50%);
+                margin-right: calc(-50vw + 50%);
+                background-color: #000000;
+                padding: 2rem 4rem;
+                box-sizing: border-box;
+            }
 
-<style>
-     /* Styling for the single column container */
-    .single-column-container {
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        margin-right: calc(-50vw + 50%);
-        background-color: #000000;
-        padding: 2rem 4rem 0rem 4rem; /* Bottom padding is 0 so it sits close to the 3-column section */
-        box-sizing: border-box;
-    }
+            .column {
+                flex: 1;
+                background: #121212;
+                color: #e0e0e0;
+                padding: 1.5rem;
+                border-radius: 8px;
+                border: 1px solid #222222;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+                text-align: justify;
+                text-justify: inter-word;
+            }
 
-    .single-column {
-        width: 100%;
-        max-width: 100%;
-        background: #121212;
-        color: #e0e0e0;
-        padding: 2rem;
-        border-radius: 8px;
-        border: 1px solid #222222;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-        text-align: justify;
-        text-justify: inter-word;
-        box-sizing: border-box;
-    }
+            @media (max-width: 768px) {
+                .three-column-container {
+                    flex-direction: column;
+                    width: 100%;
+                    margin-left: 0;
+                    margin-right: 0;
+                    padding: 1rem;
+                }
+            }
+        </style>
 
-    /* Existing three-column styles */
-    .three-column-container {
-        display: flex;
-        gap: 2rem;
-        width: 100vw; /* Forces the container to span 100% of the viewport width */
-        margin-left: calc(-50vw + 50%); /* Breaks out of parent container centering/constraints */
-        margin-right: calc(-50vw + 50%);
-        background-color: #000000; /* Page container black background */
-        padding: 2rem 4rem; /* Adjust horizontal padding (4rem) to bring columns in from the extreme edges if needed */
-        box-sizing: border-box;
-    }
-
-    .column {
-        flex: 1;
-        background: #121212; /* Dark charcoal card background for contrast */
-        color: #e0e0e0; /* Off-white text for readability */
-        padding: 1.5rem;
-        border-radius: 8px;
-        border: 1px solid #222222; /* Subtle border definition */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-        text-align: justify; /* Aligns both left and right margins of the text */
-        text-justify: inter-word; /* Improves word spacing consistency on supported browsers */
-    }
-
-    .column h3 {
-        margin-top: 0;
-        color: #ffffff; /* Pure white headers */
-        text-align: left; /* Keeps your headers left-aligned for a cleaner look */
-    }
-
-    /* Responsive adjustment for mobile screens */
-    @media (max-width: 768px) {
-        .three-column-container {
-            flex-direction: column;
-            width: 100%;
-            margin-left: 0;
-            margin-right: 0;
-            padding: 1rem;
-        }
-    }
-</style>
-
-            <div class="bg-neutral-950 border border-neutral-800 p-8 rounded-2xl shadow-xl space-y-6">
-                <h3 class="text-lg font-semibold text-white flex items-center gap-2 text-center">
-                    <i class="fa-solid fa-bullseye text-white"></i> Core Philosophy
-                </h3>
-                <p class="text-neutral-400 text-sm leading-relaxed">
-                    I believe secure infrastructures rely on strict baselines, rigorous auditing, and automation. By minimizing manual repetition through custom scripts, organizations can focus on scaling forward rather than firefighting recurring issues. 
-                </p>
-                <p class="text-neutral-400 text-sm leading-relaxed">
-                    I also believe in being prepared for the unexpected, and that includes having a well-defined disaster recovery and cyber-recovery strategy. My goal is to ensure organizations can withstand disruptions and continue to operate effectively or build resilient systems that can adapt to changing circumstances.
-                </p>
-                <div class="p-4 rounded-xl bg-black border border-neutral-800 text-xs text-neutral-300 text-center">
-                    <i class="fa-solid fa-quote-left text-white mr-2"></i> "Simplicity is prerequisite for reliability."
-                </div>
+        <div class="mt-12 bg-neutral-950 border border-neutral-800 p-8 rounded-2xl shadow-xl space-y-6">
+            <h3 class="text-lg font-semibold text-white flex items-center justify-center gap-2 text-center">
+                <i class="fa-solid fa-bullseye text-white"></i> Core Philosophy
+            </h3>
+            <p class="text-neutral-400 text-sm leading-relaxed">
+                I believe secure infrastructures rely on strict baselines, rigorous auditing, and automation. By minimizing manual repetition through custom scripts, organizations can focus on scaling forward rather than firefighting recurring issues. 
+            </p>
+            <p class="text-neutral-400 text-sm leading-relaxed">
+                I also believe in being prepared for the unexpected, and that includes having a well-defined disaster recovery and cyber-recovery strategy. My goal is to ensure organizations can withstand disruptions and continue to operate effectively or build resilient systems that can adapt to changing circumstances.
+            </p>
+            <div class="p-4 rounded-xl bg-black border border-neutral-800 text-xs text-neutral-300 text-center">
+                <i class="fa-solid fa-quote-left text-white mr-2"></i> "Simplicity is prerequisite for reliability."
             </div>
         </div>
     </main>
 
-    <footer class="py-8 border-t border-neutral-900 text-center text-xs text-neutral-500">
+    <footer class="py-8 border-t border-neutral-900 text-center text-xs text-neutral-500 relative z-10 bg-black/80">
         <p>© <span id="year"></span> Raymond E. Riley.</p>
     </footer>
+
+    <!-- Background Animation Script -->
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const diagramLines = [
+            "General Recovery after Ransomware attack",
+            "ATTACK DETECTED",
+            "|",
+            "DFIR + CONTAINMENT",
+            "|",
+            "CLEANROOM ESTABLISHED",
+            "|",
+            "IDENTITY RECOVERY (AD/OTHER TIER0)",
+            "|",
+            "CORE NETWORK SERVICES",
+            "DNS | DHCP | NTP | VPN | LB",
+            "|",
+            "SECURITY TOOLS",
+            "EDR | SIEM | IAM | PKI",
+            "|",
+            "CRITICAL BUSINESS APPS",
+            "ERP | EHR | FINANCE",
+            "|",
+            "VALIDATION & TESTING",
+            "|",
+            "PRODUCTION RECONNECTION"
+        ];
+
+        const columns = [];
+        const columnCount = Math.max(3, Math.floor(window.innerWidth / 300));
+
+        for (let i = 0; i < columnCount; i++) {
+            columns.push({
+                x: (i * 320) + 50,
+                y: Math.random() * canvas.height,
+                speed: 0.5 + Math.random() * 0.7,
+                opacity: 0.12 + Math.random() * 0.28
+            });
+        }
+
+        function animate() {
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = '15px "Courier New", Courier, monospace';
+
+            ctx.save();
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate(-0.12);
+            ctx.transform(1, 0, -0.2, 1, 0, 0);
+            ctx.translate(-canvas.width / 2, -canvas.height / 2);
+
+            columns.forEach(col => {
+                let currentY = col.y;
+                
+                diagramLines.forEach(line => {
+                    if (currentY > -50 && currentY < canvas.height + 100) {
+                        ctx.fillStyle = `rgba(0, 255, 102, ${col.opacity})`;
+                        ctx.fillText(line, col.x, currentY);
+                    }
+                    currentY += 26;
+                });
+
+                col.y += col.speed;
+
+                const totalBlockHeight = diagramLines.length * 26;
+                if (col.y > canvas.height + 50) {
+                    col.y = -totalBlockHeight - 50;
+                    col.x = Math.random() * canvas.width;
+                }
+            });
+
+            ctx.restore();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
 
     <script src="js/main.js"></script>
 </body>

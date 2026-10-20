@@ -58,7 +58,7 @@
     </header>
 
     <!-- Hero Content (Elevated z-index to sit cleanly above the canvas background) -->
-    <main class="flex-grow pt-32 pb-20 px-6 max-w-6xl mx-auto flex flex-col justify-center items-start relative z-10 w-full">
+    <main class="flex-grow pt-32 pb-20 px-6 max-w-[1400px] mx-auto flex flex-col justify-center items-start relative z-10 w-full">
 
         <!-- Scrolling Ticker Container -->
         <div class="w-full overflow-hidden relative mb-6 py-2 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
@@ -109,13 +109,21 @@
             <img src="assets/images/picinsuit.jpg" alt="Raymond E. Riley" class="rounded-full border border-neutral-800 shadow-2xl w-36 h-36 object-cover aspect-square">
         </div>
 
-        <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6">
-            Engineering resilient systems & <span class="text-green-500 text-2xl md:text-3xl lg:text-4xl">Building Disaster Recovery Programs & </span> <span class="text-green-500 text-2xl md:text-3xl lg:text-4xl">Cyber-Recovery efforts</span>
+        <h1 class="text-green-500 text-lg md:text-4xl lg:text-5xl font-extrabold tracking-tight justify-center self-center">Building Disaster Recovery Programs &
         </h1>
-        <p class="text-lg md:text-xl text-neutral-400 max-w-2xl mb-10 leading-relaxed bg-black/60 p-4 rounded-xl backdrop-blur-sm border border-neutral-900">
-            Hi, I'm Raymond E. Riley. I specialize in disaster recovery, cyber-recovery, risk management in complex environments & complex architecture implementations. I also have experience in identity and access management, automation frameworks, and various cloud architecture.
+        <h1 class="text-green-500 text-lg md:text-4xl lg:text-5xl font-extrabold tracking-tight justify-center self-center">Cyber-Recovery efforts
+        </h1>
+
+        <h1 class="text-lg md:text-2xl lg:text-3xl tracking-tight text-white mb-6 justify-center self-center">
+            Protecting critical business operations & architecting 
+        </h1>
+        <h1 class="text-lg md:text-2xl lg:text-3xl tracking-tight text-white mb-6 justify-center self-center ">
+            recovery frameworks for complex environments
+        </h1>
+        <p class="text-lg md:text-xl text-neutral-400 max-w-2xl mb-10 leading-relaxed bg-black/60 p-4 rounded-xl backdrop-blur-sm border border-neutral-900 justify-center self-center">
+            Hi, I'm Raymond Riley. I specialize in disaster recovery, cyber-recovery, risk management in complex environments & complex architecture implementations. I also have experience in identity and access management, automation frameworks, and various cloud architecture.
         </p>
-        <div class="flex flex-wrap gap-4">
+        <div class="flex flex-wrap gap-4 justify-center self-center ">
             <a href="experience.html" class="px-6 py-3 rounded-xl bg-white text-black font-semibold hover:bg-neutral-200 transition-all flex items-center gap-2">
                 Explore Professional Experience <i class="fa-solid fa-arrow-right text-xs"></i>
             </a>
@@ -130,93 +138,6 @@
         <p>© <span id="year"></span> Raymond E. Riley. Precision and depth.</p>
     </footer>
 
-    <!-- Background Animation Script -->
-    <script>
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
 
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        const diagramLines = [
-            "General Recovery after Ransomware attack",
-            "ATTACK DETECTED",
-            "|",
-            "DFIR + CONTAINMENT",
-            "|",
-            "CLEANROOM ESTABLISHED",
-            "|",
-            "IDENTITY RECOVERY (AD/OTHER TIER0)",
-            "|",
-            "CORE NETWORK SERVICES",
-            "DNS | DHCP | NTP | VPN | LB",
-            "|",
-            "SECURITY TOOLS",
-            "EDR | SIEM | IAM | PKI",
-            "|",
-            "CRITICAL BUSINESS APPS",
-            "ERP | EHR | FINANCE",
-            "|",
-            "VALIDATION & TESTING",
-            "|",
-            "PRODUCTION RECONNECTION"
-        ];
-
-        const columns = [];
-        const columnCount = Math.max(3, Math.floor(window.innerWidth / 300));
-
-        for (let i = 0; i < columnCount; i++) {
-            columns.push({
-                x: (i * 320) + 50,
-                y: Math.random() * canvas.height,
-                speed: 0.5 + Math.random() * 0.7,
-                opacity: 0.12 + Math.random() * 0.28
-            });
-        }
-
-        function animate() {
-            ctx.fillStyle = '#000000';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.font = '15px "Courier New", Courier, monospace';
-
-            ctx.save();
-            ctx.translate(canvas.width / 2, canvas.height / 2);
-            ctx.rotate(-0.12);
-            ctx.transform(1, 0, -0.2, 1, 0, 0);
-            ctx.translate(-canvas.width / 2, -canvas.height / 2);
-
-            columns.forEach(col => {
-                let currentY = col.y;
-                
-                diagramLines.forEach(line => {
-                    if (currentY > -50 && currentY < canvas.height + 100) {
-                        ctx.fillStyle = `rgba(0, 255, 102, ${col.opacity})`;
-                        ctx.fillText(line, col.x, currentY);
-                    }
-                    currentY += 26;
-                });
-
-                col.y += col.speed;
-
-                const totalBlockHeight = diagramLines.length * 26;
-                if (col.y > canvas.height + 50) {
-                    col.y = -totalBlockHeight - 50;
-                    col.x = Math.random() * canvas.width;
-                }
-            });
-
-            ctx.restore();
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-    </script>
-
-    <script src="js/main.js"></script>
 </body>
 </html>
