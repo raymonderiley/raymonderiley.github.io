@@ -28,9 +28,16 @@ body {
   background: #404040;
 }
 
-.alignleft {
-	float: left;
+@keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
 }
-.alignright {
-	float: right;
+.animate-marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+}
+/* Optional: Pauses the scroll when you hover over it */
+.animate-marquee:hover {
+    animation-play-state: paused;
 }
