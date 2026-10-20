@@ -58,81 +58,54 @@
     </header>
 
     <!-- Hero Content (Elevated z-index to sit cleanly above the canvas background) -->
-    <main class="flex-grow pt-32 pb-20 px-6 max-w-6xl mx-auto flex flex-col justify-center items-start relative z-10">
+    <main class="flex-grow pt-32 pb-20 px-6 max-w-6xl mx-auto flex flex-col justify-center items-start relative z-10 w-full">
 
-    <!--
-        Static items
-         Row with items split to the far left and far right
-        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; white-space: nowrap;" class="mb-6">
-            Left Side
-            <div style="display: flex; align-items: center; gap: 0.5rem;" class="px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm">
-                <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
-                <span>Disaster Recovery, Risk Management & Cyber-Recovery Specialist</span>
+        <!-- Scrolling Ticker Container -->
+        <div class="w-full overflow-hidden relative mb-6 py-2 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+            
+            <!-- Scrolling Track (Content is duplicated twice for a seamless infinite loop) -->
+            <div class="animate-marquee flex items-center gap-4">
+                
+                <!-- FIRST SET OF ITEMS -->
+                <div class="flex items-center gap-4 shrink-0">
+                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
+                        <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
+                        <span>Disaster Recovery, Risk Management & Cyber-Recovery Specialist</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
+                        <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
+                        <span>Identity, Automation, Infrastructure & Cloud Specialist</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
+                        <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
+                        <span>Resilience Protection</span>
+                    </div>
+                </div>
+
+                <!-- DUPLICATE SET OF ITEMS (Required for seamless infinite loop) -->
+                <div class="flex items-center gap-4 shrink-0" aria-hidden="true">
+                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
+                        <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
+                        <span>Disaster Recovery, Risk Management & Cyber-Recovery Specialist</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
+                        <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
+                        <span>Identity, Automation, Infrastructure & Cloud Specialist</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
+                        <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
+                        <span>Resilience Protection</span>
+                    </div>
+                </div>
+
             </div>
+        </div>        
 
-             Right Side
-            <div style="display: flex; align-items: center; gap: 0.5rem;" class="px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm">
-                <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
-                <span>Identity, Automation, Infrastructure & Cloud Specialist</span>
-            </div>
-        </div>
-         Row with items centered
-        <div style="display: flex; justify-content: space-center; align-items: center; width: 100%; white-space: nowrap;" class="mb-6">
-             Center
-            <div class="flex justify-center items-center w-full whitespace-nowrap mb-6">
-            <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm">
-            <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
-            <span>Resilience protection</span>
-        </div>
-    -->
-
-<!-- Scrolling Ticker Container -->
-<div class="w-full overflow-hidden relative mb-6 py-2 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-    
-    <!-- Scrolling Track (Content is duplicated twice for a seamless infinite loop) -->
-    <div class="animate-marquee flex items-center gap-4">
-        
-        <!-- FIRST SET OF ITEMS -->
-        <div class="flex items-center gap-4 shrink-0">
-            <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
-                <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
-                <span>Disaster Recovery, Risk Management & Cyber-Recovery Specialist</span>
-            </div>
-
-            <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
-                <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
-                <span>Identity, Automation, Infrastructure & Cloud Specialist</span>
-            </div>
-
-            <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
-                <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
-                <span>Resilience Protection</span>
-            </div>
-        </div>
-
-        <!-- DUPLICATE SET OF ITEMS (Required for seamless infinite loop) -->
-        <div class="flex items-center gap-4 shrink-0" aria-hidden="true">
-            <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
-                <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
-                <span>Disaster Recovery, Risk Management & Cyber-Recovery Specialist</span>
-            </div>
-
-            <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
-                <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
-                <span>Identity, Automation, Infrastructure & Cloud Specialist</span>
-            </div>
-
-            <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
-                <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
-                <span>Resilience Protection</span>
-            </div>
-        </div>
-
-    </div>
-</div>        
-</div>
-        </div>
-        <div class="my-photo-container my-8 flex justify-center self-center">
+        <div class="my-photo-container my-8 flex justify-center self-center w-full">
             <img src="assets/images/picinsuit.jpg" alt="Raymond E. Riley" class="rounded-full border border-neutral-800 shadow-2xl w-36 h-36 object-cover aspect-square">
         </div>
 
@@ -152,7 +125,6 @@
         </div>
     </main>
 
-
     <!-- Footer -->
     <footer class="py-8 border-t border-neutral-900 text-center text-xs text-neutral-500 relative z-10 bg-black/80">
         <p>© <span id="year"></span> Raymond E. Riley. Precision and depth.</p>
@@ -170,7 +142,6 @@
         window.addEventListener('resize', resize);
         resize();
 
-        // The exact recovery diagram text data[span_0](start_span)[span_0](end_span)
         const diagramLines = [
             "General Recovery after Ransomware attack",
             "ATTACK DETECTED",
@@ -195,7 +166,6 @@
             "PRODUCTION RECONNECTION"
         ];
 
-        // Setup multiple scrolling columns across the screen
         const columns = [];
         const columnCount = Math.max(3, Math.floor(window.innerWidth / 300));
 
@@ -204,7 +174,7 @@
                 x: (i * 320) + 50,
                 y: Math.random() * canvas.height,
                 speed: 0.5 + Math.random() * 0.7,
-                opacity: 0.12 + Math.random() * 0.28 // Subdued opacity to keep foreground text legible
+                opacity: 0.12 + Math.random() * 0.28
             });
         }
 
@@ -214,29 +184,25 @@
 
             ctx.font = '15px "Courier New", Courier, monospace';
 
-            // Apply the slant transformation
             ctx.save();
             ctx.translate(canvas.width / 2, canvas.height / 2);
-            ctx.rotate(-0.12); // Angle rotation
-            ctx.transform(1, 0, -0.2, 1, 0, 0); // Horizontal skew/slanting effect
+            ctx.rotate(-0.12);
+            ctx.transform(1, 0, -0.2, 1, 0, 0);
             ctx.translate(-canvas.width / 2, -canvas.height / 2);
 
-            // Draw and update each column
             columns.forEach(col => {
                 let currentY = col.y;
                 
                 diagramLines.forEach(line => {
                     if (currentY > -50 && currentY < canvas.height + 100) {
-                        ctx.fillStyle = `rgba(0, 255, 102, ${col.opacity})`; // Mainframe green
+                        ctx.fillStyle = `rgba(0, 255, 102, ${col.opacity})`;
                         ctx.fillText(line, col.x, currentY);
                     }
                     currentY += 26;
                 });
 
-                // Move column downward
                 col.y += col.speed;
 
-                // Loop back to top when off screen
                 const totalBlockHeight = diagramLines.length * 26;
                 if (col.y > canvas.height + 50) {
                     col.y = -totalBlockHeight - 50;
