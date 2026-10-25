@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me | Raymond E. Riley</title>
+    <title>Professional Experience | Raymond E. Riley</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -17,7 +27,7 @@
             height: 100vh;
             display: block;
             z-index: 0;
-            pointer-events: none;
+            pointer-events: none; /* Ensures mouse clicks pass straight through to the page */
         }
     </style>
 </head>
@@ -26,6 +36,7 @@
     <!-- The Scrolling Slanted Recovery Diagram Background Canvas -->
     <canvas id="bg-canvas"></canvas>
 
+    <!-- Header Navigation (Elevated z-index) -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
         <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
             <a href="index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
@@ -39,6 +50,8 @@
                 <a href="certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-green-500">&lt;</span>Certification/Training<span class="text-green-500">/&gt;</span></a>
                 <a href="skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-green-500">&lt;</span>Skills<span class="text-green-500">/&gt;</span></a>
                 <a href="contact.html" class="px-4 py-2 rounded-lg bg-white text-black font-semibold hover:bg-neutral-200 transition-all">Contact</a>
+                <a href="blog.html" class="px-4 py-2 rounded-lg bg-green-500 text-black font-semibold hover:bg-green-600 transition-all">Blog</a>
+
             </nav>
 
             <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
@@ -51,6 +64,8 @@
             <a href="certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-green-500">&lt;</span>Certification/Training<span class="text-green-500">/&gt;</span></a>
             <a href="skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-green-500">&lt;</span>Skills<span class="text-green-500">/&gt;</span></a>
             <a href="contact.html" class="block text-white font-semibold">Contact</a>
+            <a href="blog.html" class="block text-neutral-300 hover:text-green flex items-center gap-1.5"><span class="text-white">&lt;</span>Skills<span class="text-white">/&gt;</span></a>
+
         </div>
     </header>
 
