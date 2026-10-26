@@ -141,11 +141,10 @@ the danger of reinfection, further data loss, and prolonged downtime.</code></pr
                     <div class="p-4 rounded-xl bg-[#000000] border-l-8 border-[#00e673]/30">
                     <h3 class="text-sm font-mono text-xs text-[#00e673] mb-1">Enforce Strict Access Control:</h3>
                     <p class="text-neutral-400 text-xs">Re-establish multi-factor authentication (MFA) and apply least-privilege guardrails before administrative access is re-enabled.</p>
-                    </div>
+                    </div></div>
                     <p class="text-sm font-mono text-neutral-400 leading-relaxed"></p>
                     </div>
-                    <pre class="text-sm font-mono text-neutral-400 whitespace-pre-wrap break-words"><code>
-Containment must precede any restoration efforts while ransomware remains active.
+                    <pre class="text-sm font-mono text-neutral-400 whitespace-pre-wrap break-words"><code>Containment must precede any restoration efforts while ransomware remains active.
 Prior to reviving production systems, the incident response unit needs to quarantine impacted endpoints, suspend compromised user identities, halt vulnerable backup or replication tasks, and map the full scope of the breach.
 Teams are also required to preserve system logs, ransom notes, encrypted artifacts, and related evidence crucial for digital forensics, insurance claims, legal assessments, or law enforcement investigations.
 Furthermore, the initial vector of intrusion demands remediation. Common pathways include:
@@ -185,18 +184,18 @@ Organizations should additionally rotate service account passwords, application 
 Until the identity infrastructure is fully secured, every restored server remains vulnerable to stolen credentials.
 </code></pre>
                     </p>
-</div>
+
 
 
                     <!-- Stage 2 Card -->
                     <div class="p-4 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40">
                         <h2 class="text-sm font-bold font-mono text-[#00e673]">Stage 2: Core Network Services</h2>
-                    </div>
+                    
 
                     <p class="text-sm font-mono text-neutral-400 leading-relaxed">
                         Once the identity layer is sanitized and isolated, the environment requires foundational infrastructure to function. This tier includes essential directory-dependent services like DNS, DHCP, and IPAM. Crucially, these services must be rebuilt from known-good configurations inside a clean, isolated environment (often called a clean room or Isolated Recovery Environment) rather than blindly plugging legacy servers back into the main grid.
-                    <pre class="text-sm font-mono text-neutral-400 whitespace-pre-wrap break-words"><code>
-Following trusted authentication, the subsequent phase involves restoring the infrastructure required for network operations.
+                    </div>
+                        <pre class="text-sm font-mono text-neutral-400 whitespace-pre-wrap break-words"><code>Following trusted authentication, the subsequent phase involves restoring the infrastructure required for network operations.
 
 Typical priorities include:
   * Domain Name System services
@@ -223,12 +222,11 @@ Refrain from reconnecting legacy systems just because they are accessible. An in
                     <!-- Stage 3 Card -->
                     <div class="p-4 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40">
                         <h2 class="text-sm font-bold font-mono text-[#00e673]">Stage 3: Security Monitoring and Telemetry</h2>
-                    </div>
-
-                    <p class="text-sm font-mono text-neutral-400 leading-relaxed">
-                    <pre class="text-sm font-mono text-neutral-400 whitespace-pre-wrap break-words">
-Before users or applications flood the network with traffic, the organization’s eyes and ears must be fully functional. Verify that Endpoint Detection and Response (EDR) agents are checking in. Confirm that system logs are successfully streaming to centralized SIEM or security monitoring stacks. Maintain active threat hunting for lingering artifacts, unexpected administrator logins, or hidden backdoors.
                     
+
+                    <p class="text-sm font-mono text-neutral-400 leading-relaxed">Before users or applications flood the network with traffic, the organization’s eyes and ears must be fully functional. Verify that Endpoint Detection and Response (EDR) agents are checking in. Confirm that system logs are successfully streaming to centralized SIEM or security monitoring stacks. Maintain active threat hunting for lingering artifacts, unexpected administrator logins, or hidden backdoors.
+                    </div>
+                    <pre class="text-sm font-mono text-neutral-400 whitespace-pre-wrap break-words">
 Allowing employees back onto the network before security teams have full observability stands out as one of the most perilous recovery mistakes.
 
 Security controls must be restored and thoroughly tested ahead of returning to broad production access. Comprehensive cybersecurity measures—including endpoint detection and continuous monitoring—are vital here.  
@@ -367,7 +365,7 @@ Before staff members are cleared to log back in, they must be provided with expl
 </div>
                     <!-- Conclusion Card -->
                     <div class="p-4 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40">
-                        <h2 class="text-sm font-bold font-mono text-[#00e673]">Recovery is About Trust, Not Just Speed</h2>
+                        <h2 class="text-sm font-bold font-mono text-[#00e673]">Recovery is About Trust, Not Just Speed!</h2>
                     </div>
 
                     <p class="text-sm font-mono text-neutral-400 leading-relaxed">
