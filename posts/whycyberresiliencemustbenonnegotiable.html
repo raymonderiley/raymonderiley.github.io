@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+    <main class="relative z-10 flex-grow pt-32 pb-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-8">
+                <a href="../blog.html" class="text-sm font-mono text-neutral-400 hover:text-[#00e673] transition-colors inline-flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Master Blog
+                </a>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Blog Article Container -->
+                <article class="p-6 md:p-8 rounded-2xl bg-neutral-950/80 border border-neutral-800 backdrop-blur-sm transition-all space-y-6">
+                    <div class="flex items-center justify-between text-xs font-mono text-neutral-500">
+                        <span>October 28, 2026</span>
+                        <span>5 min read</span>
+                    </div>
+<!--Fill in blog content here-->
+
+                        <h1 class="text-2xl md:text-3xl font-bold mb-4 text-[#00e673]">
+Why Cyber-Resilience & Disaster Recovery Testing Must Be Non-Negotiable</h1>
+<pre class="text-sm font-mono text-neutral-400 whitespace-pre-wrap break-words"><code>
+In today’s digital-first landscape, organizations face an uncomfortable truth: it is no longer a matter of if a cyberattack or technical failure will occur, but when. Yet, many companies continue to treat cyber-resilience and disaster recovery (DR) plans as theoretical exercises—dusty documents sitting on a shared drive, reviewed annually, and left untested.
+This complacency is a ticking time bomb. Cyber-resilience and disaster recovery testing must be fundamentally non-negotiable for any organization serious about survival.
+
+<h2 class="text-sm font-bold font-mono text-[#00e673]">The Illusion of "Set It and Forget It"</h2>
+Having a disaster recovery plan on paper provides a false sense of security. A written plan proves you have thought about a crisis, but it does not prove your systems can actually withstand one.
+Real-world crises are chaotic. Ransomware encrypts backups, cloud configurations shift, legacy systems fail to integrate with modern recovery environments, and personnel panic. If your first time executing a disaster recovery plan is during an active breach or outage, you are already set up to fail.
+
+<h2 class="text-lg font-bold font-mono text-[#00e673]">Why DR Testing is Non-Negotiable</h2>           
+<h2 class="text-sm font-bold font-mono text-[#00e673]">1. Assumptions Are the Enemy of Recovery</h2>
+During a crisis, you cannot afford to discover that your backup administrator's credentials expired, that critical databases were accidentally excluded from daily snapshots, or that your cloud recovery region lacks the necessary capacity. Regular testing exposes these hidden gaps before malicious actors do.
+
+<h2 class="text-sm font-bold font-mono text-[#00e673]">2. The Cost of Downtime Catapults</h2>
+The financial toll of prolonged downtime goes far beyond immediate revenue loss. It includes regulatory fines, legal liabilities, recovery service fees, and—most damagingly—long-term reputational damage. Customers and partners quickly lose trust in brands that cannot protect their data or maintain basic operational continuity. Testing ensures you can minimize recovery time objectives (RTO) and recovery point objectives (RPO).
+
+<h2 class="text-sm font-bold font-mono text-[#00e673]">3. Evolving Threats Demand Adaptive Defenses</h2>
+Cyber threats are growing more sophisticated by the day, with threat actors actively targeting backup systems to prevent recovery and force ransom payouts. Traditional, static disaster recovery plans cannot counter dynamic, human-driven attacks. Routine, rigorous simulation and testing ensure your defensive posture adapts to modern threat vectors.
+
+<h2 class="text-sm font-bold font-mono text-[#00e673]">4. Regulatory and Compliance Realities</h2>
+For most modern industries, compliance frameworks (such as GDPR, HIPAA, SOC 2, and various financial regulations) no longer view disaster recovery as optional. Demonstrating active, documented testing of your cyber-resilience protocols is increasingly a legal requirement to operate.
+
+<h1 class="text-sm font-bold font-mono text-[#00e673]">Shifting from "If" to "Ready"</h1>
+True cyber-resilience requires regular, unannounced, and rigorous testing—ranging from table-top exercises to full-scale simulated ransomware attacks. By treating disaster recovery testing as an absolute, non-negotiable operational priority, organizations transform resilience from a theoretical checkbox into an active, protective shield.
+
+When disaster strikes, hope is not a strategy. Only tested, proven resilience will keep your doors open.
+</code></pre>
+
+
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+            <div class="flex items-center gap-4">
+                <a href="https://github.com/raymonderiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
+                <a href="https://linkedin.com/in/RaymondERiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin text-lg"></i></a>
+                <a href="../contact.html" class="hover:text-white transition-colors"><i class="fa-solid fa-envelope text-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+    </script>
+</body>
+</html>
