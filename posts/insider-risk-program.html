@@ -77,7 +77,52 @@ gtag('config', 'G-YZS57X026L');
                         <span>15 min read</span>
                     </div>
 <!--Fill in blog content here-->
+<pre class="text-sm font-mono text-neutral-400 whitespace-pre-wrap break-words"><code>
+<h2 class="text-2xl md:text-2xl font-bold mb-4 text-[#00e673]">Insider Risk Program: Role Definition, Program Scope, and Strategic Roadmap</h2>
+Overview
+This document outlines the strategic framework, role definition, and phased roadmap for establishing and maturing an Enterprise Insider Risk Program (IRP). The goal of this program is to build a structured security function that balances rigorous risk detection with strict privacy guardrails, legal compliance, and empathetic human resources practices.  Below you will find each facet of the program that should be addressed in the first 12 months of operation, along with a phased roadmap for implementation.  This program should be coupled tightly with the organization's existing Security Operations Center (SOC), Cyber/Disaster Recovery, Legal, HR, and Privacy teams to ensure a holistic approach to insider risk management.
 
+<h1 class="text-md md:text-xl font-bold mb-4 text-[#00e673]">Part 1: Position Definition & Core Responsibilities</h1>The scope of the Insider Risk Program leadership role encompasses the following core pillars:
+<div class="list-disc list-inside text-sm font-mono text-[#00e673]">
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40"><h2 class="text-sm font-bold font-mono text-[#00e673]">Program Establishment & Maturity:</h2><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">Building the program from the ground up (establishing scope, tooling, and baseline processes) and continuously optimizing it as organizational threats evolve. </h2></div>
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40"><h2 class="text-sm font-bold font-mono text-[#00e673]">Governance:</h2><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">Defining policies, acceptable use standards, privacy guardrails, legal compliance, and cross-functional steering committees (involving HR, Legal, Compliance, Privacy, and IT/Security).</h2></div>
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40"><h2 class="text-sm font-bold font-mono text-[#00e673]">Risk Scenarios:</h2><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">Identifying specific ways internal actors could cause harm (e.g., data exfiltration before departure, intellectual property theft, sabotage, inadvertent human error, or privilege misuse).</h2></div>
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40"><h2 class="text-sm font-bold font-mono text-[#00e673]">Indicators & Detection Use Cases:</h2><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">Formulating behavioral and technical red flags (indicators) and writing specific rules/queries (use cases) to spot those behaviors across endpoints, network logs, and cloud storage.</h2></div>
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40"><h2 class="text-sm font-bold font-mono text-[#00e673]">Triage & Investigation Workflows:</h2><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">Creating standardized step-by-step procedures for reviewing alerts, separating false positives from true risks, and discreetly investigating suspicious activity while protecting employee privacy.</h2></div>
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40"><h2 class="text-sm font-bold font-mono text-[#00e673]">Escalation Paths & Response Playbooks:</h2><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">Documenting who gets notified and when (e.g., notifying HR if an employee is job-hunting and downloading sensitive files, or Legal if corporate espionage is suspected) along with pre-defined response actions.</h2></div>
+</div>
+<h1 class="text-md md:text-xl font-bold mb-4 text-[#00e673]">Part 2: Phased Strategic Roadmap</h1>
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40"><h2 class="text-sm font-bold font-mono text-[#00e673]">Phase 1: Defining the Role & Program Scope (Months 1–2)</h2>
+<div class="list-disc list-inside text-sm font-mono text-neutral-400 text-[#00e673]">Secure Executive Sponsorship: Define program ownership (CISO, CIO, or Chief Risk Officer) and secure budget for staffing and tooling (e.g., UEBA, DLP).
+
+Form a Multi-Disciplinary Steering Committee: Establish a working group consisting of Security, Legal, HR, Privacy, and Internal Communications.
+
+Draft the Charter & Privacy Guardrails: Define monitoring boundaries and ensure compliance with local labor laws, union rules, and privacy regulations (GDPR, CCPA).
+
+Finalize Competencies: Target leaders with a mix of technical security operations, investigative experience, and high emotional intelligence.</div></div>
+
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40"><h2 class="text-sm font-bold font-mono text-[#00e673]">Phase 2: Risk Modeling & Baseline Discovery (Months 3–4)</h2>
+<div class="list-disc list-inside text-sm font-mono text-neutral-400 text-[#00e673]">Identify Critical Assets & Data ("Crown Jewels"): Map where sensitive data lives and who has authorized access
+
+Develop Insider Risk Scenarios: Build realistic threat profiles tailored to the business (e.g., the departing employee, the disgruntled worker, the compromised insider, the inadvertent actor).
+
+Assess Current Tooling Gaps: Audit existing infrastructure (Endpoint Detection, CASB, Identity providers) to identify data visibility gaps.</div></div>
+
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40"><h2 class="text-sm font-bold font-mono text-[#00e673]">Phase 3: Technical Implementation & Operationalization (Months 5–8)</h2>
+<div class="list-disc list-inside text-sm font-mono text-neutral-400 text-[#00e673]">Define Indicators & Detection Use Cases: Translate risk scenarios into technical rules (e.g., mass file copying prior to resignation).
+
+Establish Triage & Investigation Workflows: Build strict, role-based access controls (RBAC) and tier-based review processes (Tier 1 triage vs. Tier 2 deep-dive investigation).
+
+Develop Escalation Paths & Response Playbooks: Document thresholds for security-to-HR/Legal escalations and containment playbooks.</div></div>
+
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40"><h2 class="text-sm font-bold font-mono text-[#00e673]">Phase 4: Cultural Integration & Continuous Maturity (Months 9+)</h2>
+<div class="list-disc list-inside text-sm font-mono text-neutral-400 text-[#00e673]">Awareness & Empathy Training: Shift the narrative from "policing" to "protecting our people and company."
+
+Metrics & Executive Reporting: Track program health via time-to-triage, false-positive ratios, and recurring risk frequency.
+
+Continuous Feedback Loops: Regularly review closed cases with HR and Legal to refine detection rules.</div></div>
+
+<code></pre>
                 </article>
             </div>
         </div>
