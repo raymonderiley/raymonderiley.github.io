@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+    <main class="relative z-10 flex-grow pt-32 pb-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-8">
+                <a href="../blog.html" class="text-sm font-mono text-neutral-400 hover:text-[#00e673] transition-colors inline-flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Master Blog
+                </a>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Blog Article Container -->
+                <article class="p-6 md:p-8 rounded-2xl bg-neutral-950/80 border border-neutral-800 backdrop-blur-sm transition-all space-y-6">
+                    <div class="flex items-center justify-between text-xs font-mono text-neutral-500">
+                        <span>June 2, 2026</span>
+                        <span>20 min read</span>
+                    </div>
+<!--Fill in blog content here-->
+
+<pre class="text-sm font-mono text-neutral-400 whitespace-pre-wrap break-words"><code>
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40 my-4"><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]"></h2>
+<h2 class="text-2xl md:text-2xl font-bold mb-4 text-neutral-400 text-[#00e673] text-center">AI-Powered Tabletop Exercises: Generating Disaster Recovery Scenarios (And Why Humans Must Review The Tabltops Prior to Use!)</h2>As organizations strive to keep pace with an evolving threat landscape, disaster recovery (DR) and incident response teams face a constant bottleneck: scenario fatigue. Designing realistic, engaging, and challenging tabletop exercises (TTXs) requires significant time, creativity, and deep technical knowledge. Crafting timelines, secondary injects, and regulatory complications from scratch can take weeks.
+
+Enter artificial intelligence (Super Intelligence?). By leveraging large language models and automation engines, security and resilience leaders can now generate comprehensive disaster recovery scenarios, inject timelines, and evaluation templates in a matter of minutes.
+
+However, while AI is an exceptional engine for rapid ideation and drafting, putting an AI-generated tabletop straight into production without human oversight is a recipe for disaster (and embarrassment!). Human eyes—and critical human judgment—are non-negotiable.
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40 my-4"><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">
+<h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">The New Engine: How AI Accelerates Tabletop Generation</h2>AI excels at data crunching, pattern recognition, and rapid text generation. When applied to tabletop creation, AI transforms how teams build training simulations:
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] my-4"><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">Rapid Scenario Ideation:</h2>Instead of brainstorming in a silo, teams can prompt an AI to generate 10 unique scenarios tailored to specific industries (e.g., healthcare, fintech, supply chain) instantly.</div><div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] my-4"><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">Vast Threat Vector Integration:</h2>AI can seamlessly weave complex, multi-layered threat vectors together—such as combining a ransomware encryption event with a simultaneous physical HVAC failure and a public relations leak.</div><div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] my-4"><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">Dynamic Injects and Twists:</h2>Generating realistic time-stamped injects (e.g., a sudden text message from a board member or an aggressive media inquiry) is tedious for humans; AI can generate dozens of cascading twists in seconds.</div><div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] my-4"><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">Personalization to Organizational Profiles:</h2>By feeding an AI high-level descriptions of your tech stack, cloud providers, and regulatory environment (without exposing sensitive secrets), the tool can draft a scenario specifically mapped to your environment.</div>
+</h2></h2></div>
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40 my-4"><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]"><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">The Vital Filter: Why Human Review is Mandatory</h2>Despite its speed and versatility, AI is not a standalone crisis manager. It operates on probability, pattern matching, and generalized training data. Running a tabletop exercise based purely on raw AI output introduces severe risks that make human subject matter expert (SME) review essential:
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] my-4"><h2 class="text-sm font-bold font-mono text-[#00e673]">1. Spotting Hallucinations and Technical Impossibilities</h2>AI models frequently "hallucinate"—inventing technical terms, impossible system architectures, or non-existent error codes that sound authoritative but make zero technical sense.<h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">The Risk:</h2>If a technical tabletop script features a recovery mechanism that violates basic cloud architecture rules or database replication physics, the technical team will spend the exercise arguing with the scenario rather than practicing their response. Human engineers must review the mechanics to ensure absolute technical realism.
+</div><div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] my-4"><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">2. Contextual Relevance and Organizational Nuance</h2>An AI does not truly "know" your company culture, unwritten political structures, legacy technical debt, or internal vendor agreements.<h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">The Risk:</h2>An AI might generate a scenario assuming you have automated cloud failover when your organization actually relies on a manual, cold-site tape restoration process. Humans must calibrate the scenario to reflect the company's actual current maturity level, not an idealized version.
+</div><div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] my-4"><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">3. Validating Complexity Levels and Pacing</h2>AI can easily over-engineer a scenario, packing so many catastrophes into a 2-hour window that participants experience total cognitive overload and shut down. Conversely, it might create an exercise that is far too simplistic.<h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">The Risk:</h2>Human facilitators must review and tune the pacing, ensuring that the "injects" arrive at a realistic cadence that tests decision-making without turning the exercise into an unmanageable farce.
+</div><div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] my-4"><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">4. Strategic Alignment with Business Goals</h2>A tabletop exercise is only as good as the objectives it measures. AI might build an exciting, high-stakes cyber thriller that fails to test your actual compliance requirements, board reporting structures, or specific recovery time objectives (RTOs).<h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">The Risk:</h2>Human leaders must guide the AI prompt and review the final output to guarantee that the exercise directly aligns with audit mandates, executive priorities, and risk management frameworks.</h2>
+</h2></h2></div></div>
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40 my-4"><h2 class="text-sm font-bold font-mono text-neutral-400 text-[#00e673]">The Synergy: Combining AI Speed with Human Wisdom</h2>
+The most effective resilience programs don't choose between AI and human creation -— they combine them!
+
+<h2 class="text-sm font-bold font-mono text-center text-neutral-400 text-[#00e673]">What AI Does Best - Heavy lifting, initial drafting, scenario variety, expanding timeline injects, and structuring documentation.</h2>
+<h2 class="text-sm font-bold font-mono text-center text-neutral-400 text-[#00e673]">What Humans Do Best - Final strategy, validation of technical logic, emotional intelligence, tailoring to company culture, and ensuring regulatory accuracy.</h2>
+By treating AI as an advanced drafting assistant rather than an autonomous decision-maker, organizations can slash the time it takes to build tabletop exercises while maintaining the rigor, realism, and precision required to protect the business when a real crisis strikes.</div>
+
+<h2 class="text-xl md:text-xl font-bold mb-4 text-neutral-400 text-[#00e673]"></h2>
+</code></pre>
+</h2></div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+            <div class="flex items-center gap-4">
+                <a href="https://github.com/raymonderiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
+                <a href="https://linkedin.com/in/RaymondERiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin text-lg"></i></a>
+                <a href="../contact.html" class="hover:text-white transition-colors"><i class="fa-solid fa-envelope text-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+    </script>
+</body>
+</html>

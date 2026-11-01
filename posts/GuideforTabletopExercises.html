@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+    <main class="relative z-10 flex-grow pt-32 pb-20 pl-6 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-8">
+                <a href="../blog.html" class="text-sm font-mono text-neutral-400 hover:text-[#00e673] transition-colors inline-flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Master Blog
+                </a>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Blog Article Container -->
+                <article class="p-6 md:p-8 rounded-2xl bg-neutral-950/80 border border-neutral-800 backdrop-blur-sm transition-all space-y-6">
+                    <div class="flex items-center justify-between text-xs font-mono text-neutral-500">
+                        <span>May 2, 2026</span>
+                        <span>15 min read</span>
+                    </div>
+<!--Fill in blog content here-->
+<pre class="text-sm font-mono pl-6 text-neutral-400 whitespace-pre-wrap break-words"><code>
+<h2 class="text-2xl md:text-2xl font-bold mb-4 text-[#00e673] text-center">Mastering Disaster Recovery Tabletop Exercises:
+A Comprehensive Guide for Modern Organizations</h2>
+
+In an era where operational disruptions can stem from a sophisticated ransomware attack, a regional power grid failure, or a sudden cloud provider outage, resilience is no longer just an IT concern—it is a core business imperative. Organizations invest heavily in disaster recovery (DR) plans, technical failover mechanisms, and backup solutions. However, a plan on paper is only as good as the people executing it under pressure.
+
+Enter the Disaster Recovery Tabletop Exercise (TTX). A tabletop exercise is a facilitated, discussion-based session where key stakeholders walk through a simulated disaster scenario step-by-step. It tests human judgment, communication channels, decision-making frameworks, and cross-functional coordination without risking actual systems or downtime.
+
+Each section of this guide is designed to provide actionable insights, practical templates, and real-world examples to help organizations of all sizes design, execute, and evaluate effective DR tabletop exercises.  It is not meant to be a one-size-fits-all solution, but rather a flexible framework that can be tailored to your organization's unique operational, technical, and regulatory landscape.
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40 my-4"><h2 class="text-sm font-bold font-mono text-[#00e673]">1. Perspectives and Benefits - Why Everyone Needs a Seat at the Table</h2>A successful tabletop exercise delivers value far beyond the technical disaster recovery team. Different stakeholders view disruptions through unique lenses, and involving them transforms the exercise into an organization-wide alignment tool.
+<p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">From the DR/Technical Team Perspective:</span> Validates technical runbooks, uncovers hidden system dependencies, tests automated failover assumptions, and highlights gaps in monitoring and alerting.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">From the Executive Perspective:</span> Provides visibility into enterprise risk, tests crisis communication and brand protection strategies, evaluates regulatory notification triggers, and builds confidence in leadership’s ability to govern under chaos.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">From the Audit & Compliance Perspective:</span> Demonstrates due diligence to regulators and board members, provides empirical evidence of testing compliance (e.g., SOC 2, ISO 27001, HIPAA, DORA), and identifies compliance gaps in data retention or notification timelines.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">From the Application Owner Perspective:</span> Highlights recovery time objectives (RTO) and recovery point objectives (RPO) realism, tests vendor and third-party dependencies, and clarifies internal ownership versus SaaS vendor responsibilities.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">From the Company/Enterprise Perspective:</span> Fosters a culture of resilience, breaks down organizational silos, aligns business priorities with technical recovery sequences, and protects long-term revenue and customer trust.
+</p></div>
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40 my-4"><h2 class="text-sm font-bold font-mono text-[#00e673]">2. Defining Roles in a Tabletop Exercise</h2>To ensure a smooth and realistic simulation, participants must step into well-defined roles:
+<p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Exercise Coordinator / Scribe:</span> Documents decisions, action items, communication flows, and bottlenecks observed during the session for the post-exercise after-action report (AAR).
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Incident Commander / Crisis Lead:</span> Leads the mock response, delegates tasks, and makes critical operational decisions.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Functional Responders:</span> Represent specific domains (e.g., IT/Infrastructure, Cyber Incident Response, Legal, Public Relations, Human Resources, Facilities, Finance) and execute actions relevant to their domain.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Observers / Evaluators:</span> Silent participants who assess team performance against predetermined metrics, communication clarity, and adherence to existing policies.
+</p></div>
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40 my-4"><h2 class="text-sm font-bold font-mono text-[#00e673]">3. Choosing the Right Tabletop Type for Your Application</h2>All applications are built differently!  Not all applications require the same depth or style of tabletop exercise. Match your critical tier-one systems to the appropriate tabletop format:
+<p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Structured Walkthrough (Discussion-Based):</span> Best for: Tier 3/Internal applications, newly onboarded teams, or initial baseline testing.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Focus:</span> Reviewing documentation line-by-line, validating contact lists, and ensuring basic procedural understanding.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Functional Simulation (Inject-Driven):</span> Best for: Tier 2 applications, standard enterprise DR/Cyber response drills.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Focus:</span> Dynamic scenarios where participants receive "injects" (e.g., status updates, media inquiries, cascading technical failures) and must react in real-time.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Full-Scale Hybrid / Stress Test:</span> Best for: Tier 1 mission-critical core banking, SaaS platforms, or primary revenue-generating systems.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Focus:</span> Combines technical validation with executive crisis management, live communications drafting, and external stakeholder engagement under tight simulated timelines.
+</p></div>
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40 my-4"><h2 class="text-sm font-bold font-mono text-[#00e673]">4. How to Conduct a Tabletop Exercise: Step-by-Step</h2>Running an effective tabletop requires careful preparation, disciplined execution, and structured follow-up.
+<p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Define Objectives and Scope:</span> Establish clear goals (e.g., test communication handoffs between IT and PR, validate the RTO for a specific database cluster).
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Develop the Scenario and Script:</span> Design a realistic storyline tailored to the organization's risk profile, complete with time-stamped injects.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Select and Brief Participants:</span> Invite the right cross-functional stakeholders and brief them on the "no-fault, learning-first" ground rules.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Establish Ground Rules:</span> Emphasize that a tabletop is a safe space to discover flaws, not an examination of individual competence.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Execute the Scenario:</span> Walk through the timeline, introduce injects, and force participants to make hard choices with incomplete information.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Capture Observations:</span> Note communication bottlenecks, delayed decisions, and missing documentation in real-time.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Debrief (Hot Wash):</span> Immediately following the exercise, gather initial impressions from participants on what went well and what broke down.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Publish the After-Action Report (AAR):</span> Document lessons learned, assign concrete remediation owners, and track corrective actions to closure.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Tracking corrective actions:</span> This is one area you don't want to get lazy with.  Assigning SPECIFIC OWNERS as well as tracking progress ensures that the exercise translates into tangible improvements in your disaster recovery posture.  tracking can be done in a simple spreadsheet, a project management tool, or even a dedicated incident management / governance risk/compliance (GRC) platform.  The key is to ensure accountability and visibility across the organization.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Closure:</span> Once all corrective actions are completed, conduct a final review to ensure that the improvements have been implemented effectively and that the organization is better prepared for future incidents.
+</p></div>
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40 my-4"><h2 class="text-sm font-bold font-mono text-[#00e673]">5. Detailed Scenarios: Cybersecurity, Physical Security, and Converged Security</h2>Modern threats rarely fit neatly into isolated silos. Below are comprehensive examples spanning different threat dimensions.
+<p class="text-lg font-mono text-[#00e673] font-bold mt-4">  A. Cybersecurity Scenario: Ransomware with Data Exfiltration
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Context:</span> A mid-sized financial services firm.
+</p><p class="text-sm font-mono text-gray-300 my-2">  <span class="font-bold text-[#00e673]">    Initial Inject: 
+ 
+        08:30 AM</span> On a Tuesday, the Security Operations Center (SOC) detects abnormal outbound data exfiltration traffic followed by sudden encryption of primary hypervisors and core database servers. A ransom note appears on administrative consoles demanding 50 Bitcoin within 48 hours or customer financial records will be leaked publicly.</p><p class="text-sm font-mono text-[#00e673] font-bold mt-3">    Secondary Injects (Mid-Exercise):
+</p><p class="text-sm font-mono text-gray-300 my-2">  <span class="font-bold text-[#00e673]">    10:00 AM:</span> Core customer-facing portal displays a 503 error; customers begin flooding social media and customer support lines.
+</p><p class="text-sm font-mono text-gray-300 my-2">  <span class="font-bold text-[#00e673]">    11:15 AM:</span> The Cyber Insurance provider’s incident response counsel joins and advises caution regarding ransom negotiations due to Office of Foreign Assets Control (OFAC) sanctions risks.
+</p><p class="text-sm font-mono text-gray-300 my-2">  <span class="font-bold text-[#00e673]">    01:00 PM:</span> A tech news blog contacts the PR lead asking for confirmation of a "massive data breach."
+</p><p class="text-sm font-mono text-gray-300 my-2">  <span class="font-bold text-[#00e673]">Key Discussion Points:</span> When do we declare a formal disaster? Who authorizes external legal and crisis PR? How do we handle immutable backups if the domain controller is compromised?
+</p><p class="text-lg font-mono text-[#00e673] font-bold mt-6">  B. Physical Security Scenario: Primary Data Center HVAC Failure During a Heatwave</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">Context:</span> An enterprise running an on-premise hybrid data center facility.
+</p><p class="text-sm font-mono text-gray-300 my-2">  <span class="font-bold text-[#00e673]">    Initial Inject:</span> During a record-breaking summer heatwave, the primary facility’s chiller plant experiences a catastrophic mechanical failure. Ambient temperatures in the server room rise by 5°F every 15 minutes, currently sitting at 85°F.
+</p><p class="text-sm font-mono text-[#00e673] font-bold mt-3">    Secondary Injects (Mid-Exercise):
+</p><p class="text-sm font-mono text-gray-300 my-2">  <span class="font-bold text-[#00e673]">    30 Minutes In:</span> Automated thermal shutdowns begin triggering safety protocols, abruptly powering down non-essential compute nodes.
+</p><p class="text-sm font-mono text-gray-300 my-2">  <span class="font-bold text-[#00e673]">    1 Hour In:</span> Facility management reports that replacement parts for the cooling unit are delayed by 18 hours due to regional supply chain constraints.
+</p><p class="text-sm font-mono text-gray-300 my-2">  <span class="font-bold text-[#00e673]">Key Discussion Points:</span> At what temperature threshold do we initiate a manual graceful shutdown versus risking hardware failure? How are secondary regional failovers triggered if latency spikes?
+</p><p class="text-lg font-mono text-[#00e673] font-bold mt-6">  C. Converged Security Scenario: Physical Tampering Leading to a Cyber Attack
+</p><p class="text-sm font-mono text-gray-300 my-2">  <span class="font-bold text-[#00e673]">Context:</span> A smart energy grid or manufacturing plant utilizing IoT infrastructure.
+</p><p class="text-sm font-mono text-gray-300 my-2">  <span class="font-bold text-[#00e673]">    Initial Inject:</span> Security guards report a forced entry at a remote sub-station. Simultaneously, supervisory control and data acquisition (SCADA) systems begin showing anomalous valve manipulation and loss of telemetry data.
+</p><p class="text-sm font-mono text-[#00e673] font-bold mt-3">    Secondary Injects (Mid-Exercise):
+</p><p class="text-sm font-mono text-gray-300 my-2">  <span class="font-bold text-[#00e673]">    45 Minutes In:</span> Local law enforcement requests site access while safety engineers warn that unauthorized remote shutdown commands could cause physical equipment damage or environmental leakage.
+</p><p class="text-sm font-mono text-gray-300 my-2">  <span class="font-bold text-[#00e673]">    Hours In:</span> Regulatory safety boards mandate a manual shutdown of the affected zone until physical inspection is complete.
+</p><p class="text-sm font-mono text-gray-300 my-2">  <span class="font-bold text-[#00e673]">Key Discussion Points:</span> How do physical security teams and cybersecurity incident responders coordinate when a threat bridges the physical and digital divide? Who holds ultimate authority to cut power or halt production lines?
+</p></div>
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40 my-4"><h2 class="text-sm font-bold font-mono text-[#00e673]">6. Tailoring the Exercise Duration: 1-Hour, 4-Hour, and All-Day Formats</h2><p class="text-sm font-mono text-gray-300 my-2">  Depending on organizational maturity and calendar availability, tabletops can be structured in three primary timeframes:
+</p><p class="text-sm font-mono text-[#00e673] font-bold mt-4">  The 1-Hour Sprint (Focused Validation):
+</p><p class="text-sm font-mono text-gray-300 my-2">  <span class="font-bold text-[#00e673]">  Structure:</span> Rapid-fire walkthrough of a single specific incident (e.g., "DNS provider goes down for 4 hours" or "Single database corruption").</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">  Best for:</span> Monthly team check-ins, busy executive schedules, or testing a specific sub-component of a DR plan.
+</p><p class="text-sm font-mono text-[#00e673] font-bold mt-6">  The 4-Hour Half-Day Session (Standard Enterprise Drill):
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">  Structure:</span> Comprehensive walkthrough of a multi-phase crisis (e.g., initial compromise, escalation, containment, and recovery initiation). Includes 30 minutes of introduction, 2.5 hours of active simulation with 4–5 injects, and a 1-hour debrief.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">  Best for:</span> Annual compliance testing, major application migrations, or enterprise-wide DR validation.
+</p><p class="text-sm font-mono text-[#00e673] font-bold mt-6">
+  The All-Day Immersive Exercise (Full-Scale Crisis Simulation):
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">  Structure:</span> Morning briefing and scenario kickoff, running through a multi-day simulated crisis compressed into 6–8 hours. Involves cell-based play (e.g., IT Cell, Executive Cell, Communications Cell operating in breakout rooms), press conference simulations, regulatory liaison interactions, and complex decision trade-offs.
+</p><p class="text-sm font-mono text-gray-300 my-2">
+  <span class="font-bold text-[#00e673]">  Best for:</span> Critical infrastructure providers, large financial institutions, and organizations preparing for high-stakes regulatory audits (e.g., DORA compliance).
+</p></div>
+<div class="py-2 pr-4 pl-3 rounded-xl bg-[#000000] border border-l-4 border-[#00e673]/40 my-4"><h2 class="text-sm font-bold font-mono text-[#00e673]">7. Disaster Recovery Tabletop Exercise Template</h2>
+Use the following adaptable template to structure your next exercise.</div>
+</code></pre>
+
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+            <div class="flex items-center gap-4">
+                <a href="https://github.com/raymonderiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
+                <a href="https://linkedin.com/in/RaymondERiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin text-lg"></i></a>
+                <a href="../contact.html" class="hover:text-white transition-colors"><i class="fa-solid fa-envelope text-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+    </script>
+</body>
+</html>
