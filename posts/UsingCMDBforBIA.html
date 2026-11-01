@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+    <main class="relative z-10 flex-grow pt-32 pb-20 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-8">
+                <a href="../blog.html" class="text-sm font-mono text-neutral-400 hover:text-[#00e673] transition-colors inline-flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Master Blog
+                </a>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Blog Article Container -->
+                <article class="p-6 md:p-8 rounded-2xl bg-neutral-950/80 border border-neutral-800 backdrop-blur-sm transition-all space-y-6">
+                    <div class="flex items-center justify-between text-xs font-mono text-neutral-500">
+                        <span>March 5, 2026</span>
+                        <span>15 min read</span>
+                    </div>
+<!--Fill in blog content here-->
+<pre class="text-sm font-mono text-neutral-400 whitespace-pre-wrap break-words"><code>
+<h2 class="text-2xl md:text-2xl font-bold mb-4 text-center text-[#00e673]">Beyond the Inventory: How to Turn Your Application CMDB into a Real-Time Business Impact Analysis Tool</h2>
+</h2>For years, the Configuration Management Database (CMDB) has carried a painful reputation in IT. Often described as a "black hole where data goes to die," organizations spend thousands of hours populating it with servers, routers, and software versions, and other data artifacts, only to watch it grow outdated within months.
+
+Meanwhile, when a critical outage hits, executive leadership asks a simple question: “What is the actual business impact right now?”
+
+If your response involves digging through static spreadsheets, checking separate disaster recovery documents, or scrambling to call application owners, your CMDB is acting as a passive inventory list rather than a strategic asset.
+
+It is time to change that. By shifting your approach, you can transform your traditional IT-centric CMDB into a dynamic Business Impact Analysis (BIA) tool. </h2>
+
+FULL DISCLOSURE: I'm not advocating for a full-scale BIA tool replacement solely based on your CMDB. Instead, I am suggesting a hybrid approach that leverages the CMDB as a real-time BIA engine, providing immediate insights into business impact during incidents.
+
+Here is how to bridge the gap between technical infrastructure and business value.
+<h2 class="text-xl md:text-xl font-bold mb-4 text-[#00e673]">1. Shift from Infrastructure-Centric to Service-Centric Mapping</h2>The root cause of most CMDB failures is a bottom-up approach. Teams catalog every piece of hardware and software, but they fail to connect them to the actual services they power.
+
+To turn your CMDB into a BIA engine, you must invert your perspective and build relationship trees from the top down:
+
+⚬ Level 1: Business Capabilities / Processes (e.g., Customer Onboarding, E-Commerce Checkout).
+⚬ Level 2: Business & Application Services (e.g., Payment Gateway API, User Portal).
+⚬ Level 3: Software & Data Components (e.g., Microservices, Databases, Load Balancers).
+⚬ Level 4: Underlying Infrastructure (e.g., Cloud VMs, Storage Clusters, Physical Servers).
+
+When an incident occurs at Level 4, a service-aware CMDB instantly computes the path upward to show you precisely which business processes are compromised.
+
+<h2 class="text-xl md:text-xl font-bold mb-4 text-[#00e673]">2. Inject Rich Business Metadata into Configuration Items (CIs)</h2>A technical asset list tells you what is running, but a BIA tool tells you why it matters. To achieve this, you need to enrich your Application CIs with crucial business context fields:
+
+<table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%; border: 1px solid #ccc;">
+  <thead>
+    <tr style="background-color: #000000; text-align: left; font-size: 16px; color: #00e673;">
+      <th style="border: 1px solid #ccc; padding: 8px;"><Strong>Field Name</Strong></th>
+      <th style="border: 1px solid #ccc; padding: 8px;"><Strong>What It Captures</Strong></th>
+      <th style="border: 1px solid #ccc; padding: 8px;"><Strong>Why It Matters for BIA</Strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; color: #00e673;"><strong>Financially Significant</strong></td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Threshold set by the organization to indicate significant financial impact.</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Helps prioritize incident response at the highest level among application ratings.</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; color: #00e673;"><strong>Financial Risk Rating</strong></td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Measured in currency (e.g. USD, EUR). Estimated revenue loss per hour of downtime.</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Helps prioritize incident response based on real financial exposure.</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; color: #00e673;"><strong>Recovery Objectives (RTO/RPO)</strong></td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Target recovery time and data loss limits.</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Guides disaster recovery prioritization and testing protocols.</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; color: #00e673;"><strong>Business Owner</strong></td>
+      <td style="border: 1px solid #ccc; padding: 8px;">The specific executive or business unit accountable.</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Directs immediate escalation to the right stakeholders during an outage.</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; color: #00e673;"><strong>Compliance/Regulatory Tags</strong></td>
+      <td style="border: 1px solid #ccc; padding: 8px;">PCI-DSS, GDPR, HIPAA relevance.</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Flags legal and regulatory liabilities if data or service is breached.</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; color: #00e673;"><strong>Identity Tooling Dependencies</strong></td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Connected IAM providers (e.g., Okta, Azure AD, Ping Identity).</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Pinpoints which authentication providers will lock users out or block single sign-on (SSO) during a service degradation.</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; color: #00e673;"><strong>Authentication Protocols</strong></td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Specific protocols in use (e.g., OAuth 2.0, SAML 2.0, OIDC, LDAP).</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Immediately highlights security token dependencies and handshake dependencies that could fail across dependent downstream services.</td>
+    </tr>
+  </tbody>
+</table>
+<h2 class="text-xl md:text-xl font-bold mb-4 text-[#00e673]">3. Automate Data Freshness with Discovery and APM Integration</h2>A BIA tool based on stale data is worse than useless—it provides a false sense of security. Manual updates will never keep pace with modern cloud-native architectures, containerization, and agile CI/CD pipelines.
+
+To keep your impact analysis accurate:
+
+⚬ Leverage Auto-Discovery: Use modern discovery tools to continuously map infrastructure dependencies.
+⚬ Integrate Application Performance Monitoring (APM): Feed real-time telemetry and dependency data from tools like Datadog, Dynatrace, or New Relic straight into your CMDB.
+⚬ Establish Automated Attestation: Set up workflows that prompt application owners to verify their service metadata and business impact ratings quarterly.
+
+<h2 class="text-xl md:text-xl font-bold mb-4 text-[#00e673]">4. Reimagining ITSM Workflows with BIA-Enabled CMDB</h2>Once your CMDB is mapped to business services and enriched with metadata, the way you handle IT operations fundamentally changes:
+
+⚬ Intelligent Incident Prioritization: Instead of a generic "Priority 2" ticket, an alert on a core database automatically flags as high-priority because the CMDB knows it powers the revenue-generating checkout service.
+⚬ Risk-Aware Change Management: Before approving a Friday night patch, change managers can run an automated impact simulation to see every downstream business process that will be disrupted.
+⚬ Data-Driven Disaster Recovery: During a business continuity exercise, your CMDB instantly generates a prioritized restoration roadmap based on hard financial and regulatory dependencies.
+
+<h2 class="text-xl md:text-xl font-bold mb-4 text-[#00e673]">Final Thoughts</h2>Your CMDB should never be treated as a static audit checkbox for compliance teams. By embedding business context, enforcing service-centric mapping, and relying on modern automation, you can elevate your CMDB from a glorified spreadsheet into a powerful decision-making engine.
+
+When your IT team can instantly see the direct business consequences of every server click and database query, you bridge the eternal divide between technology and the bottom line.
+
+What is the biggest hurdle your organization currently faces when trying to maintain accurate application dependencies in your CMDB?
+</code></pre>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+            <div class="flex items-center gap-4">
+                <a href="https://github.com/raymonderiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
+                <a href="https://linkedin.com/in/RaymondERiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin text-lg"></i></a>
+                <a href="../contact.html" class="hover:text-white transition-colors"><i class="fa-solid fa-envelope text-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+    </script>
+</body>
+</html>
