@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+    <main class="relative z-10 flex-grow pt-32 pb-20 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-8">
+                <a href="../blog.html" class="text-sm font-mono text-neutral-400 hover:text-[#00e673] transition-colors inline-flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Master Blog
+                </a>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Blog Article Container -->
+                <article class="p-6 md:p-8 rounded-2xl bg-neutral-950/80 border border-neutral-800 backdrop-blur-sm transition-all space-y-6">
+                    <div class="flex items-center justify-between text-xs font-mono text-neutral-500">
+                        <span>April 22, 2026</span>
+                        <span>10 min read</span>
+                    </div>
+<!--Fill in blog content here-->
+<pre class="text-sm font-mono text-neutral-400 whitespace-pre-wrap break-words"><code>
+<h2 class="text-2xl md:text-2xl font-bold mb-4 text-[#00e673] text-center">Vendor Risk Management: Auditing Third-Party SaaS and Managed Service Providers for DR Compliance</h2>
+<h2 class="text-lg font-bold font-mono text-[#00e673]">Executive Translation & The Technical View</h2>
+Modern enterprise infrastructure rarely resides within a single physical data center or a self-hosted private cloud. Organizations rely heavily on Software-as-a-Service (SaaS) and Managed Service Providers (MSPs) for core business functions, customer relationship management, and enterprise resource planning.
+
+<h2 class="text-sm font-bold font-mono text-[#00e673]">The Technical View:</h2>Third-party integrations introduce external failure domains, API dependencies, and shared fate security models. If an external vendor suffers a catastrophic storage failure or ransomware incident, your Recovery Time Objective (RTO) and Recovery Point Objective (RPO) are immediately bounded by their operational capabilities and contractual commitments.
+
+<h2 class="text-sm font-bold font-mono text-[#00e673]">Leadership Translation:</h2>Relying on a vendor's marketing materials regarding high availability is a major financial risk. Boardrooms must view third-party resilience as an extension of the internal balance sheet; vendor failure directly translates to unmitigated business interruption and regulatory penalties.
+
+<h2 class="text-sm font-bold font-mono text-[#00e673]">Architecture and Operational Mechanics</h2>Auditing a third-party vendor requires moving past high-level service level agreements (SLAs) into rigorous technical verification.  This means getting in front of contracts departments, legal teams, and technical architects to ensure that the vendor's disaster recovery (DR) and business continuity plans are not only documented but also independently verified.  This is a large feat to accomplish, as most 3rd-party vendors will not provide direct access to their internal DR playbooks or failover procedures.  However, there are several key areas that can be audited and verified:
+<h2 class="text-sm font-bold font-mono text-[#00e673]">  Third-Party Attestations and Certifications:</h2>  Request independent, certified audit reports such as SOC 2 Type II (specifically focusing on the availability and processing integrity Trust Services Criteria) alongside ISO 22301 (Business Continuity Management) or ISO 27001 certifications.
+<h2 class="text-sm font-bold font-mono text-[#00e673]">  Summaries of Annual DR Testing:</h2>  Ask for executive summaries or third-party auditor letters of attestation confirming that annual disaster recovery or failover tests were actually executed, highlighting the variance between target versus achieved Recovery Time Objectives (RTO) and Recovery Point Objectives (RPO).
+<h2 class="text-sm font-bold font-mono text-[#00e673]">  Contractual RTO and RPO Commitments:</h2>  Ensure that operational recovery targets are explicitly written into the contract and backed by enforceable financial remedies or service credits if the vendor fails to meet them during an incident.
+<h2 class="text-sm font-bold font-mono text-[#00e673]">  Data Backup Integrity and Immutability:</h2>  Review technical documentation covering backup frequencies, geographic separation of backup sites, strict encryption standards (at rest and in transit), and immutable storage safeguards against ransomware.
+<h2 class="text-sm font-bold font-mono text-[#00e673]">  High-Availability and Redundancy Architecture:</h2>  Examine high-level system topology diagrams and engineering briefs that prove multi-region redundancy, automated failover mechanisms, and load balancing without needing access to step-by-step internal execution scripts.
+<h2 class="text-sm font-bold font-mono text-[#00e673]">  Incident Response and Communication Protocols:</h2>  Evaluate the vendor's documented incident management frameworks, defined severity levels, mandatory notification timelines during an outage, and commitments to providing root cause analysis (RCA) reports.
+<h2 class="text-sm font-bold font-mono text-[#00e673]">  Fourth-Party (Sub-Service Organization) Risk Management:</h2>  Inspect how the vendor assesses, monitors, and audits their own critical upstream dependencies—such as hyperscale cloud providers (AWS, Azure, GCP) or foundational SaaS tools—to ensure continuity down the supply chain.
+
+[Enterprise Perimeter] 
+         │ (Encrypted API / Mutual TLS)
+         ▼
+  [Third-Party SaaS Provider] ──(Replication)──> [Secondary Geo-Region Vault]
+         │
+         ├── Disaster Recovery Plan (DRP) Review
+         ├── Business Continuity Testing Frequency Logs
+         └── Independent SOC 2 Type II / ISO 27001 Audit Reports
+
+<h2 class="text-sm font-bold font-mono text-[#00e673]">Contractual RTO/RPO Binding:</h2>Ensure vendor contracts do not merely suggest recovery targets but legally bind them to specific RTO and RPO metrics with financial penalties for non-compliance.
+
+<h2 class="text-sm font-bold font-mono text-[#00e673]">Disaster Recovery Testing Attestation:</h2>Request and review concrete evidence of annual or semi-annual DR failover tests. A vendor that has never tested its secondary region recovery is an unverified risk.
+
+<h2 class="text-sm font-bold font-mono text-[#00e673]">Data Portability and Escrow:</h2>Implement code and database escrow agreements. If a SaaS provider goes bankrupt or suffers unrecoverable data loss, your organization must possess automated pipelines to extract and restore encrypted database backups locally or to an alternative cloud environment.
+
+<h2 class="text-sm font-bold font-mono text-[#00e673]">Actionable Implementation Steps</h2>
+-Establish a Vendor Risk Assessment (VRA) matrix that categorizes third-party tools by criticality tier (Tier 1: Mission-Critical, Tier 2: Operational Support, Tier 3: Peripheral).
+-Mandate annual third-party compliance audits focusing specifically on immutable backup isolation and out-of-band recovery execution.
+-Require vendors to provide verified API endpoint documentation and documented fallback procedures for upstream cloud provider outages.
+</code></pre>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+            <div class="flex items-center gap-4">
+                <a href="https://github.com/raymonderiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
+                <a href="https://linkedin.com/in/RaymondERiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin text-lg"></i></a>
+                <a href="../contact.html" class="hover:text-white transition-colors"><i class="fa-solid fa-envelope text-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+    </script>
+</body>
+</html>
