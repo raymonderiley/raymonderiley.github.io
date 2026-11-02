@@ -90,7 +90,7 @@ Traditional disaster recovery relies on binders containing hundreds of pages of 
 
 <h2 class="text-sm font-bold font-mono text-[#00e673]">Architecture and Operational Mechanics</h2>Implementing zero-touch failover requires defining your infrastructure as code (IaC) and utilizing orchestration platforms (such as HashiCorp Terraform, Ansible, or specialized DR orchestration tools like Zerto) to trigger automated workflows.
 
-<img src="../images/Flowchartzerotouchfailover.png" alt="Description of the image">
+<img src="../Images/Flowchartzerotouchfailover.png" alt="Description of the image">
 <h2 class="text-sm font-bold font-mono text-[#00e673]">Dependency Mapping:</h2>Catalog every application tier, database cluster, and load balancer dependency. The orchestration engine must spin up infrastructure in strict precedence order (e.g., Active Directory and Core Storage first, followed by database engines, followed by stateless application nodes).
 <h2 class="text-sm font-bold font-mono text-[#00e673]">Automated Health Validation</h2>After each resource is provisioned and storage is mounted via API calls, automated health checks validate service responsiveness before promoting DNS records.
 <h2 class="text-sm font-bold font-mono text-[#00e673]">Failback Automation</h2>Zero-touch architecture must also account for failback, ensuring that once the primary site is cleansed, workloads can be synchronized and returned with minimal data loss.
