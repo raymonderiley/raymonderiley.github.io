@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+    <main class="relative z-10 flex-grow pt-32 pb-20 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-8">
+                <a href="../blog.html" class="text-sm font-mono text-neutral-400 hover:text-[#00e673] transition-colors inline-flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Master Blog
+                </a>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Blog Article Container -->
+                <article class="p-6 md:p-8 rounded-2xl bg-neutral-950/80 border border-neutral-800 backdrop-blur-sm transition-all space-y-6">
+                    <div class="flex items-center justify-between text-xs font-mono text-neutral-500">
+                        <span>July 1, 2026</span>
+                        <span>30 min read</span>
+                    </div>
+<!--Fill in blog content here-->
+<pre class="text-sm font-mono text-neutral-400 whitespace-pre-wrap break-words"><code>
+<h2 class="text-md md:text-2xl font-bold mb-4 text-[#00e673] text-center">Beyond the Hype – Why Resilience Professionals Must Treat AI as Both a Threat and a Tool</h2>
+
+Artificial intelligence has officially crossed the threshold from experimental labs into the core operating engine of the modern enterprise. According to recent research highlighted by the Disaster Recovery Journal (DRJ), task-specific AI agents are projected to embed into 40% of enterprise applications by the end of 2026, while 15% of day-to-day business decisions will be made autonomously by AI agents by 2028.
+
+For executives, boards, and technologists, this represents a massive leap in efficiency. But for the professionals tasked with keeping organizations running through disruption—business continuity, disaster recovery, crisis management, and operational risk teams—it presents a sobering reality: our traditional playbooks were written for human-speed environments.
+
+How do you build a continuity plan for a system that can make thousands of erroneous, automated decisions before your team even returns from lunch? How do you verify an executive's identity when a deepfake can flawlessly clone their face and voice on a live video call?
+
+Enter The AI in Resilience Framework (Version 1.0)—a landmark reference framework recently published by DRJ. Rather than acting as a rigid governance mandate or a machine learning engineering manual, it provides resilience teams with a shared vocabulary, a maturity model, and a practical structure to navigate the AI era.
+
+<h1 class="text-md md:text-sm font-bold text-[#00e673]">The Dual Nature of AI: Risk vs. Capability</h1>The core premise of the framework is simple yet profound - AI has a dual nature.
+	1.	AI for Resilience: How artificial intelligence can supercharge our own toolkits—accelerating business impact analyses, automating anomaly detection, and drafting dynamic exercise scenarios.
+
+    2.	Resilience for AI: How organizations defend against the novel risks, quiet model drift, toxic data poisoning, and autonomous failure cascades introduced by AI systems.
+These two concepts cannot be treated as a single undifferentiated conversation, nor can they operate in silos. An AI tool adopted to streamline your continuity planning today can easily become your biggest operational vulnerability tomorrow if it goes down or hallucinates critical data.
+
+<h1 class="text-md md:text-sm font-bold text-[#00e673]">Navigating the Three Pillars</h1>The framework organizes this discipline into three distinct pillars and ten domains:
+
+	⚬	Govern (The Spine): Corporate GRC owns enterprise AI policy, but resilience teams must operationalize it—ensuring clear accountability, robust audit trails, and strict compliance with standards like ISO/IEC 42001 and the EU AI Act.
+
+    ⚬	Defend (Operational Risk): This pillar confronts the dark side of AI. It tackles deepfake-fueled social engineering, quiet model degradation, third-party model supply chain dependencies, and the terrifying velocity of autonomous agent failures.
+
+    ⚬	Apply (Business Continuity): Here, AI becomes an operational ally. It streamlines BIAs, turbocharges incident detection and response dashboards, aids in real-time crisis communication filtering, and evaluates vendor tooling—always keeping human review firmly "on the switch".
+
+<h1 class="text-md md:text-sm font-bold text-[#00e673]">Where Does Your Program Stand?</h1>Most organizations today sit somewhere between Level 1 (Ad Hoc) and Level 2 (Aware) on the Al Resilience Maturity Model—meaning autonomous tools are creeping into operations without formal oversight, and risk handling is purely reactive.
+
+Moving toward Defined (Level 3), Integrated (Level 4), and ultimately Adaptive (Level 5) doesn't require tearing up your existing program. The framework is explicitly built to fit seamlessly on top of ISO 22301, the <a href="https://www.thebci.org/certification-training/good-practice-guidelines.html" target="_blank" rel="noopener noreferrer" class="font-bold text-[#00e673] hover:underline">BCI Good Practice Guidelines</a>, and the <a href="https://drii.org/resources/professionalpractices/EN" target="_blank" rel="noopener noreferrer" class="font-bold text-[#00e673] hover:underline">DRI Professional Practices</a>.
+
+<h1 class="text-md md:text-sm font-bold  text-[#00e673]">Change Starts on Monday: The 90-Day Playbook</h1>Theory is only useful if it changes how you operate next week. You don't need a multi-year initiative to begin:
+	⚬	Governance Track: Inventory where AI agents are acting in your workflows and assign explicit program accountability.
+	⚬	Defend Track: Have your operational risk team map out your material AI dependencies and draft initial failure scenarios for deepfake threats.
+	⚬	Apply Track: Pick a low-risk, high-toil task—like transcribing BIA interviews or drafting tabletop exercise scenarios—and pilot an AI-assisted approach with human verification.
+
+<h1 class="text-md md:text-sm font-bold mb-4 text-[#00e673]">The Road Ahead</h1>Artificial intelligence is moving faster than any technological wave that preceded it. By embracing a shared vocabulary and structured framework, resilience professionals can stop playing catch-up and start building organizations </h2>that are truly prepared for whatever disruption comes next.
+</h2></h2></div>
+
+
+</div>
+</div>
+
+
+</code></pre>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+            <div class="flex items-center gap-4">
+                <a href="https://github.com/raymonderiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
+                <a href="https://linkedin.com/in/RaymondERiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin text-lg"></i></a>
+                <a href="../contact.html" class="hover:text-white transition-colors"><i class="fa-solid fa-envelope text-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+    </script>
+</body>
+</html>
