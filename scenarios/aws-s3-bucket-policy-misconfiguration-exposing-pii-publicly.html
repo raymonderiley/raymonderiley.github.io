@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS S3 Bucket Policy Misconfiguration Exposing PII Publicly | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">AWS S3 Bucket Policy Misconfiguration Exposing PII Publicly</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">AWS Cloud Resiliency</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines a data exposure caused by an S3 bucket policy change that grants public read access to a bucket holding customer personal data. The exercise follows detection, containment, determining whether the data was accessed, and the privacy, legal and customer obligations that follow.</p>
+<p>Participants are working-level: cloud security engineers, platform and storage engineers, data and application owners, security operations and forensics staff, privacy and legal contacts, the AWS support liaison, business continuity coordinators and compliance staff. The exercise tests knowledge of Block Public Access, bucket policies, ACLs, access logging and evidence handling.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Marlowe Health Benefits stores member enrollment documents and exported claims files in S3 buckets across several accounts. Organization-wide S3 Block Public Access is enabled at the account level for most accounts, but a legacy data-sharing account was exempted two years ago for a partner integration. Server access logging and CloudTrail data events are enabled only on a few buckets.</p>
+<p>At 16:45 on Thursday, an engineer updates the bucket policy on &#x27;marlowe-claims-exports&#x27; to let a partner&#x27;s account read a prefix. The policy uses a Principal of &#x27;*&#x27; with a condition the engineer believed limited access to the partner, but the condition key was misspelled and ignored. At 17:10, a security researcher emails the company&#x27;s security mailbox with a link that lists the bucket contents. IAM Access Analyzer had raised a public access finding at 16:52 that went to an unmonitored queue.</p>
+<p>What the team does not yet know: the bucket contains 1.8 million records with names, dates of birth and member IDs, versioning is enabled so older objects are also exposed, CloudTrail data events are off so object-level reads are not recorded for this bucket, and the researcher has posted a screenshot to a private forum.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Confirm and contain public exposure.</strong> Participants verify public access with policy analysis and Access Analyzer, then close it using Block Public Access and a corrected policy while preserving evidence.</li><li><strong class="text-white">Preserve evidence before changing everything.</strong> The team decides what to snapshot first: policy versions, configuration history, logs and Access Analyzer findings.</li><li><strong class="text-white">Determine access to the data.</strong> Security reviews S3 server access logs, CloudFront or load balancer logs, and any CloudTrail data events, and acknowledges limits where logging was absent.</li><li><strong class="text-white">Assess data sensitivity and obligations.</strong> Privacy and legal determine data types, affected individuals and whether breach notification duties apply.</li><li><strong class="text-white">Handle the researcher and communications.</strong> Teams manage the contact with the reporter, internal communications and any customer or regulator messaging.</li><li><strong class="text-white">Prevent recurrence.</strong> Participants examine guardrails, review of policy changes, alert routing and logging standards.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Do not speculate about whether data was accessed without citing an available log source. State what is unknown.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> The researcher report and Access Analyzer finding lead to declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Containment.</span> Public access is closed and evidence is preserved.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Diagnosis.</span> Logs are reviewed to determine possible access.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Remediation planning.</span> Scope, data types and notification analysis are planned.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Execution.</span> Notifications, researcher contact and remediation are executed.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Stabilization.</span> Monitoring for misuse and follow-up with partners continues.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Controls and logging are verified.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to normal and close-out.</span> The incident is closed for debrief with regulatory decisions recorded.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Researcher reports a publicly listable claims bucket</a></p><p><strong class="text-white">#2 &middot; T+00:20 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Closing access breaks the partner</a></p><p><strong class="text-white">#3 &middot; T+00:20 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Evidence snapshot omitted</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Unknown IP addresses in access logs</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">More public buckets found</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Researcher demands a bounty and publication</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Sensitive identity documents confirmed</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands an ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Dark web monitoring hit</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Regulator inquiry</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Guardrails and review process</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out and exit criteria</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Researcher reports a publicly listable claims bucket</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 17:20. The security mailbox contains a message from an external researcher with a URL that lists objects in &#x27;marlowe-claims-exports&#x27;. The security engineer opens the link and sees filenames suggesting member claims data. The bucket policy was changed at 16:45. Access Analyzer shows a public finding created at 16:52, unreviewed.</p>
+<p>The platform engineer reports versioning is enabled and the bucket holds about 1.8 million member records across 340 objects, plus older versions. The data sensitivity tag says &#x27;confidential&#x27; but the bucket is in the exempted legacy account where Block Public Access is off.</p>
+<p>CloudTrail management events show the policy change, but data events are not enabled for this bucket, and server access logging is off. The researcher has asked for acknowledgement within 24 hours and mentioned posting evidence to a forum.</p>
+<p>Facilitator provides: the policy JSON with the misspelled condition key, the Access Analyzer finding, the object inventory summary and the researcher email.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare a potential data breach and name leads for technical, privacy and communications.</li><li>Authorize immediate closure of public access after a quick evidence snapshot.</li><li>Set the next update at T+00:20.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm public exposure and enable Block Public Access.</li><li>Explain the misspelled condition and how it should be validated.</li><li>List other buckets at risk.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Snapshot the policy, versions and inventory first.</li><li>Describe the objects and versions exposed.</li><li>Plan logging for the future.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Data Owners &amp; Application Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Classify the data and affected populations.</li><li>Identify the partner integration impacted by the closure.</li><li>Prepare member support scripts.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Forensics</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify available logs and their limits.</li><li>Look for unknown IP access.</li><li>Preserve evidence with hashes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Privacy, Legal &amp; AWS Support Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Start the notification analysis and legal hold.</li><li>Draft the researcher acknowledgement.</li><li>Ask the AWS liaison about log availability.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare internal and call center guidance.</li><li>Notify the partner contact.</li><li>Draft the first update.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Start the regulatory clock log.</li><li>Ask how the policy change was approved.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you confirm the bucket is public and what closes it fastest?</li><li>What do you capture before closing access, and does it delay containment?</li><li>What can you conclude about access without data events or server access logs?</li><li>How do you treat older object versions?</li><li>What data elements are involved and do notification duties apply?</li><li>How do you respond to the researcher and the forum threat?</li><li>Why did the Access Analyzer finding sit unreviewed?</li><li>What does the partner integration need now?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not volunteer the absence of logs until the SOC lead asks which logs exist.</li><li>If players want to delete the bucket, ask about evidence and legal hold.</li><li>Check that the clock for notification is tracked.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Closing access breaks the partner</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Block Public Access is enabled and the partner&#x27;s integration begins failing, delaying their daily claims reconciliation. The partner&#x27;s operations lead calls, upset and demanding access restoration.</p>
+<p>The partner&#x27;s account ID is known, but the original cross-account arrangement was never documented.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide on timing of restoration.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review and approve the new policy with a second person.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Design a least-privilege cross-account policy using the partner account principal and an external ID or organization condition.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Data Owners &amp; Application Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Coordinate with the partner.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you restore partner access safely?</li><li>What does a correct cross-account policy look like?</li><li>Who approves it?</li><li>Should access wait until the investigation advances?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests safe restoration.</li><li>Look for second-person review.</li><li>Avoid reopening the hole.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Evidence snapshot omitted</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Public access was closed within five minutes, but nobody saved the original bucket policy or the object listing. The console history shows only the new policy.</p>
+<p>Counsel asks for the as-found configuration.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reinforce evidence-first practices.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Pull Config configuration items for the bucket.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reconstruct from CloudTrail events, Config history and version history.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record the evidence gap.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you reconstruct a configuration after changing it?</li><li>Which AWS sources hold history?</li><li>Does the gap hurt legal position?</li><li>How should the runbook change?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests knowledge of Config and CloudTrail.</li><li>Look for honest recording of the gap.</li><li>No blame.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Unknown IP addresses in access logs</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Server access logging was off, but a CloudFront distribution in front of a different prefix and the load balancer logs show requests from three unfamiliar IP ranges listing the bucket between 16:50 and 17:10.</p>
+<p>One range belongs to a hosting provider known for scanners.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide whether to treat as confirmed access.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check for presigned URL use.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Forensics</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Correlate with threat intelligence and determine whether objects were downloaded.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Privacy, Legal &amp; AWS Support Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update the notification analysis.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What does listing without download tell you?</li><li>How do you assess download likelihood without object logs?</li><li>Do you assume access occurred?</li><li>How does this change obligations?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests inference discipline.</li><li>Look for conservative assumptions.</li><li>Avoid overclaiming.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: More public buckets found</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A Config query finds six other buckets in exempted accounts with public policies or ACLs, two containing test data and one containing scanned identity documents.</p>
+<p>Their owners are unknown.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Expand scope and appoint an owner.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prioritize by data sensitivity and close the riskiest first.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify owners through tags and CloudTrail.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record findings.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you triage additional buckets?</li><li>Who owns buckets with no tags?</li><li>Do you close access without owner consent?</li><li>How does scope change the incident?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests scope expansion.</li><li>Look for urgency on identity documents.</li><li>Check authority to act.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Researcher demands a bounty and publication</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The researcher replies asking for acknowledgement, a reward and a commitment to remediate within seven days, otherwise they will publish details.</p>
+<p>The company has a vulnerability disclosure policy but no bounty program.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve the response.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verify the researcher&#x27;s claims and access scope.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Privacy, Legal &amp; AWS Support Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Respond per the disclosure policy and avoid admissions beyond facts.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Coordinate communications.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you respond to a researcher?</li><li>Is payment appropriate?</li><li>What can you disclose?</li><li>Who approves the response?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests disclosure policy.</li><li>Avoid threats or promises.</li><li>Counsel involvement.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Sensitive identity documents confirmed</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Review of the exposed bucket reveals scanned drivers&#x27; licenses in addition to claims exports, raising sensitivity and state notification triggers.</p>
+<p>Affected individuals reside in at least nine states.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Engage outside counsel.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Data Owners &amp; Application Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Quantify affected individuals.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Privacy, Legal &amp; AWS Support Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reassess notification obligations by jurisdiction.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track deadlines.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How does ID data change obligations?</li><li>How are deadlines tracked across states?</li><li>Who decides on notification?</li><li>What support is offered to individuals?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Raises stakes.</li><li>Look for a deadline tracker.</li><li>Keep factual.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands an ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The CEO and the privacy officer ask whether this is a reportable breach and when customers will be told.</p>
+<p>The investigation is incomplete and logs are partial.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>State known, unknown and next decision points.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Privacy, Legal &amp; AWS Support Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Explain the notification analysis honestly.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare holding statements.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Advise on timelines.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you say now?</li><li>How do you handle uncertainty in a breach decision?</li><li>What is the holding statement?</li><li>Who decides on external notification?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reward honesty.</li><li>Reject premature conclusions.</li><li>Check statement discipline.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Dark web monitoring hit</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A monitoring vendor reports a sample of claims records appearing on a data-sharing forum, matching the exposed format.</p>
+<p>The sample includes member IDs and dates of birth.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide to move to notification.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Forensics</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verify the sample and compare with exposed data.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Privacy, Legal &amp; AWS Support Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update the analysis: access is now likely.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare customer and regulator messages.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Does this confirm access?</li><li>How does it change notification decisions?</li><li>What support do members need?</li><li>What law enforcement engagement is appropriate?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Escalation inject.</li><li>Look for decisiveness.</li><li>Check message readiness.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Regulator inquiry</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A state regulator calls after seeing the forum thread and asks for a written account within 48 hours.</p>
+<p>Counsel wants every statement verified.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide technical details.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Privacy, Legal &amp; AWS Support Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare the response.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compile verified facts and timeline.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you state as fact?</li><li>Who signs the response?</li><li>How do you handle unknowns?</li><li>What commitments are reasonable?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests discipline.</li><li>Reject speculation.</li><li>Check approvals.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Guardrails and review process</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The review finds one reviewer approved the policy, Access Analyzer alerts went to an unmonitored queue and Block Public Access exemptions were never reviewed.</p>
+<p>Leadership asks for fixes.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign owners.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Propose SCPs, Config rules and alert routing.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Standardize logging and data events.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Frame the control improvements.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which guardrails prevent recurrence?</li><li>Who monitors Access Analyzer?</li><li>How are exemptions reviewed?</li><li>How is policy review improved?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Feed the debrief.</li><li>Insist on owners.</li><li>Look for detective and preventive controls.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out and exit criteria</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>All public access is closed, notifications are decided and the partner has restored access. Logging is enabled but some temporary rules remain.</p>
+<p>The scribe lists open actions.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verify guardrails.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review temporary changes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm regulatory clock status.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What must be true before closing?</li><li>Which regulatory steps remain?</li><li>Who owns follow-up?</li><li>When is the review?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads into the debrief.</li><li>Check temporary changes.</li><li>Confirm owners and dates.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident as a potential data breach and sets containment first, evidence second, notification analysis in parallel.</li><li>Runs a 20-minute cadence at first, assigns the scribe and records decisions.</li><li>Authorizes immediate closure of public access.</li><li>Decides when to engage outside counsel and forensics.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Security Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirms public access via bucket policy review, ACLs and Access Analyzer, and enables Block Public Access.</li><li>Identifies other buckets with the same pattern and exempt accounts.</li><li>Reviews how the policy change passed review.</li><li>Plans guardrails with service control policies and Config rules.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Platform &amp; Storage Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Preserves the policy history, object versions and inventory before changes.</li><li>Lists objects, prefixes and versions exposed and their dates.</li><li>Rotates presigned links or access tokens if relevant.</li><li>Enables logging and data events for the future.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Data Owners &amp; Application Owners</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Data owners classify the data and identify the affected populations.</li><li>Application owners identify systems consuming the bucket and the partner integration.</li><li>Plan a safe replacement for the partner access.</li><li>Prepare member support scripts.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security Operations &amp; Forensics</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reviews server access logs, CloudFront logs and available CloudTrail for requests from unknown IPs.</li><li>Searches for the researcher&#x27;s IP and any others.</li><li>Looks for related scanning or exfiltration indicators.</li><li>Preserves forensic evidence with hashes and chain of custody.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Privacy, Legal &amp; AWS Support Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Privacy and legal determine data elements, jurisdictions and notification triggers.</li><li>The AWS liaison opens a case for guidance on log availability.</li><li>Counsel reviews researcher communications and any vulnerability disclosure policy.</li><li>Prepare regulator and individual notification drafts.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates communications procedures and coordinates the call center for member inquiries.</li><li>Issues time-stamped updates to leadership.</li><li>Coordinates partner communications.</li><li>Tracks actions against internal timelines.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28, 5.34 privacy, 8.3 information access restriction; SOC 2 confidentiality).</li><li>Tracks regulatory clocks and obligations.</li><li>Captures evidence of decisions.</li><li>Logs findings on policy review, alert routing and logging gaps.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Make public access hard by default. Enable S3 Block Public Access at the organization level with narrow, reviewed exemptions, and use service control policies to deny policy changes that grant public principals.</p>
+<p>Validate policies before they ship. Use policy linting and IAM Access Analyzer checks in the pipeline, and require two reviewers for any bucket policy with a wildcard principal.</p>
+<p>Route detective findings to a monitored queue with an on-call owner and a response target, and automate remediation for public buckets holding classified data.</p>
+<p>Log for forensics before you need it: data events on sensitive buckets, server access logs, versioning and object lock where appropriate.</p>
+<p>Auditors for ISO/IEC 27001:2022 (5.34, 8.3) and SOC 2 expect data classification linked to controls, tested alerting and evidence of breach analysis.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on evidence preservation and the limits of logging.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How long between the policy change and detection, and why?</li><li>What did you capture before closing access?</li><li>What logs existed and what could they not tell you?</li><li>How did the team treat object versions?</li><li>How did you triage other buckets?</li><li>How did you restore partner access and who approved it?</li><li>How did you respond to the researcher?</li><li>How were notification obligations assessed and tracked?</li><li>What happened with the Access Analyzer queue?</li><li>How accurate were holding statements?</li><li>What did AWS support add?</li><li>What evidence did the scribe capture for auditors?</li><li>How are Block Public Access exemptions governed?</li><li>What access or permissions were missing?</li><li>What would you change in policy review?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

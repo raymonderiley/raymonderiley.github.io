@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Center HVAC Total Failure in High-Ambient Summer Conditions | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Data Center HVAC Total Failure in High-Ambient Summer Conditions</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">On-Premises Infrastructure</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines how an organization responds when the cooling plant of its primary data center fails completely during an extreme heat event. With outdoor temperatures above 43 C (110 F), the loss of chilled water and computer room air handlers means room temperature can climb at several degrees per minute, forcing rapid decisions about load shedding, graceful shutdown order and the risk of hardware damage.</p>
+<p>The exercise is designed for working-level staff: facilities and critical-environment engineers, server, virtualization, storage and network operators, application owners, the service desk, physical security, business continuity coordinators and compliance staff. It tests whether the team understands thermal runway rates, who can order shutdowns, and whether the shutdown and restart sequences are documented and rehearsed.</p>
+<p>A full run takes 3 to 4 hours. The twelve-inject library supports repeat sessions with different injects. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Prairie State Health Network operates a 600 kW Tier III-style data center with 84 racks, a raised floor with hot-aisle containment, and a chilled water plant with N+1 chillers feeding 10 computer room air handlers (CRAHs). The facility hosts the electronic medical record, imaging archive, claims system and the virtualization cluster for regional clinics. A secondary data center 300 km away holds replicated data but has capacity for only about 60 percent of production workloads.</p>
+<p>On a Saturday afternoon at 15:05, with an outdoor temperature of 44 C, a pump controller fault and a tripped breaker take both chilled water loops offline. The remaining chiller cannot start because of a high-pressure lockout, and two CRAH fans trip on overload. The building management system (BMS) shows supply air temperature rising from 18 C to 26 C in six minutes, with hot aisle temperatures above 40 C at some racks. Several storage arrays and the top-of-rack switches begin to log thermal warnings.</p>
+<p>What the team does not yet know: the chiller lockout requires an on-site manufacturer reset that has a four-hour vendor response, the emergency cooling contract has not been renewed, the generator is healthy but irrelevant to this fault, thermal sensors on the third row are miscalibrated, and the shutdown order in the runbook is five years old and does not include the new imaging archive.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Recognize and communicate thermal runaway risk.</strong> Participants interpret BMS and rack-level sensor data, calculate the time to critical temperature and agree on thresholds that trigger load shedding and shutdowns.</li><li><strong class="text-white">Execute controlled load shedding and shutdown.</strong> The team determines the order for stopping non-critical workloads, powering down storage and hosts, and protecting data on arrays, using documented dependency and priority lists.</li><li><strong class="text-white">Restore or substitute cooling.</strong> Facilities identify options such as chiller reset, temporary spot coolers, opening doors and floor tiles, chilled water interconnects, rental chiller connections, and the cost and time of each.</li><li><strong class="text-white">Decide on failover to the secondary data center.</strong> Participants evaluate capacity at the secondary site, replication currency, and clinical priorities for what can be run there.</li><li><strong class="text-white">Protect people and safety.</strong> The team addresses heat risk for on-site personnel, safe access to hot aisles and fire-detection false alarms from high temperatures.</li><li><strong class="text-white">Control restart and prevent secondary failures.</strong> The team sequences restart to avoid power inrush, verifies component health, and plans the hardware damage assessment.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Use real temperatures, rates and run times from your own facility where known. Where the team has no data, record it as a gap.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> BMS alarms, thermal warnings and facility staff reports lead to incident declaration.</p><p><strong class="text-white">T+00:20</strong> &mdash; <span class="text-green-400">Thermal assessment.</span> Runaway rate is estimated and the time to critical temperature is calculated.</p><p><strong class="text-white">T+00:45</strong> &mdash; <span class="text-green-400">Load shedding decision.</span> Non-critical workloads are shed and shutdown order is initiated.</p><p><strong class="text-white">T+01:30</strong> &mdash; <span class="text-green-400">Cooling restoration options.</span> Chiller reset, emergency cooling and vendor responses are evaluated.</p><p><strong class="text-white">T+02:30</strong> &mdash; <span class="text-green-400">Failover decision.</span> Secondary data center failover for clinical systems is decided.</p><p><strong class="text-white">T+04:00</strong> &mdash; <span class="text-green-400">Stabilization.</span> Temperatures are controlled, partial cooling restored, access and safety checked.</p><p><strong class="text-white">T+05:30</strong> &mdash; <span class="text-green-400">Restart planning and validation.</span> Staged restart, hardware health checks and application validation.</p><p><strong class="text-white">T+07:00</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Services are released in priority order and the incident is closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Both chilled water loops fail on a 44 C afternoon</a></p><p><strong class="text-white">#2 &middot; T+00:20 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Temperatures reach 41 C in the hot aisle</a></p><p><strong class="text-white">#3 &middot; T+00:20 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Sensor data conflict</a></p><p><strong class="text-white">#4 &middot; T+00:45 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Fire alarm triggered by heat</a></p><p><strong class="text-white">#5 &middot; T+00:45 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Vendor says four hours to arrive</a></p><p><strong class="text-white">#6 &middot; T+01:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Spot coolers arrive but the power is insufficient</a></p><p><strong class="text-white">#7 &middot; T+01:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Clinics report system slowness</a></p><p><strong class="text-white">#8 &middot; T+02:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Failover decision</a></p><p><strong class="text-white">#9 &middot; T+04:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Partial cooling returns</a></p><p><strong class="text-white">#10 &middot; T+05:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Hardware failures after restart</a></p><p><strong class="text-white">#11 &middot; T+07:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Insurance and audit questions</a></p><p><strong class="text-white">#12 &middot; T+07:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Both chilled water loops fail on a 44 C afternoon</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 15:09 on a Saturday. The BMS displays a red alarm: chilled water supply loops A and B are offline. Supply air temperature has climbed from 18 C to 26 C in six minutes and hot-aisle sensors in rows 5 to 8 read 38 to 42 C. Two of the ten CRAHs show fan overload trips. The facilities on-call technician reports that Chiller 2 is in a high-pressure lockout and Chiller 1 was already down for planned maintenance.</p>
+<p>The monitoring system shows thermal warnings from three storage arrays and a core switch. The SAN array in row 6 shows a &#x27;degraded cooling&#x27; state. The virtualization cluster reports CPU throttling on four hosts. The imaging archive (a new system) shows an elevated disk temperature alarm.</p>
+<p>Outdoor ambient is 44 C. The generator is online and healthy but not relevant to this fault. The emergency cooling vendor&#x27;s phone line goes to voicemail. The only on-site facilities technician says the reset requires the manufacturer&#x27;s service tool.</p>
+<p>Facilitator provides: the BMS trend graph, the rack-level sensor table described verbally, the runbook shutdown list dated five years ago, and the vendor contact sheet.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and name the technical lead, safety lead and scribe.</li><li>Set thermal thresholds for load shedding and shutdown, and the next update time at T+00:20.</li><li>Decide whether to alert the secondary data center and clinic managers now.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities &amp; Critical Environment Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Report what the plant is doing and which resets are possible without the vendor.</li><li>Estimate the temperature rise per minute and the time to 40 C inlet.</li><li>Start deploying temporary cooling measures and contact all vendors; state the real response times.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Begin non-critical workload shutdown and consolidate the rest away from hot rows.</li><li>Check CPU throttling and HA behavior so that load does not cascade.</li><li>Identify hosts to power off first.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage &amp; Network Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check storage arrays&#x27; thermal states and the process for a safe shutdown.</li><li>Identify the imaging archive&#x27;s tolerance and its shutdown procedure, which is not in the runbook.</li><li>Confirm that replication to the secondary site is current.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners rank their systems and state the maximum tolerable downtime for clinical use.</li><li>Service desk: issue the holding message to clinics.</li><li>Clinical owners: confirm the downtime workflow.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security &amp; Physical Access</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set limits on personnel entering hot aisles and arrange for water and cooling breaks.</li><li>Watch for false fire alarms and suppression interactions.</li><li>Prepare access for the vendor.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the BC plan for facility loss and the communications log.</li><li>Ask for the documented clinical RTO and RPO.</li><li>Draft the clinic notification.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record and capture the detection time.</li><li>Ask whether the emergency cooling contract and the chiller maintenance schedule were approved by risk.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How fast will the room reach 40 C inlet, and how did you calculate it? What if the sensors in row 3 are wrong?</li><li>What temperature thresholds does your runbook define for load shedding and shutdown, and who has authority to order a shutdown?</li><li>In which order do you power down, and what is missing from the five-year-old list?</li><li>Which temporary cooling measures are realistic within 60 minutes and which are not?</li><li>Should the team shed load or evacuate to the secondary data center first, and what limits the secondary&#x27;s capacity?</li><li>What are the safety considerations for staff in a 42 C hot aisle?</li><li>How would you handle the imaging archive that is not in the runbook?</li><li>What must clinics be told in the first 20 minutes?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not volunteer that the emergency cooling contract lapsed unless the team calls the vendor.</li><li>If the team delays shutdown to keep clinical systems up, ask what hardware damage and data loss risk they accept and who signs.</li><li>Watch for conflict between facilities and IT priorities. Note who has the authority to override.</li><li>Time-box discussion to about 30 minutes because thermal events are fast.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Temperatures reach 41 C in the hot aisle</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Inlet temperature on the first row of storage reaches 41 C and the arrays begin automatic protective shutdown.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide whether to accept uncontrolled shutdowns.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage &amp; Network Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check data protection and cache.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you shut down controlled or let arrays protect themselves?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests whether thresholds were set early enough.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Sensor data conflict</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Row 3 sensors read 24 C while thermal cameras and staff say the aisle is hot.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities &amp; Critical Environment Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess sensor trust.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide on data to use.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which data do you trust and how do you validate quickly?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reveals calibration issue.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Fire alarm triggered by heat</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:45 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A smoke detector in the room trips on heat, and the building prepares a gas suppression release countdown.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities &amp; Critical Environment Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check the suppression panel.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security &amp; Physical Access</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Hold or abort the discharge.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Who can abort a discharge and what is the procedure?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Link to the HVAC and fire suppression interlock.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Vendor says four hours to arrive</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:45 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The chiller manufacturer&#x27;s technician is 4 hours away; the emergency cooling provider has no rental units available in the region.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reassess the plan.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities &amp; Critical Environment Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Find alternatives.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is Plan B if no cooling returns within 4 hours?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reveals reliance on contract.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Spot coolers arrive but the power is insufficient</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Twelve portable coolers are available, but the electrical panel can power only four without tripping.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities &amp; Critical Environment Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prioritize placement.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security &amp; Physical Access</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Address electrical safety.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Where do the four coolers go, and what is the effect?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Pushes for practical engineering thinking.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Clinics report system slowness</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Clinics report extreme slowness and timeouts on the EMR as hosts throttle.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Stabilize.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Direct downtime procedures.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>When do you stop trying to keep the EMR running?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Link to patient safety.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Failover decision</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The secondary site can run only 60 percent of workloads. Clinical leadership asks you to prioritize.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Rank workloads.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which systems go first and what is excluded?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Evaluate how priority lists are used.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Partial cooling returns</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>One chiller is reset and supplies 40 percent capacity. Management wants to restart everything.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Control restart.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities &amp; Critical Environment Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Describe stable load.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What load can 40 percent cooling carry, and what proves stability?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Warn against restart too early.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Hardware failures after restart</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+05:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Eleven hosts, two disk shelves and one switch fail to boot.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Triage.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage &amp; Network Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess data.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open warranty claims.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you tell heat damage from coincidence?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests asset management.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Insurance and audit questions</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Risk management asks for evidence of temperature logs, decisions and costs.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities &amp; Critical Environment Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Preserve BMS logs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compile evidence.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What evidence exists and where?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Link to documentation.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Cooling is fully restored. A second heat wave is forecast in 3 days.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set conditions for readiness.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities &amp; Critical Environment Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan resilience.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What must be in place before the next heat event?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads into the debrief.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, owns severity and the decision to order shutdowns and fail over to the secondary data center.</li><li>Sets decision thresholds, for example: at 35 C inlet begin load shedding; at 40 C inlet shut down storage and hosts in priority order.</li><li>Runs a 20-minute cadence during thermal runaway, then 30 minutes; keeps a decision log.</li><li>Authorizes emergency spend for rental cooling and vendor dispatch.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Facilities &amp; Critical Environment Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Diagnoses the chilled water failure: pump controller fault, breaker trip and chiller high-pressure lockout, and states what can be reset locally versus by the vendor.</li><li>Estimates temperature rise using BMS trends and supplies a time-to-critical estimate to the incident commander.</li><li>Deploys temporary measures: portable spot coolers, opening containment doors, removing blanking panels and doors on racks, fan assistance.</li><li>Calls the emergency cooling contractor and chiller manufacturer and confirms the true response times.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Server &amp; Virtualization Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identifies workloads by priority tier and begins controlled shutdown or migration of non-critical virtual machines.</li><li>Uses DRS or manual vMotion to consolidate and evacuate hot hosts where possible.</li><li>Powers down hosts in the order agreed, with databases quiesced first.</li><li>Prepares restart sequencing and power inrush controls.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Storage &amp; Network Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Powers down or quiesces storage arrays in the documented order, confirming write cache is destaged before power off.</li><li>Identifies switches and routers in hot rows and plans their shutdown, protecting management and out-of-band paths.</li><li>Verifies replication status to the secondary data center and its capacity.</li><li>Prepares network changes and DNS for failover.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Service Desk</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners rank their systems by clinical and business impact and give the maximum tolerable downtime.</li><li>Clinical systems owners prepare downtime procedures and paper-based workflows for clinics.</li><li>The service desk issues the incident script and tracks tickets and call volume.</li><li>Owners prepare validation tests for post-restart verification.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security &amp; Physical Access</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirms the safety of personnel working in hot aisles and sets limits on time in hot areas.</li><li>Manages physical access and handles false fire or smoke alarms and any suppression impact.</li><li>Ensures doors and containment changes do not create security exposure.</li><li>Supports emergency vendor access and escorts.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates the business continuity and clinical downtime plans and coordinates with clinic managers.</li><li>Issues time-stamped updates to leadership and clinics with approved wording.</li><li>Coordinates patient safety communications with the clinical leadership.</li><li>Tracks the outage against RTO and RPO for each clinical system.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified in the incident process (ISO/IEC 27001:2022 controls 5.24-5.28; 7.5 physical environmental controls; SOC 2 availability criteria).</li><li>Evaluates regulatory obligations for health data availability and any notification triggers.</li><li>Captures evidence for emergency spend approvals and decisions to shut down.</li><li>Logs findings on cooling redundancy, the lapsed emergency contract and the stale shutdown order.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Cooling is a dependency of every system. Treat chilled water, CRAH capacity and power to the cooling plant as part of the service resilience design, with N+1 verified by test, not by drawing.</p>
+<p>Know the thermal runaway time for each row. Measure it, publish it and calibrate sensors. The time between loss of cooling and critical temperature drives every other decision and may be only minutes in high-density rooms.</p>
+<p>Define thresholds and authority in advance: inlet temperatures that trigger load shedding, storage shutdown and host shutdown, with named people who may order them without a meeting.</p>
+<p>Keep the shutdown and restart order current. Include new systems such as the imaging archive, document dependencies and ensure the sequence is tested at least annually.</p>
+<p>Maintain real emergency cooling arrangements: current contract, pre-engineered connection points, power for spot coolers and a heat-wave readiness check. Auditors for ISO/IEC 27001:2022 and SOC 2 will ask for maintenance records, testing and capacity planning.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on the elapsed time between loss of cooling and each decision, and the quality of the thermal estimates.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How quickly did the team produce a time-to-critical-temperature estimate, and how was it derived?</li><li>What are your documented inlet temperature thresholds, and who has the authority to act on them?</li><li>How current is the shutdown order and which systems were missing?</li><li>Which temporary cooling options are pre-engineered, and which were improvised?</li><li>What did you learn about the emergency cooling contract and the vendor&#x27;s response times?</li><li>How were storage arrays shut down, and did anyone verify cache destage?</li><li>What was the plan for the secondary data center capacity and how was the priority list built?</li><li>What safety limits were placed on staff in hot aisles?</li><li>How would you have handled false fire alarms and suppression interactions?</li><li>Did the sensor data conflict, and how did it affect decisions?</li><li>What caused the restart delay and how would you sequence power inrush?</li><li>How would you detect and document hardware damage caused by heat?</li><li>How accurate were communications to clinics, and what workarounds did they have?</li><li>What evidence is needed for insurance and audit that the scribe did not capture?</li><li>What would you change before the next heat event?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

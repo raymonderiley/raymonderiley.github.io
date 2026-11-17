@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure Backup Vault Soft-Delete Retention Lock Bypass Attempt | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Azure Backup Vault Soft-Delete Retention Lock Bypass Attempt</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">Azure Cloud Resiliency</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines an attacker with a compromised privileged identity who tries to destroy Azure Backup recovery points by disabling soft delete, attempting to remove immutability and retention locks, and deleting protected items, while the team must detect, block and preserve recoverability.</p>
+<p>Participants are working-level: backup and recovery engineers, cloud platform and identity engineers, application owners, the service desk, security operations and monitoring staff, the Microsoft support liaison, business continuity coordinators and compliance staff. The exercise tests understanding of soft delete, immutable vaults, multi-user authorization, resource guards, role assignments and stop-protection operations.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Ironwood Bank protects 600 VMs, 80 SQL databases and file shares with Azure Backup in four Recovery Services vaults. Soft delete is enabled with 14-day retention. Two vaults have immutability in an unlocked state, and a resource guard is configured on only one vault. Backup Contributor is assigned to 14 identities, including two service principals.</p>
+<p>At 02:10 on Saturday, a service principal credential used by a legacy automation job is used from an unfamiliar IP. Within 30 minutes the identity issues operations to disable soft delete on three vaults, change the immutability setting, stop protection with delete data on 40 VMs and attempt to remove the resource guard association. Some operations fail due to the guard on one vault. Security alerts fire at 02:50, just as a ransomware note appears on two file servers.</p>
+<p>What the team does not yet know: stop-protection with delete data completed on 22 VMs in the vault without a guard, soft delete protects those recovery points for 14 days if it was not disabled first, at least one vault had soft delete disabled before deletions, the attacker also obtained a second credential through the same automation account, and the immutable vault cannot be changed once locked, but it is not locked.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Recognize a destruction attempt.</strong> Participants read vault activity logs and alerts to see the sequence of attempted and successful operations.</li><li><strong class="text-white">Stop the attacker and preserve recovery.</strong> The team revokes credentials, blocks backup management operations and verifies which recovery points still exist.</li><li><strong class="text-white">Recover deleted data.</strong> Engineers use soft delete and undelete operations to restore protected items before retention expires.</li><li><strong class="text-white">Lock down the vaults.</strong> Participants enable immutability, resource guards and multi-user authorization and tighten role assignments.</li><li><strong class="text-white">Coordinate with ransomware response.</strong> The team links the backup attack to the ransomware event and prioritizes restores.</li><li><strong class="text-white">Improve backup security.</strong> Participants review immutability states, role scope, service principal hygiene and monitoring.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Do not delete, stop or modify any backup item without independent verification of the requester.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Backup alerts and a ransomware note lead to declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Containment.</span> The attacker identity is revoked and vault operations are blocked.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Diagnosis.</span> Surviving recovery points are inventoried.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Remediation planning.</span> A restore and hardening plan is agreed.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Execution.</span> Soft-deleted items are recovered and vaults are hardened.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Stabilization.</span> Restores begin for priority systems.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Integrity and security posture are verified.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to normal and close-out.</span> Normal operation resumes and the incident is closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Backup deletions race against ransomware</a></p><p><strong class="text-white">#2 &middot; T+00:20 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Undelete partially fails</a></p><p><strong class="text-white">#3 &middot; T+00:20 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Second credential found</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Locking immutability</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Ransomware on file servers</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Multi-user authorization gap</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Backup cost and retention pressure</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands an ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Restore integrity checks</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Regulator and customer notification</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Backup security review</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out and exit criteria</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Backup deletions race against ransomware</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 03:15. Security alerts show attempts to disable soft delete and stop protection on backup items. Two file servers show ransom notes. The activity log shows operations from a legacy service principal.</p>
+<p>The backup engineer finds soft delete disabled on one vault and stop-protection with delete data completed on 22 VMs in a vault without a resource guard. The guarded vault blocked deletions.</p>
+<p>Two vaults have immutability unlocked. Fourteen identities hold Backup Contributor. Another credential in the same automation account may be compromised.</p>
+<p>Facilitator provides: activity log excerpts, vault configuration table, role assignment list and ransom note evidence.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and name the technical lead and scribe.</li><li>Authorize emergency lockdown.</li><li>Set the next update at T+00:20.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Recovery Engineering (Azure Backup)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Inventory recovery points.</li><li>Undelete soft-deleted items.</li><li>Plan vault hardening.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Identity Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Revoke the service principals.</li><li>Remove excess roles.</li><li>Check other credentials.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Rank systems for restore.</li><li>Service desk: issue the holding message.</li><li>Plan workarounds.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Hunt for persistence.</li><li>Check ransomware indicators.</li><li>Preserve logs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Microsoft Support &amp; TAM Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open a case.</li><li>Ask about undelete.</li><li>Record guidance.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Inform leadership.</li><li>Prepare the first update.</li><li>Prepare regulator contact.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask about notification.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you tell which recovery points still exist?</li><li>What do you do first: revoke identity, lock vaults or undelete items?</li><li>Which deleted items are recoverable and for how long?</li><li>How do you protect the remaining backups right now?</li><li>Why were soft delete and immutability not enforced everywhere?</li><li>How do you link this to the ransomware response?</li><li>What access paths might the attacker still have?</li><li>What does leadership need to hear?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the second credential until T2 reviews the automation account.</li><li>If players delete the vault operations log, stop and discuss evidence.</li><li>Look for revocation and undelete in parallel.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Undelete partially fails</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Undelete works for 15 of 22 items. Seven items fail because soft delete was disabled before they were removed.</p>
+<p>Those VMs are domain controllers and databases.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Recovery Engineering (Azure Backup)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Find other copies and snapshots.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Re-prioritize restores.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What alternatives exist for items without recovery points?</li><li>What is the business impact?</li><li>Who decides?</li><li>What do you tell leadership?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests resilience.</li><li>Look for alternatives.</li><li>Avoid denial.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Second credential found</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The same automation account holds a certificate used by a deployment service principal with Contributor on production.</p>
+<p>It shows suspicious sign-ins.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Identity Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Revoke and rotate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Hunt.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you scope compromise?</li><li>What do you rotate?</li><li>Who decides?</li><li>What evidence?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests thoroughness.</li><li>Look for completeness.</li><li>Avoid premature closure.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Locking immutability</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Locking immutability on the vaults is irreversible and could block legitimate changes.</p>
+<p>Operations hesitates.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Recovery Engineering (Azure Backup)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Lock after review.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Advise.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you lock now?</li><li>What is the trade-off?</li><li>Who decides?</li><li>What is the risk of waiting?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests judgment.</li><li>Look for balance.</li><li>Avoid reflex.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Ransomware on file servers</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>File servers hold regulated customer documents encrypted by ransomware.</p>
+<p>Restore from backups is the fastest recovery.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Recovery Engineering (Azure Backup)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Restore in isolated network.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prioritize.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Contain and confirm scope.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you restore safely?</li><li>How do you avoid reinfection?</li><li>Who prioritizes?</li><li>What validation?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests recovery.</li><li>Look for isolation.</li><li>Avoid haste.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Multi-user authorization gap</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Resource guard exists on one vault but approvers are the same admins whose identities could be compromised.</p>
+<p>Security asks for separation.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Recovery Engineering (Azure Backup)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Apply.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Identity Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Move guard to separate subscription and identities.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How should guards be designed?</li><li>Who approves?</li><li>What is the risk?</li><li>How quickly?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests design.</li><li>Look for separation.</li><li>Avoid shortcuts.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Backup cost and retention pressure</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Finance asks to cut backup cost by reducing retention on the very vaults under attack.</p>
+<p>Engineering says it is urgent.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Recovery Engineering (Azure Backup)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Hold changes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Advise.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess risk.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you change retention now?</li><li>What is the risk?</li><li>Who decides?</li><li>How do you document?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests discipline.</li><li>Look for freeze.</li><li>Avoid pressure.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands an ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The CEO and CISO ask whether backups are safe and when banking services are restored.</p>
+<p>The team has partial data.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>State status, risks, next decision.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Recovery Engineering (Azure Backup)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide recovery point status.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Draft message.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track exposure.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you commit to?</li><li>Are backups safe?</li><li>What do leaders hear?</li><li>What obligations apply?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reward honesty.</li><li>Check claims.</li><li>Look for decisions.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Restore integrity checks</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Restored VMs boot but integrity checks find modified files on two systems.</p>
+<p>Time is short.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set conditions.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Recovery Engineering (Azure Backup)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Use an earlier recovery point.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Scan.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you know restores are clean?</li><li>What recovery point do you choose?</li><li>What conditions?</li><li>Who decides?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests control.</li><li>Look for integrity.</li><li>Avoid premature closure.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Regulator and customer notification</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Counsel asks whether regulated customer documents were accessed or destroyed.</p>
+<p>Facts are incomplete.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide findings.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Coordinate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compile verified facts.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you state as fact?</li><li>What triggers notification?</li><li>Who approves?</li><li>What commitments?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests discipline.</li><li>Reject speculation.</li><li>Check approvals.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Backup security review</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Review finds unlocked immutability, one resource guard, 14 contributors, long-lived service principal secrets and no alerts on stop-protection.</p>
+<p>Leadership asks for a plan.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign owners.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Recovery Engineering (Azure Backup)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Propose lock and guard standards.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Identity Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Propose identity hygiene.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Frame evidence.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What controls prevent this?</li><li>How are roles scoped?</li><li>What alerts?</li><li>Who owns?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Feed the debrief.</li><li>Insist on owners.</li><li>Look for design fixes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out and exit criteria</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Critical systems are restored and vaults are locked down. Temporary access, rotated credentials and manual records remain.</p>
+<p>The scribe lists actions.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Recovery Engineering (Azure Backup)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review temporary changes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm detections.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What must be true before closing?</li><li>Which temporary changes remain?</li><li>Who owns follow-up?</li><li>When is the review?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads into the debrief.</li><li>Check temporary changes.</li><li>Confirm owners and dates.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, prioritizes securing backups and restoring critical systems and sets approval rules for vault changes.</li><li>Runs a 20-minute cadence at first, assigns the scribe and records decisions.</li><li>Authorizes emergency vault lockdown.</li><li>Decides on notifications.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Backup &amp; Recovery Engineering (Azure Backup)</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reviews vault activity and inventories recovery points.</li><li>Undeletes soft-deleted items and verifies integrity.</li><li>Enables immutability and resource guards.</li><li>Plans restores.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Platform &amp; Identity Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Revokes the compromised service principals and removes excess role assignments.</li><li>Blocks operations with conditional policies and checks other credentials.</li><li>Rotates secrets.</li><li>Validates access.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Service Desk</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners rank systems for restore.</li><li>The service desk logs outages.</li><li>Owners prepare manual workarounds.</li><li>Prepare validation tests.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security Operations &amp; Monitoring</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Hunts for attacker activity and persistence.</li><li>Reviews ransomware indicators on file servers.</li><li>Preserves logs.</li><li>Adds detections for backup operations.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Microsoft Support &amp; TAM Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Opens a Sev A security case on vault operations.</li><li>Asks about undelete and recovery point limits.</li><li>Requests guidance on locking immutability.</li><li>Records guidance.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates continuity for banking operations and informs leadership.</li><li>Issues time-stamped updates.</li><li>Coordinates regulators contact preparation.</li><li>Tracks impact.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28, 8.13 information backup, 8.2 privileged access; SOC 2 availability and security).</li><li>Assesses notification obligations.</li><li>Captures evidence of recovery point status.</li><li>Logs findings on controls.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Make backups survive a privileged attacker: immutable vaults locked after validation, soft delete always on with enhanced retention, and resource guards with separate identities and subscriptions.</p>
+<p>Reduce identity risk: few backup operators, just-in-time elevation, managed identities instead of long-lived secrets and alerts on any stop-protection or retention change.</p>
+<p>Keep an offline or logically separated copy for the most critical data.</p>
+<p>Practice restore under attack: runbooks for undelete, isolated restore and integrity checks.</p>
+<p>Auditors for ISO/IEC 27001:2022 (8.13, 8.2) and SOC 2 expect backup protection, restore test evidence and privileged access controls.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on immutability, separation of duties and restore integrity.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How quickly did you see the backup attack?</li><li>What did you do first?</li><li>How did you recover soft-deleted items?</li><li>What could not be recovered?</li><li>How did you scope the credentials?</li><li>How did you decide on locking immutability?</li><li>How did you link backups to the ransomware response?</li><li>How did you validate restores?</li><li>How accurate were updates to the CEO and CISO?</li><li>What did Microsoft support add?</li><li>What evidence did the scribe capture for auditors?</li><li>How are backup operators controlled?</li><li>What access or permissions were missing?</li><li>What alerts are missing?</li><li>What would you change in backup design?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

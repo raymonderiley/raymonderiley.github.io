@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Systems Manager (SSM) Agent Mass Disconnection Event | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">AWS Systems Manager (SSM) Agent Mass Disconnection Event</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">AWS Cloud Resiliency</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines the simultaneous loss of Systems Manager connectivity for thousands of managed instances. A change to VPC endpoints, a proxy configuration or an IAM role causes SSM agents to report &#x27;ConnectionLost&#x27;. Patching, Session Manager access, Run Command, inventory and automation all stop, and operators discover that they have lost their main path into servers.</p>
+<p>Participants are working-level: cloud operations and systems management engineers, platform and SRE engineers, application owners, the service desk, cloud security and monitoring staff, the AWS support liaison, business continuity coordinators and compliance staff. The exercise tests understanding of SSM agent connectivity, VPC endpoints, instance profiles, break-glass access and the risk of mass remediation.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Redstone Insurance manages 4,800 EC2 instances in 26 accounts with Systems Manager. Instances sit in private subnets without public IP addresses and reach SSM, EC2 Messages and SSM Messages through interface VPC endpoints. SSH and RDP are closed by policy; Session Manager is the approved access method. A monthly patch window begins at 22:00 Saturday.</p>
+<p>At 21:40 Saturday, a network engineer applies a Terraform change that replaces shared VPC endpoint security groups in the central networking account to reduce rules. The new security group omits TCP 443 ingress from several workload CIDRs. Within minutes, agents cannot reach the endpoints. By 21:55, 3,900 instances show &#x27;ConnectionLost&#x27; in Fleet Manager, and a patch baseline Run Command begun at 21:50 stalls with partial effects.</p>
+<p>What the team does not yet know: about 600 instances were mid-patch and some rebooted into a half-patched state, a legacy application team has an emergency SSH key path that bypasses policy, several production database servers have no other access, and agents will retry with exponential backoff so recovery may be slow even after the fix.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Recognize and scope an SSM outage.</strong> Participants use Fleet Manager, CloudWatch and VPC flow logs to understand which instances, accounts and endpoints are affected.</li><li><strong class="text-white">Restore connectivity safely.</strong> The team reverts or corrects the security group and checks DNS, endpoint policies and instance profiles.</li><li><strong class="text-white">Control in-flight patching.</strong> Engineers halt patch runs, identify half-patched servers and avoid mass reboots.</li><li><strong class="text-white">Maintain emergency access.</strong> Participants decide on break-glass access paths for critical servers without violating policy.</li><li><strong class="text-white">Check for security implications.</strong> The team assesses whether the loss of SSM left monitoring or response gaps.</li><li><strong class="text-white">Improve resilience and governance.</strong> Participants review endpoint redundancy, change control, patch window safeguards and alternatives.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Be explicit about which instances or accounts you mean; do not propose fleet-wide commands without stating the blast radius.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> ConnectionLost alarms and failed patch runs lead to declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Containment.</span> Patching is halted and the network change is identified.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Diagnosis.</span> Scope and half-patched servers are identified.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Remediation planning.</span> A restore and validation plan is agreed.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Execution.</span> Connectivity is restored in stages.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Stabilization.</span> Agents reconnect and health is verified.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Patch state and compliance are verified.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to normal and close-out.</span> Normal operations resume and the incident is closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">3,900 instances lose Systems Manager connectivity during patching</a></p><p><strong class="text-white">#2 &middot; T+00:20 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Rollback fails on drift</a></p><p><strong class="text-white">#3 &middot; T+00:20 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Legacy SSH bypass proposed</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Agents reconnect slowly</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Half-patched servers</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Patch window decision</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Security monitoring gap</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands an ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Reboot storm risk</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Audit evidence request</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Resilience review</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out and exit criteria</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: 3,900 instances lose Systems Manager connectivity during patching</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 22:05. Fleet Manager shows 3,900 of 4,800 instances in &#x27;ConnectionLost&#x27;. The patch window Run Command stalled with &#x27;In Progress&#x27; on 600 instances. Operators cannot open Session Manager to any affected server.</p>
+<p>The SRE finds that the VPC endpoint security group was replaced at 21:40 in the central networking account and no longer allows 443 from several workload CIDRs. DNS for endpoints resolves correctly.</p>
+<p>Some instances rebooted mid-patch. A legacy application team mentions an SSH key path that exists outside policy. The AWS Health Dashboard shows no events. Business teams expect systems to be patched by Sunday 06:00.</p>
+<p>Facilitator provides: Fleet Manager counts, the Terraform change diff, the patch run status and the production server list.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and name the technical lead and scribe.</li><li>Freeze changes and halt the patch window.</li><li>Set the next update at T+00:20.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Systems Management Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Stop in-flight patch runs.</li><li>Identify half-patched instances.</li><li>Plan staged recovery.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Revert or correct the security group.</li><li>Verify endpoints and DNS.</li><li>Prepare approved break-glass access.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify servers at risk.</li><li>Service desk: issue the holding message.</li><li>Prepare application checks.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess monitoring gaps.</li><li>Check the SSH bypass.</li><li>Preserve logs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AWS Support &amp; TAM Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open a case.</li><li>Ask about reconnection.</li><li>Record guidance.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Inform business owners.</li><li>Prepare the first update.</li><li>Ask about patch deadlines.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask how the change was reviewed.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you tell an endpoint connectivity failure from an IAM or agent failure?</li><li>What do you do about the in-flight patch run?</li><li>How do you find half-patched servers?</li><li>What break-glass access is appropriate and who approves it?</li><li>How do you restore connectivity without a stampede or further disruption?</li><li>Do you use the legacy SSH path?</li><li>What did the loss of SSM mean for security monitoring?</li><li>What do business owners need to hear?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the half-patched servers until SSM reviews run output.</li><li>If players run a fleet-wide command to fix agents, ask about blast radius.</li><li>Look for stopping the patch run as the first move.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Rollback fails on drift</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Reverting the Terraform change fails because someone manually edited the same security group earlier, causing a state conflict.</p>
+<p>The engineer considers editing in the console.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve an emergency manual change.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Resolve state and apply a minimal fix.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verify rules.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record the change.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you handle drift under pressure?</li><li>Who approves manual edits?</li><li>How do you reconcile later?</li><li>What is recorded?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests change control.</li><li>Look for approvals.</li><li>Avoid thrash.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Legacy SSH bypass proposed</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The legacy application team proposes using an emergency SSH path to reach database servers.</p>
+<p>Policy forbids SSH, but the key and bastion exist.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide and record.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Log all access.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess risk and conditions.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record the exception.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is the SSH path acceptable?</li><li>What controls apply?</li><li>Who approves?</li><li>How is it evidenced?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests exception handling.</li><li>Look for logging.</li><li>Avoid shortcuts.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Agents reconnect slowly</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>After the fix, only 20 percent of agents reconnect within 15 minutes because of exponential backoff.</p>
+<p>Operators are impatient.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Systems Management Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Explain backoff and how to speed reconnection safely.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Consider restarting agents in small batches.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Why is reconnection slow?</li><li>How do you speed it safely?</li><li>What is the risk of mass restart?</li><li>What is the timeline?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests patience.</li><li>Look for staged action.</li><li>Avoid mass restarts.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Half-patched servers</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Analysis shows 140 servers rebooted with kernel updates but incomplete package updates, and two database servers failed to start services.</p>
+<p>Applications are partially down.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prioritize.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Systems Management Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>List affected servers and plan remediation.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare access.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess application impact.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you find half-patched servers?</li><li>Which go first?</li><li>How do you remediate?</li><li>What is the risk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests triage.</li><li>Look for prioritization.</li><li>Avoid fleet commands.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Patch window decision</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Business owners want the patch window resumed tonight because a critical vulnerability deadline is Monday.</p>
+<p>The team is tired and the environment is fragile.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide to postpone or resume.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Systems Management Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan a safe rerun.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess vulnerability risk.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess compliance impact.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Resume or postpone?</li><li>What is the vulnerability risk?</li><li>Who decides?</li><li>What conditions apply?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests judgment.</li><li>Look for risk analysis.</li><li>Avoid pressure.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Security monitoring gap</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Security finds that endpoint agents relying on SSM for configuration did not update during the window and some logging pipelines stopped.</p>
+<p>The gap lasted 90 minutes.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Systems Management Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verify agents.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess gaps and backfill logs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record the gap.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What was lost?</li><li>How do you backfill?</li><li>Who is told?</li><li>How do you prevent a repeat?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests security awareness.</li><li>Look for facts.</li><li>Avoid minimizing.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands an ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The CIO and COO ask when systems will be manageable again and whether any production service is at risk.</p>
+<p>The team has partial restoration.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>State status, risks, next decision.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide status.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Draft message.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track exposure.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you commit to?</li><li>Which production services are at risk?</li><li>What do business owners hear?</li><li>What obligations apply?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reward honesty.</li><li>Check risk claims.</li><li>Look for decisions.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Reboot storm risk</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>As agents reconnect, a scheduled maintenance association triggers reboots for 900 instances at once.</p>
+<p>Applications may fail.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Systems Management Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Disable associations and stage.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Monitor.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you avoid a reboot storm?</li><li>What do you disable?</li><li>What is the order?</li><li>Who decides?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests control.</li><li>Look for staging.</li><li>Avoid premature closure.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Audit evidence request</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Internal audit asks for evidence of the change review, break-glass use and patch compliance exceptions.</p>
+<p>Records are incomplete.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm decisions.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide change records.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide access logs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compile evidence.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What evidence exists?</li><li>What gaps?</li><li>Who signs?</li><li>What improvements follow?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests evidence.</li><li>Look for honesty.</li><li>Link to change management.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Resilience review</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Review finds shared endpoint security groups changed without staging, no alternative access, and no alarm on mass ConnectionLost.</p>
+<p>Leadership asks for a plan.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign owners.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Systems Management Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Propose alarms and canary checks.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Propose staged changes and alternatives.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Frame evidence.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What controls would have prevented this?</li><li>What alternative access exists?</li><li>What alarms?</li><li>Who owns?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Feed the debrief.</li><li>Insist on owners.</li><li>Look for design fixes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out and exit criteria</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Connectivity is restored and patching is rescheduled. Temporary rules, SSH exception records and drifted state need follow-up.</p>
+<p>The scribe lists open actions.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review temporary changes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm monitoring.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What must be true before closing?</li><li>Which temporary changes remain?</li><li>Who owns follow-up?</li><li>When is the review?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads into the debrief.</li><li>Check temporary changes.</li><li>Confirm owners and dates.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, prioritizes production database and claims servers and sets the change freeze.</li><li>Runs a 20-minute cadence at first, assigns the scribe and records decisions.</li><li>Authorizes break-glass access and any emergency rollback.</li><li>Decides on postponing the patch window.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Operations &amp; Systems Management Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reads Fleet Manager status, patch run output and SSM agent logs.</li><li>Stops in-flight Run Command and State Manager associations.</li><li>Plans staged reconnection checks and rerun of patching.</li><li>Identifies half-patched instances.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Platform &amp; SRE Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reviews VPC endpoint and security group changes and plans the correction or revert.</li><li>Verifies DNS and routing for endpoints.</li><li>Prepares break-glass access via EC2 Instance Connect Endpoint or serial console where approved.</li><li>Monitors application health.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Service Desk</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners identify servers at risk and any mid-patch effects.</li><li>The service desk handles reports of access failures.</li><li>Owners prepare application checks.</li><li>Prepare validation tests.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Security &amp; Monitoring</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assesses monitoring and detection gaps during the window and any unusual access attempts.</li><li>Reviews break-glass use for audit.</li><li>Checks whether the SSH bypass was used.</li><li>Preserves logs.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">AWS Support &amp; TAM Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Opens a case on agent reconnection and endpoint behavior.</li><li>Asks about retry behavior and recommended steps.</li><li>Requests guidance on access alternatives.</li><li>Records guidance.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates continuity for insurance operations and informs business owners about the patch window.</li><li>Issues time-stamped updates.</li><li>Coordinates manual workarounds.</li><li>Tracks the impact.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28, 8.8 vulnerability management, 8.32 change management; SOC 2 availability and security).</li><li>Assesses patch compliance deadlines.</li><li>Captures evidence of break-glass approvals.</li><li>Logs findings on change control.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Treat management connectivity as critical infrastructure. Use redundant VPC endpoints per AZ, canary instances that alarm on ConnectionLost, and staged changes to shared security groups.</p>
+<p>Provide approved alternative access: EC2 Instance Connect Endpoint, serial console and a documented break-glass process with logging and approvals.</p>
+<p>Make patching safe: maintenance windows with rate controls, halt conditions on failure rates, and ordering that protects databases.</p>
+<p>Keep monitoring independent of a single path, and alarm on mass disconnection.</p>
+<p>Auditors for ISO/IEC 27001:2022 (8.8, 8.32) and SOC 2 expect tested access alternatives, patch management evidence and change control.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on break-glass access and halt conditions for patching.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How quickly did you recognize the mass disconnection and why?</li><li>How did you stop patching?</li><li>How did you find half-patched servers?</li><li>What break-glass access was used and who approved it?</li><li>How did you fix the endpoint and handle drift?</li><li>How did agent backoff affect recovery?</li><li>How did you decide on the patch window?</li><li>What security gaps appeared?</li><li>How accurate were updates to leadership?</li><li>What did AWS support add?</li><li>What evidence did the scribe capture for auditors?</li><li>What alternatives to SSM exist?</li><li>What access or permissions were missing?</li><li>What alarms are missing?</li><li>What would you change in endpoint management?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

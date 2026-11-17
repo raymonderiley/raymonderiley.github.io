@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Directory Forest Root Collapse via Replication Lock | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Active Directory Forest Root Collapse via Replication Lock</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">On-Premises Infrastructure</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines how an on-premises IT organization detects, diagnoses and recovers from a forest root domain replication lock in Active Directory Domain Services (AD DS). In the scenario, replication between the forest root domain controllers stops, authentication and authorization degrade across every child domain, and the team must decide between repairing replication in place, authoritatively restoring a known-good domain controller, or invoking a full forest recovery.</p>
+<p>The exercise is built for a working-level audience: directory engineers, infrastructure and virtualization administrators, network and DNS staff, security analysts, application owners, service desk leads, business continuity coordinators and compliance staff. It tests technical diagnosis, decision sequencing, cross-team coordination and the quality of the runbooks, backups and monitoring that exist today.</p>
+<p>A single run takes 3 to 4 hours for the primary inject and subsequent injects, or 90 minutes if the facilitator selects only the Inject #1 path. Because the high-level inject library contains twelve injects mapped to time frames, the exercise can be repeated several times without repeating the same experience.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Northgate Logistics, a mid-sized company, runs a single-forest, multi-domain Active Directory environment: one forest root domain (corp.northgate.example) and three child domains (na, emea, apac). The forest root has four domain controllers: RTDC01 and RTDC02 in the primary data center, RTDC03 in the secondary data center, and RTDC04 in a colocation cage. RTDC01 holds the Schema Master and Domain Naming Master roles. Replication topology is managed by the KCC, DFSR replicates SYSVOL, and Microsoft Entra Connect synchronizes identities to Microsoft 365 using password hash synchronization.</p>
+<p>At 02:10 on a Saturday, during an unrelated hypervisor patch window, RTDC03 was reverted to a virtual machine snapshot taken nine days earlier by an engineer who believed the snapshot was a safe rollback point after a failed patch. RTDC03 came back online with an older Update Sequence Number (USN) than its replication partners had recorded for it. Over the next hours, partners rejected its changes, strict replication consistency blocked replication from partners that had been touched by RTDC03&#x27;s stale data, and the KCC began rerouting connections. By 07:40, replication across the forest root has stalled, Netlogon on RTDC03 has paused, and the first Monday-morning-style symptoms (failed logons, stalled password changes, broken group policy) are appearing early because the Saturday warehouse shift is starting.</p>
+<p>What the team does not yet know: the snapshot restore caused a USN rollback, the last successful system state backup of RTDC01 is nine days old, the backup server authenticates against the same forest, and a vendor application schema extension was staged on RTDC01 yesterday afternoon and may or may not have replicated before the rollback.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Diagnose a replication lock from first principles.</strong> Participants correctly use repadmin /replsummary, repadmin /showrepl, dcdiag /e /test:replications and the Directory Service event log (Event IDs 2095, 1988, 2042, 1722, 8453) to distinguish USN rollback, lingering objects, network failure and permission failure, rather than treating the symptom as a generic outage.</li><li><strong class="text-white">Decide between repair, authoritative restore and forest recovery.</strong> Teams articulate the decision criteria for isolating RTDC03, forcibly demoting it with metadata cleanup, restoring RTDC01 from system state, or executing the full forest recovery procedure, including who has authority to declare a forest recovery and what evidence is required.</li><li><strong class="text-white">Protect FSMO roles and the schema.</strong> Participants identify which operations masters sit where, verify who holds each role, decide whether seizing a role is justified, and confirm the state of the pending vendor schema extension before any role movement.</li><li><strong class="text-white">Validate backup and recovery assets.</strong> The team finds the real age, location, encryption and authentication dependencies of AD system state backups, and tests whether the backup platform can restore when AD itself is unavailable.</li><li><strong class="text-white">Keep dependent services running.</strong> Application owners and the service desk identify which services depend on Kerberos referrals, LDAP binds, Group Policy and DNS SRV records, apply documented workarounds (local accounts, cached credentials, break-glass identities) and prioritize applications for restoration.</li><li><strong class="text-white">Manage the secondary effects.</strong> Participants address Entra Connect sync behavior, SYSVOL/DFSR divergence, KRBTGT and trust password handling, RID pool integrity, and the decision on whether security&#x27;s concern about malicious activity changes the recovery path.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and evidence collected during the exercise would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, snapshots or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that actually exist today. If a document does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise (for example, whether a snapshot revert would really happen). Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the time on the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the name of the decision maker and the time on the exercise clock.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators do not answer questions for players. They record, and may be asked by the facilitator to share observations at the hot wash.</li><li>Exercise information is confidential. Scenario details, findings and gaps stay within the participant group until the after-action report is approved.</li><li>Use the phrase &#x27;exercise exercise exercise&#x27; in any written or chat communication so that nothing in the exercise is mistaken for a real event.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Authentication failures and replication alerts reach the service desk and directory team. The Incident Commander is engaged and the incident is formally declared.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Triage and scoping.</span> Replication health data is gathered, RTDC03 is identified as the common factor, and scope across child domains is determined.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Root cause hypothesis.</span> The team confirms or rejects USN rollback, lingering objects, DNS or network causes, and decides whether to isolate RTDC03.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Dependency impact.</span> Application, identity-sync, backup and privileged-access dependencies on the forest root are assessed and prioritized.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Recovery path decision.</span> Repair in place, authoritative restore, or forest recovery is selected with documented criteria and approvals.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Execution planning.</span> Sequencing, FSMO decisions, isolation boundaries, KRBTGT handling and validation steps are agreed.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation and stabilization.</span> Replication health, SYSVOL, DNS SRV records, trusts and application authentication are verified.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Services are released in priority order, communications are issued, and the incident is closed for hot wash and debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Replication halts and authentication degrades</a></p><p><strong class="text-white">#2 &middot; T+00:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Event ID 2095 and the snapshot revert are confirmed</a></p><p><strong class="text-white">#3 &middot; T+00:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Possible malicious change on the schema master</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Child domains lose referrals and Kerberos fails</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Lingering objects found in the child domain</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Backups depend on the broken forest</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Entra Connect stops synchronizing</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands a restoration time</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">KRBTGT and trust password decisions</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">SYSVOL and Group Policy diverge</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">RID pool and duplicate SID risk</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Return to service and close-out pressure</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Replication halts and authentication degrades</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 07:40 on a Saturday. The service desk has received 41 tickets in 25 minutes. Warehouse handheld scanners in the apac domain cannot authenticate, EMEA users report that password changes are failing with a generic error, and Group Policy refresh is failing on newly started kiosks.</p>
+<p>The monitoring platform shows replication alerts on RTDC01, RTDC02 and RTDC04: replication to RTDC03 is failing with &#x27;The target principal name is incorrect&#x27; and &#x27;Replication access was denied.&#x27; RTDC03&#x27;s Netlogon service is paused. A repadmin /replsummary run by the on-call engineer shows 14 failures, with RTDC03 as the largest delta at over 8 hours.</p>
+<p>In the Directory Service log on RTDC03, Event ID 2095 appears: &#x27;During an Active Directory Domain Services replication request, the local domain controller (DC) identified a remote DC which has received replication data from the local DC using already acknowledged USN tracking numbers.&#x27; The on-call engineer is not sure whether this is the cause or a symptom, and the snapshot revert has not yet been discovered.</p>
+<p>Facilitator hands the group: the repadmin output, the Event ID 2095 text, the ticket-count graph, and the current network diagram of the forest root.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident, set severity, and open the bridge. State who is the technical lead and who is the scribe.</li><li>Decide immediately whether to freeze all AD-related change, including the vendor schema extension staged yesterday.</li><li>Set the next situation update for T+00:30 and the escalation threshold to the CIO.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Identity &amp; Directory Services (Active Directory)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Interpret the repadmin output: is the problem one DC or the forest root? Which partners are healthy?</li><li>Check whether RTDC03&#x27;s invocationID changed, which indicates a restore, and compare USN values across partners with repadmin /showutdvec.</li><li>Recommend whether to isolate RTDC03 now, and explain the risk of leaving it online, including the risk of it replicating stale objects or accepting password changes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check hypervisor events for any restore, revert or clone operation on RTDC03 or any domain controller in the last 24 hours.</li><li>Identify who ran the hypervisor patch window and which change ticket covers it.</li><li>Pull the list of domain controller VMs that have snapshots, and confirm none of the other three have been reverted.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; DNS Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verify inter-site connectivity and ports among the forest root controllers and rule out the network as a cause.</li><li>Check DNS SRV records for stale or conflicting entries for RTDC03.</li><li>Be prepared to isolate RTDC03 on the virtual switch or physical port on the Incident Commander&#x27;s instruction.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Incident Response</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Determine whether the Event ID 2095 and the failures show signs of tampering or just operational error, using logs outside AD.</li><li>Check for unexpected changes in Domain Admins, Enterprise Admins and Schema Admins, and review the last 48 hours of schema and configuration partition changes.</li><li>Confirm that EDR and SIEM data collection is not dependent on forest root authentication.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Service desk: classify the ticket spike by symptom and site, and issue a holding message to users.</li><li>Application owners: identify which applications authenticated to RTDC03 or rely on forest root group membership.</li><li>Warehouse operations owner: state how long scanners can work offline.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm which shifts and sites are active on Saturday morning and which processes are at risk.</li><li>Open the communications log and prepare the first stakeholder update.</li><li>Ask for the documented RTO for directory services and compare it to current elapsed time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record, assign a classification and note the time of detection and the time of declaration.</li><li>Ask whether any change record covers a revert on RTDC03, and flag a change-management gap if it does not.</li><li>Start the evidence log: who decided what, when, and on what information.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Based only on the evidence given, what is your leading hypothesis and which two alternative hypotheses are you not yet ruling out? What single piece of data would distinguish them?</li><li>Event ID 2095 is present. What does it tell you about the direction of the problem, and what actions are unsafe to take before you understand it (for example, forcing replication or restarting Netlogon on RTDC03)?</li><li>Who has the authority to isolate a domain controller, and how long does it take to reach that person on a Saturday morning?</li><li>Which forest-wide changes are in flight right now, and how would you find out? Is the vendor schema extension on RTDC01 complete, replicated, or pending?</li><li>How would you know whether other domain controllers in the child domains have inbound replication from RTDC03? What does a lingering object look like, and where would you see it first?</li><li>If password changes are failing, what happens to accounts that changed passwords between 02:10 and 07:40, and which domain controller holds the newest password for them?</li><li>What monitoring should have detected the snapshot revert earlier, and why did it not? Is there an alert on invocationID change, Event ID 2095 or a Netlogon pause?</li><li>What is the first message you send to the service desk and to users, and what should it not say?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the snapshot revert unless the infrastructure team asks about hypervisor events or restore operations. Let the AD team work from symptoms first, and note whether the team finds it in under 20 minutes.</li><li>If players jump straight to forest recovery, ask them what evidence supports that decision at T+00:00. Forest recovery is a last resort, typically measured in days, and teams that choose it too early should be asked to justify it.</li><li>If the team asks about the Active Directory Recycle Bin or Directory Services Restore Mode, confirm that DSRM passwords exist for each DC and ask who holds them and where they are stored. In most real organizations this is a finding.</li><li>Pay attention to whether the team checks the forest root only or also the child domains. A common gap is the lack of a documented dependency map between child domain DCs and root DCs.</li><li>Time-box the discussion of Inject #1 to about 35 minutes. Capture the decisions and open questions on the flip chart before moving to the next inject.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Event ID 2095 and the snapshot revert are confirmed</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The hypervisor administrator confirms that RTDC03 was reverted to a nine-day-old snapshot at 02:10 as part of the patch window. The change ticket describes it as &#x27;rollback of failed patch&#x27; and does not mention the domain controller role. RTDC03 has been online and accepting authentication requests for 5.5 hours.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Identity &amp; Directory Services (Active Directory)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm USN rollback and recommend the isolation, metadata cleanup and rebuild of RTDC03 instead of attempting repair.</li><li>Identify which objects were changed on RTDC03 after the revert.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Document the revert and disable snapshot revert for all domain controllers.</li><li>Verify VM-GenerationID support on the hypervisor and guest operating system.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record the change-management gap and the missing DC protection control.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is the real exposure created by RTDC03 being online for 5.5 hours, and what is lost if it is simply powered off?</li><li>Which password changes and group membership changes were accepted only by RTDC03 and may be lost?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is the Primary inject&#x27;s natural follow-up. Use it for groups that did not find the cause in Inject #1.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Possible malicious change on the schema master</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Security reports that RTDC01 logged Event ID 5136 modifications to the schema container at 22:14 the previous evening, by a service account that does not normally touch the schema. The vendor says the change was theirs; the change ticket is unsigned.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide whether the incident is reclassified as a possible security incident.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Identity &amp; Directory Services (Active Directory)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compare the schema version with the vendor&#x27;s documented extension.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Incident Response</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Validate whether the account and the source host are legitimate.</li><li>Review for DCSync and replication permission changes.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What evidence would move this from an operational error to a security incident, and who makes that call?</li><li>What would change in the recovery plan if schema changes cannot be trusted?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Use this variant to push the group toward the security-versus-operations decision that is most often under-rehearsed.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Child domains lose referrals and Kerberos fails</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The apac and emea child domains report Kerberos ticket failures when users access resources in the forest root, including the shared-services file cluster and the privileged access management tool. Global Catalog queries return inconsistent group membership.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Identity &amp; Directory Services (Active Directory)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify the child DCs that point at RTDC03 as their preferred root partner.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; DNS Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review DNS SRV and site-link costs that steer clients to RTDC03.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify the applications that rely on universal group membership.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which services stop working first when the Global Catalog returns inconsistent universal group membership?</li><li>How do you safely redirect child domain DCs away from RTDC03?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Remind teams that Kerberos tickets already issued remain valid until expiry, which affects the timing of user complaints.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Lingering objects found in the child domain</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Event ID 1988 appears on a na child-domain DC: a replication partner has sent an object that does not exist locally and was deleted before the tombstone expired. Strict replication consistency has blocked inbound replication from that partner.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Identity &amp; Directory Services (Active Directory)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan the removal of lingering objects using a reference DC.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Incident Response</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review whether deleted accounts have reappeared.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which DC is the authoritative reference, and who has verified it?</li><li>What is the risk that deleted accounts are reanimated?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Link this to the hygiene finding of whether weak strict replication consistency was ever disabled.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Backups depend on the broken forest</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The backup administrator finds that the backup server and its catalog authenticate to the forest root. The last good AD system state backup is on tape and nine days old; the most recent disk backup of RTDC01 failed on Wednesday with no alert triage. The encryption key is stored in a vault that uses AD SSO.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Identity &amp; Directory Services (Active Directory)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess whether a nine-day-old backup can be used for an authoritative restore.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Locate non-AD-dependent credentials for the backup platform.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Log the backup monitoring failure as a finding.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Can you restore a domain controller if AD authentication is down, and who has tested that?</li><li>What is lost with a nine-day-old restore?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Strong groups will mention DSRM, local backup operator accounts and offline key escrow.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Entra Connect stops synchronizing</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Entra Connect reports sync errors; password hash sync has stopped. New hires scheduled for Monday cannot be provisioned, and several password resets in Microsoft 365 are not reaching on-premises.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Identity &amp; Directory Services (Active Directory)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Determine which DC Entra Connect is bound to.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess the impact on password reset and onboarding.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Should Entra Connect be paused? What happens to cloud accounts if it is left running against a rolled-back DC?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Look for whether the team knows the staging server and its role.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands a restoration time</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The CIO joins the bridge and asks for a firm ETA. Warehouse operations report that Saturday shipments worth about 1.8 million dollars are at risk. The directory team has not yet chosen a path.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Present the options with time estimates and risks.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare the communication to the business.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you commit to and what can you not? How do you word uncertainty?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Evaluate whether the Incident Commander presents options rather than a single guess.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: KRBTGT and trust password decisions</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Security wants to reset KRBTGT twice and all trust passwords. The directory team warns that doing so during a replication outage can invalidate tickets and break authentication across child domains.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Identity &amp; Directory Services (Active Directory)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Describe the safe sequence and wait time between resets.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Incident Response</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>State the threat justification.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Under what conditions is a double KRBTGT reset appropriate now versus after recovery?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>There is no single correct answer. Look for explicit risk acceptance.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: SYSVOL and Group Policy diverge</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>After RTDC03 is isolated, DFSR on RTDC02 reports Event ID 4012 and SYSVOL contents differ from RTDC01. Some Group Policy Objects have reverted, including the account lockout policy.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Identity &amp; Directory Services (Active Directory)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide authoritative versus non-authoritative SYSVOL restore.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Incident Response</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess the security impact of reverted policies.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which copy of SYSVOL is authoritative and how do you prove it?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tie this to a GPO backup practice. Ask who has recent GPO backups.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: RID pool and duplicate SID risk</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The RID Master reports pool exhaustion warnings for the root domain. A rebuilt domain controller is ready to be promoted, and there is concern about duplicate SIDs because RTDC03 issued objects after the revert.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Identity &amp; Directory Services (Active Directory)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verify the RID Master and invalidate affected pools.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How would you detect duplicate security principals?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Advanced inject for experienced AD teams.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Return to service and close-out pressure</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Replication is healthy and the rebuilt RTDC03 is promoted. Business leaders want to close the incident. Application owners report two services still failing.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria for closing the incident.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Capture lessons and corrective actions with owners and dates.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What are your exit criteria, and who signs off?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Use this inject to lead into the post-exercise debrief.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Owns the incident declaration, severity rating and the decision on repair versus restore versus forest recovery, based on evidence presented by directory services and security.</li><li>Runs the 30-minute situation cadence, assigns a scribe, and keeps a decision log with times and decision makers.</li><li>Authorizes isolation of RTDC03 from the network and any seizure of the Schema Master or Domain Naming Master role.</li><li>Approves production freezes, including the vendor schema extension release and all other forest-wide changes, until recovery is complete.</li><li>Escalates to the CIO and the business continuity lead with plain-language impact statements at T+01:00 and T+03:00.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Identity &amp; Directory Services (Active Directory)</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads technical diagnosis using repadmin /replsummary, repadmin /showrepl *, repadmin /queue, dcdiag /e /v, and the Directory Service, DFS Replication and System logs on all four forest root controllers.</li><li>Determines whether the Event ID 2095 USN rollback applies, identifies the invocationID mismatch, and recommends isolating and removing RTDC03 rather than attempting to repair it.</li><li>Verifies FSMO role holders with netdom query fsmo and decides whether any role must be seized, noting the state of the pending vendor schema extension.</li><li>Checks for lingering objects across child domains and plans repadmin /removelingeringobjects against a known-good reference DC.</li><li>Prepares metadata cleanup, DC rebuild steps, the double KRBTGT reset plan, and RID pool and RID master verification.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Infrastructure &amp; Virtualization Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirms the exact time, user and ticket for the RTDC03 snapshot revert and checks hypervisor logs for any other domain controller or AD-dependent VM that was reverted.</li><li>Disables snapshot revert permissions on domain controller VMs and confirms that VM-GenerationID support and snapshot protections are configured on the hypervisor cluster.</li><li>Locates and validates AD system state backups for RTDC01, RTDC02 and RTDC04, including the age, retention, encryption key location and restore test history.</li><li>Prepares an isolated restore network and sizing for clean-room recovery of one or more root domain controllers.</li><li>Verifies that storage replication or VM-level backups do not themselves contain the rolled-back USN state.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Network &amp; DNS Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirms that inter-site links, firewall rules and ports (RPC 135, dynamic RPC, LDAP 389/636, GC 3268/3269, Kerberos 88, SMB 445, DNS 53) between forest root controllers are intact, ruling out network cause.</li><li>Executes the isolation of RTDC03 at the switch or virtual network level and verifies that no stale registrations are served to clients.</li><li>Reviews AD-integrated DNS zones, SRV record registration for _msdcs, and secondary zone transfers for stale records pointing at RTDC03.</li><li>Prepares DNS forwarders or temporary static records so child-domain controllers continue to locate healthy root DCs.</li><li>Supports the clean-room network with controlled routing and firewall rules.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security Operations &amp; Incident Response</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Examines whether the replication anomaly could be malicious: unusual replication requests (DCSync indicators), Event IDs 4662, 4742, 5136 and 4928/4929, unexpected schema or configuration changes, and privileged group changes.</li><li>Pulls authentication logs, EDR telemetry and identity-protection signals from sources that do not depend on forest root authentication.</li><li>Advises the Incident Commander whether the evidence supports a benign operational error or requires a security-driven recovery with credential resets.</li><li>Prepares the privileged account audit and break-glass account validation, and monitors for abuse of cached credentials and local administrator accounts during the outage.</li><li>Preserves volatile and log evidence on RTDC03 before it is wiped or demoted.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Service Desk</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners list authentication dependencies (Kerberos, LDAP binds, NTLM fallback, group-based authorization, service accounts) and report which services are failing or degraded.</li><li>The service desk activates the incident script, tracks ticket volume by symptom, and issues approved guidance on offline workarounds, cached credentials, and break-glass identities.</li><li>The ERP, warehouse management, payments and file-share owners identify manual workarounds and the maximum tolerable downtime of each service.</li><li>Owners confirm whether service accounts authenticate to a domain controller in a specific site and whether they will fail over automatically.</li><li>Prepare test cases for validating authentication after recovery.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates the business continuity plan for loss of identity services and confirms which business processes (shipping, receiving, payroll, customer service) are impacted on a Saturday shift.</li><li>Drafts and issues time-stamped updates to leadership, site managers and employees, with approved wording for the service desk.</li><li>Coordinates manual procedures, paper-based processes and shift adjustments with the warehouse operations lead.</li><li>Prepares customer and partner messaging if shipping commitments are at risk.</li><li>Records the actual recovery time against the RTO and RPO documented for the identity service.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirms that the incident is being recorded with a classification, severity and timeline that satisfy the incident management process under ISO/IEC 27001:2022 Annex A control 5.24 through 5.28 and the SOC 2 availability and security criteria.</li><li>Evaluates whether regulatory, contractual or customer notification obligations are triggered, particularly if a security cause is suspected.</li><li>Collects evidence of decisions, approvals and change records, including the emergency change for any forest-level action.</li><li>Tracks gaps against the DR program: backup age, restore testing frequency, snapshot controls and monitoring coverage.</li><li>Drafts the initial findings list for the after-action report.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Treat a domain controller as a distributed database node, not a server. The two most damaging errors in AD recovery are restoring a node with a stale USN state and promoting a replacement without cleaning metadata. Reverting a snapshot, restoring a VM image or cloning a DC without VM-GenerationID support puts the forest in this state silently. Prevent it with hypervisor policy, not procedure alone.</p>
+<p>Design recovery for the case where AD is unavailable. Backup platforms, secrets vaults, hypervisor management, privileged access tools and ticketing systems that authenticate against the forest create a circular dependency. Maintain break-glass local accounts, offline DSRM passwords and at least one backup path that works without AD, and test it.</p>
+<p>Know your recovery tiers and the evidence that triggers each. Repair in place, metadata cleanup and rebuild, authoritative restore of one DC, and full forest recovery are different in time and risk. Define in advance who can declare a forest recovery and what must be true.</p>
+<p>Make monitoring detect the cause, not just the symptom. Alert on invocationID changes, Event IDs 2095, 1988 and 2042, replication latency by partner, SYSVOL and DFSR backlogs and unexpected FSMO movement. Test alerts quarterly.</p>
+<p>Back up and test. At least two recent, immutable system state backups of different root domain controllers, retained beyond the tombstone lifetime window, with documented restore tests at least twice a year. Evidence of those tests is what auditors for ISO/IEC 27001:2022 and SOC 2 will ask for.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes down the three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below. Go role by role for the first pass, then open the floor. Keep to 45 to 60 minutes.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communications accuracy and gaps against objectives.</li><li>Prioritize findings. Group findings into people, process, technology and documentation. Rate each by impact and effort. Select no more than ten items for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record these in the GRC tracker, for ISO/IEC 27001:2022 management review and SOC 2 evidence.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and updates to runbooks. Circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest priority gaps, and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>At what time on the exercise clock did the team first suspect USN rollback, and what data pointed to it? What would have shortened that time?</li><li>Which of you knew who holds each FSMO role without looking it up? Where is that documented and how current is it?</li><li>Who has the authority to isolate a domain controller, and was that authority exercised within the time your runbook states?</li><li>Did the hypervisor team have a control that prevents snapshot revert on domain controllers? If not, what would it take to put one in place this quarter?</li><li>What is the actual age, location and restore test date of your most recent AD system state backup for each forest root DC, and was that number a surprise?</li><li>Can the backup platform restore a domain controller when AD is not available? Which credentials would you use, and where are they stored?</li><li>What would have made the decision between authoritative restore and forest recovery clearer, and where is that decision tree documented?</li><li>Did anyone check for lingering objects, SYSVOL divergence and RID pool state before declaring recovery? Which checklist did you follow?</li><li>How did the security hypothesis (malicious versus operational) change decisions? Was there a point where the team could not tell, and how was that risk accepted?</li><li>Which applications were found to depend on a single DC or site, and what is the plan to remove that dependency?</li><li>How accurate and timely were the updates to the service desk and business? Was anything communicated that turned out to be wrong?</li><li>What evidence did the scribe capture that would satisfy an auditor, and what is missing?</li><li>Which monitoring alerts should have fired and did not? Name the alert, the owner and the due date to create it.</li><li>Where did people not have the access, tools, or credentials they needed, and why?</li><li>If this happened again tomorrow at 02:00 on a holiday weekend, who would be unreachable or unavailable?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

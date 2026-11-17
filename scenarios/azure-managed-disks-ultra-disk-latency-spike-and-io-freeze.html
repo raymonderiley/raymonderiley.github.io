@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure Managed Disks Ultra Disk Latency Spike and IO Freeze | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Azure Managed Disks Ultra Disk Latency Spike and IO Freeze</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">Azure Cloud Resiliency</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines an Azure Ultra Disk latency spike and IO freeze under a high-frequency trading and order matching database, where a platform issue and a mis-sized throughput setting cause IO to stall, transactions queue, database engines enter recovery risk and failover options are limited by zonal placement.</p>
+<p>Participants are working-level: cloud storage and infrastructure engineers, database and application engineers, application owners, the service desk, cloud operations and monitoring staff, the Microsoft support liaison, business continuity coordinators and compliance staff. The exercise tests understanding of disk IOPS and throughput provisioning, VM-level caps, latency symptoms, snapshots, zonal constraints and database crash recovery.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Granite Markets runs a matching engine database on a VM with Ultra Disks provisioned for 80,000 IOPS and 1,200 MB/s. The VM size limits disk throughput to 1,000 MB/s. A synchronous replica sits in another zone using a premium SSD tier for cost reasons. Snapshots run every 6 hours.</p>
+<p>At 09:35 on Wednesday, a market open surge pushes IO to the VM cap. Disk latency jumps from 0.4 ms to 60 ms, then to multi-second freezes. At the same time, Azure Service Health posts an advisory for storage performance degradation in the zone. Database commits stall, the engine reports log write waits, order acknowledgments exceed risk limits and the matching engine halts new orders.</p>
+<p>What the team does not yet know: the VM-level throughput cap is the first bottleneck, increasing disk provisioned performance would not help, a resize of the VM needs a restart, the synchronous replica cannot keep the commit rate with its lower IOPS tier, and a forced failover could lose a few seconds of committed transactions if the replica lags.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Recognize IO saturation versus platform degradation.</strong> Participants read disk, VM and database metrics to separate a self-inflicted cap from a platform fault.</li><li><strong class="text-white">Stabilize transactions.</strong> The team reduces IO demand, drains queues and avoids actions that risk database corruption.</li><li><strong class="text-white">Decide on resizing or failover.</strong> Engineers weigh VM resize, replica promotion and waiting, with explicit data loss and downtime estimates.</li><li><strong class="text-white">Preserve data integrity.</strong> Participants plan consistency checks and reconciliation of in-flight orders.</li><li><strong class="text-white">Communicate with participants.</strong> The team informs trading venues, clients and risk teams with accurate status.</li><li><strong class="text-white">Improve storage resilience.</strong> Participants review IO sizing, VM caps, replica tiering, zone strategy and latency alerting.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>State the data loss and downtime estimate for every failover or resize option.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> IO stalls and order halts lead to declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Containment.</span> Load is reduced and orders are safely paused.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Diagnosis.</span> Bottleneck and platform status are diagnosed.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Remediation planning.</span> A resize, failover or wait decision is agreed.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Execution.</span> The chosen option is executed.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Stabilization.</span> Latency and throughput stabilize.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Data is validated and reconciled.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to normal and close-out.</span> Normal operation resumes and the incident is closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Disk latency freezes the matching engine</a></p><p><strong class="text-white">#2 &middot; T+00:20 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Resize requires restart</a></p><p><strong class="text-white">#3 &middot; T+00:20 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Replica promotion proposal</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Database recovery risk</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">In-flight orders ambiguity</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Venue and member escalation</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Platform advisory expands</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands an ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Restart and validation</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Regulatory incident report</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Storage design review</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out and exit criteria</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Disk latency freezes the matching engine</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 09:50. Disk latency on the matching engine database is at 60 ms with multi-second freezes. The database reports log write waits and the matching engine has stopped accepting orders.</p>
+<p>The infrastructure engineer finds VM throughput at its 1,000 MB/s cap while the disk is provisioned for 1,200 MB/s. Service Health lists a storage performance advisory in the zone.</p>
+<p>The synchronous replica is in another zone on a lower IOPS tier and lags by 8 seconds. Snapshots are 6 hours old. A resize needs a restart.</p>
+<p>Facilitator provides: disk and VM metrics, database wait stats, replica lag chart and the Service Health text.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and name the technical lead and scribe.</li><li>Authorize pausing order acceptance.</li><li>Set the next update at T+00:20.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Storage &amp; Infrastructure Engineering (Managed Disks)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm the cap and platform status.</li><li>Plan resize options.</li><li>Plan snapshot use.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Application Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess database state and replica lag.</li><li>Plan promotion with loss estimate.</li><li>Prepare integrity checks.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide on pause and participant messaging.</li><li>Service desk: issue the holding message.</li><li>Prepare manual procedures.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Build the dashboard.</li><li>Monitor platform status.</li><li>Preserve logs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Microsoft Support &amp; TAM Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open a case.</li><li>Ask about limits.</li><li>Record guidance.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Inform leadership and venues.</li><li>Prepare the first update.</li><li>Prepare regulator contact.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask about conduct obligations.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you tell a VM cap from a platform fault?</li><li>Is it safe to resize while freezes continue?</li><li>What are the data loss and downtime numbers for promoting the replica?</li><li>What do you do about in-flight orders?</li><li>What should participants and venues be told?</li><li>Why did the replica use a lower tier?</li><li>How do you protect database integrity during freezes?</li><li>What must be validated before reopening?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the cap versus provisioned mismatch until T1 reads VM metrics.</li><li>If players reboot the VM, ask about crash recovery.</li><li>Look for explicit loss numbers.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Resize requires restart</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Resizing the VM to a larger size with higher throughput requires a restart and recovery, taking 15 to 25 minutes.</p>
+<p>The platform advisory is still open.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Storage &amp; Infrastructure Engineering (Managed Disks)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare resize and rollback.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Application Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan database shutdown.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is resizing the right move now?</li><li>What is the downtime?</li><li>What is the risk?</li><li>Who decides?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests trade-offs.</li><li>Look for numbers.</li><li>Avoid haste.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Replica promotion proposal</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Promoting the replica could restore service in 5 minutes with up to 8 seconds of loss.</p>
+<p>The replica&#x27;s IO tier will saturate quickly.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Application Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Evaluate loss and capacity.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Accept or reject.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Should you promote?</li><li>What is lost?</li><li>What is the capacity risk?</li><li>Who decides?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests decision.</li><li>Look for numbers.</li><li>Avoid false comfort.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Database recovery risk</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The engine shows a long-running log write and a risk of extended crash recovery if restarted.</p>
+<p>DBAs disagree on actions.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Storage &amp; Infrastructure Engineering (Managed Disks)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Support.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Application Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Choose controlled approach.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What are the recovery risks?</li><li>Wait or act?</li><li>Who decides?</li><li>What is documented?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests judgment.</li><li>Look for care.</li><li>Avoid thrash.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: In-flight orders ambiguity</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>About 1,400 orders have unclear state: acknowledged to clients but not confirmed committed.</p>
+<p>Clients want confirmation.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Application Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide data.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reconcile with logs and clients.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Communicate.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you reconcile?</li><li>What do clients hear?</li><li>Who decides?</li><li>What is the risk of wrong statements?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests integrity.</li><li>Look for care.</li><li>Avoid assumptions.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Venue and member escalation</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The exchange venue asks for a restart time and an incident report.</p>
+<p>Several members complain.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide data.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Draft message.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verify facts.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you commit to?</li><li>Who approves?</li><li>What do you avoid?</li><li>What evidence?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests discipline.</li><li>Reject speculation.</li><li>Check approvals.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Platform advisory expands</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Microsoft updates the advisory: another zone is affected for storage latency.</p>
+<p>The replica&#x27;s zone is impacted.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Storage &amp; Infrastructure Engineering (Managed Disks)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reassess options.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Microsoft Support &amp; TAM Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Request details.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How does this change options?</li><li>What is the fallback?</li><li>Who decides?</li><li>What is the risk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests adaptability.</li><li>Look for reassessment.</li><li>Avoid anchoring.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands an ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The CEO and head of trading ask when markets can reopen and what the loss exposure is.</p>
+<p>The team has partial data.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>State status, risks, next decision.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide exposure.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Draft message.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track exposure.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you commit to?</li><li>What is the exposure?</li><li>What do participants hear?</li><li>What obligations apply?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reward honesty.</li><li>Check numbers.</li><li>Look for decisions.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Restart and validation</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The system restarts and the team must validate order books before reopening.</p>
+<p>Time pressure is high.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set conditions.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Application Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Run integrity checks.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Validate with samples.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What must be true to reopen?</li><li>What checks?</li><li>Who decides?</li><li>What is the fallback?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests control.</li><li>Look for validation.</li><li>Avoid premature closure.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Regulatory incident report</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A market regulator requires an incident report within 24 hours.</p>
+<p>Counsel wants verified facts.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide data.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Coordinate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compile verified facts.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you state as fact?</li><li>Who approves?</li><li>How do you handle unknowns?</li><li>What commitments?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests discipline.</li><li>Reject speculation.</li><li>Check approvals.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Storage design review</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Review finds a VM cap below disk provisioning, a lower-tier replica, no latency alerts and untested resize runbooks.</p>
+<p>Leadership asks for a plan.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign owners.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Storage &amp; Infrastructure Engineering (Managed Disks)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Propose sizing alignment and alerts.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Application Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Propose replica parity and tests.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Frame evidence.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What design prevents this?</li><li>How is sizing validated?</li><li>What replica standard?</li><li>Who owns?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Feed the debrief.</li><li>Insist on owners.</li><li>Look for design fixes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out and exit criteria</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Markets are open and reconciled. Temporary sizing, manual records and advisories remain.</p>
+<p>The scribe lists actions.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Storage &amp; Infrastructure Engineering (Managed Disks)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review temporary changes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm alerts.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What must be true before closing?</li><li>Which temporary changes remain?</li><li>Who owns follow-up?</li><li>When is the review?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads into the debrief.</li><li>Check temporary changes.</li><li>Confirm owners and dates.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, prioritizes data integrity before speed and sets the decision rule for failover.</li><li>Runs a 20-minute cadence at first, assigns the scribe and records decisions.</li><li>Authorizes resize, failover and market notifications.</li><li>Decides on resumption.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Storage &amp; Infrastructure Engineering (Managed Disks)</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reads disk latency, IOPS, throughput and VM cap metrics.</li><li>Plans VM resize or disk reconfiguration.</li><li>Checks Service Health and zone status.</li><li>Plans snapshot use.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Database &amp; Application Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assesses database state, log writes and replica lag.</li><li>Plans promotion or recovery with loss estimates.</li><li>Prepares integrity checks.</li><li>Reconciles orders.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Service Desk</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners decide when to pause matching and what to tell participants.</li><li>The service desk logs member calls.</li><li>Owners prepare manual procedures.</li><li>Prepare validation tests.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Operations &amp; Monitoring</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Builds a dashboard of IO, latency, replica lag and order rates.</li><li>Monitors platform status.</li><li>Preserves logs.</li><li>Adds latency and cap alerts.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Microsoft Support &amp; TAM Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Opens a Sev A case on disk latency and platform status.</li><li>Asks about throughput limits and zone health.</li><li>Requests guidance on resize with minimal downtime.</li><li>Records guidance.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates continuity for market operations and informs leadership and venues.</li><li>Issues time-stamped updates.</li><li>Coordinates regulators contact preparation.</li><li>Tracks impact.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28, 8.6 capacity management; SOC 2 availability and processing integrity).</li><li>Assesses market conduct obligations.</li><li>Captures evidence of decisions.</li><li>Logs findings on capacity design.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Size the whole IO path, not just the disk: align VM throughput and IOPS caps with disk provisioning, test at peak with headroom and alert on latency before saturation.</p>
+<p>Keep replicas at parity for the role they must play: same IO tier, tested promotion and clear loss numbers.</p>
+<p>Document zone strategy and what happens when a platform advisory affects both zones.</p>
+<p>Practice database recovery under IO stalls: runbooks for pause, promote and validate.</p>
+<p>Auditors for ISO/IEC 27001:2022 (8.6, 8.14) and SOC 2 expect capacity planning evidence and tested recovery procedures.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on end-to-end IO sizing and replica parity.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How quickly did you identify the VM cap?</li><li>How did you separate platform from self-inflicted causes?</li><li>How did you decide on resize versus promotion?</li><li>How were loss numbers estimated?</li><li>How did you handle in-flight orders?</li><li>How did you protect database integrity?</li><li>How were venues and members handled?</li><li>How did you react to the expanding advisory?</li><li>How accurate were updates to the CEO and trading head?</li><li>What did Microsoft support add?</li><li>What evidence did the scribe capture for auditors?</li><li>How is IO sizing validated?</li><li>What access or permissions were missing?</li><li>What alerts are missing?</li><li>What would you change in storage design?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

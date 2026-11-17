@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS IAM Policy Root Propagation Lockout Across Multiple Accounts | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">AWS IAM Policy Root Propagation Lockout Across Multiple Accounts</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">AWS Cloud Resiliency</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines a lockout caused by an IAM or organization-level policy change that propagates from the management account to dozens of member accounts. A deny that was meant to restrict one risky action matches far more broadly than intended, and administrators, pipelines and break-glass roles lose the permissions they need to undo it.</p>
+<p>Participants are working-level: cloud identity and IAM engineers, platform and landing zone engineers, application and pipeline owners, security operations, the AWS support liaison, business continuity coordinators and compliance staff. The scenario highlights guardrail design, break-glass access and the limits of what can be fixed from the console when the permissions to fix it are the thing that is broken.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Harmon Energy Trading runs 63 AWS accounts under one AWS Organization, organized into OUs for production, non-production, security and shared services. Access is through IAM Identity Center with permission sets, and CI/CD pipelines use IAM roles assumed through OIDC. Service control policies (SCPs) are managed in the management account by a small platform team using infrastructure as code with a two-person review.</p>
+<p>At 14:05 on Wednesday, a platform engineer merges a change to an SCP intended to deny IAM user creation and access key creation outside approved roles. A condition key was written with a wildcard and a NotAction construct that unintentionally denies iam:*, sts:AssumeRole and organizations:* actions for principals not tagged &#x27;platform-approved&#x27;. The pipeline applies the SCP to the root of the organization at 14:12. Within minutes, engineers cannot assume roles, pipelines fail on AssumeRoleWithWebIdentity, and the Identity Center permission sets stop working in member accounts. The management account is exempt from SCPs, but the only people with management account access use SSO, which is now partly broken.</p>
+<p>What the team does not yet know: the break-glass IAM user in the management account exists but its credentials are in a vault that requires SSO, the root user&#x27;s MFA device is held by a manager who is on leave, the policy change was approved by one reviewer who did not notice the NotAction logic, and production trading workloads continue to run but cannot be scaled, deployed or inspected.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Recognize a policy-driven lockout.</strong> Participants interpret AccessDenied messages that cite an explicit deny in a service control policy, use CloudTrail, IAM Access Analyzer and policy simulator evidence and distinguish this from an AWS service issue.</li><li><strong class="text-white">Regain control from the management account.</strong> The team determines who can act in the management account, how to detach or fix the SCP, and what break-glass paths exist, including root user recovery and its approvals.</li><li><strong class="text-white">Avoid making the lockout worse.</strong> Participants avoid mass changes that could disrupt running production workloads, and sequence rollback of the SCP carefully.</li><li><strong class="text-white">Protect running workloads.</strong> The team confirms that trading workloads continue to run, identifies what cannot be changed, and decides on manual scaling or freeze windows.</li><li><strong class="text-white">Check whether the change was malicious.</strong> Security determines whether the change was an accident or an attempt to lock out defenders, reviewing the pipeline, reviewers and identities.</li><li><strong class="text-white">Improve guardrail change management.</strong> The team examines policy testing, staged rollout to a test OU, break-glass design and approval quality.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Do not state or invent credentials, MFA codes or account IDs beyond the exercise. Refer to roles and procedures only.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Access failures and pipeline errors lead to incident declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Cause identification.</span> The SCP change is identified as the likely cause.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Break-glass access.</span> The team determines how to reach the management account.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Rollback plan.</span> SCP detach or correction is planned and reviewed.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Execution.</span> The SCP is detached or fixed and access is restored in stages.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Validation.</span> Roles, pipelines and permission sets are verified.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Security review.</span> Logs are reviewed for abuse of the window and policy intent.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to normal and close-out.</span> Normal operations resume and incident closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">AssumeRole fails across the organization after an SCP change</a></p><p><strong class="text-white">#2 &middot; T+00:20 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Pipeline role blocked from fixing</a></p><p><strong class="text-white">#3 &middot; T+00:20 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Root user needed</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Suspicious API calls during the window</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Autoscaling failing in production</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Revert merges but the pipeline queue jams</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Wrong OU detached</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands an ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Access returns but sessions are stale</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Audit asks for the approval trail</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Pressure to drop the guardrail</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out and exit criteria</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: AssumeRole fails across the organization after an SCP change</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 14:25. The service desk and engineering channels report that nobody can access AWS accounts through Identity Center and that pipelines fail with &#x27;AccessDenied: explicit deny in a service control policy&#x27;. Twenty-eight deployments are stuck.</p>
+<p>An IAM engineer inspects a CloudTrail event and sees the deny cited against the root organization SCP updated at 14:12. The change was merged by a platform engineer and approved by one reviewer. Trading applications in production accounts continue to run, but autoscaling actions requiring IAM permissions are failing.</p>
+<p>The management account is not subject to SCPs, but the platform team logs in with SSO. The break-glass IAM user&#x27;s credentials are in a vault protected by SSO. The root user&#x27;s MFA device is held by the cloud director, who is on leave and unreachable.</p>
+<p>Facilitator provides: the SCP diff, the AccessDenied sample, the pipeline failure list and the break-glass procedure summary.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and name the technical lead and scribe.</li><li>Decide to freeze all changes in all accounts.</li><li>Set the next update at T+00:20.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Identity &amp; IAM Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify the offending statement and affected principals.</li><li>Describe the fix and how to test it.</li><li>List the permission sets and roles to verify afterward.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Explain who can act in the management account and how.</li><li>Prepare the revert or manual detach.</li><li>Plan staged reattachment.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application &amp; Pipeline Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>List failed deployments and hold releases.</li><li>Confirm trading systems are running and what cannot change.</li><li>Plan manual workarounds.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review who approved and merged the change.</li><li>Check for suspicious activity during the window.</li><li>Preserve evidence.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AWS Support &amp; TAM Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open a high-severity case.</li><li>Ask about root user recovery.</li><li>Record guidance.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Inform the trading desk.</li><li>Prepare the first update.</li><li>Ask for the documented RTO.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask how SCP changes are tested and approved.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you tell an SCP deny from a permission boundary or a resource policy issue from the error and CloudTrail?</li><li>Who can act in the management account right now, and how?</li><li>The break-glass credentials depend on SSO. What is your plan, and what does the root user recovery involve?</li><li>What is the safest way to fix the policy: detach, revert or edit, and in what order across OUs?</li><li>Are running trading workloads at risk and what can you not change?</li><li>Was this an accident or an attack, and what would change your plan?</li><li>How did a single reviewer approve a NotAction wildcard?</li><li>What should the trading desk and leadership be told?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the vaulted break-glass credentials until the team asks for them.</li><li>If players want to detach the SCP everywhere at once, ask what protections the SCP provided and who accepts that risk.</li><li>Check whether a test OU exists for guardrail changes.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Pipeline role blocked from fixing</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The platform engineer tries to push the revert through the infrastructure pipeline. The pipeline&#x27;s role cannot assume the management account deployment role because the same SCP denies sts:AssumeRole. The revert job fails within seconds.</p>
+<p>The team realizes the fix path runs through the thing that is broken, and the on-call lead suggests editing the policy by hand in the console.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Authorize a manual change and name who performs it with a second person observing.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Identity &amp; IAM Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm exactly which statement blocks the pipeline and whether a narrow edit would unblock it.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify who has direct management account console access and by what method.</li><li>Explain risks of a manual edit that drifts from the code, and plan to reconcile afterward.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record the emergency change and its approver.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is the manual path and who is allowed to use it?</li><li>How do you control a hand edit during an incident?</li><li>How will the code and the live policy be reconciled?</li><li>Why should recovery roles be exempt from deny guardrails?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Let players discover the circular dependency.</li><li>Ask for a second person on every emergency action.</li><li>Link to architect guidance on exempting recovery principals.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Root user needed</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The only remaining route to the management account is the root user. The root email mailbox belongs to a distribution list, and the hardware MFA key is in a safe at the headquarters that only two people can open. One is on leave and the other is in a meeting.</p>
+<p>Using root is allowed by policy only with the CISO&#x27;s approval, and the CISO&#x27;s delegate cannot be found.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide whether to invoke root and who authorizes it.</li><li>Set a deadline after which the alternative path is chosen.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan to monitor and record all root activity and rotate credentials afterward.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AWS Support &amp; TAM Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open a case and ask about account recovery options if the MFA is unavailable.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record the approval chain and any deviation from policy.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Who can authorize root use and how is it controlled?</li><li>What is the recovery path if the MFA key is unavailable?</li><li>What monitoring applies while root is in use?</li><li>What must change about root custody afterward?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not allow a hand-wave; ask who physically holds the key.</li><li>Note the single-point-of-failure custody.</li><li>Tests knowledge of AWS recovery without MFA.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Suspicious API calls during the window</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Security Operations finds API calls from an unfamiliar IP address using a long-term access key for an IAM user in a shared services account, made during the first twenty minutes of the lockout. The calls listed roles and policies.</p>
+<p>Nobody can say whether this is related to the lockout or a coincidence.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide how to run security and recovery in parallel without conflict.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Identity &amp; IAM Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check whether the key&#x27;s permissions were affected by the SCP.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Preserve CloudTrail, correlate with the SCP change timeline and determine the key&#x27;s owner.</li><li>Decide whether to disable the key now, accepting the effect on its owner.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess whether a security incident notification process applies.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is the lockout related to this activity and what evidence would show it?</li><li>Do you disable the key during recovery?</li><li>How do you run the two efforts in parallel?</li><li>What triggers a formal security incident declaration?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Keep ambiguous; do not confirm compromise.</li><li>Watch how players weigh evidence.</li><li>Check evidence preservation.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Autoscaling failing in production</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A production trading API cluster hits a market-data surge. Auto Scaling tries to add instances but the launch fails because the service-linked role actions are denied by the SCP. Latency rises and the trading desk is concerned.</p>
+<p>Manual console launch is also blocked for most engineers.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide whether to prioritize a partial policy fix that restores scaling first.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Pre-scale by modifying desired capacity from a path that still works.</li><li>List other services depending on service-linked roles.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application &amp; Pipeline Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Shed noncritical load and warn the trading desk about limited capacity.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Coordinate with the desk on manual risk limits.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you protect capacity while access is broken?</li><li>Could a partial fix restore scaling sooner and what are the risks?</li><li>What other services rely on service-linked roles?</li><li>How are trading risk limits adjusted?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests operational impact beyond administration.</li><li>Look for the idea of a narrowly scoped carve-out.</li><li>Ask who owns trading risk decisions.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Revert merges but the pipeline queue jams</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Access to the management account is restored and the revert commit merges. The pipeline has 28 failed runs queued ahead and starts replaying them, including an unrelated infrastructure change that would modify networking in production.</p>
+<p>The pipeline owner is unsure how to cancel the queue safely.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reinforce the change freeze.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Identity &amp; IAM Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verify the revert in a test OU before the root.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Cancel or pause queued runs and apply the revert first.</li><li>Review the unrelated change before allowing it.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application &amp; Pipeline Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm which held releases may proceed afterward.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you protect production from queued changes?</li><li>What order should changes be applied in?</li><li>Who approves releasing held deployments?</li><li>How is the revert verified?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Look for freeze discipline.</li><li>Ask about a test OU.</li><li>Tests release management under pressure.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Wrong OU detached</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Under time pressure, an engineer detaches the SCP from the Production OU rather than from the organization root, exposing production accounts to actions the original policy intended to block, including IAM user creation.</p>
+<p>The error is spotted twenty minutes later during review.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reinforce a two-person rule on every change.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Identity &amp; IAM Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reattach the correct configuration and assess which actions occurred in the exposure window.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review CloudTrail for IAM user and key creation during the window.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record the error as a recovery-stage deviation.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you manage human error during recovery?</li><li>What should be checked after the exposure window?</li><li>How can two-person execution be enforced under pressure?</li><li>What does this say about guardrail design?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not blame; examine process.</li><li>Ask who checks each change.</li><li>Link to change control evidence.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands an ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The CIO and the head of trading operations join the bridge. Regulators expect resilient controls, and the head of trading asks whether any trade capture or risk systems are affected.</p>
+<p>The team has partial restoration in some accounts and not others.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide a status by account group and the confidence of each estimate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application &amp; Pipeline Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm status of trade capture and risk systems.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Draft updates and a regulator-facing holding statement if required.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Advise whether notification obligations exist.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you commit to and what are you unsure of?</li><li>How do you describe partial restoration?</li><li>Is regulator notification needed?</li><li>What do the trading desks need to know?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reward precise statements by account group.</li><li>Watch for overconfidence.</li><li>Check coordination between BC and GRC.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Access returns but sessions are stale</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The corrected SCP is attached. Some users regain access, but many still see AccessDenied because cached credentials, existing sessions and Identity Center assignments take time to refresh. Some OIDC roles still fail trust evaluation.</p>
+<p>The service desk is flooded with calls and conflicting advice circulates.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Identity &amp; IAM Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Explain session expiry and what to refresh, and check trust policies for OIDC roles.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Re-run key pipelines in a controlled order.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application &amp; Pipeline Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Service desk: publish one set of instructions and a status page.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track success rates of role assumption over time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What do you tell users who still cannot access?</li><li>Which components cache permission decisions?</li><li>How do you verify recovery systematically?</li><li>How do you stop conflicting advice?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests post-fix reality.</li><li>Look for a single source of truth for status.</li><li>Avoid declaring victory early.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Audit asks for the approval trail</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Internal audit asks for the review and approval record of the SCP change, the emergency actions and the root use. The pull request shows a single approval comment reading &#x27;LGTM&#x27; ten minutes after the request.</p>
+<p>The emergency changes were made by voice on the bridge and the scribe has partial notes.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm decisions recorded.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Document each manual change with time and person.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide CloudTrail export and integrity evidence.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compile an evidence pack: pull request, pipeline logs, CloudTrail, bridge notes and approvals.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What does the evidence show about review quality?</li><li>How are voice decisions recorded?</li><li>What gaps would an auditor flag?</li><li>What control improvements follow?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Use for ISO/IEC 27001:2022 8.32 discussion.</li><li>Ask for specific evidence items.</li><li>Stay factual.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Pressure to drop the guardrail</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Several engineering leaders argue that the SCP guardrail should be removed because it caused a major outage. Security argues the control objective remains valid, since long-term IAM keys are a known risk.</p>
+<p>The CIO asks for a recommendation.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record the recommendation and owner.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Identity &amp; IAM Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Propose a tested, staged redesign of the policy.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Explain the risk the control addresses.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Frame options with risk and control implications.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Should the guardrail be dropped, kept or redesigned?</li><li>What testing is required before reapplying?</li><li>How are recovery principals protected from deny?</li><li>How is success measured?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Keep it balanced.</li><li>Look for staged rollout and carve-outs.</li><li>Capture the decision.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out and exit criteria</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Access is restored and pipelines are green. The break-glass user was used and its credentials need rotation. The root user was accessed and its MFA must be re-sealed. Several temporary console edits differ from the code.</p>
+<p>The scribe&#x27;s timeline is incomplete.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria including credential rotation and code reconciliation.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reconcile live policies with code.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Rotate break-glass credentials and review root activity.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Finalize timeline and actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What must be true before closing?</li><li>Which temporary changes remain?</li><li>Who rotates and re-seals credentials?</li><li>When is the post-incident review?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads into the debrief.</li><li>Check reconciliation of manual edits.</li><li>Confirm owners and dates.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, sets priority for restoring administrative access and protecting running trading workloads.</li><li>Runs a 20-minute cadence at first, assigns the scribe and records decisions.</li><li>Authorizes use of the break-glass identity and any root user recovery.</li><li>Decides on a change freeze across all accounts.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Identity &amp; IAM Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reads AccessDenied messages and CloudTrail events citing an explicit deny from an organization SCP and identifies the offending statement.</li><li>Uses the policy simulator and Access Analyzer to confirm which principals are affected.</li><li>Prepares the corrected policy and a safe sequence, testing it on a sandbox OU first when time allows.</li><li>Verifies Identity Center permission sets and OIDC roles after the fix.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Platform &amp; Landing Zone Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Determines who can act in the management account and how the SCP is managed in code, and prepares the revert commit and the manual detach.</li><li>Checks that the infrastructure pipeline&#x27;s own role is not blocked from applying the fix.</li><li>Plans staged reattachment of a corrected SCP to OUs, starting with non-production.</li><li>Maintains an inventory of accounts and OUs affected.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application &amp; Pipeline Owners</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Pipeline owners list failed deployments and in-flight releases and place them on hold.</li><li>Application owners confirm which trading systems continue to run and what cannot be changed.</li><li>Owners identify manual workarounds, including pre-scaled capacity.</li><li>Prepare validation tests.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reviews CloudTrail in the management account for who approved and merged the change and any suspicious activity in the window.</li><li>Checks for use of long-term keys and unexpected principals while controls were disrupted.</li><li>Assesses whether the change aimed to hinder defenders and preserves evidence.</li><li>Monitors GuardDuty and Security Hub findings that may be affected.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">AWS Support &amp; TAM Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Opens a high-severity support case from the management account and asks for root user recovery steps if needed.</li><li>Asks about how SCPs affect service-linked roles and what AWS can and cannot do.</li><li>Records recommendations.</li><li>Escalates through the technical account manager.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates the continuity plan for trading operations and informs trading desk leadership.</li><li>Issues time-stamped updates to leadership.</li><li>Coordinates manual risk controls during the freeze.</li><li>Tracks time to restore administrative access.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28, 8.2 privileged access rights, 8.32 change management; SOC 2 security and availability).</li><li>Evaluates regulatory implications for trading system change controls.</li><li>Captures evidence of approvals and the review gap.</li><li>Logs findings on break-glass design, root user custody and policy testing.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Guardrails need guardrails. Test every SCP in a sandbox OU with the policy simulator, roll out OU by OU, require two real reviewers and add automated checks that fail on broad NotAction or wildcard denies of iam, sts and organizations actions.</p>
+<p>Design break-glass for failure of SSO: emergency IAM roles or users in the management account with credentials and MFA stored offline in a split-custody process, tested quarterly and alerted on every use.</p>
+<p>Keep a documented root user recovery path with named custodians and alternates, hardware MFA in two locations, and rehearsed procedures.</p>
+<p>Exempt essential recovery principals from deny guardrails by design, using principal tags or ARNs reviewed by security, so that remediation always remains possible.</p>
+<p>Auditors for ISO/IEC 27001:2022 (8.2, 8.32) and SOC 2 expect evidence of privileged access management, change review quality and tested emergency access.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on break-glass access and the quality of the SCP review.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How quickly did the team link the lockout to the SCP change and what data showed it?</li><li>Who can act in the management account and did that match your assumption?</li><li>Where are break-glass credentials and did they depend on the broken path?</li><li>Who holds the root user MFA and what is the recovery procedure?</li><li>How was the SCP tested before it reached the organization root?</li><li>How did the review process miss the NotAction logic?</li><li>What was the sequence for fixing and why?</li><li>What happened to running workloads and scaling?</li><li>What did security find in the logs for the window?</li><li>How was human error during recovery managed?</li><li>How accurate were communications to leadership and the trading desk?</li><li>What evidence did the scribe capture that auditors would need?</li><li>What access or permissions were missing?</li><li>What would you change in guardrail rollout?</li><li>How often will break-glass be tested?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

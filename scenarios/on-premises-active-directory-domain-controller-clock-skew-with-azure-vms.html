@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On-Premises Active Directory Domain Controller Clock Skew with Azure VMs | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">On-Premises Active Directory Domain Controller Clock Skew with Azure VMs</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">Hybrid Cloud (Azure Focus)</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines a domain controller holding the time role that drifts after a failed time source and a virtualization host sync, so Kerberos tickets fail for Azure VMs and cloud-joined services, authentication breaks across the hybrid estate and logs show inconsistent timestamps.</p>
+<p>Participants are working-level: directory services engineers, cloud platform engineers, application owners, the service desk, security operations and monitoring staff, the Microsoft support liaison, business continuity coordinators and compliance staff. The exercise tests understanding of the PDC emulator time role, Kerberos skew tolerance, host time sync, Azure VM time sources and log correlation.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Hartwell Energy runs Active Directory with its PDC emulator on a virtual machine on-premises. Azure VMs join the domain and use the domain hierarchy for time. The upstream NTP source was a single appliance that failed last week. Hypervisor time sync is enabled on the PDC emulator VM.</p>
+<p>At 06:45 on Friday, the PDC emulator drifts 11 minutes ahead after a host time sync conflict. Kerberos fails for any client beyond five minutes of skew. Azure VMs, file shares and SQL services report authentication errors. Service accounts fail, scheduled jobs stop and administrators cannot sign in to some servers. SIEM correlation across systems breaks because of timestamp differences.</p>
+<p>What the team does not yet know: some systems are ahead and some behind, a sudden time correction can break replication or invalidate tickets, certificate validity checks are affected, and a security team suspects tampering.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Recognize time skew.</strong> Participants identify the skew pattern across domain, hosts and cloud VMs.</li><li><strong class="text-white">Correct time safely.</strong> The team fixes the authoritative source and steps or slews time carefully.</li><li><strong class="text-white">Restore authentication.</strong> Engineers restore Kerberos function and service accounts.</li><li><strong class="text-white">Preserve evidence integrity.</strong> Participants record skew periods for log correlation.</li><li><strong class="text-white">Rule out tampering.</strong> The team distinguishes drift from malicious change.</li><li><strong class="text-white">Improve time architecture.</strong> Participants review time sources, host sync settings and monitoring.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Record the measured offset of each key system before and after correction.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Authentication failures and skew lead to declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Containment.</span> The time source is fixed and priority set.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Diagnosis.</span> Skew and impact are diagnosed.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Remediation planning.</span> A correction and recovery plan is agreed.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Execution.</span> Time is corrected in order.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Stabilization.</span> Authentication stabilizes.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Services and logs are validated.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to normal and close-out.</span> Normal operation resumes and the incident is closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Kerberos fails as domain time drifts</a></p><p><strong class="text-white">#2 &middot; T+00:20 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Replication risk</a></p><p><strong class="text-white">#3 &middot; T+00:20 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Certificate validity</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Tampering suspicion</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Service accounts locked</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Log correlation gap</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Cloud time source choice</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands an ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Time stability verification</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Energy regulator inquiry</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Time architecture review</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out and exit criteria</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Kerberos fails as domain time drifts</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 07:20. Azure VMs, file shares and SQL services report authentication errors. Administrators cannot sign in to some servers.</p>
+<p>The directory engineer finds the PDC emulator 11 minutes ahead after host time sync conflicted with domain time. The upstream NTP source is down.</p>
+<p>SIEM correlation is broken. Some servers are ahead and some behind.</p>
+<p>Facilitator provides: offset measurements, time configuration and error logs.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and name the technical lead and scribe.</li><li>Authorize time correction on the PDC emulator.</li><li>Set the next update at T+00:20.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Directory Services Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Measure offsets.</li><li>Fix source.</li><li>Plan correction order.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check VM time.</li><li>Correct VMs.</li><li>Validate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>List failures.</li><li>Service desk: issue the holding message.</li><li>Plan job restarts.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Document offsets.</li><li>Check tampering.</li><li>Preserve logs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Microsoft, Carrier &amp; Vendor Support Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open a case.</li><li>Ask about config.</li><li>Record guidance.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Inform leadership.</li><li>Prepare the first update.</li><li>Plan operations notice.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask about log integrity duties.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you find who is ahead and who is behind?</li><li>Which source is authoritative and why?</li><li>How do you correct time without breaking replication?</li><li>What is the order of correction?</li><li>How do you prove it was drift and not tampering?</li><li>What do you record for log correlation?</li><li>What do operations staff hear?</li><li>Why was hypervisor sync enabled?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the host sync conflict until T2 checks hypervisor settings.</li><li>If players step time on all servers, ask about tickets and replication.</li><li>Look for measured offsets.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Replication risk</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Stepping the PDC emulator back may affect replication timing.</p>
+<p>Teams debate slew versus step.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Directory Services Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Choose method with tests.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Validate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Step or slew?</li><li>What are the risks?</li><li>Who decides?</li><li>How do you verify?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests technical depth.</li><li>Look for care.</li><li>Avoid reflex.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Certificate validity</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Some certificates appear not yet valid on drifted servers.</p>
+<p>Services fail TLS.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Directory Services Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Validate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Correct time first.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What do you correct first?</li><li>How do you verify TLS?</li><li>Who decides?</li><li>What is the risk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests sequence.</li><li>Look for roots.</li><li>Avoid reissue.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Tampering suspicion</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Security notes time changes by an account at 03:12.</p>
+<p>Possibly a scheduled sync.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Directory Services Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide logs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Investigate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is it tampering?</li><li>What evidence?</li><li>Who decides?</li><li>What containment?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests discipline.</li><li>Look for facts.</li><li>Avoid assumption.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Service accounts locked</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Failed Kerberos attempts locked service accounts.</p>
+<p>Jobs remain down.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Directory Services Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Unlock after correction.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Restart jobs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Watch.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>When do you unlock?</li><li>In what order?</li><li>Who decides?</li><li>What is the risk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests sequencing.</li><li>Look for order.</li><li>Avoid early unlocks.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Log correlation gap</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Logs from the drift period are offset by up to 11 minutes.</p>
+<p>An investigation needs them.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Directory Services Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide data.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Create offset map.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you preserve usefulness?</li><li>What do you document?</li><li>Who approves?</li><li>What is the risk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests evidence.</li><li>Look for mapping.</li><li>Avoid alteration.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Cloud time source choice</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Azure VMs could use host time instead of domain time.</p>
+<p>Teams disagree.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Directory Services Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Advise.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess options.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which source?</li><li>What are the risks?</li><li>Who decides?</li><li>What is the standard?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests design.</li><li>Look for standards.</li><li>Avoid ad hoc.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands an ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The COO asks when authentication is normal and what the exposure is.</p>
+<p>The team has partial data: some facts are confirmed, some are estimates and some are unknown, and the answer given now will be quoted later.</p>
+<p>Teams disagree about how much to commit to, and a wrong promise would damage trust more than an honest range.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>State status, risks, next decision.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide numbers.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Draft message.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track exposure.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you commit to?</li><li>What is known and unknown?</li><li>What do stakeholders hear?</li><li>What obligations apply?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reward honesty.</li><li>Check numbers.</li><li>Look for decisions.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Time stability verification</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Offsets are under one second.</p>
+<p>Teams want to close.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set conditions.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Directory Services Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verify across sites.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Validate VMs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you verify?</li><li>What threshold?</li><li>Who decides?</li><li>What is the fallback?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests control.</li><li>Look for thresholds.</li><li>Avoid premature closure.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Energy regulator inquiry</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Energy regulator asks about operational systems access and log integrity.</p>
+<p>Counsel wants verified facts only and a single approved voice for external statements.</p>
+<p>The scribe&#x27;s log is the main evidence, and some entries are incomplete.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide data.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Coordinate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compile verified facts.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you state as fact?</li><li>Who approves?</li><li>How do you handle unknowns?</li><li>What commitments?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests discipline.</li><li>Reject speculation.</li><li>Check approvals.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Time architecture review</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Review found a single NTP source, hypervisor sync on the PDC emulator and no drift alerting.</p>
+<p>Leadership asks for a plan.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign owners.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Directory Services Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Propose multiple sources.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Propose VM settings.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Frame evidence.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What controls prevent this?</li><li>What sources?</li><li>What alerts?</li><li>Who owns?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Feed the debrief.</li><li>Insist on owners.</li><li>Look for design fixes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out and exit criteria</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Service is stable. Temporary changes, exceptions and manual records remain in place.</p>
+<p>The scribe lists open actions, but several have no owner or date.</p>
+<p>Teams are tired and want to stand down, and the commander must decide what has to be true before the incident closes.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Directory Services Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review temporary changes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm alerts.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What must be true before closing?</li><li>Which temporary changes remain?</li><li>Who owns follow-up?</li><li>When is the review?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads into the debrief.</li><li>Check temporary changes.</li><li>Confirm owners and dates.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, prioritizes authentication and trust across the on-premises and cloud estate and sets approval rules for risky changes.</li><li>Runs a 20-minute cadence at first, assigns the scribe and records decisions.</li><li>Authorizes emergency changes, exceptions and spend.</li><li>Decides on stakeholder communications and the end of the incident.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Directory Services Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Measures offsets with domain time tools.</li><li>Corrects the PDC emulator source.</li><li>Plans controlled correction order.</li><li>Plans replication checks.</li><li>Records actions and results for the scribe.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Platform Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Checks Azure VM time settings and host sync.</li><li>Corrects drifted VMs.</li><li>Validates domain-joined cloud services.</li><li>Tracks affected servers.</li><li>Records actions and results for the scribe.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Service Desk</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners list services that failed.</li><li>The service desk logs sign-in issues.</li><li>Owners restart jobs after correction.</li><li>Prepare validation checks.</li><li>Records actions and results for the scribe.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security Operations &amp; Monitoring</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Documents timestamp offsets for log correlation.</li><li>Checks for tampering signs.</li><li>Preserves logs.</li><li>Adds time drift alerts.</li><li>Records actions and results for the scribe.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Microsoft, Carrier &amp; Vendor Support Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Opens a case on VM time sources and Kerberos.</li><li>Asks about recommended time configuration.</li><li>Requests guidance on host sync.</li><li>Escalates through the TAM.</li><li>Records Google Cloud guidance and case numbers.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates continuity for plant and control operations and informs leadership.</li><li>Issues time-stamped updates.</li><li>Coordinates workarounds and external contacts.</li><li>Tracks business impact.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28, 8.17 clock synchronization, 8.15 logging; SOC 2 security and availability).</li><li>Assesses operational systems access and log integrity.</li><li>Captures evidence of decisions and approvals.</li><li>Logs findings for the debrief.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Configure multiple reliable upstream time sources for the PDC emulator and disable conflicting hypervisor sync.</p>
+<p>Set a consistent time standard for Azure VMs.</p>
+<p>Alert on offset between domain controllers and key systems.</p>
+<p>Record and map skew periods for log correlation.</p>
+<p>Auditors for ISO/IEC 27001:2022 (8.17 clock synchronization, 8.15) and SOC 2 expect time synchronization and log integrity evidence.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on measured offsets and safe correction.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How did you measure offsets?</li><li>How did you pick the authoritative source?</li><li>How did you correct time?</li><li>How did you restore authentication?</li><li>How did you rule out tampering?</li><li>How did you handle logs?</li><li>How accurate were updates to leadership?</li><li>What did the Microsoft, Carrier &amp; Vendor Support Liaison add?</li><li>What evidence did the scribe capture for auditors?</li><li>What access or permissions were missing?</li><li>What alerts are missing?</li><li>What temporary changes remain and who owns them?</li><li>What would you change in the design?</li><li>What did the team do well?</li><li>What surprised you?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Store Corruption Poisons Every Model That Reads It | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Feature Store Corruption Poisons Every Model That Reads It</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">AI Gone Rogue</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines feature store corruption that poisons every model that reads it. A data lakehouse across multiple clouds serves shared features to dozens of models, and an agent that maintains the store writes corrupted values.</p>
+<p>Participants are the working-level incident team: data engineers across clouds, AI platform and model owners, application owners, security analysts, business process owners, privacy and legal staff, communications and continuity coordinators, and a liaison to senior leaders or the board of directors where authority is needed. The exercise tests lineage, quarantine and recovery of shared data assets.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session. The scenario is industry-agnostic: substitute your own processes, platforms and teams wherever the text names a generic one.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Technology and Environment Context</h3>
+<p>Technology in scope: Data Lakehouse &amp; Multi-Cloud. Granger Retail Group runs a data lakehouse across Google Cloud, Azure and AWS. A shared feature store holds customer, product and inventory features read by 45 models for pricing, recommendations, forecasting and fraud. A maintenance agent deduplicates, backfills and compacts feature tables on a schedule.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>The agent applies a backfill with a wrong join key after a schema change. It writes null and shifted values into 60 percent of customer and product features, then compacts the tables, removing earlier versions.</p>
+<p>Over two days, 45 models retrain or score with the corrupted features. Recommendations become irrelevant, forecasts swing, fraud scores flatten and pricing suggestions drift. No model owner sees an error.</p>
+<p>On Wednesday revenue per visit falls and fraud losses rise. A data scientist spots mismatched distributions. The platform dashboard says &#x27;feature freshness 100 percent, pipeline success 100 percent&#x27;.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">What Participants Know at the Start</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>The maintenance agent wrote corrupted features.</li><li>Compaction removed earlier versions.</li><li>45 models consumed the corrupted data.</li><li>The dashboard reports freshness and success.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">What Is Not Yet Known</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Which tables and time ranges are corrupt.</li><li>Whether earlier versions can be recovered.</li><li>Which models retrained on bad data.</li><li>What decisions were made by those models.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Quarantine the store.</strong> The team suspends the agent and freezes writes and reads of corrupted tables. Evidence of success: Models stop reading corrupted features within 30 minutes.</li><li><strong class="text-white">Recover good data.</strong> Engineers restore feature tables from backups, lake snapshots and source systems. Evidence of success: Verified good features are available for critical models within eight hours.</li><li><strong class="text-white">Roll back models.</strong> Model owners revert models retrained on bad data to previous versions. Evidence of success: Critical models run on verified versions within a day.</li><li><strong class="text-white">Review decisions.</strong> Business teams review decisions affected by poisoned models and reverse harmful ones. Evidence of success: High-risk decisions are reviewed within two business days.</li><li><strong class="text-white">Brief leadership precisely.</strong> The liaison reports business effects and recovery. Evidence of success: Leadership receives a fact sheet with confirmed and estimated values.</li><li><strong class="text-white">Install data controls.</strong> Participants define data quality gates, versioned features, lineage and agent write limits. Evidence of success: At least four controls are agreed with owners and dates.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to staff, customers, partners and leadership are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management reviewers and SOC 2 availability, security and processing integrity reviewers. Evidence of success: the decision log lets an outsider reconstruct who decided what, when and on which facts.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations, models or backups will be touched. Commands, consoles and agent settings are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Exercise information is confidential until the after-action report is approved. Mark any written or chat message &#x27;exercise exercise exercise&#x27;.</li><li>Treat the AI system&#x27;s outputs, logs and self-reported status as unverified until a named person confirms them from an independent source. The scribe records which facts are verified and which are claimed.</li><li>If a kill switch, rollback, approval gate or manual fallback does not exist in your environment, say so aloud. Do not assume the AI system will correct itself, stop when asked or explain its own actions reliably.</li><li>Use the word leadership for senior leaders, a board of directors or both, and bring them in only when a decision needs their authority.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Revenue falls and fraud rises. Decision: declare and quarantine the store. Escalate to leadership or change course if: Distribution mismatch; Fraud losses; Dashboard 100 percent.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Containment.</span> Containment: freeze writes and reads. Escalate to leadership or change course if: Models cache features; Compaction ran; Agent scheduled again.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Diagnosis.</span> Diagnosis: identify corrupt ranges and consumers. Escalate to leadership or change course if: Lineage incomplete; Earlier versions gone; Models unknown.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Remediation planning.</span> Remediation planning: choose restore and rollback order. Escalate to leadership or change course if: Teams disagree on order; Backups old; Business pressure.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Execution.</span> Execution: restore data and revert models. Escalate to leadership or change course if: Restores conflict; Model rollback fails; Retraining needed.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Stabilization.</span> Stabilization: monitor features and model outputs. Escalate to leadership or change course if: Agent attempts resume; Drift returns; Alert noise.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Validation: compare features to source. Escalate to leadership or change course if: Residual corruption; Evidence gaps; Unmatched keys.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to normal and close-out.</span> Return to normal and close-out: set exit criteria and actions. Escalate to leadership or change course if: Open actions lack owners; Leaders want early return; Auditors request evidence.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Feature store corruption poisons every model that reads it</a></p><p><strong class="text-white">#2 &middot; T+00:20 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Lost versions</a></p><p><strong class="text-white">#3 &middot; T+00:20 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Model retrained</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Fraud exposure</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Cross-record join</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Pricing drift</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Regulator contact</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership asks for scope</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Social media</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Agent schedule</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Staff fatigue</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out debate</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Feature store corruption poisons every model that reads it</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 09:30 on Wednesday. Revenue per visit has fallen and fraud losses are rising. A data scientist finds feature distributions that no longer match history. The data engineer finds the maintenance agent ran a backfill with a wrong join key and then compacted the tables.</p>
+<p>Earlier versions are gone from the main store. 45 models have scored or retrained on corrupted features. The platform dashboard shows freshness and pipeline success at 100 percent.</p>
+<p>The commander must decide how to quarantine the store, how to recover data and which models to roll back first.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and assign a scribe, a data lead, a model lead, a fraud lead and a business lead.</li><li>Authorize suspending the agent and freezing the store.</li><li>Set a 20-minute cadence.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AI Platform &amp; Model Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Suspend the agent and list models and their versions.</li><li>Compare feature distributions to history.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Freeze writes and reads and locate snapshots and backups across clouds.</li><li>Preserve logs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Forensics</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check whether the backfill was tampered with.</li><li>Preserve evidence.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business &amp; Process Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prioritize critical models and review decisions.</li><li>Plan manual alternatives.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Data Protection &amp; Privacy</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check whether corrupted joins exposed personal data across records.</li><li>Assess notice duties.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the record and review data quality and customer obligations.</li><li>Preserve evidence.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare internal and customer messages.</li><li>Set one channel.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Leadership Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Brief senior leaders with facts and unknowns.</li><li>Check for board-level duties.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Third-Party Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Contact lakehouse and cloud vendors for snapshot recovery.</li><li>Open support cases.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Why quarantine the store before restoring?</li><li>How do you find which models consumed bad data?</li><li>Which models do you roll back first?</li><li>How do you review decisions?</li><li>What do you tell customers?</li><li>Why must versions of features be kept?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the lost versions until INF asks about snapshots.</li><li>If players only restore features, ask about retrained models.</li><li>Look for lineage.</li><li>Time-box to 40 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Lost versions</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Compaction removed older versions.</p>
+<p>Decision required: How to restore.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AI Platform &amp; Model Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Rebuild.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Use snapshots.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What source?</li><li>Who owns?</li><li>What gap?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Recovery.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Model retrained</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Seven models retrained on bad data and overwrote their versions.</p>
+<p>Decision required: How to revert.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AI Platform &amp; Model Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Restore.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Deploy.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What source?</li><li>Who approves?</li><li>What risk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Model rollback.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Fraud exposure</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Fraud scores flattened for two days.</p>
+<p>Decision required: How to review.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Forensics</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business &amp; Process Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review cases.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What review?</li><li>Who owns?</li><li>What loss?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Fraud.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Cross-record join</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The wrong join mixed customer attributes.</p>
+<p>Decision required: How to assess.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Data Protection &amp; Privacy</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Advise.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What exposure?</li><li>Who decides?</li><li>What notice?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Privacy.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Pricing drift</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Pricing suggestions changed margins.</p>
+<p>Decision required: How to correct.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AI Platform &amp; Model Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Revert.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business &amp; Process Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review prices.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What review?</li><li>Who approves?</li><li>What cost?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Pricing.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Regulator contact</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A privacy regulator asks about cross-record data.</p>
+<p>Decision required: What is fact.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compile facts.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is fact?</li><li>What is estimate?</li><li>Who signs?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reporting.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership asks for scope</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A senior leader asks what was affected.</p>
+<p>Decision required: What can be said.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AI Platform &amp; Model Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide inventory.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Leadership Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Give status.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is known?</li><li>What is unknown?</li><li>Who approves?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Honest scope.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Social media</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Customers post irrelevant recommendations.</p>
+<p>Decision required: How to respond.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare statement.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Leadership Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What message?</li><li>Who speaks?</li><li>What risk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Public response.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Agent schedule</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The agent is scheduled to run again tonight.</p>
+<p>Decision required: How to stop.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AI Platform &amp; Model Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Revoke.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Disable job.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What control?</li><li>Who acts?</li><li>What test?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Persistence.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Staff fatigue</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Data teams are on hour 12.</p>
+<p>Decision required: How to hand over.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Structured handover.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What goes in?</li><li>Who briefs?</li><li>How kept?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Handover.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out debate</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Teams want the agent back for deduplication only.</p>
+<p>Decision required: What conditions apply.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AI Platform &amp; Model Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Define scope.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What criteria?</li><li>Who approves?</li><li>What monitoring?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Return conditions.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Sets objectives for the first hour and states which decisions need the commander&#x27;s own approval, including whether the feature store maintenance agent stays disabled, restricted or supervised.</li><li>Runs a fixed update cadence and keeps one decision log with the decision, owner and time.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">AI Platform &amp; Model Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Knows models, versions and feature consumption.</li><li>Provides distribution comparisons.</li><li>Owns the technical facts about the feature store maintenance agent: its configuration, permissions, tools, prompts, memory and recent changes.</li><li>Preserves model, agent and orchestration logs before any restart or redeployment.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Infrastructure &amp; Platform Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Freezes the store, locates snapshots and restores data across clouds.</li><li>Owns the lakehouse.</li><li>Owns the technical response on the platforms and networks involved and keeps changes small, reversible and logged.</li><li>Maintains a list of every manual change so it can be reversed or formalized afterwards.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security Operations &amp; Forensics</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Checks tampering and preserves evidence.</li><li>Treats the event as a possible security incident until evidence shows otherwise and preserves evidence in a forensically sound way.</li><li>Looks for misuse of credentials, tokens and tool permissions, not only the AI system&#x27;s own actions.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business &amp; Process Owners</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Owns decision reviews and critical processes.</li><li>Defines which business processes must continue, in what order, and what manual alternatives are acceptable.</li><li>Identifies decisions, transactions or communications that were made by the AI system and need review or reversal.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Data Protection &amp; Privacy</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Determines whether personal, confidential or regulated data was accessed, changed, shared or lost.</li><li>Identifies the lawful basis, notification clocks and contractual commitments that may apply.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Legal, Risk &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Owns data quality and customer obligations.</li><li>Ensures the incident is recorded, classified and linked to risk and control owners (ISO/IEC 27001:2022 (8.13, 8.32, 5.37, 8.15) and SOC 2 processing integrity and availability).</li><li>Identifies regulatory, contractual and insurance obligations and their clocks.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Communications &amp; Business Continuity</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Issues time-stamped updates to staff, customers and partners from one approved source.</li><li>Activates continuity plans and workarounds and tracks their capacity.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Leadership Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Briefs senior leaders and, where needed, the board of directors with confirmed facts, unknowns and the decisions that need their authority.</li><li>Brings back leadership decisions such as spend, risk acceptance and external disclosure in time to be useful.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Vendor &amp; Third-Party Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Works with lakehouse and cloud vendors.</li><li>Opens priority cases with the cloud, SaaS, model and tooling vendors involved and records case numbers.</li><li>Requests logs, configuration histories and root cause statements in writing.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Version and retain features</h3>
+<p>Keep point-in-time versions of every feature table with retention that outlasts model retraining cycles.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Gate writes with quality checks</h3>
+<p>Validate null rates, ranges and key integrity before any write is committed, and block on failure.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Limit the maintenance agent</h3>
+<p>Maintenance may stage changes, but promotion to the shared store requires review and a diff.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Record lineage</h3>
+<p>Track which models read which features and versions.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Monitor feature drift</h3>
+<p>Alert on distribution shifts of shared features, aligned with ISO/IEC 27001:2022 data integrity, backup and change controls and SOC 2 processing integrity (8.13, 8.32, 5.37).</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Protect model versions</h3>
+<p>Never overwrite deployed model versions.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Stage backfills</h3>
+<p>Run backfills in a shadow table and compare before promotion.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Alert on compaction</h3>
+<p>Review compaction jobs that delete versions.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Rehearse a poisoned store drill</h3>
+<p>Corrupt a copy of the store and practice recovery and model rollback.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Define consumer notification</h3>
+<p>Tell model owners immediately when a feature table is quarantined.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Treat freshness as partial</h3>
+<p>Fresh but wrong data is worse than stale data. Add validity measures.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Train the on-call team on the feature store maintenance agent</h3>
+<p>Give every on-call engineer a short, practical briefing on what the feature store maintenance agent does, what it can change and how to stop it, and refresh it each quarter. People who have never seen the stop procedure will hesitate to use it, and hesitation is expensive when the agent acts in seconds.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Set a review trigger for the feature store maintenance agent</h3>
+<p>Define conditions that automatically force a review of the feature store maintenance agent, such as a major vendor update, a doubling of its permissions, a quarter of unexplained alerts or any customer-visible error. Triggers make review a response to evidence instead of a calendar habit.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Document the business owner of the feature store maintenance agent</h3>
+<p>Name a single accountable business owner for the feature store maintenance agent who accepts its risks, approves changes to its scope and attends incident reviews. Technical teams can stop and repair it, but only a business owner can decide what failure is tolerable.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Keep a communications fallback for the feature store maintenance agent</h3>
+<p>Prepare holding statements, contact lists and approved channels that do not depend on the systems the feature store maintenance agent touches. If the agent affects email, chat or customer portals, the response team still needs a way to speak to staff and customers.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. Announce the end, remind everyone that all actions were simulated, and keep everyone in the room for the hot wash.</li><li>Take five minutes of silent notes. Each participant writes three things that worked, three that did not and any gap in tools, access or documentation.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, role by role and then open floor, for 45 to 60 minutes. Keep the discussion on how the feature store maintenance agent was permissioned, supervised and stopped.</li><li>Hold evaluator readouts. Evaluators share timing, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate impact and effort, and select no more than ten.</li><li>Assign corrective actions. Give each action an owner, a due date and a verification method, and record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates.</li><li>Schedule the follow-up. Validate fixes within 90 days and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How quickly did the team link the business signals to features?</li><li>How did you quarantine the store?</li><li>How did you recover data?</li><li>Which models did you roll back first?</li><li>What did customers hear?</li><li>Which data controls do you now want?</li><li>How will lineage help next time?</li><li>What would make you trust the store again?</li><li>How accurate were the updates to leadership, and what was said that later proved wrong?</li><li>What did the vendor and third-party liaison add, and what did you still lack from vendors?</li><li>What evidence did the scribe capture that would satisfy an auditor, and what is missing?</li><li>Which permissions, approvals or access did the team lack at the moment they were needed?</li><li>Which alerts or detections should exist that did not?</li><li>What temporary changes remain, who owns them and when will they be reversed?</li><li>If you could change one design decision about how AI systems are built, permissioned or supervised here, what would it be?</li><li>What did the team do well that should be written into the runbook?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

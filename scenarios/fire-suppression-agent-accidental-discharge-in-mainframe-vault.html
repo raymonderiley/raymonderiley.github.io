@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire Suppression Agent Accidental Discharge in Mainframe Vault | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Fire Suppression Agent Accidental Discharge in Mainframe Vault</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">On-Premises Infrastructure</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines the accidental discharge of a clean-agent fire suppression system in the room housing the mainframe and its tape vault. There is no fire, but the discharge creates a loud pressure wave, a rapid temperature drop, a room that cannot be entered for a period of time and possible physical damage to disks, tape drives and other equipment sensitive to acoustic shock and pressure.</p>
+<p>The exercise is for working-level participants: mainframe operators and systems staff, facilities and fire-safety engineers, tape and storage operators, physical security, application owners, the service desk, business continuity coordinators and compliance staff. It focuses on rapid assessment of equipment health, safe re-entry, the status of the system after sudden shutdown and the unusual loss of access to tape media stored in the vault.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Pinnacle Health Plans operates a mainframe, its disk subsystems and a 3,000-cartridge tape library in a dedicated vault-like computer room protected by a clean-agent (HFC-227ea) suppression system with dual-zone smoke detection and a manual release station. The room supports claims adjudication, eligibility and a nightly reporting cycle, and houses the on-site tape vault that holds weekly full backups and archive logs.</p>
+<p>At 14:08 on Monday, a contractor testing a smoke detector in the adjacent corridor uses a heat gun that triggers a cross-zone alarm in the vault room. The control panel, whose abort button had been taped over after nuisance alarms last month, begins its 30-second countdown without a visible abort option. The system discharges at 14:09. The noise reaches roughly 120 dB at the nozzles. The mainframe disk subsystem logs multiple disk errors during the discharge and a number of hard drives show degraded performance. The room&#x27;s emergency power off (EPO) is pressed by an operator, shutting down all equipment. Occupants evacuate and the building fire department arrives.</p>
+<p>What the team does not yet know: the fire department will not allow re-entry until the agent concentration is verified, the discharge exceeded the designed hold time after the door was propped open, some tape drives were mid-write when power was removed, the abort button modification was not recorded in the change log and the manufacturer says the nozzles must be inspected and the agent recharged before the room can be protected again.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Respond safely to an accidental discharge.</strong> The team prioritizes life safety, evacuation, accounting for personnel, fire department coordination and safe re-entry criteria.</li><li><strong class="text-white">Assess equipment and data state after EPO and acoustic shock.</strong> Participants plan the inspection order for disk subsystems, tape drives, mainframe processors and network gear, and determine which devices are likely to have suffered damage or data loss.</li><li><strong class="text-white">Protect and recover media.</strong> The team determines the condition and accessibility of tapes in the vault, the risk of magnetic or physical damage and the alternatives while the vault is inaccessible.</li><li><strong class="text-white">Decide on recovery path.</strong> Participants decide between restoring in place after inspection and failing over to the DR site, with decision criteria and timing.</li><li><strong class="text-white">Operate without fire protection.</strong> The team decides what compensating controls (fire watch, portable extinguishers, reduced operations) apply until the system is recharged and certified.</li><li><strong class="text-white">Examine the control failure.</strong> Participants discuss the taped abort button, change control and testing procedures for fire systems.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Life safety decisions follow your site emergency procedures. Do not simulate entering a discharged room without the fire authority&#x27;s clearance.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Discharge, EPO and evacuation lead to incident declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Safety and access.</span> Personnel are accounted for and the fire department gives re-entry criteria.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Initial damage assessment.</span> Remote and visual indicators are reviewed; inspection plan agreed.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Recovery path options.</span> In-place recovery or DR failover is evaluated.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Decision point.</span> A recovery path is chosen with data loss and time estimates.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Execution.</span> Re-entry, inspection, restart or DR activation proceeds.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Data integrity, application tests and tape media checks.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Services restored, fire protection restored or compensated, incident closed.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Agent discharges with no fire and the room is powered off</a></p><p><strong class="text-white">#2 &middot; T+00:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Fire department requires 4 hours of ventilation</a></p><p><strong class="text-white">#3 &middot; T+00:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">EPO was pressed but a UPS remains on</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">DR site disk replication is behind</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Contractor claims verbal approval</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Re-entry shows condensation and residue</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Vault tapes inaccessible</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands decision</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Disk subsystem reports failed drives</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Fire insurer requests evidence</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Suppression recharge delayed 7 days</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Agent discharges with no fire and the room is powered off</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 14:12. The fire panel shows &#x27;AGENT RELEASED&#x27; in the mainframe room. Operators say a deafening blast occurred, the room filled with white fog and they evacuated, pressing the EPO on the way out. All equipment in the room is off. The building fire department is on site and has not yet allowed re-entry.</p>
+<p>A contractor says he was testing a smoke detector in the corridor with a heat gun. The panel log shows a cross-zone alarm at 14:08, a 30-second pre-discharge countdown and release at 14:09. A facilities technician notes that the abort button had been taped over after nuisance alarms last month.</p>
+<p>Monitoring portals show the disk subsystem sent &#x27;multiple disk drive failure&#x27; alerts as the discharge occurred, and one tape drive reported a write error. The claims system, member eligibility and the provider portal are down. The nightly cycle starts at 22:00.</p>
+<p>Facilitator provides: the fire panel event log, the monitoring alerts, the evacuation roster and the DR site status.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and confirm all personnel are accounted for.</li><li>Decide when to alert the DR site team and what must be true before invoking.</li><li>Set the next update at T+00:30.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Mainframe &amp; Systems Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>State what happened to the mainframe when EPO was pressed: which workloads and data sets were open.</li><li>List the checks required before power-on.</li><li>Estimate DB2 recovery time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities, Fire Safety &amp; Environmental Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Explain the discharge, the hold time and what the fire department requires before re-entry.</li><li>Describe what equipment damage could result from the acoustic shock.</li><li>Explain what compensating controls are required while the room is unprotected.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage, Tape &amp; Media Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check the vault tape inventory and assess exposure.</li><li>Identify the tapes mid-write and the media at risk.</li><li>Arrange offsite tape retrieval.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security &amp; Physical Access</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm headcount and set the exclusion zone.</li><li>Preserve CCTV and panel logs.</li><li>Control re-entry.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>List affected services and rank restoration order.</li><li>Service desk: issue holding message.</li><li>Claims owner: manual intake.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activate continuity plan for claims and eligibility.</li><li>Prepare the first update.</li><li>Ask for documented RTO.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask why the abort button was taped and who approved.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is the first priority and who decides when it is safe to re-enter?</li><li>What damage can an agent discharge and acoustic shock cause to disks and tape, and how do you check without power?</li><li>What happened to workloads when EPO was pressed and what recovery does that imply?</li><li>What are the decision criteria for restoring in place or invoking DR?</li><li>What are the vault tapes&#x27; risks and which backups matter most?</li><li>Can production run unprotected without fire suppression, and what controls would you demand?</li><li>How did the taped abort button get approved and who owns that control?</li><li>What should claims and providers be told?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the taped abort button until the facilities lead explains the panel timeline.</li><li>If teams ignore life safety, bring them back: the fire department controls re-entry.</li><li>Look at whether DR invocation criteria are time-based or condition-based.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Fire department requires 4 hours of ventilation</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The commander states that re-entry will be at least 4 hours after verification of concentration.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide on DR.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities, Fire Safety &amp; Environmental Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you wait or start DR now?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Time decision.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: EPO was pressed but a UPS remains on</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The UPS for the disk subsystem remains live feeding a PDU inside the discharged room.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities, Fire Safety &amp; Environmental Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Isolate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security &amp; Physical Access</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Safety.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you make the room electrically safe?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Safety.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: DR site disk replication is behind</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The replication log shows 22 minutes lag at the time of discharge.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Mainframe &amp; Systems Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is 22 minutes of data loss acceptable?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>RPO.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Contractor claims verbal approval</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The contractor says a facilities supervisor gave verbal approval for the test.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security &amp; Physical Access</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Investigate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you handle a permit-to-work failure?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Process control.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Re-entry shows condensation and residue</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Initial inspection finds condensation on equipment and residue on drives.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Mainframe &amp; Systems Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan cleaning.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities, Fire Safety &amp; Environmental Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Dry out.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is it safe to power on?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Equipment risk.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Vault tapes inaccessible</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The vault door is jammed due to pressure differences.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities, Fire Safety &amp; Environmental Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assist.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage, Tape &amp; Media Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What do you do without access to the vault?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Media.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands decision</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The CIO asks whether to invoke DR.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is your decision and why?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decision.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Disk subsystem reports failed drives</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Power-on diagnostics show 9 failed drives and a degraded array.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Mainframe &amp; Systems Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage, Tape &amp; Media Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Restore.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you proceed or fail over?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Data risk.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Fire insurer requests evidence</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The insurer wants logs and photos.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security &amp; Physical Access</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compile.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What evidence exists?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Evidence.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Suppression recharge delayed 7 days</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The vendor needs a week to recharge the system.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities, Fire Safety &amp; Environmental Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Can you operate for 7 days unprotected?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compensating controls.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Operations resume.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What exit criteria close the incident?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads to debrief.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, ensures life safety is first priority and sets the recovery path decision criteria.</li><li>Runs a 30-minute cadence, assigns the scribe and records decisions.</li><li>Coordinates with the fire department commander and building management.</li><li>Authorizes DR invocation if re-entry or recovery is not feasible in the target time.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Mainframe &amp; Systems Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Determines the state of the mainframe at EPO: which jobs and DB2 or VSAM data sets were open, and whether an orderly shutdown occurred.</li><li>Plans a careful power-on sequence, including hardware checks, disk subsystem diagnostics and IPL.</li><li>Prepares DB2 recovery steps and checks for corrupted catalogs.</li><li>Prepares to invoke DR using the replicated disk and decides on data loss.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Facilities, Fire Safety &amp; Environmental Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Works with the fire department to verify agent concentration, ventilate and certify the room safe.</li><li>Inspects the suppression system, nozzles and the control panel, and arranges for agent recharge and certification.</li><li>Investigates the control panel abort button and the heat gun incident and documents the findings.</li><li>Implements compensating controls such as fire watch, and decides whether production can run unprotected.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Storage, Tape &amp; Media Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assesses the condition and access of tapes in the vault; checks for exposure to the agent, pressure and temperature shock.</li><li>Identifies tape drives that were mid-write and the media that may be incomplete.</li><li>Arranges retrieval of offsite tapes as an alternative.</li><li>Plans a media verification program for critical cartridges.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security &amp; Physical Access</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Manages evacuation accountability, access control and re-entry authorization.</li><li>Secures the room and vault after the evacuation, with CCTV review of the incident.</li><li>Ensures only authorized personnel and contractors enter.</li><li>Investigates whether contractor actions followed permit-to-work rules.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Service Desk</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners list services affected and set priorities for restoration.</li><li>The service desk issues guidance to claims and member services.</li><li>Owners prepare manual workarounds, such as delayed adjudication and paper intake.</li><li>Prepare validation tests.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates the continuity plan and coordinates communications to leadership, providers and members.</li><li>Manages regulatory deadlines for claim processing.</li><li>Coordinates manual processes.</li><li>Tracks downtime against RTO.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28; 7.5 protecting against physical threats; SOC 2 availability).</li><li>Evaluates regulatory notification and reporting obligations.</li><li>Captures evidence of decisions and the change control gap for the abort button.</li><li>Logs findings on contractor permit control, fire system testing and compensating measures.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Fire suppression is both a protection and a risk to availability. Review discharge scenarios: abort stations, cross-zone logic, pre-discharge delay, acoustic mitigation (silent nozzles) and the effect of pressure and noise on disk drives.</p>
+<p>Control modifications to life-safety and protection systems. A taped abort button is a change that bypassed control; require work permits, change records and testing for any alteration, and require supervision of contractors working near detectors.</p>
+<p>Document EPO behavior: which equipment is on EPO, what happens to open data sets and tapes, and the recovery steps. Provide for orderly shutdown alternatives and training.</p>
+<p>Keep media safe: diversify tape storage, replicate to an offsite or cloud tier and avoid housing the only copy of backups in the same fire zone as the primary systems.</p>
+<p>Auditors for ISO/IEC 27001:2022 (7.5, 7.8) and SOC 2 expect evidence of physical protection testing, contractor controls and recovery testing with DR invocation criteria.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on how life safety and recovery decisions were separated and the quality of the DR invocation criteria.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How was life safety managed and who had authority over re-entry?</li><li>What are the documented effects of EPO on your mainframe workloads and how was it recovered?</li><li>How did the team assess possible damage from the acoustic shock and moisture?</li><li>What is your DR invocation criteria and did the team apply it?</li><li>How was the vault tape situation handled and what are the alternatives?</li><li>What compensating controls did the team put in place and who approved?</li><li>How did the taped abort button escape change control?</li><li>How are contractors permitted to work near detectors and who supervises them?</li><li>How many minutes of data did the DR site lack and who accepted it?</li><li>How accurate were communications to claims, members and providers?</li><li>What evidence did the scribe capture for insurers and auditors?</li><li>What would you change about the room&#x27;s suppression design?</li><li>What access or credentials were missing during recovery?</li><li>How would you handle a repeat discharge before the recharge?</li><li>What does the vault&#x27;s tape strategy need to change?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

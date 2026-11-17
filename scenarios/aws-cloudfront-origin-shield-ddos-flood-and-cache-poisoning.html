@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS CloudFront Origin Shield DDoS Flood and Cache Poisoning | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">AWS CloudFront Origin Shield DDoS Flood and Cache Poisoning</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">AWS Cloud Resiliency</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines a layer-7 flood against a CloudFront distribution that bypasses cache with randomized query strings and, in parallel, a cache poisoning attempt that causes the edge to serve a malicious redirect to legitimate users. The origin load rises even with Origin Shield, and customers see errors and wrong content.</p>
+<p>Participants are working-level: edge and CDN engineers, cloud security engineers, application owners, the service desk, security operations and monitoring staff, the AWS support liaison, business continuity coordinators and compliance staff. The exercise tests understanding of cache keys, Origin Shield, WAF rate rules, Shield Advanced and purge behavior.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Tidewell Media streams news and runs a subscription site behind CloudFront with Origin Shield enabled in us-east-1. The cache policy forwards all query strings and the &#x27;Host&#x27; and &#x27;X-Forwarded-Host&#x27; headers to the origin. AWS WAF is attached with the AWS managed rules but no custom rate rule. The company has AWS Shield Standard only.</p>
+<p>At 19:30 on a Sunday during breaking news, request volume rises from 40,000 to 900,000 requests per second. Most requests use random query strings that miss the cache. Origin request rate through Origin Shield triples and the application servers saturate. In parallel, an attacker sends requests with a crafted &#x27;X-Forwarded-Host&#x27; header that the origin reflects into a redirect. CloudFront caches the poisoned response for the home page for the default TTL, so legitimate visitors are redirected to a malicious site.</p>
+<p>What the team does not yet know: the cache key includes unnecessary headers and all query strings, the origin reflects unvalidated headers, a purge (invalidation) of the home page is possible but the attacker can immediately re-poison, and the attack comes from 30,000 distinct IPs rotating user agents.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Separate flood from poisoning.</strong> Participants recognize two simultaneous issues: volumetric or request flood and integrity compromise of cached content.</li><li><strong class="text-white">Stop serving poisoned content.</strong> The team invalidates affected objects, fixes the cache key and origin behavior, and prevents re-poisoning.</li><li><strong class="text-white">Absorb and filter the flood.</strong> Engineers add WAF rate-based rules, geo or header rules, adjust cache keys and consider Shield Advanced engagement.</li><li><strong class="text-white">Protect the origin.</strong> Participants scale or shield the origin, use Origin Shield and caching to reduce load and keep paid subscriber paths alive.</li><li><strong class="text-white">Protect users and brand.</strong> The team handles customers redirected to a malicious site and communicates clearly.</li><li><strong class="text-white">Improve edge resilience.</strong> Participants review cache policy design, WAF baselines, Shield subscription and incident contacts.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Specify the CloudFront behavior, cache policy or WAF rule you would change; avoid generic &#x27;block the attack&#x27; statements.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Traffic surge and redirect reports lead to declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Containment.</span> Poisoned objects are invalidated and a first rate rule is applied.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Diagnosis.</span> The cache key and header reflection are identified.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Remediation planning.</span> A WAF and cache policy plan is agreed.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Execution.</span> Rules, cache policy and origin fixes are deployed.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Stabilization.</span> Traffic normalizes and cache hit ratio recovers.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Content integrity is verified.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to normal and close-out.</span> Normal operation resumes and the incident is closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Traffic surge and customers redirected to a malicious site</a></p><p><strong class="text-white">#2 &middot; T+00:20 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Invalidation and re-poisoning</a></p><p><strong class="text-white">#3 &middot; T+00:20 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Static fallback page</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">WAF rate rule blocks legitimate users</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Origin cannot cope</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Shield Advanced decision</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Cost spike warning</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands an ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Attack shifts to the API</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Reader harm and phishing</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Cache and WAF design review</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out and exit criteria</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Traffic surge and customers redirected to a malicious site</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 19:55. The newsroom reports the site is slow and readers say the home page redirects to an unfamiliar domain asking for a &#x27;subscription renewal&#x27;. CloudFront shows requests at 900,000 per second and cache hit ratio dropped from 94 to 18 percent. Origin CPU is at 100 percent.</p>
+<p>The edge engineer sees logs with random query strings like &#x27;?x=8h3k2&#x27; on most requests. A response for the home page with a 302 redirect has been cached. The security engineer finds that the origin reflects &#x27;X-Forwarded-Host&#x27; into the Location header.</p>
+<p>The distribution forwards all query strings and headers to the origin. WAF has managed rules but no rate rule. The company has no Shield Advanced subscription. The AWS Health Dashboard shows no events.</p>
+<p>Facilitator provides: the CloudFront metrics, log samples, the poisoned response, the cache policy and WAF configuration.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and name the technical lead and scribe.</li><li>Authorize invalidation and a temporary static home page.</li><li>Set the next update at T+00:20.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Edge &amp; CDN Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Invalidate the poisoned objects and explain re-poisoning risk.</li><li>Plan a cache policy that ignores random query strings and headers.</li><li>Explain propagation time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Design WAF rate and header rules.</li><li>Explain the origin reflection fix.</li><li>Consider engaging AWS.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Fix header reflection or block the header.</li><li>Service desk: issue the holding message.</li><li>Prepare static fallback.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Analyze logs for attack signatures.</li><li>Preserve evidence.</li><li>Set alerts.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AWS Support &amp; TAM Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open a case.</li><li>Ask about Shield Response Team engagement.</li><li>Record guidance.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Inform the newsroom.</li><li>Prepare the first update.</li><li>Plan a public warning.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask about readers harmed by the redirect.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you tell a flood from a cache poisoning incident, and can both be true?</li><li>How do you stop serving the poisoned response and prevent re-poisoning?</li><li>Why is the cache hit ratio so low and how do you fix it?</li><li>Which WAF rules help and what is the false positive risk?</li><li>What does Origin Shield do and not do here?</li><li>Should you engage AWS for Shield Advanced now?</li><li>How do you warn readers who were redirected?</li><li>What should leadership and the public be told?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the header reflection until the security engineer inspects the origin response.</li><li>If players only invalidate, ask what stops the attacker repeating.</li><li>Look for cache key hygiene as a core fix.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Invalidation and re-poisoning</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The home page is invalidated, but within two minutes the attacker re-poisons it using the same crafted header.</p>
+<p>Readers are redirected again.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve sequence.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Edge &amp; CDN Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Remove the header from the origin request policy.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Add a WAF rule to block the crafted header values.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Patch the origin.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Why did re-poisoning happen?</li><li>What order of fixes stops it?</li><li>How fast can the origin be patched?</li><li>How do you verify?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests ordering.</li><li>Look for header filtering.</li><li>Avoid repeated purges only.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Static fallback page</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The team serves a static home page from S3 through a separate CloudFront behavior. It works but lacks personalization and the paywall, so subscribers see free content.</p>
+<p>The business team worries about revenue and trust.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide on acceptable degradation.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Edge &amp; CDN Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Deploy the fallback behavior.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess paywall bypass risk.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Coordinate with subscriptions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is a static page acceptable?</li><li>What is the paywall risk?</li><li>Who decides?</li><li>How do you return to normal?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests trade-offs.</li><li>Look for risk acceptance.</li><li>Link to revenue.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: WAF rate rule blocks legitimate users</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A rate rule of 100 requests per five minutes per IP blocks users behind corporate and mobile carrier NATs, including paying subscribers.</p>
+<p>Support calls spike.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve changes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tune with a higher limit, scope-down statements and CAPTCHA challenges.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Handle support.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Analyze blocked traffic.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you avoid blocking NAT users?</li><li>What alternatives exist to blocks?</li><li>How do you test rules?</li><li>Who approves tuning?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests tuning.</li><li>Look for challenge actions.</li><li>Avoid blunt rules.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Origin cannot cope</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Even with filtering, origin CPU stays high because uncached dynamic requests remain. Auto Scaling is slow and the database is saturated.</p>
+<p>The team debates scaling versus shedding.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide priorities.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Edge &amp; CDN Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Increase cache TTLs for static and semi-static content.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Scale origin and shed noncritical endpoints.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you protect the origin?</li><li>What can be cached longer?</li><li>What can be shed?</li><li>Who decides?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests origin protection.</li><li>Look for caching.</li><li>Avoid pure scaling.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Shield Advanced decision</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>AWS suggests subscribing to Shield Advanced for response team support and cost protection. It carries a monthly commitment and onboarding steps.</p>
+<p>The CFO asks whether it is needed.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide and escalate approval.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan onboarding.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AWS Support &amp; TAM Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Explain the benefits and timelines.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess financial commitments.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Should you subscribe now?</li><li>What benefits apply immediately?</li><li>Who approves the commitment?</li><li>What if you do not?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests decision-making.</li><li>Look for facts.</li><li>Avoid panic buying.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Cost spike warning</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>CloudFront data transfer and request charges and WAF request counts are rising quickly.</p>
+<p>Finance asks about cost protection.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve ceiling.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Edge &amp; CDN Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reduce unnecessary traffic.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AWS Support &amp; TAM Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ask about cost protection.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record costs and ask about credits.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What spend ceiling is acceptable?</li><li>Are there credits for attack traffic?</li><li>Who approves?</li><li>How do you track?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Short inject.</li><li>Look for facts.</li><li>Check approvals.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands an ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The CEO and head of news ask whether readers are safe and when normal service returns.</p>
+<p>The team has partial control.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>State status, risks, next decision.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm status.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Draft reader warning and statement.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track exposure.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you commit to?</li><li>What should readers do?</li><li>Is any data at risk?</li><li>What do you say publicly?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reward honesty.</li><li>Check reader safety.</li><li>Look for clear guidance.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Attack shifts to the API</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>After the home page is protected, the flood moves to the login and search APIs with valid-looking requests, bypassing cache entirely.</p>
+<p>Origin load rises again.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Edge &amp; CDN Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check behaviors.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Add rules per path, bot control and challenge.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Add application-level limits.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you handle uncacheable endpoints?</li><li>What controls apply per path?</li><li>How do you detect bots?</li><li>What is the plan if it persists?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests adaptation.</li><li>Look for layered defense.</li><li>Avoid premature closure.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Reader harm and phishing</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Readers report entering payment details on the malicious site. The domain collects credentials.</p>
+<p>Legal and privacy ask about obligations.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Report the domain for takedown.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Coordinate reader communication.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess obligations and notifications.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you help affected readers?</li><li>How do you take down the malicious domain?</li><li>What notifications apply?</li><li>What evidence is kept?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests customer harm.</li><li>Look for takedown steps.</li><li>Check privacy.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Cache and WAF design review</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Review finds the cache key was too broad, the origin reflected headers, WAF had no rate rules and there was no Shield Advanced.</p>
+<p>Leadership asks for changes.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign owners.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Edge &amp; CDN Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Propose tight cache policies.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Propose WAF baselines and Shield decisions.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Frame evidence.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which controls would have prevented this?</li><li>How are cache policies reviewed?</li><li>What WAF baseline is needed?</li><li>Who owns edge security?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Feed the debrief.</li><li>Insist on owners.</li><li>Look for baselines.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out and exit criteria</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Traffic is normal and no poisoned objects remain. Temporary WAF rules, a fallback behavior and header blocks remain.</p>
+<p>The scribe lists open actions.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Edge &amp; CDN Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review temporary changes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm rules.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What must be true before closing?</li><li>Which temporary changes remain?</li><li>Who owns follow-up?</li><li>When is the review?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads into the debrief.</li><li>Check temporary changes.</li><li>Confirm owners and dates.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, prioritizes stopping malicious redirects and keeping subscriber access.</li><li>Runs a 20-minute cadence at first, assigns the scribe and records decisions.</li><li>Authorizes aggressive WAF rules and any temporary blocking of regions.</li><li>Decides on public statements.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Edge &amp; CDN Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reads CloudFront metrics, cache hit ratio, origin latency and Origin Shield statistics.</li><li>Plans invalidations, a tightened cache policy and removal of query string and header forwarding.</li><li>Enables standard logging and real-time logs for analysis.</li><li>Plans a safe rollout of distribution changes given propagation time.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Security Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Designs WAF rate-based rules, header validation and bot control.</li><li>Investigates the header reflection and recommends origin fixes.</li><li>Engages AWS Shield Response Team if subscribed.</li><li>Reviews whether the attacker accessed anything else.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Service Desk</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners confirm origin capacity and fix header reflection.</li><li>The service desk handles customer reports of redirects.</li><li>Owners prepare a static fallback for the home page.</li><li>Prepare validation tests.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security Operations &amp; Monitoring</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Analyzes CloudFront logs for patterns, IPs, user agents and headers.</li><li>Monitors for further poisoning attempts.</li><li>Preserves evidence of the attack.</li><li>Creates alerts for abnormal query string diversity.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">AWS Support &amp; TAM Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Opens a case and engages the Shield Response Team if available.</li><li>Asks about invalidation propagation and attack mitigation.</li><li>Requests review of the distribution configuration.</li><li>Records guidance.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates continuity for the news and subscription services and informs the newsroom.</li><li>Issues time-stamped updates.</li><li>Coordinates public statements and social channels.</li><li>Tracks the outage.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28, 8.20 network security, 8.23 web filtering; SOC 2 availability and security).</li><li>Assesses customer harm from redirects.</li><li>Captures evidence of decisions.</li><li>Logs findings on cache policy and WAF gaps.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Design cache keys deliberately. Forward only the headers and query strings the origin needs, normalize or ignore random parameters and validate headers at the origin so unkeyed input can never shape a cached response.</p>
+<p>Layer defenses: WAF managed rules plus rate-based and bot rules, Shield Advanced for critical properties where justified and Origin Shield and caching to protect the origin.</p>
+<p>Plan for integrity incidents, not just availability: know how to invalidate, how to serve a static fallback and how to warn users quickly.</p>
+<p>Prepare contacts and playbooks with AWS, including the Shield Response Team, before an event.</p>
+<p>Auditors for ISO/IEC 27001:2022 (8.20, 8.23) and SOC 2 expect documented edge configuration, tested rules and incident response evidence.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on separating flood from poisoning and on cache key design.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How quickly did you recognize two issues at once?</li><li>How did you stop serving poisoned content?</li><li>What stopped re-poisoning?</li><li>How did cache policy contribute?</li><li>How effective and risky were the WAF rules?</li><li>How did you protect the origin?</li><li>What was the Shield Advanced decision process?</li><li>How did you handle the fallback and paywall?</li><li>How were readers warned and helped?</li><li>How accurate were statements?</li><li>What did AWS support add?</li><li>What evidence did the scribe capture for auditors?</li><li>What access or permissions were missing?</li><li>How is origin header handling tested?</li><li>What would you change in edge security?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAN Array Dual Controller Firmware Deadlock During Peak Batch Processing | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">SAN Array Dual Controller Firmware Deadlock During Peak Batch Processing</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">On-Premises Infrastructure</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines how an infrastructure organization responds when both controllers of a primary enterprise SAN array deadlock at the same moment because of a latent firmware defect, in the middle of the nightly peak batch window. Because both controllers are affected, the usual assumption that the second controller will absorb the load does not hold, and every host attached to the array loses its storage paths at once.</p>
+<p>The exercise is built for working-level participants: storage engineers, database and batch operators, server and virtualization administrators, SAN fabric and network staff, the vendor liaison, business continuity coordinators and compliance staff. It tests how quickly the team distinguishes a controller deadlock from a fabric or host problem, whether runbooks cover a total array outage, how recovery sequencing protects data consistency, and how well vendor escalation works at 01:00.</p>
+<p>A full run takes 3 to 4 hours. The twelve-inject library maps to time frames with A/B variants, so the same scenario can be run repeatedly with different injects. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Harborline Financial Services runs its core transaction, general ledger and reporting systems on a pair of enterprise block storage arrays: ARRAY-A in the primary data center holds about 410 TB across flash and nearline tiers, and ARRAY-B in the secondary data center is the asynchronous replication target with a recovery point of roughly 15 minutes. ARRAY-A has two active-active controllers, firmware 9.4.2, patched to that level six weeks ago. Hosts connect through two dual-fabric Fibre Channel SANs with multipathing.</p>
+<p>At 01:12, during the end-of-day settlement batch and the overnight ledger consolidation, the array begins logging internal queue timeouts. At 01:19, both controllers stop serving I/O within 40 seconds of each other. Multipath software on 180 hosts reports all paths dead. Databases freeze or crash, virtual machine datastores go offline, and the batch scheduler shows 62 jobs in a hung state. The array management interface is unreachable, and the front-end ports show link-up but no response.</p>
+<p>What the team does not yet know: the firmware defect is triggered by a specific combination of a snapshot-delete operation and a large write burst, the vendor has an advisory that was issued three weeks ago but not triaged, the replicated copy on ARRAY-B is 22 minutes behind because of a link throttle that was set during a network maintenance, and some databases were mid-commit when the array froze.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Differentiate a dual-controller deadlock from fabric, host or application causes.</strong> Participants use multipath state, array port logs, fabric switch counters (portshow, porterrshow, nameserver registration) and host HBA events to isolate the array as the fault domain quickly and avoid unnecessary fabric changes.</li><li><strong class="text-white">Protect data consistency before restoring service.</strong> The team decides how to treat databases and file systems that lost storage mid-write, and sequences restarts to avoid corruption, including crash recovery, log replay and consistency checks.</li><li><strong class="text-white">Decide between recovering ARRAY-A and failing over to ARRAY-B.</strong> Participants evaluate the 22-minute replication lag, application consistency groups, DNS and host re-pointing effort, and the loss of data from the lag against the risk of a prolonged outage.</li><li><strong class="text-white">Execute effective vendor escalation.</strong> The vendor liaison opens a severity-one case with the right evidence (support bundle, controller logs, firmware version, timeline) and the team agrees on what actions require vendor approval, such as controller reboot, failback or firmware rollback.</li><li><strong class="text-white">Prioritize business services for restoration.</strong> Participants rank the order of recovery using documented business impact analysis, including settlement, payments, ledger, regulatory reporting and customer channels.</li><li><strong class="text-white">Handle secondary effects.</strong> The team addresses hung batch dependencies, replication consistency, backup job failures, monitoring blind spots and the risk that other arrays at the same firmware level will deadlock.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Do not assume the vendor can fix the problem remotely or quickly. Use only the support terms and contact details that your organization actually holds.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Multipath alarms, database freezes and batch failures reach the on-call team. The incident is declared and the bridge opened.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Fault domain isolation.</span> Storage, SAN and server teams determine whether the fault is in the array, the fabric or the hosts.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Cause and vendor engagement.</span> The deadlock is identified, the vendor case is opened and the firmware advisory is discovered.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Consistency assessment.</span> Databases, virtual machines and file systems are assessed for corruption risk and recovery order.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Recovery path decision.</span> Recover ARRAY-A in place, fail over to ARRAY-B, or hybrid, with documented approvals.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Execution and sequencing.</span> Controller recovery or failover, host re-attachment, database recovery and batch restart are sequenced.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Integrity checks, reconciliation of batch outputs, replication re-establishment and monitoring are verified.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Services are released in priority order, stakeholders are informed and the incident is closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Both controllers stop serving I/O during the settlement batch</a></p><p><strong class="text-white">#2 &middot; T+00:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Controller A reboots but Controller B stays hung</a></p><p><strong class="text-white">#3 &middot; T+00:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Storage team learns of a second array at the same firmware level</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Vendor requests controller reboot and cache dump</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Replication to ARRAY-B stopped earlier than thought</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Databases come up with corruption warnings</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Backup jobs also fail and the last full backup is old</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands a restoration time</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Failover to ARRAY-B is chosen and host re-pointing starts</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Reconciliation finds duplicate and missing transactions</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">ARRAY-A returns; failback pressure</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out and post-incident review</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Both controllers stop serving I/O during the settlement batch</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 01:19. The on-call storage engineer is paged by the monitoring system: 180 hosts report all paths down to ARRAY-A. The database team&#x27;s pager shows the ledger database frozen and the settlement database crashed with I/O errors. 62 batch jobs are in a hung state and the scheduler has started to flag missed dependencies.</p>
+<p>The array management GUI times out. Over the serial console, the storage engineer can see both controllers in a state that reports &#x27;internal watchdog timeout&#x27; but not whether they will recover. The front-end ports show link-up but do not answer. Fabric switch port counters show no CRC or link errors increase in the last 30 minutes.</p>
+<p>The vendor support portal shows a firmware advisory titled &#x27;Controller watchdog timeout under concurrent snapshot delete and high write throughput&#x27; published three weeks ago for firmware 9.4.x. No one on the team has seen it. A snapshot cleanup job began at 01:08.</p>
+<p>Facilitator provides: the multipath alert summary, a fabric port statistics screenshot, the array serial console excerpt, and the batch scheduler view with hung jobs.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and set severity. Name the technical lead, the scribe and the vendor liaison.</li><li>Decide immediately whether to freeze all storage change and the snapshot and replication policies.</li><li>Set the next update for T+00:30 and the escalation threshold to the CIO and the head of operations.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm via serial console whether both controllers are deadlocked or one is rebooting.</li><li>Identify the snapshot cleanup job and check whether it can be stopped when the array returns.</li><li>Gather logs and the support bundle before anything is rebooted; if not possible, document why.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>List databases that were mid-commit and the transaction log state at 01:19.</li><li>Hold the batch scheduler and flag all in-flight jobs.</li><li>Estimate crash recovery time for the ledger and settlement databases.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Pause automatic HA restarts and confirm which virtual machines are in all-paths-down state.</li><li>Check boot-from-SAN hosts, and whether any hosts have also panicked.</li><li>Prepare the list of hosts for rescanning in a controlled order.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; SAN Fabric Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Demonstrate that the fabric is healthy and the fault is on the array side, using port counters and name server entries.</li><li>Do not reset ports or switches; preserve the logs.</li><li>Check the status and throttle on the replication link to ARRAY-B and report the lag.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Support Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open a severity-one case, provide serial numbers and the firmware level, and request the engineer on call.</li><li>Ask whether the advisory matches the symptoms and what is the recommended recovery.</li><li>Record the vendor&#x27;s commitment on response time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify which processes depend on the settlement batch and the ledger, and the next hard deadline.</li><li>Prepare the first stakeholder message and hold wording until facts are confirmed.</li><li>Ask for the documented RTO of the array and the settlement service.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record and capture the detection time and declaration time.</li><li>Ask whether the firmware advisory was in the vulnerability and patch management intake.</li><li>Start the evidence log of decisions, approvals and vendor communications.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Based on the evidence, what is your leading hypothesis? What would convince you that this is a fabric or host problem instead?</li><li>Both controllers failed. Which of your documented procedures assumes one controller would survive, and what do you do instead?</li><li>Is it safe to power cycle the controllers right now? What evidence would you lose and what write cache risk exists?</li><li>What does your runbook say about stopping the snapshot cleanup job, and who can do it without a vendor?</li><li>How do you handle the databases that were mid-commit, and which should be recovered first?</li><li>The replicated copy on ARRAY-B appears to be 22 minutes behind. How would you verify this, and who decides to accept that data loss?</li><li>Who owns triage of vendor advisories, and why did this one not reach the storage team?</li><li>What should the first message to the business say, and what must it not claim?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the replication lag unless the team checks it. Note how long it takes players to ask.</li><li>If the team moves to failover too early, ask what evidence supports abandoning ARRAY-A before the vendor responds, and what is the failback plan.</li><li>If the team wants to reboot both controllers immediately, ask who decides and whether write cache is preserved. Many teams discover that this was never documented.</li><li>Time-box discussion to about 35 minutes and capture decisions and open questions on the flip chart.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Controller A reboots but Controller B stays hung</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Controller A reboots and rejoins but reports a degraded write cache. Controller B is still unresponsive. Hosts begin seeing intermittent paths but I/O is failing with timeouts.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide whether to run on a single controller and what performance and risk that implies.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide whether to rescan hosts now or wait.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Support Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ask the vendor if single-controller operation is supported with the cache state.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is a partially recovered array safer or riskier than a stopped array?</li><li>Who approves resuming I/O on a degraded cache?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Highlights the risk of premature restart; ask about cache integrity checks.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Storage team learns of a second array at the same firmware level</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The vendor liaison reports that ARRAY-C, which hosts the data warehouse and backup targets, is also at firmware 9.4.2. The same snapshot-delete job is scheduled on it at 03:00.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide whether to freeze all arrays.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Suspend the job and plan the mitigation.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you quickly determine the blast radius of the defect across the estate?</li><li>What is your process for emergency changes to disable scheduled jobs?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Good for teams that missed the estate-wide risk.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Vendor requests controller reboot and cache dump</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The vendor engineer asks the team to power cycle both controllers after capturing a cache dump that will take 40 minutes, and warns that some uncommitted writes may be lost.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve or reject.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Describe the cache dump procedure and the impact.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Describe what uncommitted writes mean for databases.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you wait 40 minutes for evidence or restart now?</li><li>How do you document an accepted risk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>No right answer; look for explicit risk acceptance.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Replication to ARRAY-B stopped earlier than thought</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The replication log shows the last successful cycle completed at 00:41, not 00:57. The gap is 38 minutes and includes the first half of the settlement batch.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verify the consistency group integrity.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Estimate the data to be reprocessed.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is a 38-minute loss acceptable for settlement data and who decides?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ties to RPO definitions.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Databases come up with corruption warnings</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Once partial paths return, the settlement database reports torn pages on two tablespaces, and the file system check on a file server finds orphaned inodes.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Choose between repair, restore from backup and replicated copy.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Run file system checks in a controlled sequence.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you prove data integrity before releasing to the business?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Have the team name the specific checks they would run.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Backup jobs also fail and the last full backup is old</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The backup system for the ledger database reports failed jobs for two nights; the last good full backup is 52 hours old.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess the restore option.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Log the monitoring gap.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which fallback options remain if the replicated copy is not usable?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reveal only if teams rely on backups.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands a restoration time</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The head of operations asks for a committed restoration time. Settlement files are due to the clearing house at 07:00.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Present options with risks and estimates.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Draft a message to the clearing house contact.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you commit to and how do you word the uncertainty?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Evaluate whether options are presented rather than a single guess.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Failover to ARRAY-B is chosen and host re-pointing starts</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The decision is made to fail over. Zoning to ARRAY-B must be created for 140 hosts, and several applications use hard-coded LUN identifiers.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan application restarts.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan host re-attachment.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; SAN Fabric Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan the zoning changes.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which hosts are re-pointed first and why?</li><li>How is failback handled later?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Look for use of automation and documented zone sets.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Reconciliation finds duplicate and missing transactions</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>After restart, reconciliation shows 312 transactions applied twice and 87 missing from the ledger.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Design the correction.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess reporting and audit impact.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Who signs off a manual correction to financial data?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Connects to financial controls.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: ARRAY-A returns; failback pressure</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The vendor delivers a hotfix and ARRAY-A is stable. Management wants failback immediately to restore normal capacity.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide timing.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>State failback criteria.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What proof of stability do you require before failback?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Warn against failback in the same business window.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out and post-incident review</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>All services are restored. Leadership asks whether this can happen again.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Capture corrective actions with owners.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What exit criteria close the incident?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads into debrief.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, owns severity and the decision between recovering ARRAY-A and failing over to ARRAY-B, using the data loss and time estimates supplied by storage and database teams.</li><li>Runs a 30-minute update cadence, assigns a scribe and keeps a time-stamped decision log.</li><li>Authorizes any controller power cycle, which could destroy in-flight cache evidence and must be vendor-coordinated.</li><li>Freezes all other storage changes, including firmware updates on other arrays, until the defect is understood.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Storage Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reads array status from out-of-band paths: serial console, service processor, and the vendor remote support gateway, since the management GUI is unreachable.</li><li>Determines whether both controllers are deadlocked, whether write cache has been preserved by battery or flash-backed memory, and which operations (snapshot delete, replication, data reduction) were running at the time.</li><li>Collects the support bundle and logs before any reboot, and compares firmware version 9.4.2 against the vendor advisory.</li><li>Checks the state and age of replicated volumes on ARRAY-B and the consistency groups they belong to.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Database &amp; Batch Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identifies which databases and batch jobs were running at 01:19 and which were mid-commit, using the scheduler, transaction logs and checkpoint states.</li><li>Plans crash recovery order for the ledger, settlement and reporting databases, and decides whether to restore from log shipping or replicated copy.</li><li>Holds the batch scheduler so that no job restarts against unverified data.</li><li>Prepares reconciliation of the batch outputs after recovery, including partial file outputs.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Server &amp; Virtualization Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Inventories hosts and datastores attached to ARRAY-A, including virtual machines in an all-paths-down or permanent-device-loss state.</li><li>Prevents automatic restart storms by pausing HA responses until the storage state is known.</li><li>Prepares to remount datastores or rescan paths in the order the incident commander approves.</li><li>Verifies which hosts have local boot disks and which boot from SAN.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Network &amp; SAN Fabric Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirms the fabric is healthy: no ISL failure, zoning change or switch fault, using port statistics and name server registrations.</li><li>Provides a baseline comparison of the fabric before the incident to rule out a fabric cause and to support the vendor case.</li><li>Reconfigures zoning or paths for ARRAY-B access if failover is chosen, and checks the replication link and its throttle.</li><li>Ensures that no one resets fabric ports or hosts in a way that destroys evidence.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Vendor &amp; Support Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Opens a severity-one case with the correct contract, serial numbers and entitlement, and requests a named engineer and a recovery plan.</li><li>Records every vendor instruction, the time and who approved it.</li><li>Asks the vendor whether the defect is known, which workaround exists and whether other arrays at the same firmware level are at risk.</li><li>Obtains written confirmation before any controller reboot, rollback or hotfix is applied.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identifies the business processes affected during the settlement window and the regulatory or customer deadlines at risk.</li><li>Issues time-stamped updates to leadership, operations and customer support using approved wording.</li><li>Coordinates manual workarounds and customer notification, if required, with relationship managers.</li><li>Tracks actual downtime versus the documented RTO and RPO for each affected service.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is classified and recorded under the incident management process (ISO/IEC 27001:2022 controls 5.24 to 5.28) and logged for SOC 2 availability evidence.</li><li>Evaluates whether regulatory notification or customer contractual obligations are triggered.</li><li>Captures evidence of emergency change approvals and vendor communications.</li><li>Opens findings for any missed advisory triage, replication lag or untested failover.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Design for correlated failure, not just single component failure. Active-active controllers share firmware, so a defect can take out both at once. Treat the firmware level as a fault domain: stagger firmware versions across arrays where possible and never apply the same new firmware to primary and replica on the same day.</p>
+<p>Make vendor advisories a managed intake. Assign an owner, a triage deadline and a risk rating, and record the decision to apply or defer. A three-week-old advisory that matched this outage exactly is a process failure, not a technology failure.</p>
+<p>Know your real RPO. Measure replication lag continuously and alert on thresholds; throttles set during maintenance must expire automatically. A 15-minute design RPO that is silently 38 minutes is worse than a documented 60 minutes.</p>
+<p>Prepare an out-of-band management path and a rehearsed recovery sequence for a full array outage: who may stop jobs, who may reboot controllers, who approves failover, and who verifies consistency before applications restart.</p>
+<p>Test failover with application-level consistency, not just volume-level replication. Auditors for ISO/IEC 27001:2022 and SOC 2 will look for evidence of restore and failover tests and of vendor patch management.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Pay specific attention to the time to isolate the array as the fault domain and to the decision on controller reboot.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How long did it take to establish that the fault was the array and not the fabric? What data convinced you and what was missing?</li><li>Did the team know the replication lag before it was asked, and how is lag monitored today?</li><li>Who has the authority to approve a controller power cycle and was that authority exercised within your documented time?</li><li>Was the firmware advisory known to anyone, and what is the process that should have routed it to the storage team?</li><li>How would you have recovered databases that were mid-commit, and in what order? Where is that documented?</li><li>Is the failover to ARRAY-B documented to the level of zoning, LUN mapping and application re-pointing, and when was it last tested?</li><li>What was the actual age of the last good backup for the ledger database, and was that a surprise?</li><li>How did the team control the batch scheduler to avoid restarting jobs against unverified data?</li><li>Which other arrays share the same firmware level, and what did the team do about them?</li><li>What would the clearing house and customers have been told, and by whom?</li><li>What evidence would an auditor want from this incident that the scribe did not capture?</li><li>Which monitoring alerts should have fired before 01:19 (queue depth, latency, watchdog counters) and who owns creating them?</li><li>What access or credentials did people lack for the out-of-band management path?</li><li>How do you decide when failback is safe, and who signs off?</li><li>If this happened on a holiday weekend, who would be unreachable?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copilot-Style Assistant Surfaces Overshared Files and Enables Mass Data Discovery | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Copilot-Style Assistant Surfaces Overshared Files and Enables Mass Data Discovery</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">AI Gone Rogue</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines a Copilot-style assistant in Microsoft 365 and Entra ID that faithfully surfaces whatever a user can technically access. Years of oversharing mean ordinary questions now reveal confidential files, and a curious employee, or an attacker with a stolen account, can run mass discovery in minutes.</p>
+<p>Participants are the working-level incident team: Microsoft 365 and identity administrators, information governance and records staff, security analysts, business data owners, privacy and legal staff, communications and continuity coordinators, and a liaison to senior leaders or the board of directors where authority is needed. The exercise tests permission hygiene and detection of misuse that uses legitimate access.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session. The scenario is industry-agnostic: substitute your own processes, platforms and teams wherever the text names a generic one.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Technology and Environment Context</h3>
+<p>Technology in scope: Microsoft 365 &amp; Entra ID. The organization rolled out an AI assistant integrated with email, files, chat and calendars. The assistant respects existing permissions. SharePoint sites and OneDrive folders have accumulated &#x27;everyone&#x27; and &#x27;company-wide&#x27; sharing links, and many sensitive libraries lack labels. Entra ID sign-in logs and Purview audit record assistant interactions at summary level.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Overton Group launched the assistant to all staff after a short pilot with a small team. The pilot did not test sensitive libraries. A permissions report from last year flagged 120,000 items shared with everyone, but it was not remediated.</p>
+<p>On Tuesday, an employee asks the assistant to &#x27;summarize anything about layoffs next quarter&#x27; and receives text from a leadership planning file that was shared by a company-wide link. Word spreads, and employees try prompts like &#x27;show salary bands&#x27; and &#x27;list customer contract terms&#x27;.</p>
+<p>On Thursday, an alert shows a contractor account signing in from an unfamiliar country and issuing 600 assistant prompts in an hour, retrieving summaries from legal, finance and engineering libraries. The assistant&#x27;s usage dashboard says &#x27;adoption high, satisfaction 4.6 of 5&#x27;.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">What Participants Know at the Start</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Oversharing existed before the assistant.</li><li>The assistant summarizes content users can technically open.</li><li>A contractor account is used from an unfamiliar location.</li><li>Audit logs record prompts and referenced files at limited detail.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">What Is Not Yet Known</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Which files were surfaced to whom.</li><li>Whether the contractor account is compromised.</li><li>How much sensitive content has company-wide links.</li><li>Whether summaries were copied elsewhere.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Limit discovery now.</strong> The team restricts assistant access to sensitive libraries, disables the compromised account and tightens sharing links. Evidence of success: Sensitive libraries are excluded from the assistant and the account is secured within 30 minutes.</li><li><strong class="text-white">Determine exposure.</strong> Security and governance review audit data to identify prompts, referenced files and recipients. Evidence of success: An exposure report by user and library exists with gaps stated.</li><li><strong class="text-white">Remediate oversharing at scale.</strong> Owners and administrators remove company-wide links and apply labels in priority order. Evidence of success: A remediation plan with counts and owners exists.</li><li><strong class="text-white">Handle sensitive disclosures.</strong> HR, legal and business owners decide how to handle disclosure of confidential plans. Evidence of success: A decision record with actions exists.</li><li><strong class="text-white">Communicate carefully.</strong> Communications and the leadership liaison give accurate statements without repeating content. Evidence of success: Messages are consistent and approved.</li><li><strong class="text-white">Redesign assistant readiness.</strong> Participants set readiness gates, label policies and monitoring. Evidence of success: At least four controls are agreed with owners and dates.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to staff, customers, partners and leadership are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management reviewers and SOC 2 availability, security and processing integrity reviewers. Evidence of success: the decision log lets an outsider reconstruct who decided what, when and on which facts.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations, models or backups will be touched. Commands, consoles and agent settings are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Exercise information is confidential until the after-action report is approved. Mark any written or chat message &#x27;exercise exercise exercise&#x27;.</li><li>Treat the AI system&#x27;s outputs, logs and self-reported status as unverified until a named person confirms them from an independent source. The scribe records which facts are verified and which are claimed.</li><li>If a kill switch, rollback, approval gate or manual fallback does not exist in your environment, say so aloud. Do not assume the AI system will correct itself, stop when asked or explain its own actions reliably.</li><li>Use the word leadership for senior leaders, a board of directors or both, and bring them in only when a decision needs their authority.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Prompts reveal sensitive content. Decision: declare and restrict discovery. Escalate to leadership or change course if: Employees quote sensitive plans; Contractor account anomalies; Mass prompts.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Containment.</span> Containment: exclude libraries, disable the account and remove broad links. Escalate to leadership or change course if: Links regenerate; Other tenants affected; Cached summaries.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Diagnosis.</span> Diagnosis: reconstruct prompts and files and assess account compromise. Escalate to leadership or change course if: Audit detail limited; Account used before; Copies elsewhere.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Remediation planning.</span> Remediation planning: prioritize remediation and handle disclosure. Escalate to leadership or change course if: Volume too large; Owners unknown; Disagreement on severity.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Execution.</span> Execution: remove links, label content and notify as decided. Escalate to leadership or change course if: Owners resist; Work disrupted; Notice delays.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Stabilization.</span> Stabilization: monitor prompts and sharing. Escalate to leadership or change course if: New oversharing; Prompt probing; Agent attempts resume.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Validation: test with persona prompts and review labels. Escalate to leadership or change course if: Gaps in labeling; Evidence gaps; New exposure found.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to normal and close-out.</span> Return to normal and close-out: define assistant exit criteria and actions. Escalate to leadership or change course if: Open actions lack owners; Leaders want early re-enablement; Auditors request evidence.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">The assistant surfaces overshared files and enables mass data discovery</a></p><p><strong class="text-white">#2 &middot; T+00:20 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Contractor compromise</a></p><p><strong class="text-white">#3 &middot; T+00:20 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Links regenerate</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Audit detail</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Layoff plans</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Labels missing</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Customer contracts</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership asks about rollout</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Regulator query</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Shadow copies</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Vendor guidance</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out debate</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: The assistant surfaces overshared files and enables mass data discovery</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 08:45 on Thursday. A security alert shows a contractor account signing in from an unfamiliar country and issuing 600 assistant prompts in an hour. Prompts asked about legal disputes, salary bands and customer contract terms.</p>
+<p>Earlier this week, employees found that the assistant summarized a leadership planning file shared by a company-wide link. A permissions report from last year flagged 120,000 overshared items, still open.</p>
+<p>The commander must decide how to limit discovery quickly, how to assess what was surfaced and how to start remediating oversharing at scale.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and assign a scribe, a Microsoft 365 lead, an identity lead, a governance lead and a security lead.</li><li>Authorize restricting assistant access to sensitive libraries and disabling the account.</li><li>Set a 20-minute cadence.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AI Platform &amp; Model Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Restrict the assistant&#x27;s scope and export prompt and reference logs.</li><li>Identify prompts matching discovery patterns.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Remove company-wide links on top-risk libraries and apply labels.</li><li>Reset the contractor account.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Forensics</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Investigate the contractor sign-ins and the prompts.</li><li>Preserve logs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business &amp; Process Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify the most sensitive libraries and their owners.</li><li>Plan remediation.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Data Protection &amp; Privacy</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess personal data in surfaced files.</li><li>Prepare notice analysis.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the record and capture readiness approvals.</li><li>Review labeling and sharing policy.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare staff and leader messages.</li><li>Set one channel.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Leadership Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Brief senior leaders with facts and unknowns.</li><li>Check for market-sensitive duties.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Third-Party Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open a Microsoft support case.</li><li>Ask about audit detail for assistant interactions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Why restrict discovery before remediating the sharing?</li><li>How do you tell curiosity from attack?</li><li>How do you prioritize 120,000 overshared items?</li><li>How do you handle disclosure of confidential plans?</li><li>What do you tell staff?</li><li>Why is the assistant exposing a pre-existing problem and not creating one?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the contractor sign-in until INF reviews identity logs.</li><li>If players blame the assistant only, ask about permissions hygiene.</li><li>Look for readiness thinking.</li><li>Time-box to 40 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Contractor compromise</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The contractor says they did not sign in from that country.</p>
+<p>Decision required: How to respond.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review sessions.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Forensics</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Investigate and secure.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What evidence?</li><li>Who reviews?</li><li>What action?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Account takeover.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Links regenerate</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Owners recreate company-wide links the same day.</p>
+<p>Decision required: How to enforce.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Block creation by policy.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Message.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What policy?</li><li>Who approves?</li><li>What message?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Enforcement.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Audit detail</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Audit records show prompts but not exact content returned.</p>
+<p>Decision required: How to estimate exposure.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Forensics</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Replay prompts.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record limits.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What method?</li><li>How confident?</li><li>Who signs?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Estimation.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Layoff plans</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The leadership plan leaked through summaries and staff are anxious.</p>
+<p>Decision required: How to handle.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Advise.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Leadership Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide on messaging.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What message?</li><li>Who decides?</li><li>What record?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>People impact.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Labels missing</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Only 8 percent of sensitive libraries carry labels.</p>
+<p>Decision required: How to prioritize.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Apply.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business &amp; Process Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Label top-risk first.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What first?</li><li>Who owns?</li><li>What timeline?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Labeling.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Customer contracts</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Contract terms were surfaced to staff not on the account team.</p>
+<p>Decision required: What to assess.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review contract duties.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What duty?</li><li>Who decides?</li><li>What record?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Contract duty.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership asks about rollout</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A senior leader asks whether to pause the assistant.</p>
+<p>Decision required: What can be said.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AI Platform &amp; Model Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Describe controls.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Leadership Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>State options.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Pause or limit?</li><li>Who decides?</li><li>What conditions?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decision framing.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Regulator query</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A regulator asks about access to employee data.</p>
+<p>Decision required: What is fact.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compile facts.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is fact?</li><li>What is estimate?</li><li>Who signs?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reporting.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Shadow copies</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Users copied summaries into personal notes.</p>
+<p>Decision required: How to contain.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Request deletion.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Who asks?</li><li>What wording?</li><li>What track?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Copies.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Vendor guidance</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Microsoft says the assistant honors permissions as designed.</p>
+<p>Decision required: How to proceed.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Third-Party Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Escalate.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is allowed?</li><li>Who escalates?</li><li>What change?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Shared responsibility.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out debate</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Teams want the assistant back for labeled content next week.</p>
+<p>Decision required: What conditions apply.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AI Platform &amp; Model Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Define scope.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What criteria?</li><li>Who approves?</li><li>What monitoring?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Return conditions.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Sets objectives for the first hour and states which decisions need the commander&#x27;s own approval, including whether the productivity assistant stays disabled, restricted or supervised.</li><li>Runs a fixed update cadence and keeps one decision log with the decision, owner and time.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">AI Platform &amp; Model Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Knows which sources the assistant reads and how prompts are logged.</li><li>Provides scope and prompt logs.</li><li>Owns the technical facts about the productivity assistant: its configuration, permissions, tools, prompts, memory and recent changes.</li><li>Preserves model, agent and orchestration logs before any restart or redeployment.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Infrastructure &amp; Platform Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Removes links, applies labels and secures accounts.</li><li>Owns tenant sharing settings.</li><li>Owns the technical response on the platforms and networks involved and keeps changes small, reversible and logged.</li><li>Maintains a list of every manual change so it can be reversed or formalized afterwards.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security Operations &amp; Forensics</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Investigates the contractor account and prompt patterns.</li><li>Treats the event as a possible security incident until evidence shows otherwise and preserves evidence in a forensically sound way.</li><li>Looks for misuse of credentials, tokens and tool permissions, not only the AI system&#x27;s own actions.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business &amp; Process Owners</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prioritizes libraries and owners.</li><li>Defines which business processes must continue, in what order, and what manual alternatives are acceptable.</li><li>Identifies decisions, transactions or communications that were made by the AI system and need review or reversal.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Data Protection &amp; Privacy</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assesses personal data in surfaced files.</li><li>Determines whether personal, confidential or regulated data was accessed, changed, shared or lost.</li><li>Identifies the lawful basis, notification clocks and contractual commitments that may apply.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Legal, Risk &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded, classified and linked to risk and control owners (ISO/IEC 27001:2022 (5.15, 5.12, 8.3, 8.16) and SOC 2 confidentiality).</li><li>Identifies regulatory, contractual and insurance obligations and their clocks.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Communications &amp; Business Continuity</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Issues time-stamped updates to staff, customers and partners from one approved source.</li><li>Activates continuity plans and workarounds and tracks their capacity.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Leadership Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Briefs senior leaders and, where needed, the board of directors with confirmed facts, unknowns and the decisions that need their authority.</li><li>Brings back leadership decisions such as spend, risk acceptance and external disclosure in time to be useful.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Vendor &amp; Third-Party Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Works with Microsoft support.</li><li>Opens priority cases with the cloud, SaaS, model and tooling vendors involved and records case numbers.</li><li>Requests logs, configuration histories and root cause statements in writing.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Fix permissions before launching an assistant</h3>
+<p>Treat assistant rollout as a data governance project: remediate company-wide links, label sensitive content and test with realistic prompts before widening access.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Exclude the most sensitive sources</h3>
+<p>Keep board, legal, HR and merger content out of general assistants by label or site policy.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Monitor discovery behavior</h3>
+<p>Alert on unusual prompt volume, topics such as salaries or legal disputes and sign-ins from new locations.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Limit sharing defaults</h3>
+<p>Disable company-wide and anyone links by default, and require owner approval for broad sharing.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Keep audit detail</h3>
+<p>Retain assistant interaction logs with referenced files for investigations, aligned with ISO/IEC 27001:2022 access and classification controls and SOC 2 confidentiality criteria.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Run readiness tests</h3>
+<p>Use red team prompts against pilot data and track what they retrieve.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Own the remediation backlog</h3>
+<p>Assign owners to overshared libraries and report progress to leaders monthly.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Prepare the people response</h3>
+<p>Agree how the organization responds when confidential plans are exposed, so staff hear a consistent message.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Sequence the rollout by data readiness</h3>
+<p>Roll the assistant out in waves tied to measured readiness: percent of sensitive libraries labeled, company-wide links removed and owners assigned. A wave does not start until its readiness numbers are met. Publish the numbers so leaders can see that a faster launch means more exposure, and so teams know remediation is the path to access.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Make usage visible to owners</h3>
+<p>Give library owners a monthly report of which of their files were referenced by the assistant, by how many users and from which groups. Owners who see their confidential folders being summarized for hundreds of people tend to fix permissions faster than any policy reminder can achieve, and the report doubles as evidence of ongoing governance.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. Announce the end, remind everyone that all actions were simulated, and keep everyone in the room for the hot wash.</li><li>Take five minutes of silent notes. Each participant writes three things that worked, three that did not and any gap in tools, access or documentation.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, role by role and then open floor, for 45 to 60 minutes. Keep the discussion on how the productivity assistant was permissioned, supervised and stopped.</li><li>Hold evaluator readouts. Evaluators share timing, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate impact and effort, and select no more than ten.</li><li>Assign corrective actions. Give each action an owner, a due date and a verification method, and record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates.</li><li>Schedule the follow-up. Validate fixes within 90 days and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How quickly did the team connect the prompts to oversharing?</li><li>How did you limit discovery?</li><li>How did you assess what was surfaced?</li><li>How did you prioritize remediation?</li><li>What did staff hear?</li><li>What readiness controls do you now want?</li><li>What would a safe pilot have tested?</li><li>Which content should assistants never read?</li><li>How accurate were the updates to leadership, and what was said that later proved wrong?</li><li>What did the vendor and third-party liaison add, and what did you still lack from vendors?</li><li>What evidence did the scribe capture that would satisfy an auditor, and what is missing?</li><li>Which permissions, approvals or access did the team lack at the moment they were needed?</li><li>Which alerts or detections should exist that did not?</li><li>What temporary changes remain, who owns them and when will they be reversed?</li><li>If you could change one design decision about how AI systems are built, permissioned or supervised here, what would it be?</li><li>What did the team do well that should be written into the runbook?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

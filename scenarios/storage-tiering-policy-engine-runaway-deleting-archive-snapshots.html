@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storage Tiering Policy Engine Runaway Deleting Archive Snapshots | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Storage Tiering Policy Engine Runaway Deleting Archive Snapshots</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">On-Premises Infrastructure</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines a runaway automated storage policy engine that begins deleting archive snapshots, which are the point-in-time copies the organization relies on for rapid recovery and retention. A misapplied tiering and retention policy interprets &#x27;free up capacity on the primary tier&#x27; as permission to delete snapshots flagged as archive, and the automation proceeds faster than humans can detect.</p>
+<p>Participants are working-level: storage engineers, backup and data protection operators, database and application owners, security analysts, the vendor liaison, business continuity coordinators and compliance staff. The scenario deliberately blurs operations and security: it could be a configuration mistake, a software defect or a malicious actor using automation.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Beacon Insurance Group uses a software-defined storage platform with automated tiering and a policy engine that manages snapshots, replication and capacity across a 1.2 PB estate. Policies classify snapshots as &#x27;operational&#x27; (kept 14 days), &#x27;compliance archive&#x27; (kept 7 years) and &#x27;monthly archive&#x27; (kept 12 months). Snapshots on the primary array provide the fastest recovery for databases and file systems; they are replicated to a secondary array with a lag and also protect data under legal hold for litigation.</p>
+<p>At 22:30 on Friday, an administrator pushes an updated policy template intended to reduce operational snapshot retention from 14 to 10 days to relieve capacity pressure at 88 percent. A mapping error replaces the retention class selector with a wildcard. The policy engine begins deleting snapshots across all classes, starting oldest first. Within two hours it deletes 61 percent of archive snapshots on the primary. Replication of deletions to the secondary array is configured as &#x27;mirror policy&#x27; and the secondary starts deleting as well with a delay of 90 minutes.</p>
+<p>What the team does not yet know: the platform supports a 24-hour deletion hold (soft delete) only if a feature flag that was never enabled is on, an offsite backup exists for databases but not for file shares under legal hold, the vendor&#x27;s engineer says deletions are irreversible, and an alert threshold on &#x27;snapshot count drop&#x27; was set so high it never fires.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Detect and stop a runaway automation.</strong> Participants recognize abnormal deletion rates from audit logs, capacity graphs and snapshot counts, and decide how to halt the policy engine safely without halting protection of current data.</li><li><strong class="text-white">Scope the damage.</strong> The team inventories which snapshots, replicas and legal hold data have been deleted, and which recovery points still exist at any tier.</li><li><strong class="text-white">Stop the replication of deletions.</strong> The team acts quickly to break or pause mirror deletions to the secondary array, preserving surviving copies.</li><li><strong class="text-white">Identify alternatives to restore recovery points.</strong> Participants evaluate backup copies, offsite tapes, cloud copies, vendor-level recovery and any soft-delete features.</li><li><strong class="text-white">Address legal hold and compliance exposure.</strong> Records management and legal assess data under hold, preservation obligations and notification duties.</li><li><strong class="text-white">Determine whether the event was malicious.</strong> Security analysts review change records, administrative access and the origin of the policy template.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Treat deleted data as unrecoverable unless the facilitator or vendor provides a recovery mechanism.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Capacity or snapshot count alarms and a backup team report lead to incident declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Containment.</span> The policy engine is stopped and deletion replication is paused.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Scoping.</span> Deleted and surviving recovery points are inventoried.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Cause and vendor engagement.</span> The policy change and any malicious indicators are examined.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Recovery options decision.</span> Recovery from alternative copies is prioritized and approved.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Execution.</span> Recovery and protection rebuilding begin.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Recovered data is verified and protection gaps are quantified.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Protection posture restored, compliance steps taken and incident closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Snapshot counts collapse across production and archive tiers</a></p><p><strong class="text-white">#2 &middot; T+00:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Policy engine will not stop</a></p><p><strong class="text-white">#3 &middot; T+00:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Administrator reachable but evasive</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Secondary array lost 40 percent</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Legal asks about preservation</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Vendor offers metadata reconstruction</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Suspicious API token found</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands answers</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Backup restore of file shares</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Protection gap now</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Regulator inquiry</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Snapshot counts collapse across production and archive tiers</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 00:35 on Saturday. A backup operator checking a failed job notes that the list of available snapshots for the claims file share is nearly empty. The storage dashboard shows snapshot count dropped from 412,000 to 158,000 in two hours. Capacity utilization has fallen from 88 to 63 percent.</p>
+<p>The audit log shows the policy engine deleting snapshots in batches of 2,000 every few minutes under policy template &#x27;RETENTION-OPT-2&#x27;. The administrator who pushed the template left at 23:00 and is not responding. On the secondary array, deletion operations began 90 minutes after the primary and are now running.</p>
+<p>The legal department&#x27;s hold list includes three file shares and a database export set whose only recovery points are the compliance archive snapshots. There is no independent backup of two of the three file shares.</p>
+<p>Facilitator provides: the audit log excerpt, the snapshot count graph, the policy template diff, and the legal hold list.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and order immediate containment before analysis.</li><li>Decide who may stop the policy engine and the secondary replication.</li><li>Set the next update at T+00:30.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Stop the policy engine and pause deletion replication; explain the safest way.</li><li>Report the current snapshot inventory and the rate of deletion.</li><li>Examine the policy diff and identify the mapping error.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Data Protection Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>List independent backups and which datasets they cover.</li><li>Check that backup jobs are unaffected.</li><li>Prepare prioritized restores.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Application Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>List required recovery points for databases and file shares.</li><li>Identify legal hold datasets.</li><li>Estimate business impact.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review who made the change and how; check for stolen credentials.</li><li>Look for other signs of attack.</li><li>Preserve audit logs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Support Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open a severity-one case and ask about recovery options.</li><li>Ask about soft delete features and metadata journals.</li><li>Ask if the defect is known.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify processes needing archive data.</li><li>Prepare the first update.</li><li>Ask for documented RTO and RPO.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Notify legal about legal hold data.</li><li>Ask how the template change was approved.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is the first action you take and who has authority to take it at 00:35 on a Saturday?</li><li>How do you stop deletion replication to the secondary without harming other replication?</li><li>How many recovery points have been lost at each tier, and how do you know?</li><li>Which datasets have no independent backup, and what does that mean for legal hold?</li><li>Is this a mistake, a defect or an attack, and what evidence will help decide?</li><li>What do the vendor&#x27;s soft-delete and recovery options offer, and why were they not enabled?</li><li>What alerts should have fired and why did the threshold not trigger?</li><li>What does legal need to know now?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal that the secondary has started deleting until the storage lead checks replication state.</li><li>If the team starts analysis before stopping the engine, ask what is being lost per minute.</li><li>Check whether the team knows how to pause replication safely.</li><li>Time-box to 30 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Policy engine will not stop</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The engine&#x27;s stop command times out; a hung job continues deletion.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Alternative containment.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Support Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assist.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is your escalation to stop the deletion?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Containment depth.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Administrator reachable but evasive</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The administrator answers and says the template was approved verbally.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Investigate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you handle an unclear change approval?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Change control.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Secondary array lost 40 percent</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The secondary has lost 40 percent of archive snapshots before pause.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Inventory.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which copy do you trust?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Surviving copies.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Legal asks about preservation</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Legal asks whether held data was deleted and the obligations.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Escalate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Advise.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What do you tell legal?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Legal exposure.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Vendor offers metadata reconstruction</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The vendor can attempt to reconstruct snapshots from metadata journals if the array is not written to heavily.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Freeze writes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Support Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Describe.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you freeze writes to try?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Risk and value.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Suspicious API token found</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Security finds an API token used by the policy template was created by a departed engineer.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Revoke.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is it malicious?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Security angle.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands answers</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The general counsel asks if records are lost.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Brief.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Advise.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is your answer?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Communication.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Backup restore of file shares</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Weekly backups exist for one share; the other has none.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Data Protection Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Restore.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is lost for the other share?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Gap.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Protection gap now</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Recovery points are 4 days old for several systems.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reestablish.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Application Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Accept risk.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you rebuild protection quickly?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Risk.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Regulator inquiry</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A regulator asks whether regulated records were lost.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Respond.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What do you report?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compliance.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Deletion is contained and protection rebuilding.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What exit criteria close the incident?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads to debrief.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, prioritizes containment before analysis and decides on pausing the policy engine.</li><li>Runs a 30-minute cadence, assigns the scribe and records decisions.</li><li>Engages legal and records management immediately due to legal hold exposure.</li><li>Authorizes vendor engagement and emergency spend.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Storage Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Disables the policy engine and breaks the deletion replication on the secondary array, using the safest method available.</li><li>Reviews policy template history, who changed it, and the specific selector mapping error.</li><li>Inventories snapshots remaining on each array by class, date and dataset.</li><li>Checks for soft-delete or recycle features and capacity needed for recovery.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Backup &amp; Data Protection Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identifies independent backup copies: database backups, file backups, tape, cloud, and their coverage of the lost datasets.</li><li>Prepares prioritized restores for databases, and identifies which file shares lack independent backup.</li><li>Ensures backup jobs are not impacted by the same automation.</li><li>Checks backup copies for the legal hold datasets.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Database &amp; Application Owners</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Database owners list recovery points required for point-in-time recovery and whether snapshots were the primary method.</li><li>Application owners identify datasets under legal hold and compliance archives.</li><li>Owners confirm the business impact of missing recovery points.</li><li>Prepare validation tests.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reviews administrative sessions, authentication logs and the source of the policy template to determine intent.</li><li>Checks whether other automation or API tokens are misused.</li><li>Monitors for follow-on activity such as encryption or exfiltration.</li><li>Preserves audit logs.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Vendor &amp; Support Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Opens a severity-one case and asks about recovery of deleted snapshots, soft delete and metadata journals.</li><li>Asks whether other customers have seen the policy selector defect.</li><li>Records any recommendation and obtains written confirmation.</li><li>Requests an engineer for the incident.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identifies business processes dependent on archive data such as claims history and regulatory reporting.</li><li>Issues time-stamped updates to leadership and legal.</li><li>Coordinates manual workarounds for requests needing archive data.</li><li>Tracks impact vs RTO and RPO.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28; 8.13 backup; 5.33 protection of records; SOC 2 availability).</li><li>Evaluates legal hold, retention and regulatory notification duties.</li><li>Captures evidence of containment and decisions.</li><li>Logs findings on policy change control, alert thresholds and independent copies.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Automation needs guardrails. Require peer review, staged rollout and a dry-run report for any retention policy change; cap the number of deletions per hour and require a second approval to exceed it.</p>
+<p>Enable soft delete or a deletion hold window (for example, 24 to 72 hours) on snapshots and archives, and do not mirror deletions to the secondary immediately; delay or require approval.</p>
+<p>Keep independent copies. Snapshots on the same platform are not backups. Maintain copies in a separate system and administrative domain, including immutable copies for legal hold data.</p>
+<p>Monitor the right signals: snapshot count change rate, deletion rate, policy change events and capacity drops, with thresholds that fire. Test the alerts.</p>
+<p>Auditors for ISO/IEC 27001:2022 and SOC 2 look for change management, retention compliance, and evidence that legal hold data is protected independently.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on containment speed, deletion guardrails and independent copies.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How quickly was the deletion noticed and what would have caught it earlier?</li><li>Who had authority to stop the policy engine and how long did it take?</li><li>How did the team stop deletion replication and what risks did that carry?</li><li>What recovery points remained and how did you inventory them?</li><li>Which datasets had no independent copy and who owns that risk?</li><li>What protections exist for legal hold data?</li><li>How was the template change approved and tested?</li><li>Was the event malicious and how did security decide?</li><li>What did the vendor offer and what are the limits?</li><li>What alert thresholds exist for snapshot counts?</li><li>How did legal and compliance receive information?</li><li>What evidence did the scribe capture that auditors would need?</li><li>How would you rebuild recovery points safely?</li><li>What access or credentials were missing?</li><li>What guardrails will you add to automation?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

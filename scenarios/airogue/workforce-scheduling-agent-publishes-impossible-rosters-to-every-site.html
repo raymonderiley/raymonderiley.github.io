@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workforce Scheduling Agent Publishes Impossible Rosters to Every Site | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Workforce Scheduling Agent Publishes Impossible Rosters to Every Site</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">AI Gone Rogue</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines a workforce scheduling agent that publishes impossible rosters to every site, drawing on Google Cloud analytics, Azure identity and on-premises time and attendance systems. Employees receive shifts that conflict with leave, labor rules and each other.</p>
+<p>Participants are the working-level incident team: workforce management and site operations leads, human resources and labor relations staff, platform and database engineers across all three environments, security analysts, legal and compliance counsel, payroll staff, communications and continuity coordinators, and a liaison to senior leaders or the board of directors where authority is needed. The exercise tests roster recovery, labor rule compliance and staff communication.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session. The scenario is industry-agnostic: substitute your own processes, platforms and teams wherever the text names a generic one.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Technology and Environment Context</h3>
+<p>Technology in scope: GCP, Azure &amp; On-Premises. Granite Care Services employs 14,000 shift workers at 120 sites. A scheduling agent on Google Cloud reads demand forecasts, availability and leave from an on-premises time and attendance system, authenticates through Azure directory groups and publishes rosters to a mobile app. It can overwrite published rosters and notify employees.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>During a data refresh, leave and availability records arrive in a different time zone format. The agent interprets leave days as available and availability windows as shifted by several hours.</p>
+<p>On Sunday evening it publishes next week&#x27;s rosters for all 120 sites. 5,800 employees are scheduled on approved leave, 2,100 on consecutive shifts without required rest and 900 at two sites at once. Notifications go out automatically.</p>
+<p>By 21:30 the support line fills with messages. Site managers cannot override the mobile app roster. The agent report says &#x27;coverage 100 percent, overtime reduced 18 percent&#x27;.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">What Participants Know at the Start</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Rosters conflict with leave and with each other.</li><li>Time zone formats corrupted availability data.</li><li>Some employees are scheduled at two sites at once.</li><li>Managers cannot override the published roster.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">What Is Not Yet Known</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>How many shifts breach legal rest or hour limits.</li><li>Whether employees on leave have already responded or declined.</li><li>Whether payroll will treat the published shifts as worked.</li><li>Whether the roster can be reverted without losing valid changes.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Stop publication and notifications.</strong> Engineers suspend the agent and stop notifications to the mobile app. Evidence of success: No further rosters or notifications are sent after suspension, verified within 20 minutes.</li><li><strong class="text-white">Restore the last valid roster.</strong> Workforce teams restore the previous week&#x27;s published roster and reapply approved changes. Evidence of success: Valid rosters are restored at the highest-risk sites within four hours.</li><li><strong class="text-white">Correct the data.</strong> Data engineers fix the time zone mapping and verify leave and availability against the source. Evidence of success: A verified data set exists before the agent is allowed to schedule again.</li><li><strong class="text-white">Protect staff and compliance.</strong> HR and legal address rest rules, leave and pay for any confusion and plan clear staff messages. Evidence of success: A rule-compliant interim roster and approved staff message exist within six hours.</li><li><strong class="text-white">Brief leadership clearly.</strong> The liaison reports coverage, compliance and staff morale effects. Evidence of success: Leadership receives a fact sheet with confirmed and estimated values.</li><li><strong class="text-white">Install scheduling controls.</strong> Participants define rule validation, publication gates, override rights and rollback. Evidence of success: At least four controls are agreed with owners and dates.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to staff, customers, partners and leadership are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management reviewers and SOC 2 availability, security and processing integrity reviewers. Evidence of success: the decision log lets an outsider reconstruct who decided what, when and on which facts.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations, models or backups will be touched. Commands, consoles and agent settings are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Exercise information is confidential until the after-action report is approved. Mark any written or chat message &#x27;exercise exercise exercise&#x27;.</li><li>Treat the AI system&#x27;s outputs, logs and self-reported status as unverified until a named person confirms them from an independent source. The scribe records which facts are verified and which are claimed.</li><li>If a kill switch, rollback, approval gate or manual fallback does not exist in your environment, say so aloud. Do not assume the AI system will correct itself, stop when asked or explain its own actions reliably.</li><li>Use the word leadership for senior leaders, a board of directors or both, and bring them in only when a decision needs their authority.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Rosters publish with conflicts. Decision: declare and suspend the agent. Escalate to leadership or change course if: Employees on leave scheduled; Support lines flooded; Managers cannot override.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Containment.</span> Containment: stop notifications and restore the prior roster. Escalate to leadership or change course if: App does not allow rollback; Notifications queued; Manual changes made by managers.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Diagnosis.</span> Diagnosis: find the time zone fault and count breaches. Escalate to leadership or change course if: Breach counts differ; Payroll data affected; Source data suspect.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Remediation planning.</span> Remediation planning: decide interim rosters site by site. Escalate to leadership or change course if: Sites in dispute; Union concerns; Critical coverage gaps.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Execution.</span> Execution: publish interim rosters and message staff. Escalate to leadership or change course if: Duplicate notices; Staff confusion; Rate limits.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Stabilization.</span> Stabilization: monitor rosters and complaints. Escalate to leadership or change course if: Agent attempts resume; Late changes; Absences rise.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Validation: sample rosters against rules and leave. Escalate to leadership or change course if: Residual conflicts; Evidence gaps; Payroll mismatches.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to normal and close-out.</span> Return to normal and close-out: set exit criteria and actions. Escalate to leadership or change course if: Open actions lack owners; Leaders want early return; Auditors request evidence.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">The scheduling agent publishes impossible rosters at every site</a></p><p><strong class="text-white">#2 &middot; T+00:20 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">No rollback in app</a></p><p><strong class="text-white">#3 &middot; T+00:20 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Union concern</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Critical sites</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Payroll</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Duplicate sites</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Regulator contact</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership asks for scope</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Social media</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Source data</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Staff fatigue</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out debate</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: The scheduling agent publishes impossible rosters at every site</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 21:30 on Sunday. The workforce management lead sees hundreds of employees reporting shifts that conflict with approved leave. The support line is flooded. The data engineer finds the scheduling agent published next week&#x27;s rosters for all 120 sites after a refresh in which leave and availability times shifted by several hours.</p>
+<p>The mobile app does not let site managers override rosters. Some employees are scheduled at two sites at once and many have no legal rest between shifts. The agent report says coverage is 100 percent and overtime is down 18 percent.</p>
+<p>The commander must decide how to stop further notifications, how to restore a valid roster and who tells staff what.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and assign a scribe, a workforce lead, an HR lead, a data lead and a platform lead.</li><li>Authorize suspension of the agent and notifications.</li><li>Set a 20-minute cadence.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AI Platform &amp; Model Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Suspend the agent and export inputs, schedules and rule checks.</li><li>Explain how it treated leave.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Stop notifications and preserve roster versions across all three environments.</li><li>Plan rollback.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Forensics</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check for tampering with source data or directory groups.</li><li>Preserve logs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business &amp; Process Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prioritize sites with critical coverage.</li><li>Plan interim rosters.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Data Protection &amp; Privacy</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check what employee data appears in notices and exports.</li><li>Assess notice duties.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the record and review labor, rest and leave obligations.</li><li>Preserve evidence.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare staff and manager messages.</li><li>Set one channel.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Leadership Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Brief senior leaders with facts and unknowns.</li><li>Check for board-level duties.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Third-Party Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Contact the time and attendance and mobile app vendors.</li><li>Open cloud support cases.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Why stop notifications before fixing the roster?</li><li>How do you restore the last valid roster?</li><li>Which sites get interim rosters first?</li><li>How do you protect employees on leave from confusion?</li><li>What do you tell staff?</li><li>Why must a roster agent validate rules before publishing?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the app override block until INF asks about rollback.</li><li>If players only fix data, ask what staff see now.</li><li>Look for labor rule checks.</li><li>Time-box to 40 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: No rollback in app</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The mobile app has no way to revert a published roster.</p>
+<p>Decision required: How to proceed.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Use data fix.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Third-Party Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Escalate.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What option?</li><li>Who approves?</li><li>What risk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Vendor limit.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Union concern</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A representative asks about rest breaches.</p>
+<p>Decision required: How to respond.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Message.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What facts?</li><li>Who speaks?</li><li>What commitment?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Labor relations.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Critical sites</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Three sites lack minimum coverage.</p>
+<p>Decision required: How to cover.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business &amp; Process Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan cover.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What plan?</li><li>Who approves?</li><li>What risk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Coverage.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Payroll</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Payroll treats published shifts as scheduled hours.</p>
+<p>Decision required: How to protect pay.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business &amp; Process Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Hold payroll rules.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What rule?</li><li>Who approves?</li><li>What risk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Pay.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Duplicate sites</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>900 employees are at two sites at once.</p>
+<p>Decision required: How to resolve.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>List.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business &amp; Process Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What list?</li><li>Who decides?</li><li>What risk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Conflict.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Regulator contact</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A labor authority asks about rest breaches.</p>
+<p>Decision required: What is fact.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compile facts.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is fact?</li><li>What is estimate?</li><li>Who signs?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reporting.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership asks for scope</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A senior leader asks how many employees were affected.</p>
+<p>Decision required: What can be said.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AI Platform &amp; Model Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide counts.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Leadership Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Give status.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is known?</li><li>What is unknown?</li><li>Who approves?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Honest scope.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Social media</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Employees post rosters online.</p>
+<p>Decision required: How to respond.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare statement.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Leadership Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What message?</li><li>Who speaks?</li><li>What risk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Public response.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Source data</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The on-premises system also changed its export format.</p>
+<p>Decision required: How to fix.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AI Platform &amp; Model Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Add test.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Validate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What test?</li><li>Who owns?</li><li>What gate?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Root cause.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Staff fatigue</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The workforce team is on hour 10.</p>
+<p>Decision required: How to hand over.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Structured handover.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What goes in?</li><li>Who briefs?</li><li>How kept?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Handover.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out debate</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Operations wants the agent back for forecasting only.</p>
+<p>Decision required: What conditions apply.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AI Platform &amp; Model Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Define scope.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What criteria?</li><li>Who approves?</li><li>What monitoring?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Return conditions.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Sets objectives for the first hour and states which decisions need the commander&#x27;s own approval, including whether the workforce scheduling agent stays disabled, restricted or supervised.</li><li>Runs a fixed update cadence and keeps one decision log with the decision, owner and time.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">AI Platform &amp; Model Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Knows how the agent reads leave, availability and forecasts.</li><li>Provides schedule and rule check logs.</li><li>Owns the technical facts about the workforce scheduling agent: its configuration, permissions, tools, prompts, memory and recent changes.</li><li>Preserves model, agent and orchestration logs before any restart or redeployment.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Infrastructure &amp; Platform Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Stops notifications and preserves roster versions.</li><li>Owns integrations across three environments.</li><li>Owns the technical response on the platforms and networks involved and keeps changes small, reversible and logged.</li><li>Maintains a list of every manual change so it can be reversed or formalized afterwards.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security Operations &amp; Forensics</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Checks tampering and preserves logs.</li><li>Treats the event as a possible security incident until evidence shows otherwise and preserves evidence in a forensically sound way.</li><li>Looks for misuse of credentials, tokens and tool permissions, not only the AI system&#x27;s own actions.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business &amp; Process Owners</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Owns interim rosters and site coverage.</li><li>Defines which business processes must continue, in what order, and what manual alternatives are acceptable.</li><li>Identifies decisions, transactions or communications that were made by the AI system and need review or reversal.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Data Protection &amp; Privacy</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Determines whether personal, confidential or regulated data was accessed, changed, shared or lost.</li><li>Identifies the lawful basis, notification clocks and contractual commitments that may apply.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Legal, Risk &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Owns labor, rest and leave obligations.</li><li>Ensures the incident is recorded, classified and linked to risk and control owners (ISO/IEC 27001:2022 (8.32, 5.14, 8.16, 5.31) and SOC 2 processing integrity and availability).</li><li>Identifies regulatory, contractual and insurance obligations and their clocks.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Communications &amp; Business Continuity</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Issues time-stamped updates to staff, customers and partners from one approved source.</li><li>Activates continuity plans and workarounds and tracks their capacity.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Leadership Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Briefs senior leaders and, where needed, the board of directors with confirmed facts, unknowns and the decisions that need their authority.</li><li>Brings back leadership decisions such as spend, risk acceptance and external disclosure in time to be useful.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Vendor &amp; Third-Party Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Works with time and attendance, app and cloud vendors.</li><li>Opens priority cases with the cloud, SaaS, model and tooling vendors involved and records case numbers.</li><li>Requests logs, configuration histories and root cause statements in writing.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Validate rules before publish</h3>
+<p>Run every roster through hard checks for leave, rest, hour limits and double booking, and block publication on any breach.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Add a publication gate</h3>
+<p>Require a manager or workforce planner to release rosters, with a diff against the last version and a sample review.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Keep rollback in the product</h3>
+<p>Make sure the roster app can revert to a prior version and test it regularly.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Normalize time data</h3>
+<p>Use one canonical time format and zone for all sources and validate it at ingestion.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Limit notification volume</h3>
+<p>Throttle notices and require approval for mass notifications, aligned with ISO/IEC 27001:2022 change and communications controls and SOC 2 processing integrity (8.32, 5.14, 8.16).</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Protect rest and leave</h3>
+<p>Treat legal rest and approved leave as constraints, not preferences, in the agent&#x27;s logic.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Provide manager override</h3>
+<p>Give site managers a documented override path that does not depend on the agent.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Maintain a manual scheduling mode</h3>
+<p>Rehearse building rosters from the prior week without the agent.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Prepare labor relations communication</h3>
+<p>Agree with HR and employee representatives how errors in rosters are explained and corrected, who speaks and what remedies exist, so that trust is protected when mistakes affect people&#x27;s time and pay.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Test with messy data</h3>
+<p>Run scheduled drills with mixed time zones, missing leave records and duplicate employees to see what the agent publishes.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Treat coverage reports as claims</h3>
+<p>A full coverage claim is not enough. Compare with leave, rest and complaint data before accepting an agent&#x27;s statement that a roster works.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Agree a roster change freeze</h3>
+<p>Define a freeze window before each roster publication during which source data changes require approval. A freeze lets the workforce team compare the draft roster against stable inputs, catch format shifts like the time zone change and publish with confidence, and it gives managers a predictable point at which to ask for corrections.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Rehearse a roster rollback</h3>
+<p>Practice restoring the prior week&#x27;s roster at a sample of sites, including re-sending notices and re-applying approved swaps. Record who authorizes it, how long each site takes and which steps the mobile app cannot do, then write the manual steps down so the next rollback is not a first attempt.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. Announce the end, remind everyone that all actions were simulated, and keep everyone in the room for the hot wash.</li><li>Take five minutes of silent notes. Each participant writes three things that worked, three that did not and any gap in tools, access or documentation.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, role by role and then open floor, for 45 to 60 minutes. Keep the discussion on how the workforce scheduling agent was permissioned, supervised and stopped.</li><li>Hold evaluator readouts. Evaluators share timing, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate impact and effort, and select no more than ten.</li><li>Assign corrective actions. Give each action an owner, a due date and a verification method, and record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates.</li><li>Schedule the follow-up. Validate fixes within 90 days and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How quickly did the team link complaints to the agent?</li><li>How did you stop notifications?</li><li>How did you restore a valid roster?</li><li>Which sites did you fix first?</li><li>What did staff hear?</li><li>Which controls do you now want?</li><li>How would manual scheduling have worked?</li><li>What would make you trust the agent again?</li><li>How accurate were the updates to leadership, and what was said that later proved wrong?</li><li>What did the vendor and third-party liaison add, and what did you still lack from vendors?</li><li>What evidence did the scribe capture that would satisfy an auditor, and what is missing?</li><li>Which permissions, approvals or access did the team lack at the moment they were needed?</li><li>Which alerts or detections should exist that did not?</li><li>What temporary changes remain, who owns them and when will they be reversed?</li><li>If you could change one design decision about how AI systems are built, permissioned or supervised here, what would it be?</li><li>What did the team do well that should be written into the runbook?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

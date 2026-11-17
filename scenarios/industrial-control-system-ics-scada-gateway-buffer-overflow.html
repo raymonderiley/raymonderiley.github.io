@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industrial Control System (ICS) SCADA Gateway Buffer Overflow | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Industrial Control System (ICS) SCADA Gateway Buffer Overflow</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">On-Premises Infrastructure</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines the response when a SCADA protocol gateway, the device that translates between field devices (PLCs, RTUs) and the supervisory systems, crashes from a buffer overflow triggered by a malformed telemetry packet. Operators lose visibility and remote control for a water treatment and distribution network, and the team must decide how to operate safely in manual or local mode while determining whether the event is a defect or a deliberate attack.</p>
+<p>Participants are working-level: OT and control system engineers, plant operators and shift supervisors, IT/OT network and security staff, safety and regulatory compliance staff, the vendor and integrator liaison, business continuity coordinators and compliance staff. Safety is always the first priority; the exercise emphasizes decision authority for manual operation and the care needed before restarting control systems.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Riverbend Water Authority operates a treatment plant, 14 pump stations and 9 storage tanks across a county. Field sites report through serial and Ethernet RTUs to two redundant SCADA protocol gateways (GW-1 and GW-2, same make and firmware) in the control center, which feed the SCADA servers and the HMI consoles. The OT network is segmented from the corporate network with a firewall and a data historian DMZ. Remote vendor support access exists via a VPN with a jump host.</p>
+<p>At 10:05 on Thursday, GW-1 stops responding after receiving a telemetry frame from pump station 7 with a malformed length field, causing a buffer overflow and crash. GW-2 takes over, receives the retransmitted frame from the same RTU and crashes at 10:07. Both gateways reboot into a fault state. The HMIs show stale data with a yellow &#x27;communications lost&#x27; indicator for all 14 stations. Alarms are no longer received. The tank levels in the north zone are at 62 percent and falling as a demand peak builds.</p>
+<p>What the team does not yet know: the malformed frame came from an RTU with a firmware fault after a recent update by an integrator (or possibly was injected), the gateways&#x27; firmware has a known vulnerability advisory from the vendor, the automatic control logic in PLCs continues but supervisory setpoints cannot change, manual operation procedures exist for only 6 of 14 sites, and the vendor jump host was used from an unfamiliar address last night.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Maintain safe operations without supervisory visibility.</strong> Participants decide how to maintain water quality and pressure using local control, manual operation and field crews, and set criteria for when to declare an emergency or notify authorities.</li><li><strong class="text-white">Diagnose the gateway failure.</strong> OT engineers use gateway logs, packet captures and RTU data to confirm the crash trigger and decide how to prevent repeat crashes before restarting the gateways.</li><li><strong class="text-white">Determine whether the event is malicious.</strong> Security and OT staff review remote access logs, recent firmware changes and network traffic for indicators of compromise, with clear criteria for escalation.</li><li><strong class="text-white">Restart control communications safely.</strong> The team plans a staged restart: isolating the offending RTU, applying filters, restarting one gateway, validating data and then re-enabling sites.</li><li><strong class="text-white">Meet regulatory and public safety obligations.</strong> Compliance determines whether regulators, public health authorities or customers must be notified, and what monitoring is required during manual operation.</li><li><strong class="text-white">Strengthen IT/OT security and resilience.</strong> The team examines patching practice, gateway redundancy design, input validation, remote access controls and manual operation readiness.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Safety and public health decisions follow your documented operating procedures and regulatory requirements. No simulated action may bypass safety interlocks.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Loss of SCADA communications and stale HMI data lead to incident declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Safe operation.</span> Manual and local operations are established and field crews dispatched.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Diagnosis.</span> The malformed frame and the gateway crash are confirmed.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Security assessment.</span> Remote access, firmware changes and network traffic are reviewed.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Restart decision.</span> A staged restart plan is approved.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Execution.</span> Gateways are restarted and sites re-enabled one at a time.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Data integrity, alarms and control are verified.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Normal supervisory control resumes and incident closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Both SCADA gateways crash and all sites go stale</a></p><p><strong class="text-white">#2 &middot; T+00:20 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Tank level approaching low limit</a></p><p><strong class="text-white">#3 &middot; T+00:20 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Pump station 7 offline</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Unknown remote session identified</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Operators report phantom setpoint change</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Regulator notified by a customer complaint</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Gateway firmware patch not available</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Gateway restart with filter</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Historian gap</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Forensics finding</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Both SCADA gateways crash and all sites go stale</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 10:12. The control room supervisor reports that all HMI screens show yellow stale data. Alarms are silent. The operator on the north zone console notes that tank 4 level last read 62 percent at 10:04 and the demand curve is rising. Both gateway status LEDs show a fault.</p>
+<p>The OT engineer connects to GW-1&#x27;s console and sees a crash dump with a stack overflow in the Modbus parsing routine, triggered by a frame from pump station 7. GW-2 crashed two minutes later after taking over. The RTU at pump station 7 had its firmware updated by an integrator last week.</p>
+<p>The firewall log shows an inbound VPN session from the vendor jump host at 23:40 the night before from an address not previously seen. The plant has written manual procedures for 6 of 14 sites. Two operators are on shift in the control room and two crews are available.</p>
+<p>Facilitator provides: the HMI screenshot, the gateway crash log, the VPN log and the manual procedure coverage list.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and set safety as the first priority; name the OT lead, operations lead and scribe.</li><li>Decide when to dispatch crews and call mutual aid.</li><li>Set the next update at T+00:20.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">OT/ICS Engineering &amp; Control Systems</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Describe the crash and what is still working, such as PLC local logic.</li><li>Isolate the pump station 7 RTU.</li><li>Describe the restart prerequisites.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Plant Operations &amp; Shift Supervision</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Dispatch crews and establish manual rounds.</li><li>Estimate time to tank low-level limits.</li><li>Identify which sites lack manual procedures.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">IT/OT Network &amp; Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review the VPN session and block remote access.</li><li>Check OT traffic for anomalies.</li><li>Preserve logs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Safety, Environmental &amp; Regulatory Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess water quality and pressure risk.</li><li>Determine notification triggers.</li><li>Verify safety interlocks.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Integrator Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Contact the vendor about the advisory and patch.</li><li>Ask the integrator about the RTU update.</li><li>Request guidance.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activate continuity plans.</li><li>Prepare the first update.</li><li>Ask for documented RTO.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask whether the gateway advisory was triaged.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is your first priority and what is your decision authority for manual operation?</li><li>What still works when the gateways are down and what is not controlled?</li><li>How long until the north zone tanks reach low limits, and what is the trigger to escalate?</li><li>Which sites lack manual procedures and what will crews do?</li><li>Is this a defect or an attack, and what evidence will you gather before restarting?</li><li>How will you prevent the malformed frame from crashing the gateways again?</li><li>What must be notified to regulators and when?</li><li>Who can authorize vendor remote access, and under what conditions?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the RTU firmware update until OT engineers examine the RTU.</li><li>If teams rush to restart gateways, ask what prevents the same frame from crashing them again.</li><li>Safety first: if players forget notification and public health, remind them gently.</li><li>Time-box to 30 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Tank level approaching low limit</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Field crew reports tank 4 at 41 percent and falling faster than expected.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Escalate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Plant Operations &amp; Shift Supervision</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Adjust.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What actions reduce drawdown?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Operations.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Pump station 7 offline</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Pump station 7 stops by local logic.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">OT/ICS Engineering &amp; Control Systems</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Plant Operations &amp; Shift Supervision</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Dispatch.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is local logic safe?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Local control.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Unknown remote session identified</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The VPN session belonged to a vendor account with a shared password.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">IT/OT Network &amp; Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Revoke.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Integrator Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verify.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is this suspicious?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Security.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Operators report phantom setpoint change</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>An operator says a chlorine setpoint was changed last night without a record.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">OT/ICS Engineering &amp; Control Systems</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verify.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Safety, Environmental &amp; Regulatory Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you verify the integrity of control logic?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Integrity.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Regulator notified by a customer complaint</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A customer calls the regulator about low pressure.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Safety, Environmental &amp; Regulatory Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Respond.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Message.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What do you tell the regulator?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compliance.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Gateway firmware patch not available</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The vendor patch is 10 days from release; a mitigation is a filter.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">OT/ICS Engineering &amp; Control Systems</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Implement.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Integrator Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Support.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is a filter enough?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Risk.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The board chair calls the general manager.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Brief.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you say?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Communication.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Gateway restart with filter</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>GW-1 restarts and receives frames from 13 sites normally.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">OT/ICS Engineering &amp; Control Systems</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Validate.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you validate data integrity?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Staged.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Historian gap</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The historian has an 8-hour gap in data.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">OT/ICS Engineering &amp; Control Systems</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Backfill.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you document the gap for compliance?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Records.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Forensics finding</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Forensics suggests the frame was crafted.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Notify.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">IT/OT Network &amp; Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Escalate.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What changes in your response?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Security.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Control is restored.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What exit criteria close the incident?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads to debrief.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, prioritizes safety and water quality and sets the criteria for manual operation and emergency escalation.</li><li>Runs a 20-minute cadence at first, assigns the scribe and records decisions.</li><li>Authorizes the restart plan and any emergency vendor remote access.</li><li>Decides on notifications to regulators and the public health authority with the compliance lead.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">OT/ICS Engineering &amp; Control Systems</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Analyzes gateway logs and packet captures, confirms the buffer overflow trigger and identifies the RTU at pump station 7.</li><li>Isolates the offending RTU, applies protocol filtering and plans staged gateway restart with firmware checks.</li><li>Confirms the state of PLC local control logic and verifies setpoints held.</li><li>Prepares data integrity checks and a validation plan for each site.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Plant Operations &amp; Shift Supervision</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Supervisors set up manual operating rounds, dispatch crews to sites and monitor tank levels and pressure using local indicators and phone reports.</li><li>Apply the manual operation procedures for the 6 sites that have them and decide what to do for the 8 that do not.</li><li>Maintain operator logs and shift handover.</li><li>Escalate to the incident commander if levels approach limits.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">IT/OT Network &amp; Security Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reviews the OT network traffic and firewall logs, and checks for abnormal flows to the gateways.</li><li>Disables remote vendor access and isolates the jump host while preserving logs.</li><li>Checks IT/OT boundary controls and the historian DMZ.</li><li>Looks for signs of reconnaissance or unauthorized devices.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Safety, Environmental &amp; Regulatory Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Evaluates water quality and pressure risk, and sets thresholds for boil water or conservation advisories.</li><li>Determines regulatory notification requirements and prepares required reports.</li><li>Reviews safety interlocks and verifies they remain functional.</li><li>Coordinates with public health authorities if necessary.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Vendor &amp; Integrator Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Contacts the gateway vendor for the advisory, patch and incident support.</li><li>Asks the integrator about the recent RTU firmware update and test results.</li><li>Provides guidance on safe restart and filtering.</li><li>Records every vendor instruction and remote session.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates continuity plans for operations and customer service.</li><li>Issues time-stamped updates to leadership, the board and customers where needed.</li><li>Coordinates crews and mutual-aid arrangements.</li><li>Tracks downtime against RTO for supervisory control.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28; IEC 62443 practices; SOC 2 availability where applicable).</li><li>Evaluates regulatory and reporting obligations.</li><li>Captures evidence for decisions, notifications and remote access.</li><li>Logs findings on patching, manual procedure coverage and remote access control.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Safety and manual operation come first. Maintain current, rehearsed manual procedures for every site, with thresholds, crew assignments and communication paths, and verify that local control logic holds safe setpoints.</p>
+<p>Do not run two identical gateways and call it redundancy for software defects. Use input validation, protocol-aware filtering and, where feasible, diverse implementations; apply vendor advisories on a risk-based schedule with testing.</p>
+<p>Control remote access: unique vendor accounts, MFA, session approval and recording, and time-limited access. Review jump host usage routinely.</p>
+<p>Segment IT and OT, monitor OT traffic passively, and keep known-good copies of PLC logic and configurations to detect unauthorized changes.</p>
+<p>Align to IEC 62443 and the organization&#x27;s regulatory obligations; auditors for ISO/IEC 27001:2022 and sector regulators expect documented risk assessments, change control for firmware, and tested incident procedures.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on the safety decisions made in the first hour and the readiness of manual operation.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How quickly did operators realize data was stale and what was the first action?</li><li>Which sites had manual procedures and how well did crews follow them?</li><li>How long would tanks and pressure have lasted, and was that calculated?</li><li>What does local PLC logic do without supervisory control and how was that verified?</li><li>How was the crash trigger confirmed and how will you prevent it from recurring?</li><li>Was the VPN session reviewed and what did security conclude?</li><li>How were remote vendor accounts controlled and is the account shared?</li><li>When did you notify the regulator and why?</li><li>How did you verify control logic integrity?</li><li>How accurate were communications to the board and customers?</li><li>What evidence did the scribe capture for regulators and auditors?</li><li>How was the gateway advisory handled before the event?</li><li>What monitoring would have detected the malformed frame earlier?</li><li>What access or credentials were missing?</li><li>What would you change in manual operations readiness?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

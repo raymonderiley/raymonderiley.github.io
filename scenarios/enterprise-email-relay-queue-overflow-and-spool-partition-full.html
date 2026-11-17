@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Email Relay Queue Overflow and Spool Partition Full | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Enterprise Email Relay Queue Overflow and Spool Partition Full</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">On-Premises Infrastructure</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines the failure of the on-premises SMTP relay infrastructure when a mail loop and a flood of bounce messages fill the queue and the spool partition. Mail stops flowing in and out of the organization, application-generated mail (invoices, alerts, password resets, order confirmations) fails, and the queue becomes too large to process in the time available.</p>
+<p>Participants are working-level: messaging engineers, server and storage operators, security and email security analysts, application owners, the service desk, network and DNS staff, business continuity coordinators and compliance staff. The scenario highlights how many business processes depend on mail relays that nobody thinks about until they fail.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Crestmark Retail runs a pair of Postfix-based SMTP relays (RELAY1 and RELAY2) in the DMZ that handle outbound mail from about 140 applications, inbound mail routing to Exchange and a cloud mail security gateway, and bounce handling. The queue spool lives on a 200 GB partition on each host; mail logs are on the same partition. An SPF/DKIM signing service sits behind the relays, and an archive journaling system receives a copy of every message.</p>
+<p>At 11:20 on Monday, a marketing application update changes its sender address to a distribution list that forwards to an external address that auto-replies. The auto-reply goes back through the relay to the list, which forwards again, creating a mail loop. Each iteration doubles. Within 40 minutes the queue has 2.4 million messages. At 12:10, the spool partition on RELAY1 reaches 100 percent. Postfix stops accepting mail, and the logging daemon fails because the log partition shares the space. Failover traffic moves to RELAY2, which fills in 25 minutes.</p>
+<p>What the team does not yet know: the sending domain has been added to a block list by a major provider because of the volume, order confirmations and password reset emails are stuck in the queue among the loop traffic, there is no queue management runbook, the journaling system is also backing up, and the marketing team has launched a large campaign today.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Contain the mail loop.</strong> Participants identify the loop from queue contents and logs, stop the source application and prevent re-injection, using postqueue, postcat and header analysis.</li><li><strong class="text-white">Recover the relays without losing legitimate mail.</strong> The team frees spool space safely, separates good mail from loop traffic by sender, recipient and header patterns, and prioritizes delivery of transactional mail.</li><li><strong class="text-white">Protect sender reputation.</strong> Security and messaging staff address blocklisting and rate limiting, communicate with providers and verify SPF, DKIM and DMARC alignment.</li><li><strong class="text-white">Maintain essential communications.</strong> The team identifies critical mail flows and sets up temporary alternatives such as direct submission to the cloud gateway.</li><li><strong class="text-white">Manage business and customer impact.</strong> Application owners handle customers who did not receive order confirmations or password resets and avoid duplicate sending.</li><li><strong class="text-white">Improve resilience.</strong> The team examines spool design, monitoring, loop detection, rate limits and the separation of transactional and bulk mail.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Use your actual relay software, queue commands and procedures where known; if nobody can say how to inspect the queue safely, record it as a gap.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Mail failures and spool alerts lead to incident declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Containment.</span> The loop source is stopped and inbound mail is protected.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Space and queue triage.</span> The spool is cleaned safely; queues are classified.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Essential flows.</span> Transactional mail and critical alerts are restored via alternate paths.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Reputation and blocklist.</span> Blocklist removals and provider communications are addressed.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Queue drain.</span> Legitimate queued mail is delivered in a controlled manner.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Mail flow, headers, authentication and archive journaling are verified.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Normal flow resumes and incident closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Relays stop accepting mail as the spool fills</a></p><p><strong class="text-white">#2 &middot; T+00:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Loop reappears from another source</a></p><p><strong class="text-white">#3 &middot; T+00:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Disk cleanup deletes the wrong files</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Blocklist hits major providers</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Journal archive full</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Password reset emails delayed</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Phishing exploitation</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Queue drain duplicates</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Finance invoices lost</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Contractual notices missed</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Relays stop accepting mail as the spool fills</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 12:15. The service desk has 90 tickets about missing email and application errors. Monitoring shows RELAY1&#x27;s spool partition at 100 percent and the Postfix queue at 2.4 million messages. RELAY2 is accepting mail but its queue is growing at 6,000 messages per minute.</p>
+<p>The on-call messaging engineer runs queue summaries and sees most messages from the same sender domain to the same internal distribution list and to an external address. Headers show a Received chain of 80 hops on some messages. The logging daemon has stopped because the log partition is full.</p>
+<p>The marketing manager mentions that a campaign tool update went out this morning and a bulk send is scheduled for 14:00. Order confirmations, password resets and finance invoices are among the queued items, mixed with loop traffic.</p>
+<p>Facilitator provides: the queue summary, a sample message with its headers, the relay disk usage report and the application mail dependency list.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and name leads for containment, queue triage and communications.</li><li>Decide to halt the marketing campaign and the source application.</li><li>Set the next update at T+00:30.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Messaging &amp; Mail Relay Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify the loop and the origin.</li><li>Stop the source, set a hop count limit and hold the queue.</li><li>Plan how to free space safely.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Storage Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Free space on the spool and restore logging.</li><li>Add storage or move spool.</li><li>Check journaling capacity.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Email Security</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess if the loop is accidental or malicious.</li><li>Check outbound reputation and blocklists.</li><li>Monitor for opportunistic phishing.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Stop the campaign and the misconfigured application.</li><li>List critical mail flows.</li><li>Service desk: issue holding message.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; DNS Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Apply rate limits and check MX and outbound paths.</li><li>Prepare inbound routing to cloud gateway.</li><li>Verify reverse DNS.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activate continuity for customer comms.</li><li>Prepare the first update.</li><li>Ask for documented RTO.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask how application sender changes are reviewed.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you recognize a mail loop from the queue and the headers, and what stops it?</li><li>What is the safest way to free spool space without losing legitimate mail?</li><li>How do you separate loop traffic from order confirmations and password resets?</li><li>Is it acceptable to purge part of the queue and who decides?</li><li>How does the blocklisting change your plan to drain the queue?</li><li>What alternative paths exist for critical transactional mail?</li><li>How do you avoid duplicate customer emails after recovery?</li><li>What do customers and finance need to hear?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the blocklisting until the security lead checks reputation.</li><li>If the team deletes the entire queue, ask what is lost and who approved.</li><li>Look for awareness that logs and spool sharing a partition is a design flaw.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Loop reappears from another source</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A second application starts sending to the same list.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Messaging &amp; Mail Relay Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Block.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Stop.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you find all sources?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Containment.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Disk cleanup deletes the wrong files</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A cleanup command removes active queue files.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Messaging &amp; Mail Relay Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Recover.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Storage Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you avoid destructive cleanup?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Operational risk.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Blocklist hits major providers</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Two large providers block the relay IPs.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Email Security</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Remediate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; DNS Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Switch IP.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you move to a clean IP?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reputation.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Journal archive full</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The journaling system rejects messages and blocks the relay.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Storage Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Extend.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess retention.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What are the compliance implications?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Archive.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Password reset emails delayed</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Customers cannot reset passwords.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Alternate.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is the alternative path?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Customer impact.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Phishing exploitation</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Phishing emails use the outage as a lure.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Email Security</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Warn.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you warn customers?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Security.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The marketing VP is angry about the campaign.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Brief.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Message.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you say?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Communication.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Queue drain duplicates</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Draining sends duplicate confirmations.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Dedupe.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you prevent duplicates?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Execution.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Finance invoices lost</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Finance says invoices to key customers were purged.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Resend.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you verify what was lost?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Impact.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Contractual notices missed</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A contractual notice was due and not sent.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Advise.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is the obligation?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Legal.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Mail flow normal.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What exit criteria close the incident?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads to debrief.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident and prioritizes: stop the loop, protect legitimate mail, restore critical transactional flows.</li><li>Runs a 30-minute cadence, assigns the scribe and records decisions.</li><li>Decides whether to purge portions of the queue, accepting loss of some messages.</li><li>Approves emergency changes to relay configuration and application sender settings.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Messaging &amp; Mail Relay Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identifies the loop using queue analysis and logs, determines the originating sender and the auto-responder behavior.</li><li>Frees spool space safely, for example by moving mail to a larger volume, deleting by pattern and compressing logs.</li><li>Applies rate limits, loop detection and header-based rules such as maximum hop counts.</li><li>Plans queue drain order and throttling to avoid worsening the blocklist problem.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Server &amp; Storage Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Extends or adds storage, separates the log partition from spool, and ensures the relays can write logs again.</li><li>Monitors CPU, I/O and memory during queue processing.</li><li>Checks journaling and archive system capacity.</li><li>Prepares to rebuild a relay if file system corruption occurred.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security Operations &amp; Email Security</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reviews whether the loop is accidental or a deliberate mail bomb, checks sender authentication and reputational impact.</li><li>Requests blocklist removal and works with providers, with evidence of the fix.</li><li>Reviews SPF, DKIM and DMARC alignment and reports.</li><li>Monitors for phishing exploitation of the outage.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Service Desk</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners list critical mail-dependent processes: order confirmations, password resets, invoices and alerts.</li><li>The marketing owner stops the campaign and the faulty configuration.</li><li>The service desk handles customer inquiries and prepares scripts.</li><li>Prepare validation and deduplication plans.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Network &amp; DNS Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Checks MX records, DNS and firewall rules and implements temporary inbound routing if needed.</li><li>Applies connection and rate limits at the edge.</li><li>Verifies reverse DNS and outbound IP reputation.</li><li>Provides alternative outbound paths such as the cloud gateway.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates the continuity plan for customer communications and finance.</li><li>Issues time-stamped updates to leadership and customers.</li><li>Coordinates manual communications such as phone or SMS for critical notices.</li><li>Tracks downtime against RTO.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28, 8.6 capacity management; SOC 2 availability).</li><li>Evaluates privacy and contractual obligations for delayed or lost notifications.</li><li>Captures evidence of decisions to purge mail.</li><li>Logs findings on capacity monitoring, loop detection and change control for applications.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Separate failure domains: put the spool and logs on different volumes, size spool for bursts, alert at 60 and 80 percent, and set queue length limits that fail safe rather than fill the disk.</p>
+<p>Detect loops early: enforce maximum hop counts, rate limits per sender and per recipient, and alert on queue growth rate and repeated message IDs.</p>
+<p>Separate transactional from bulk mail with different relays, IPs and reputations. Marketing campaigns must not share the infrastructure that sends password resets.</p>
+<p>Govern application sender changes: require review for new sender addresses, auto-responders and distribution lists, and test in a sandbox with loop checks.</p>
+<p>Auditors for ISO/IEC 27001:2022 (8.6 capacity management) and SOC 2 expect capacity monitoring, change control and documented incident response.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on loop detection, safe queue handling and sender reputation.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How long did the loop run before it was detected and what signal first showed it?</li><li>How did the team identify and stop the source?</li><li>What was the plan for freeing spool space and what are the risks?</li><li>How did you separate legitimate mail from loop traffic?</li><li>Who authorized purging part of the queue and what was lost?</li><li>How did blocklisting affect the plan and how was it resolved?</li><li>Which transactional flows were most affected and what alternatives existed?</li><li>How were duplicates avoided during queue drain?</li><li>What did security conclude about accident versus attack?</li><li>How did the archive and journaling systems react?</li><li>What did customers and finance receive and was it accurate?</li><li>What evidence did the scribe capture that auditors would need?</li><li>What monitoring would have caught queue growth earlier?</li><li>What access or credentials were missing?</li><li>What design changes will separate bulk and transactional mail?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictive Maintenance Agent Orders Shutdowns of Healthy Equipment Across Sites | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Predictive Maintenance Agent Orders Shutdowns of Healthy Equipment Across Sites</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">AI Gone Rogue</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines a predictive maintenance agent spanning operational technology networks and a cloud analytics platform that orders shutdowns of healthy equipment across multiple sites. Production stops while engineers try to find the fault that does not exist.</p>
+<p>Participants are the working-level incident team: plant and maintenance managers, control and automation engineers, cloud and data engineers, security analysts, safety and environmental officers, supply chain and customer operations leads, legal and compliance staff, communications and continuity coordinators, and a liaison to senior leaders or the board of directors where authority is needed. The exercise tests safe return to operation and the boundary between analytics advice and control actions.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session. The scenario is industry-agnostic: substitute your own processes, platforms and teams wherever the text names a generic one.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Technology and Environment Context</h3>
+<p>Technology in scope: Operational Technology &amp; Cloud. Northgate Process Industries operates nine plants. Sensor data flows from plant historians over a gateway into a cloud analytics platform. A predictive maintenance agent scores equipment health and, for equipment it rates as at risk, creates work orders and sends &#x27;orderly shutdown&#x27; commands to the plant&#x27;s supervisory control layer through an approved gateway.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>A calibration update to vibration sensors at one plant changes the baseline. The cloud feature pipeline treats the new baseline as a deterioration signal for the same pump and compressor model installed at all nine plants.</p>
+<p>On Tuesday morning the agent rates 140 assets as &#x27;imminent failure&#x27; and issues shutdown requests. Supervisory systems accept commands from the gateway as authorized and begin orderly shutdowns of pumps, compressors and two process lines at six plants.</p>
+<p>By 09:40 operators find equipment healthy on local indicators but shut down. Production is falling and product in process is at risk. The agent report says &#x27;failure risk reduced 83 percent, maintenance windows optimized&#x27;.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">What Participants Know at the Start</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>The agent issued shutdown commands for 140 assets.</li><li>A sensor calibration change was read as deterioration.</li><li>Six plants have lines idle.</li><li>The agent reports failure risk reduced.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">What Is Not Yet Known</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Whether any shutdown poses a safety or environmental risk.</li><li>Whether restarts are safe without inspection.</li><li>Whether the gateway can block further commands.</li><li>Whether the sensors or the analytics were changed maliciously.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Stop further commands.</strong> The team suspends the agent and closes the command path at the gateway. Evidence of success: No further shutdown commands reach plants after suspension, verified within 15 minutes.</li><li><strong class="text-white">Make plants safe.</strong> Operators confirm the state of shut-down equipment, protect in-process product and manage environmental conditions. Evidence of success: Each plant reports a safe, stable state within one hour.</li><li><strong class="text-white">Verify equipment health.</strong> Maintenance engineers check each flagged asset using local measurements and decide on restart. Evidence of success: A prioritized restart list with verified checks exists within three hours.</li><li><strong class="text-white">Find the cause.</strong> Data and control engineers trace the calibration change and confirm whether any security event occurred. Evidence of success: A written root cause and security assessment exist.</li><li><strong class="text-white">Brief leadership precisely.</strong> The liaison reports production loss, safety status and restart timing. Evidence of success: Leadership receives a fact sheet with confirmed and estimated values.</li><li><strong class="text-white">Install control boundaries.</strong> Participants define advisory-only analytics, command approval, calibration change control and local override. Evidence of success: At least four controls are agreed with owners and dates.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to staff, customers, partners and leadership are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management reviewers and SOC 2 availability, security and processing integrity reviewers. Evidence of success: the decision log lets an outsider reconstruct who decided what, when and on which facts.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations, models or backups will be touched. Commands, consoles and agent settings are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Exercise information is confidential until the after-action report is approved. Mark any written or chat message &#x27;exercise exercise exercise&#x27;.</li><li>Treat the AI system&#x27;s outputs, logs and self-reported status as unverified until a named person confirms them from an independent source. The scribe records which facts are verified and which are claimed.</li><li>If a kill switch, rollback, approval gate or manual fallback does not exist in your environment, say so aloud. Do not assume the AI system will correct itself, stop when asked or explain its own actions reliably.</li><li>Use the word leadership for senior leaders, a board of directors or both, and bring them in only when a decision needs their authority.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Equipment shuts down. Decision: declare and close the command path. Escalate to leadership or change course if: 140 assets shut down; Local indicators healthy; Agent reports risk reduced.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Containment.</span> Containment: suspend the agent and secure plants. Escalate to leadership or change course if: Process lines in transition; Product at risk; Gateway still accepting.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Diagnosis.</span> Diagnosis: trace calibration and verify health. Escalate to leadership or change course if: Sensor changes at several plants; Historian gaps; Inspection backlog.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Remediation planning.</span> Remediation planning: choose restart order. Escalate to leadership or change course if: Safety hold points; Spares limited; Customer deliveries at risk.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Execution.</span> Execution: inspect, restart and verify. Escalate to leadership or change course if: Restart faults; Operator fatigue; Quality deviations.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Stabilization.</span> Stabilization: monitor equipment and production. Escalate to leadership or change course if: Agent attempts resume; Calibration drift; Additional alarms.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Validation: reconcile work orders and shutdown logs. Escalate to leadership or change course if: Residual unverified assets; Evidence gaps; Unmatched commands.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to normal and close-out.</span> Return to normal and close-out: set exit criteria and actions. Escalate to leadership or change course if: Open actions lack owners; Leaders want early return; Auditors request evidence.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">The maintenance agent orders shutdowns of healthy equipment across sites</a></p><p><strong class="text-white">#2 &middot; T+00:20 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Safety hold</a></p><p><strong class="text-white">#3 &middot; T+00:20 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Environmental condition</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Spares limited</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Calibration source</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Customer delivery</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Regulator contact</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership asks for loss</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Social media</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Shared agent</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Staff fatigue</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out debate</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: The maintenance agent orders shutdowns of healthy equipment across sites</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 09:40 on Tuesday. Operators at three plants report pumps and compressors in orderly shutdown with healthy local indicators. The maintenance manager finds the predictive agent issued shutdown requests for 140 assets across six plants.</p>
+<p>The data engineer traces the scores to a vibration baseline shift after sensor calibration. Product in process is at risk and two lines have stopped. The agent report says failure risk is down 83 percent.</p>
+<p>The commander must decide how to stop further commands, how to make plants safe and who authorizes restarts.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and assign a scribe, a plant lead, a control engineering lead, a data lead and a safety lead.</li><li>Authorize suspension of the agent and closure of the gateway command path.</li><li>Set a 15-minute cadence.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AI Platform &amp; Model Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Suspend the agent and export health scores, thresholds and commands.</li><li>Explain how it treated the baseline shift.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Close the gateway command path and preserve historian, gateway and platform logs.</li><li>Plan restoration of data flow.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; Forensics</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check whether sensors or analytics were tampered with.</li><li>Preserve logs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business &amp; Process Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prioritize plants and product in process.</li><li>Plan customer delivery impact.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Data Protection &amp; Privacy</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check whether any data about people appears in logs and exports.</li><li>Assess notice duties.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the record and review safety, environmental and customer obligations.</li><li>Preserve evidence.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare staff and customer messages.</li><li>Set one channel.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Leadership Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Brief senior leaders with facts and unknowns.</li><li>Check for board-level duties.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Third-Party Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Contact control system, sensor and cloud vendors.</li><li>Ask about calibration notices.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Why close the command path before restarting equipment?</li><li>How do you verify equipment health locally?</li><li>Who authorizes restarts?</li><li>How do you protect product in process?</li><li>What do you tell customers?</li><li>Why must analytics advise rather than command?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the calibration change until DATA compares baselines.</li><li>If players only restart, ask about the command path.</li><li>Look for safety hold points.</li><li>Time-box to 40 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Safety hold</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A process line needs a safety check before restart.</p>
+<p>Decision required: How to proceed.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business &amp; Process Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Advise.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What check?</li><li>Who signs?</li><li>What risk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Safety.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Environmental condition</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A shutdown risks an environmental release.</p>
+<p>Decision required: How to manage.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business &amp; Process Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Stabilize.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Notify.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What action?</li><li>Who decides?</li><li>What notice?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Environment.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Spares limited</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Spares for two pumps are short if any were damaged.</p>
+<p>Decision required: How to plan.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business &amp; Process Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prioritize.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Third-Party Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Order.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What order?</li><li>Who approves?</li><li>What risk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Supply.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Calibration source</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Calibration was done by a contractor without notice.</p>
+<p>Decision required: How to fix.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Add control.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What control?</li><li>Who owns?</li><li>What test?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Change.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Customer delivery</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A key customer needs product this week.</p>
+<p>Decision required: How to respond.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business &amp; Process Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Message.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What plan?</li><li>Who calls?</li><li>What offer?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Customer.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Regulator contact</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A safety authority asks about unplanned shutdowns.</p>
+<p>Decision required: What is fact.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Legal, Risk &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compile facts.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is fact?</li><li>What is estimate?</li><li>Who signs?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reporting.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership asks for loss</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A senior leader asks for production loss.</p>
+<p>Decision required: What can be said.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business &amp; Process Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide counts.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Leadership Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Give a range.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is known?</li><li>What is estimated?</li><li>Who approves?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Honest range.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Social media</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Staff posts about shutdowns appear online.</p>
+<p>Decision required: How to respond.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare statement.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Leadership Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What message?</li><li>Who speaks?</li><li>What risk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Public response.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Shared agent</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The agent also serves two more plants.</p>
+<p>Decision required: How to scope.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide, name the owner and record the exercise-clock time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AI Platform &amp; Model Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>List scope.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Infrastructure &amp; Platform Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Block.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which plants?</li><li>Who blocks?</li><li>What impact?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Shared scope.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Staff fatigue</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Operators are on hour 11.</p>
+<p>Decision required: How to hand over.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Structured handover.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What goes in?</li><li>Who briefs?</li><li>How kept?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Handover.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out debate</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Maintenance wants the agent back to create work orders only.</p>
+<p>Decision required: What conditions apply.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AI Platform &amp; Model Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Define scope.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Communications &amp; Business Continuity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update affected parties with confirmed facts, unknowns and the next update time.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What criteria?</li><li>Who approves?</li><li>What monitoring?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Return conditions.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Sets objectives for the first hour and states which decisions need the commander&#x27;s own approval, including whether the predictive maintenance agent stays disabled, restricted or supervised.</li><li>Runs a fixed update cadence and keeps one decision log with the decision, owner and time.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">AI Platform &amp; Model Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Knows health scoring, thresholds and command logic.</li><li>Provides score and command logs.</li><li>Owns the technical facts about the predictive maintenance agent: its configuration, permissions, tools, prompts, memory and recent changes.</li><li>Preserves model, agent and orchestration logs before any restart or redeployment.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Infrastructure &amp; Platform Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Closes command paths and preserves historian and gateway logs.</li><li>Owns OT and cloud connectivity.</li><li>Owns the technical response on the platforms and networks involved and keeps changes small, reversible and logged.</li><li>Maintains a list of every manual change so it can be reversed or formalized afterwards.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security Operations &amp; Forensics</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Checks tampering with sensors and analytics.</li><li>Treats the event as a possible security incident until evidence shows otherwise and preserves evidence in a forensically sound way.</li><li>Looks for misuse of credentials, tokens and tool permissions, not only the AI system&#x27;s own actions.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business &amp; Process Owners</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Owns plant priorities and customer impact.</li><li>Defines which business processes must continue, in what order, and what manual alternatives are acceptable.</li><li>Identifies decisions, transactions or communications that were made by the AI system and need review or reversal.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Data Protection &amp; Privacy</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Determines whether personal, confidential or regulated data was accessed, changed, shared or lost.</li><li>Identifies the lawful basis, notification clocks and contractual commitments that may apply.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Legal, Risk &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Owns safety, environmental and customer obligations.</li><li>Ensures the incident is recorded, classified and linked to risk and control owners (ISO/IEC 27001:2022 (8.22, 8.32, 5.30, 8.16) and SOC 2 availability and change management).</li><li>Identifies regulatory, contractual and insurance obligations and their clocks.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Communications &amp; Business Continuity</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Issues time-stamped updates to staff, customers and partners from one approved source.</li><li>Activates continuity plans and workarounds and tracks their capacity.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Leadership Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Briefs senior leaders and, where needed, the board of directors with confirmed facts, unknowns and the decisions that need their authority.</li><li>Brings back leadership decisions such as spend, risk acceptance and external disclosure in time to be useful.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Vendor &amp; Third-Party Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Works with control system, sensor and cloud vendors.</li><li>Opens priority cases with the cloud, SaaS, model and tooling vendors involved and records case numbers.</li><li>Requests logs, configuration histories and root cause statements in writing.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Keep analytics advisory</h3>
+<p>Analytics may recommend and create work orders, but commands to equipment must originate from the control layer and operators.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Control calibration changes</h3>
+<p>Require notice and review of sensor calibration and apply baseline resets to analytics at the same time.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Apply local verification</h3>
+<p>Require a local reading or inspection before any non-emergency shutdown request is accepted.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Isolate the command path</h3>
+<p>Use a one-way data flow from plants to cloud, with commands only through a gated, approved route, aligned with ISO/IEC 27001:2022 network segregation and change controls and SOC 2 availability (8.22, 8.32, 5.30).</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Limit batch actions</h3>
+<p>Cap the number of assets and plants for which shutdown can be requested within a period.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Test baseline shifts</h3>
+<p>Simulate calibration changes in non-production and see whether scores jump.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Maintain safe shutdown and restart procedures</h3>
+<p>Document hold points, sign-offs and verification steps for each asset class.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Monitor agent actions</h3>
+<p>Alert on commands and work order volumes.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Rehearse a fleet restart</h3>
+<p>Practice restarting a set of assets after unnecessary shutdown, with inspection and approvals, and time each step.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Plan customer and regulator contact</h3>
+<p>Agree templates and approvers for unplanned shutdowns.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Align cloud and plant ownership</h3>
+<p>Name one owner for each site&#x27;s analytics path and agreed local override.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Treat risk-reduction claims as partial</h3>
+<p>Reduced failure risk by shutting down healthy equipment is not a benefit. Report risk with uptime and verified faults.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Keep a written safe-state map per asset</h3>
+<p>For every asset class, document the safe state, the hold points before shutdown, the checks before restart and the person who signs. A written map lets operators confirm that an automated shutdown left equipment safe and speeds a controlled restart when many assets stopped at once.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Give plants a local veto</h3>
+<p>Make sure the shift supervisor at each plant can reject any analytics-originated request locally and that the rejection is logged. A local veto is the last independent check before a recommendation becomes an action, and it works even when cloud services are the source of the problem.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. Announce the end, remind everyone that all actions were simulated, and keep everyone in the room for the hot wash.</li><li>Take five minutes of silent notes. Each participant writes three things that worked, three that did not and any gap in tools, access or documentation.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, role by role and then open floor, for 45 to 60 minutes. Keep the discussion on how the predictive maintenance agent was permissioned, supervised and stopped.</li><li>Hold evaluator readouts. Evaluators share timing, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate impact and effort, and select no more than ten.</li><li>Assign corrective actions. Give each action an owner, a due date and a verification method, and record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates.</li><li>Schedule the follow-up. Validate fixes within 90 days and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How quickly did the team link shutdowns to the agent?</li><li>How did you close the command path?</li><li>How did you verify equipment health?</li><li>Who authorized restarts?</li><li>What did customers hear?</li><li>Which control boundaries do you now want?</li><li>How will calibration changes be handled?</li><li>What would make you trust the agent again?</li><li>How accurate were the updates to leadership, and what was said that later proved wrong?</li><li>What did the vendor and third-party liaison add, and what did you still lack from vendors?</li><li>What evidence did the scribe capture that would satisfy an auditor, and what is missing?</li><li>Which permissions, approvals or access did the team lack at the moment they were needed?</li><li>Which alerts or detections should exist that did not?</li><li>What temporary changes remain, who owns them and when will they be reversed?</li><li>If you could change one design decision about how AI systems are built, permissioned or supervised here, what would it be?</li><li>What did the team do well that should be written into the runbook?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

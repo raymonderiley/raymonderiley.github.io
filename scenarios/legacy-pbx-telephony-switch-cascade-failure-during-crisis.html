@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legacy PBX Telephony Switch Cascade Failure During Crisis | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Legacy PBX Telephony Switch Cascade Failure During Crisis</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">On-Premises Infrastructure</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines the failure of a legacy on-premises PBX telephony switch at the moment the organization depends on voice the most: during another crisis. A cascade of failures (a processor card fault, a corrupted translation database and failed survivable gateways) removes inbound, outbound and internal calling, including emergency-notification and contact center routing.</p>
+<p>It is built for working-level participants: telephony engineers, contact center supervisors, network and carrier staff, facilities, the service desk, application owners, business continuity coordinators and compliance staff. It highlights how many processes silently rely on voice and how little support remains for aging telephony platforms.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Ridgeway County Utilities runs a ten-year-old PBX serving 2,200 extensions, a 90-seat contact center, a 24-hour outage hotline, and a mass notification dialer that calls on-call staff. The PBX has duplicated common control processors, a configuration database backed up to a local drive, 12 PRI trunks to the carrier, and three branch survivable gateways. The vendor ended full support two years ago and the organization buys time-and-materials service.</p>
+<p>During an active storm response, with 6,400 customers without power and the outage hotline at peak volume, the active processor card reports parity errors at 14:20 and the standby fails to take over because of a mismatched software release. By 14:35 the PBX is in a reduced operating mode with no new call setup. Attempts to reload restore only partially because the translation database restored from last night&#x27;s backup contains a corrupted dial plan segment. The branch gateways cannot register because they depend on the central controller.</p>
+<p>What the team does not yet know: the standby card was never upgraded to the same release after a patch two years ago, the last offsite configuration backup is five months old, the carrier can reroute DID numbers but requires a documented request process with a four-hour lead time, and the mass notification system uses the PBX for outbound calling.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Diagnose telephony platform failure.</strong> Participants separate switch, trunk, carrier and network issues using alarm logs, trunk status and test calls, and identify the failed processor and database issue.</li><li><strong class="text-white">Maintain essential communications during the outage.</strong> The team identifies alternative channels for the outage hotline and on-call notification, including carrier rerouting, mobile phones, softphones and radios.</li><li><strong class="text-white">Recover the platform safely.</strong> Telephony engineers decide between card replacement, release alignment, database restore and rebuild, and plan the testing before cutover.</li><li><strong class="text-white">Use the carrier effectively.</strong> The team executes carrier call forwarding and DID rerouting, understands the lead times and approvals, and manages trunk capacity.</li><li><strong class="text-white">Protect contact center and customer communications.</strong> Contact center managers use alternate IVR, web messaging and recorded messages to deal with high call volumes.</li><li><strong class="text-white">Expose hidden dependencies on telephony.</strong> Participants list systems that rely on voice: alarm dialers, elevator phones, fire panel dialers, mass notification, and two-factor voice calls.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Name the specific processes and phone numbers that matter to your operation. Where nobody knows the number or owner, record it.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Alarms, call failures and contact center escalations prompt declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Triage and essential communications.</span> The scope of the outage is established and alternate channels are activated.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Root cause and carrier engagement.</span> Processor and database faults are identified; carrier reroute begins.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Dependency discovery.</span> Hidden telephony dependencies are listed and mitigated.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Recovery path decision.</span> Repair, rebuild or interim cloud/soft-switch fallback is decided.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Execution.</span> Recovery steps, testing and phased cutover.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Call flow, contact center, emergency lines and notifications are validated.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Services are released and the incident is closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">PBX stops completing calls during storm response</a></p><p><strong class="text-white">#2 &middot; T+00:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Carrier requires authorization codes</a></p><p><strong class="text-white">#3 &middot; T+00:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Emergency lines affected</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Vendor lacks the spare card</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Call volume spikes</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">MFA calls failing</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Branch gateways isolated</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Cloud or soft-switch interim option offered</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Database restore partially works</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Call recordings and compliance</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Management asks to defer the replacement</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: PBX stops completing calls during storm response</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 14:38. The PBX alarm panel shows a major alarm on the active common control processor and a minor alarm on the standby that failed to take over. Callers get silence or a fast busy. The contact center supervisor reports that all 90 seats show &#x27;logged out&#x27; and the outage hotline queue has 140 waiting callers. The mass notification dialer fails to call on-call crews.</p>
+<p>The telephony engineer reloaded the active processor at 14:30, and the system came back for eight minutes before halting again with a translation database error. The restored database from last night&#x27;s backup has a corrupted dial plan segment for outbound routing. Branch gateways in two locations show &#x27;unregistered&#x27;.</p>
+<p>The carrier&#x27;s portal shows all twelve PRI trunks are up and idle, which indicates the fault is inside the switch. Six thousand four hundred customers are without power due to the storm and the volume of calls is five times normal.</p>
+<p>Facilitator provides: the PBX alarm log extract, the trunk status screen, the contact center queue statistics and the phone number list for the outage hotline.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and set severity. Name the telephony lead, communications lead and scribe.</li><li>Decide how crews will be dispatched without the PBX dialer.</li><li>Set the next update at T+00:30.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Telephony &amp; Voice Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Interpret the alarms and say whether the processor, database or both are at fault.</li><li>List repair options: replace the card, align releases, restore a different database, load a minimal dial plan.</li><li>Tell the team how long each option takes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Contact Center Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activate the recorded message and web or SMS intake for the outage hotline.</li><li>Move supervisors to mobile phones for critical callers.</li><li>Estimate abandoned call volumes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; SIP/PSTN Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm carrier trunk health and make test calls.</li><li>Request emergency call forwarding of the hotline number to mobile phones or an alternate site and ask for the lead time.</li><li>Check the network capacity for softphones.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities &amp; Power</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Rule out power and environmental causes in the PBX room.</li><li>Arrange access for vendor and spares.</li><li>Distribute radios and mobile phones to crews.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Service Desk &amp; Application Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>The service desk: issue the notice to staff on alternate channels.</li><li>Application owners: list systems depending on voice, including MFA calls and alarm dialers.</li><li>Mass notification owner: arrange SMS fallback.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Contact the emergency operations center and confirm the contingency plan.</li><li>Prepare the first public and internal message.</li><li>Ask for the documented RTO.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record and capture the detection time.</li><li>Ask why the standby was on a different release and whether there was a risk acceptance.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which communications are essential right now, and what alternate channel exists for each?</li><li>The carrier shows trunks idle. What does that tell you and what test would confirm it?</li><li>How long does it take to reroute the outage hotline at the carrier, and who is authorized to request it?</li><li>What are the risks of restoring a database with a known corrupted segment compared with loading a minimal dial plan?</li><li>Which processes use voice that nobody listed in the BIA?</li><li>How do crews learn of dispatch orders without the dialer?</li><li>What would you tell customers about how to report an outage right now?</li><li>What is the plan if the vendor cannot attend for six hours?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the release mismatch until the team asks why the standby did not take over.</li><li>If players wait for the vendor before activating alternatives, ask what essential communications they have lost in the meantime.</li><li>Check whether the carrier reroute process is documented, including the authorized contacts and codes.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Carrier requires authorization codes</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The carrier says call forwarding changes need an authorized contact with a PIN. The authorized list is out of date.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Authorize.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; SIP/PSTN Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Find alternatives.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Who is on the authorized list and how current is it?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reveals hidden dependency.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Emergency lines affected</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The fire alarm dialer and elevator phones, which use analog lines from the PBX, fail.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Telephony &amp; Voice Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide analog service.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities &amp; Power</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess safety.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Who is responsible for life-safety phone lines?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Safety discussion.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Vendor lacks the spare card</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The vendor has no stock of the processor card; the nearest refurbished unit is 36 hours away.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve interim solution.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Telephony &amp; Voice Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Replan.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is Plan B for a platform nobody can repair?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests end-of-support risk.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Call volume spikes</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The carrier reports 40,000 calls attempted to the hotline in an hour; the carrier is blocking some to protect the network.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Contact Center Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Deploy messaging.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; SIP/PSTN Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Coordinate.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you handle demand beyond capacity?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Introduces call blocking.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: MFA calls failing</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Remote staff cannot log in because MFA relies on voice call-back.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve the change.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Service Desk &amp; Application Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Change the MFA method.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is it safe to change MFA methods mid-incident?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Hidden dependency.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Branch gateways isolated</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Branch gateways in two towns have no connectivity to central control and cannot place local calls.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Telephony &amp; Voice Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Local mode.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; SIP/PSTN Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Route to the PSTN.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What survivable mode exists?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Test survivability design.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Cloud or soft-switch interim option offered</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A partner offers a hosted telephony service for the hotline in 6 hours at premium cost.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess contractual risk.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you adopt an interim cloud service and under what controls?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Procurement under pressure.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Database restore partially works</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A previous database restore restores dial plans but not the contact center hunt groups.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Telephony &amp; Voice Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Fix.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Contact Center Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Validate.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What do you release first?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Staged release.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Call recordings and compliance</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Recording servers lost calls for 5 hours; regulatory requirements demand recordings for the outage hotline.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Contact Center Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Preserve.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What obligations are affected?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compliance angle.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Management asks to defer the replacement</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Budget owners want to avoid replacing the PBX because it is now working.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Present risk.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Capture risk.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you argue for modernization?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Business case.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The PBX is stable. The carrier invoice for emergency services arrives.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Capture actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What exit criteria close the incident?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads to debrief.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident and prioritizes essential communications: outage hotline, on-call notification, emergency and safety lines.</li><li>Decides between repairing the legacy PBX and moving to an interim fallback.</li><li>Runs a 30-minute cadence, assigns the scribe and records decisions.</li><li>Approves vendor and carrier emergency charges.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Telephony &amp; Voice Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reads the PBX alarm log and diagnoses the processor parity error and failed standby handover, including release mismatch.</li><li>Evaluates the database restore options and the age of each backup, including the five-month-old offsite copy.</li><li>Engages the vendor under time-and-materials terms and gets the spare card or loaner.</li><li>Prepares a minimal dial plan for essential extensions and the order for restoring services.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Contact Center Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates contact center contingency: recorded messages, web and SMS intake, and use of mobile phones for supervisors.</li><li>Prioritizes outage hotline callers by type: safety hazards, life support customers, general outages.</li><li>Tracks abandoned calls and queue volumes using carrier data.</li><li>Plans agent redeployment and extended hours after recovery.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Network &amp; SIP/PSTN Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verifies carrier circuits and PRIs are up and sends test calls to isolate the problem to the switch.</li><li>Opens an emergency request with the carrier for call forwarding and DID reroute, noting the lead time.</li><li>Checks SIP and data network capacity if softphones or cloud fallback are used.</li><li>Prepares trunk capacity changes.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Facilities &amp; Power</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirms power to the PBX room, UPS state and cooling, to rule out environmental causes.</li><li>Prepares for vendor and spare equipment access.</li><li>Supports distribution of radios and mobile phones.</li><li>Verifies fire panel and elevator emergency phone lines.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Service Desk &amp; Application Owners</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>The service desk issues guidance for staff to use mobile phones and chat.</li><li>Application owners list systems using voice: mass notification, alarm dialers, MFA phone calls, security dispatch.</li><li>Owners identify fallback for each, such as SMS or email.</li><li>Prepare validation tests for post-recovery.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates the communications continuity plan and coordinates with the emergency operations center.</li><li>Issues time-stamped updates to leadership, regulators and customers with approved wording.</li><li>Coordinates public notices with media relations about how to report outages.</li><li>Tracks outage against RTO for the outage hotline.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is classified and recorded (ISO/IEC 27001:2022 controls 5.24-5.28; SOC 2 availability).</li><li>Evaluates regulatory notification obligations related to emergency communications availability.</li><li>Captures evidence of decisions and emergency vendor approvals.</li><li>Logs findings: end-of-support platform, standby mismatch, backup age and hidden dependencies.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Voice is a shared dependency that is rarely listed in dependency maps. Build an inventory of everything that uses the PBX or the trunks: alarm dialers, elevator lines, fire panels, MFA call-backs and mass notification.</p>
+<p>Never run duplicated processors on different software releases. A standby that cannot take over is not a standby. Test failover at least annually and verify release alignment after every patch.</p>
+<p>Keep offsite, current and tested configuration backups, with a minimal dial plan that restores essential extensions first. A five-month-old offsite copy is a gap.</p>
+<p>Pre-arrange carrier rerouting: authorized contacts, PINs, destination numbers and lead times, and test them. Maintain alternate channels for the outage hotline, including SMS and web intake.</p>
+<p>Plan for platform end of support: spares, loaner agreements and a funded migration to a resilient modern service. Auditors for ISO/IEC 27001:2022 and SOC 2 look for asset lifecycle management and tested continuity for critical communication.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on how quickly essential communications were restored by alternate means rather than waiting for the PBX.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which essential communications did you lose first, and how long until an alternate was in place?</li><li>What did the trunk status tell you and how quickly did the team conclude the fault was inside the switch?</li><li>Why did the standby not take over, and how would you have found out earlier?</li><li>How current are your offsite configuration backups and have you ever restored one?</li><li>Who can authorize carrier call forwarding, how long does it take and when was the contact list last verified?</li><li>Which hidden systems depended on voice that nobody listed?</li><li>How did crews receive dispatch orders without the dialer?</li><li>What did the contact center tell callers and was it accurate?</li><li>What life-safety lines depend on the PBX and who owns them?</li><li>How would you respond if the vendor could not provide a spare for 36 hours?</li><li>What controls apply when adopting an interim hosted service during an incident?</li><li>How did MFA dependency on voice affect staff, and what is the alternative?</li><li>What evidence did the scribe capture that an auditor needs, and what is missing?</li><li>What access or credentials were missing during the exercise?</li><li>What would you change to ensure the next crisis does not coincide with a communications outage?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTP Drift Causing Kerberos Ticket Validation Failures Enterprise-Wide | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">NTP Drift Causing Kerberos Ticket Validation Failures Enterprise-Wide</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">On-Premises Infrastructure</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines an enterprise-wide time synchronization failure: the authoritative NTP source drifts and propagates incorrect time through the domain hierarchy, so clients and servers fall outside Kerberos&#x27; five-minute clock skew tolerance and authentication fails across the estate. Certificates, logs, scheduled jobs, database replication and cluster heartbeats are all affected, and the symptoms look like many unrelated problems.</p>
+<p>Participants are working-level: directory services engineers, time service and network engineers, server and virtualization operators, application owners, the service desk, security and PKI staff, business continuity coordinators and compliance staff. The scenario highlights a dependency nobody monitors and that is rarely documented.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Delta Ridge Energy runs a single-forest Active Directory, with the PDC emulator of the forest root domain acting as the authoritative time source. It is configured to sync from two external NTP pool servers through a firewall, with a GPS-based Stratum 1 appliance in the data center intended as the preferred source but whose configuration was never completed. Virtual machines use a mix of host time sync (VMware Tools) and domain time sync, and a number of Linux hosts use chrony pointing at the domain controllers.</p>
+<p>At 06:20 on Tuesday, a firewall policy update blocks outbound UDP 123, the PDC emulator loses its upstream sources, falls back to its local CMOS clock which had a 9-minute offset from a bad battery, and its time source flags are changed to &#x27;Local CMOS Clock&#x27;. Domain controllers and member servers begin to follow the PDC emulator and shift by minutes over the next hours; at the same time the VMware tools periodic sync pushes the host time (accurate) back into guests, causing time to jump back and forth. By 07:45, Kerberos errors (KRB_AP_ERR_SKEW, Event ID 4 and 5) appear across the estate; at 08:10 the first shift handover of the control-room systems begins and operators cannot log in.</p>
+<p>What the team does not yet know: the CMOS clock error is 9 minutes and drifting, the GPS appliance is powered but unconfigured, the SCADA historian timestamps data from the local clocks, certificate validation fails for certificates that appear not yet valid, and database transaction logs have entries out of order.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Recognize time as the common cause.</strong> Participants connect diverse symptoms (login failures, certificate errors, job failures, cluster instability) to time skew by using w32tm /query /status, /monitor and /stripchart, and Event IDs 4, 5, 22, 36, 50 and 142.</li><li><strong class="text-white">Re-establish an authoritative time source.</strong> The team determines the correct time, selects and configures the authoritative source (GPS appliance, corrected firewall path or a trusted reference), and plans how to propagate it safely.</li><li><strong class="text-white">Avoid making things worse.</strong> Participants understand the risks of large time corrections: abrupt jumps affecting databases, clusters, Kerberos tickets and logs, and decide how to step or slew time.</li><li><strong class="text-white">Protect operations and data integrity.</strong> The team addresses operational technology systems, historian data, database logs and audit trails affected by erroneous timestamps.</li><li><strong class="text-white">Restore authentication and dependent services.</strong> The team prioritizes domain controllers, control-room access and critical applications, and handles cached tickets and certificate validity.</li><li><strong class="text-white">Prevent recurrence.</strong> Participants examine monitoring of time drift, source redundancy and VM time synchronization design.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Use actual commands and settings where you know them; where nobody can say how time is configured on a platform, record it as a gap.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Authentication failures and shift-change login problems lead to incident declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Pattern recognition.</span> Time skew is identified as the common cause.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Source of truth.</span> The correct time and authoritative source are established.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Correction plan.</span> Step versus slew decisions and the propagation order are agreed.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Execution.</span> PDC emulator, domain controllers and servers are corrected.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Dependent systems.</span> Clusters, databases, OT systems and Linux hosts are corrected and checked.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Authentication, certificate, logs and job schedules are verified.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Services released and incident closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Control-room logins fail and Kerberos errors spread</a></p><p><strong class="text-white">#2 &middot; T+00:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">GPS appliance unconfigured</a></p><p><strong class="text-white">#3 &middot; T+00:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Time jumps backward on database servers</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Certificate not yet valid</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Linux hosts ignoring corrections</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Historian data affected</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Suspicious NTP traffic</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">PDC emulator corrected; others lag</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Scheduled jobs misfire</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Audit trail integrity question</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Control-room logins fail and Kerberos errors spread</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 08:15. The control-room supervisor reports that operators cannot log in at shift handover. The service desk has 180 tickets with messages such as &#x27;The security database on the server does not have a computer account for this workstation trust relationship&#x27;, &#x27;There is a time difference between the client and server&#x27;, and certificate errors in browsers.</p>
+<p>A directory engineer runs w32tm /query /status on the PDC emulator and sees the source listed as &#x27;Local CMOS Clock&#x27; and a stratum of 1. Domain controllers show offsets from 4 to 11 minutes depending on the host. Event ID 4 (Kerberos) is flooding several servers.</p>
+<p>The monitoring system itself shows odd timestamps, and a database cluster reports repeated failovers. The VMware environment has periodic time sync enabled on many guests, causing time to jump back after the domain time pushes forward.</p>
+<p>Facilitator provides: the w32tm output, the event log samples, the offset table for six domain controllers and the firewall change record.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and name leads for directory, time and communications.</li><li>Decide how control-room operations continue without logins.</li><li>Set the next update at T+00:30.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Identity &amp; Directory Services (Active Directory)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Describe what the w32tm output tells you and which host is the authoritative source.</li><li>Check which domain controllers are skewed and by how much.</li><li>Recommend whether to widen skew tolerance temporarily.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network Time Services &amp; Network Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Find the correct time and check the GPS appliance status.</li><li>Check the firewall change that blocked UDP 123.</li><li>Plan configuration of the authoritative source.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify VM time sync settings and conflicts.</li><li>Check ESXi host time sources.</li><li>Plan to correct guests without jumps.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>List the systems failing and rank them.</li><li>Service desk: issue guidance and use local accounts for control room if allowed.</li><li>Operations owner: describe manual procedures.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; PKI</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess whether the failure could be an attack.</li><li>Check certificate validity and logs.</li><li>Record timestamps accurately.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activate the control-room continuity plan.</li><li>Prepare the first update.</li><li>Ask for documented RTO.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask whether time sources are documented and monitored.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What links the login failures, certificate errors and cluster failovers, and what single check proves it?</li><li>What is the correct time and how do you know, given your sources are suspect?</li><li>What are the risks of stepping time by 9 minutes on domain controllers, databases and clusters?</li><li>What is the right order for correcting the PDC emulator, domain controllers and members?</li><li>How do VM host time sync and domain time interact, and what is your policy?</li><li>How will the control room operate while authentication is failing?</li><li>What damage could incorrect timestamps do to historian and audit data?</li><li>What should operations be told right now?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the firewall change until the network team is asked about outbound UDP 123.</li><li>If players want to step time immediately, ask about databases, clusters and historian effects.</li><li>Look for awareness that logs and evidence from the incident window may have shifted timestamps.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: GPS appliance unconfigured</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The Stratum 1 appliance is online but has no configuration, and the admin credentials are unknown.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network Time Services &amp; Network Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Recover.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is the Plan B for authoritative time?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Documentation gap.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Time jumps backward on database servers</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Database servers report timestamps going backward and replication errors.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Identity &amp; Directory Services (Active Directory)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Advise.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Stabilize.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What happens when time moves backward?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Risk.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Certificate not yet valid</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Internal CA issued certificates while the CA clock was ahead; they are &#x27;not yet valid&#x27; on correct clients.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; PKI</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you handle certificates issued during skew?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>PKI.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Linux hosts ignoring corrections</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Linux hosts with chrony refuse a large step due to makestep limits.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Fix.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you correct hosts that will not step?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Config.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Historian data affected</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The historian recorded 6 hours of data with wrong timestamps.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you correct operational records?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>OT.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Suspicious NTP traffic</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Security sees NTP packets from an unknown source to the PDC emulator.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network Time Services &amp; Network Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Block.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; PKI</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Investigate.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is this an attack?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Security.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Operations asks when logins will work.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Options.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Message.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you say?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Communication.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: PDC emulator corrected; others lag</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The PDC is correct but many members keep wrong time because of VM sync.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Fix.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you correct many VMs quickly?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Scale.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Scheduled jobs misfire</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Jobs scheduled for the incident window ran twice or skipped.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reconcile.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you detect jobs affected by time shift?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Cleanup.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Audit trail integrity question</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>An auditor asks if logs for the window are reliable.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations &amp; PKI</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Annotate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Answer.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you document time offsets?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Evidence.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Time is synchronized.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What exit criteria close the incident?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads to debrief.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, sets priorities (control-room access, domain controllers, critical applications) and approves the correction plan.</li><li>Runs a 30-minute cadence, assigns the scribe and records decisions.</li><li>Decides on the risk of a large time step during operating hours.</li><li>Authorizes emergency firewall changes.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Identity &amp; Directory Services (Active Directory)</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verifies Kerberos failures and time source flags on the PDC emulator and domain controllers using w32tm.</li><li>Plans the correction of the PDC emulator&#x27;s time source and the sequence for domain controllers.</li><li>Decides whether to temporarily widen Kerberos skew tolerance by policy and the risks of that.</li><li>Checks for replication errors caused by time differences.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Network Time Services &amp; Network Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Determines the correct time from the GPS appliance or another trusted reference.</li><li>Finishes configuring the Stratum 1 appliance and verifies stratum, jitter and reachability.</li><li>Restores the firewall rule for UDP 123 and reviews the change that blocked it.</li><li>Provides a time-source map for network devices and Linux hosts.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Server &amp; Virtualization Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identifies VMs with host time sync enabled and the conflict with domain time.</li><li>Corrects hypervisor host time and disables periodic sync where required.</li><li>Plans a safe correction for clusters and database VMs without abrupt jumps.</li><li>Checks snapshots, restores and backup jobs for timestamp problems.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Service Desk</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners report failures: ERP, historian, scheduling and authentication-dependent systems.</li><li>The service desk handles control-room login incidents and guidance.</li><li>Operations owners identify manual operating procedures for the control room.</li><li>Prepare validation tests.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security Operations &amp; PKI</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Considers whether the time attack could be malicious, such as NTP spoofing or tampering with the firewall.</li><li>Assesses the validity of certificates, tokens and logs with incorrect timestamps.</li><li>Preserves logs and notes the time offset for forensic accuracy.</li><li>Verifies that the SIEM timestamps are consistent.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates continuity plans for the control room and operations.</li><li>Issues time-stamped updates to leadership and operations.</li><li>Coordinates manual logs and paper procedures.</li><li>Tracks downtime against RTO.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28, 8.17 clock synchronization; SOC 2 availability).</li><li>Evaluates regulatory implications for energy operations records and logs.</li><li>Captures evidence of decisions and corrected times.</li><li>Logs findings on time source design, monitoring and firewall change control.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Time is a dependency for authentication, certificates, clustering and forensics. Document the time hierarchy, use at least three independent upstream sources plus a GPS Stratum 1 appliance and monitor offset continuously with alerts well below the Kerberos tolerance.</p>
+<p>Make sources redundant and tested: confirm firewall rules for UDP 123, protect the authoritative time hierarchy from drift to local clocks, and avoid configuring the PDC emulator to fall back to CMOS.</p>
+<p>Define VM time policy: choose one authority (domain time or host sync), disable conflicting periodic sync, and verify after cloning, snapshots and restores.</p>
+<p>Plan the correction procedure: step versus slew, order of operations and system-specific cautions for databases, clusters and operational technology.</p>
+<p>Auditors for ISO/IEC 27001:2022 (8.17) and SOC 2 expect evidence of clock synchronization configuration, monitoring and incident handling.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on how long it took to recognize time as the common cause and the order of corrections.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which symptom first suggested time and how long until it was named as the cause?</li><li>What is your documented time hierarchy and was it correct?</li><li>How did you determine correct time and what sources did you trust?</li><li>What were the risks of stepping time and how did you decide step versus slew?</li><li>How are VMs configured for time sync and how did that interact with domain time?</li><li>How did the control room operate during the authentication failures?</li><li>What was the effect on certificates and PKI?</li><li>What happened to databases, clusters and the historian?</li><li>How did the team handle Linux and network devices?</li><li>What did security conclude about attack or error?</li><li>How was the firewall change reviewed and who owns it?</li><li>What evidence did the scribe capture that auditors would need?</li><li>What monitoring should have caught the drift?</li><li>What access or credentials were missing?</li><li>What will you change about time design?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

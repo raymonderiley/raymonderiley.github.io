@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Backup Server Catalog Corruption During Incremental Run | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Enterprise Backup Server Catalog Corruption During Incremental Run</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">On-Premises Infrastructure</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines the loss of the backup catalog (the index that records what was backed up, where, and when) on the enterprise backup server during a nightly incremental run. The backup data may still exist on disk, tape and cloud tiers, but without the catalog nobody can say which media hold which restore point. The exercise focuses on the silent nature of this failure: nightly jobs appear to succeed until someone needs to restore.</p>
+<p>Participants are working-level: backup administrators, storage and infrastructure operators, database and application owners, security analysts, the service desk, business continuity coordinators and compliance staff. The scenario deliberately overlaps with a request to restore a production database, so the team discovers the problem under pressure.</p>
+<p>A full run takes 3 to 4 hours. The twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Lakeshore Manufacturing protects 900 servers with a single enterprise backup platform. A primary backup server in the main data center holds the catalog (a database of about 2.4 TB), and writes to a deduplicating disk appliance (96 TB) and a tape library with 600 slots, with weekly tapes vaulted offsite. A secondary backup server exists but receives catalog copies only once a week. The nightly catalog backup is configured to run at the end of the incremental window.</p>
+<p>At 01:40, during the incremental run, the catalog database&#x27;s underlying volume experiences a storage latency spike and an unclean shutdown of the catalog service. On restart, the catalog database fails consistency checks and reports corrupted index pages. The scheduled catalog backup that night completes &#x27;successfully&#x27; but backs up the corrupted state. At 07:30 an application team asks for a restore of a manufacturing execution database to the state of three days ago after a bad schema change, and the restore wizard returns no recovery points.</p>
+<p>What the team does not yet know: the last good catalog copy is 6 days old, tape media labels exist but the barcode-to-job mapping lived only in the catalog, the deduplication appliance holds the data but needs the catalog to rehydrate it, and a security analyst has just flagged unusual administrative logins to the backup server during the night.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Detect and scope backup catalog failure.</strong> Participants recognize that catalog corruption can be silent, determine what data can still be restored, and establish which restore points are lost to the index.</li><li><strong class="text-white">Recover the catalog.</strong> The team evaluates options: restore the catalog from the weekly copy, rebuild it by scanning disk and tape media, use catalog database repair utilities, or engage the vendor, and estimates time and completeness of each.</li><li><strong class="text-white">Serve urgent restores during the outage.</strong> The team identifies a prioritized restore queue and alternative recovery paths, such as database-native backups, snapshots and replicas.</li><li><strong class="text-white">Assess the security angle.</strong> Security and backup staff determine whether the corruption is accidental or a deliberate attack on backups, and how that changes recovery and containment.</li><li><strong class="text-white">Protect ongoing backup coverage.</strong> Participants decide how to run new backups safely while the catalog is unreliable and how to prevent protection gaps.</li><li><strong class="text-white">Improve resilience design.</strong> The team examines catalog protection frequency, secondary server practices and restore testing.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Use the capabilities of your own backup platform when answering. Where the platform&#x27;s behavior is unknown, record it as a question for the vendor.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> The failed restore and catalog errors lead to incident declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Scope and triage.</span> Catalog state, last good copy, media inventory and urgent restores are identified.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Security assessment.</span> Administrative login anomalies are investigated.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Options evaluation.</span> Catalog restore, rebuild and vendor repair are compared.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Recovery path decision.</span> A recovery path is chosen and urgent restores are prioritized.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Execution.</span> Catalog recovery proceeds and urgent restores are performed.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Restore tests, backup runs and catalog consistency checks are verified.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Protection is confirmed, communications issued and incident closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Restore request finds no recovery points</a></p><p><strong class="text-white">#2 &middot; T+00:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Jump host logins linked to a service account</a></p><p><strong class="text-white">#3 &middot; T+00:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Another job runs against the damaged catalog</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Catalog repair utility makes it worse</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Tape barcodes are unlabeled</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">MES owner finds a native backup</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Ransom note found on the backup server</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Catalog restored but missing six days</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Test restore fails checksum</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Auditor requests restore evidence</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Restore request finds no recovery points</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 07:42. The MES database owner requests a restore to the state of three days ago after a schema change broke the production line interface. The backup administrator opens the restore console and finds no recovery points listed for the server. The job history shows nightly incremental jobs reporting success.</p>
+<p>On the backup server, the catalog service log shows an unclean shutdown at 01:41 and index page checksum errors on restart. The backup platform&#x27;s health dashboard still shows green because it checks only that the service is running. The catalog backup that ran at 03:00 reported success.</p>
+<p>The last good catalog copy on the secondary server is six days old. The tape library shows 311 tapes in slots, but the media list in the console is empty. The deduplication appliance is reachable and reports 71 percent utilization.</p>
+<p>Security notes that the backup server logs show interactive administrative logins from a jump host at 01:20 and 01:35, which the backup team says they did not perform.</p>
+<p>Facilitator provides: the catalog error log excerpt, the media inventory screenshot, the job history, and the login records.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident, set severity and name leads for catalog recovery, urgent restores and security.</li><li>Decide whether to treat as a security incident now.</li><li>Set the next update at T+00:30.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Recovery Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Explain what is lost with catalog corruption and what is still on media.</li><li>Identify the options and time for each: restore from weekly copy, rebuild, vendor repair.</li><li>Stop all jobs that write to the catalog until the state is known.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage &amp; Infrastructure Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check the catalog volume event and appliance health.</li><li>Confirm the dedupe data is intact.</li><li>Arrange retrieval of offsite tapes if needed.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Application Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>MES owner: define the required recovery point and the production impact.</li><li>Check for native backups or storage snapshots as alternatives.</li><li>Other owners: list their urgent restore needs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review logins from the jump host and find out who used them.</li><li>Check for commands that expire images or delete catalog entries.</li><li>Recommend isolation or continued operation.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Service Desk &amp; Operations Center</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Log all restore requests and communicate delays.</li><li>Monitor job status and flag affected jobs.</li><li>Prepare the holding message.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify processes at risk without restore capability.</li><li>Prepare the first update.</li><li>Ask for documented RPO and RTO of MES.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask whether catalog restore has ever been tested.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What does a corrupted catalog mean for the data on disk and tape, and what can you still do?</li><li>Why did the platform show green and the jobs succeed, and what monitoring should detect catalog health?</li><li>What are your options for the catalog and what is the time and completeness of each?</li><li>How do you serve the MES restore while the catalog is unusable?</li><li>Is this an accident or an attack, and what evidence will tell you?</li><li>Should new backups run tonight? What is the risk either way?</li><li>What is the weekly catalog copy gap and who accepted that risk?</li><li>What do you tell the MES team and the plant manager right now?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the jump host logins until the security team asks about administrative access.</li><li>If the team assumes the dedupe data is lost, ask what evidence supports that. The data is intact; the index is the problem.</li><li>Observe whether teams think of storage snapshots and database-native backups as alternatives.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Jump host logins linked to a service account</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The logins used a service account that is shared by two automation tools and has not had its password changed in 4 years.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Recovery Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Rotate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you rotate a shared account safely?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Credential hygiene.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Another job runs against the damaged catalog</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A scheduled job starts and writes new entries into the damaged catalog.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Recovery Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Stop.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Service Desk &amp; Operations Center</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Monitor.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you prevent further damage?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Containment.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Catalog repair utility makes it worse</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The vendor&#x27;s repair utility reports 18 percent of index pages unrecoverable and warns that it may delete orphaned entries.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Recovery Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you run a repair that could delete entries?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Risk acceptance.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Tape barcodes are unlabeled</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Offsite tapes arrive but 40 are labeled with internal IDs that were mapped in the catalog.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Recovery Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Scan.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage &amp; Infrastructure Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you identify tape contents?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Media metadata.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: MES owner finds a native backup</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The MES DBA finds a native full backup from 2 days ago stored on a file server.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Application Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Restore.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is a 2-day-old restore acceptable and what is lost?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Alternatives.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Ransom note found on the backup server</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Security finds a text file on the backup server demanding payment.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Invoke the incident plan.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Escalate.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What changes in your approach?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ransomware overlap.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The plant manager asks when restores will work.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Options.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Message.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you say what you cannot yet say?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Communication.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Catalog restored but missing six days</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The weekly copy is restored. Backups from the last six days exist on media but are not indexed.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Recovery Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Rescan.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How long will the rescan take and what is the priority order?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Recovery sequencing.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Test restore fails checksum</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A test restore of a critical file server fails with a checksum mismatch.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Backup &amp; Recovery Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Investigate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage &amp; Infrastructure Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check dedupe.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you trust the restored data?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Integrity.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Auditor requests restore evidence</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>An auditor asks for the last restore test and catalog protection evidence.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compile.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What evidence exists?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Audit.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Backups are running and the catalog is healthy.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What exit criteria close the incident?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads to debrief.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, sets priorities between urgent restores and catalog recovery, and approves the chosen path.</li><li>Runs a 30-minute cadence, assigns the scribe and records decisions.</li><li>Decides whether to treat the incident as potentially security-related and invoke the security incident process.</li><li>Approves vendor engagement and emergency support spend.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Backup &amp; Recovery Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assesses catalog database integrity and identifies the last good copy, its age and what gaps it leaves.</li><li>Evaluates catalog rebuild from media: time to scan disk and tape, and what metadata might be missing.</li><li>Contacts the vendor for repair tools and escalation, and tests a restore of the catalog on a secondary server.</li><li>Plans how new backups will run without risking more damage.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Storage &amp; Infrastructure Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Checks storage latency events at the time of the catalog volume issue and verifies the dedupe appliance health.</li><li>Confirms that deduplicated data is intact and identifies any appliance-level snapshots or replication that can serve recovery.</li><li>Prepares extra capacity for catalog restore and temporary work areas.</li><li>Locates offsite tapes and arranges retrieval.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Database &amp; Application Owners</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>The manufacturing execution database owner states the exact restore point needed and tries alternatives such as database-native backups, replicas and storage snapshots.</li><li>Other application owners list their top restore needs and current backup coverage.</li><li>Owners assess which systems have no alternative recovery paths.</li><li>Prepare validation tests.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reviews administrative logins, command history and changes to the backup server during the night, and checks for deletion commands or expiry changes.</li><li>Determines whether the catalog corruption can be attributed to an intentional act.</li><li>Checks credentials and MFA for backup administrators and rotates if needed.</li><li>Advises whether to isolate the backup server and preserve evidence.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Service Desk &amp; Operations Center</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>The service desk tracks incoming restore requests and communicates the delay to requesters.</li><li>The operations center monitors backup job status and flags jobs that run against the damaged catalog.</li><li>Maintains a prioritized restore request list.</li><li>Escalates urgent restores to the incident commander.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identifies the business processes at risk without restore capability, especially manufacturing execution and finance.</li><li>Issues time-stamped updates to leadership and plant managers.</li><li>Coordinates manual process or manual rework if data loss occurs.</li><li>Tracks time against RTO and RPO.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 controls 5.24-5.28; 8.13 backup; SOC 2 availability).</li><li>Evaluates contractual and regulatory obligations for data protection.</li><li>Captures evidence of decisions and vendor interactions.</li><li>Logs findings on catalog backup frequency, restore testing and monitoring of backup health.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>A backup is only as good as its index. Protect the catalog like a tier-zero database: frequent copies (at least every few hours), copies on separate storage and a different server, and regular restore tests of the catalog itself.</p>
+<p>Monitor backup health, not just job status. Alert on catalog integrity checks, empty restore point lists, media inventory counts and the age of the last verified restore.</p>
+<p>Know your alternative recovery paths: database-native backups, storage snapshots, replicas and immutable copies. Make sure they are documented and tested so that a failure of the backup platform is not a failure of recovery.</p>
+<p>Treat the backup system as a target. Use unique, MFA-protected administrative accounts, restrict jump host access, keep immutable copies and assume an attacker will try to destroy backups.</p>
+<p>Auditors for ISO/IEC 27001:2022 (control 8.13) and SOC 2 expect documented backup policies, restore test evidence and monitoring of backup success; a green dashboard is not evidence.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on how the failure was detected, how long it was invisible, and the quality of alternatives to the catalog.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How long was the catalog corrupted before someone noticed, and what would have detected it sooner?</li><li>Why did the dashboard and the catalog backup report success?</li><li>What is the age and location of your last good catalog copy, and who accepted that gap?</li><li>What options did you compare for recovery and which did you choose?</li><li>How did you serve the urgent MES restore and what alternative paths exist?</li><li>What did the security review find and how did it affect the plan?</li><li>How would you identify tape and dedupe data without the catalog?</li><li>How did you protect against further catalog damage during the incident?</li><li>What were the criteria to resume backups?</li><li>How accurate were communications to the plant and MES team?</li><li>How often are restores tested and what do the results show?</li><li>What evidence did the scribe capture that auditors would need?</li><li>Which accounts have administrative access to backups and how are they protected?</li><li>What access or vendor support was missing?</li><li>What will change in catalog protection after this exercise?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

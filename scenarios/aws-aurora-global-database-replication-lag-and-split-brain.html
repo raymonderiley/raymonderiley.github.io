@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Aurora Global Database Replication Lag and Split-Brain | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">AWS Aurora Global Database Replication Lag and Split-Brain</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">AWS Cloud Resiliency</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines an Aurora Global Database whose cross-region replication lag grows from milliseconds to minutes, followed by an operator-driven failover that leaves application writers in two regions both believing they own the data. The result is divergent data (a split-brain at the application layer) even though Aurora itself enforces a single writer cluster.</p>
+<p>Participants are working-level: database reliability engineers, cloud platform and network engineers, application owners, the service desk, cloud operations and monitoring staff, the AWS support liaison, business continuity coordinators and compliance staff. The exercise tests understanding of managed versus unplanned global database failover, the meaning of RPO under lag and how application connection handling can cause writes to the wrong place.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Sterling Insurance Group runs its policy platform on an Aurora PostgreSQL Global Database with the primary cluster in us-east-1 and a secondary cluster in us-west-2, used for disaster recovery and some regional reads. Applications connect through the cluster endpoint in each region; a Route 53 failover record points the writer hostname to the active region, with a 60-second TTL. The documented RPO is 5 seconds and RTO 30 minutes.</p>
+<p>At 13:10 on Thursday, a bulk policy renewal job generates a large write volume on the primary. The AuroraGlobalDBReplicationLag metric climbs to 40 seconds, then 3 minutes by 13:25. At 13:30, a network disturbance between the regions degrades replication further. The on-call engineer, seeing alarms and a request from leadership to &#x27;fail over to be safe&#x27;, triggers an unplanned failover (detach and promote) of the us-west-2 cluster at 13:42 without confirming the lag or stopping the primary writers.</p>
+<p>What the team does not yet know: the us-east-1 cluster is still healthy and still accepting writes from application instances that cached its endpoint or whose DNS has not yet changed, the promoted us-west-2 cluster is now an independent writer missing the last 3 minutes of data, a batch scheduler in us-east-1 is still running, and the detached primary will need to be rebuilt as a new secondary, discarding any data it holds that the new primary lacks.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Interpret replication lag and its consequences.</strong> Participants read AuroraGlobalDBReplicationLag, AuroraGlobalDBRPOLag and write metrics, and translate lag into potential data loss.</li><li><strong class="text-white">Choose between managed and unplanned failover.</strong> The team explains the difference, the preconditions and the effect on RPO, and who may approve an unplanned detach.</li><li><strong class="text-white">Detect and contain dual-writer conditions.</strong> Participants identify that both regions are accepting writes, stop writers on the old primary and fence application traffic.</li><li><strong class="text-white">Reconcile divergent data.</strong> The team plans how to compare and merge transactions written to the old and new primary, and who decides which wins on conflict.</li><li><strong class="text-white">Control DNS, endpoints and clients.</strong> Platform engineers manage Route 53 records, TTLs, connection pool refresh and caching in application clients.</li><li><strong class="text-white">Improve failover governance.</strong> The team examines runbooks, approval thresholds and automation guardrails.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Use the real Aurora Global Database terms and the actual actions available to you; if the runbook is silent, record that as a gap.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Dual-region symptoms and data inconsistencies lead to incident declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Containment.</span> Writes to the old primary are stopped and clients are fenced.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Scoping the divergence.</span> Time window and tables with divergent writes are identified.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Reconciliation strategy.</span> Merge approach and conflict rules are agreed.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Decision on authoritative source.</span> The authoritative database is chosen and approved.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Execution.</span> Reconciliation is performed and the old primary is rebuilt as a secondary.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Business reconciliations and data checks are verified.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Normal operations resume and incident closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Both regions accept writes after an unplanned failover</a></p><p><strong class="text-white">#2 &middot; T+00:20 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Fencing blocks legitimate reads</a></p><p><strong class="text-white">#3 &middot; T+00:20 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Old primary shows lingering sessions</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Divergent window larger than thought</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Payment records duplicated</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Business wants the old primary</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Replication cause remains unknown</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands an ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Merge script finds conflicts</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Regulatory data integrity question</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Automated failover proposed</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out and exit criteria</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Both regions accept writes after an unplanned failover</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 13:55. The operations center sees the us-west-2 cluster promoted to a standalone writer at 13:42. Application teams report that some policy records saved in the last 13 minutes are missing and others appear twice. Customer service sees stale premium amounts.</p>
+<p>The database engineer checks CloudWatch: AuroraGlobalDBReplicationLag was above 170 seconds at the time of failover. The us-east-1 cluster is still reachable and shows active write connections from at least 40 application instances. The Route 53 writer hostname now points to us-west-2, but its TTL is 60 seconds and many clients cache for longer.</p>
+<p>The renewal batch job is still running in us-east-1. Both clusters have inserted rows with the same sequence values for the policy number table. The failover was run by the on-call engineer without a second approver and without checking lag.</p>
+<p>Facilitator provides: the lag graph, the connection counts by cluster, the failover event log and the policy number sequence status.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and set data integrity as the priority.</li><li>Decide to stop all writes to the old primary immediately.</li><li>Set the next update at T+00:20.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database Reliability Engineering (Aurora)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm which cluster is accepting writes and quantify the window.</li><li>Describe how to find divergent transactions.</li><li>Warn about sequence collisions.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Network Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Fence the old primary using security groups or load balancer rules.</li><li>Check Route 53 behavior and TTL caching.</li><li>Verify network health.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Stop the renewal batch and writers on the old endpoint.</li><li>Restart connection pools with the right endpoint.</li><li>List high-risk transactions.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Build the dual-writer dashboard.</li><li>Confirm timelines.</li><li>List missing alarms.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AWS Support &amp; TAM Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open a case and ask about the old primary.</li><li>Ask whether the lag cause is known.</li><li>Record guidance.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Hold policy issuance with underwriting.</li><li>Prepare the first update.</li><li>Ask for documented RTO and RPO.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask who approved the unplanned failover.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What tells you both regions are accepting writes, and how quickly can you stop one?</li><li>What did the lag mean for data loss at the moment of failover?</li><li>Why did unplanned failover happen without checks, and what approval should it need?</li><li>Which database is authoritative and on what basis?</li><li>How do you find and merge divergent transactions, including sequence collisions?</li><li>How do clients end up writing to the old endpoint after a DNS change?</li><li>What do underwriting and customers need to know and what must not be issued?</li><li>What guardrails would have prevented this?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the sequence collision until the DBA checks sequences.</li><li>If the team picks an authoritative database immediately, ask what evidence supports the choice.</li><li>Look for the idea that integrity outranks availability here.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Fencing blocks legitimate reads</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A security group rule added to block the old primary also blocks read-only reporting that claims adjusters use. Claims processing stops, and the claims manager calls the service desk.</p>
+<p>The network engineer used a broad deny because it was fastest.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Weigh claims continuity against risk of further writes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database Reliability Engineering (Aurora)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Offer a read-only user or reader endpoint path for claims.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Network Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Replace the broad rule with one that blocks write-capable application subnets only, or use a read-only role.</li><li>Verify that the change took effect.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm which claims queries are safe to run.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you fence writes but allow reads?</li><li>What is the risk of an overly broad emergency rule?</li><li>Who approves exceptions?</li><li>How is the fence removed later?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Look for precision over speed.</li><li>Ask how the fence is documented.</li><li>Tests understanding of reader endpoints.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Old primary shows lingering sessions</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Even after network fencing, the old primary shows 60 established sessions from instances that were already connected. Some are executing writes inside open transactions.</p>
+<p>The DBA is unsure whether to terminate sessions, since terminating will roll back in-flight work.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Accept rollback of in-flight work as the cost of integrity.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database Reliability Engineering (Aurora)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify sessions by application and age, and terminate in a controlled order.</li><li>Decide whether to set the cluster read-only if the option exists.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Stop the application instances holding the sessions.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record the decision.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you end sessions safely?</li><li>What happens to in-flight transactions?</li><li>Can the cluster be made read-only?</li><li>Who owns the loss of in-flight work?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests containment depth.</li><li>Ask how sessions are identified.</li><li>Look for acceptance of rollback.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Divergent window larger than thought</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Log analysis shows writes were landing in both clusters nine minutes before the promotion, because a regional load balancer routed a share of traffic to a stale endpoint after an earlier DNS change.</p>
+<p>The first estimate of the window was three minutes, so more tables and transactions are affected.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database Reliability Engineering (Aurora)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Rebuild the timeline from transaction logs and identify affected tables.</li><li>Re-estimate the volume of divergent transactions.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Network Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Explain the stale endpoint and routing behavior.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide connection counts by endpoint over time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Update the impact assessment.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How was the window underestimated?</li><li>How do you verify the true window?</li><li>Which tables are affected?</li><li>How does this change the reconciliation plan?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Teaches distrust of first estimates.</li><li>Ask what evidence supports the new window.</li><li>Link to client endpoint design.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Payment records duplicated</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Payment authorizations exist in both clusters with different internal IDs, and some customers appear to have two charges. The payment processor shows 38 duplicate authorizations.</p>
+<p>Finance asks whether to void them now.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database Reliability Engineering (Aurora)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide the list of transactions in each cluster.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Match records to the processor and identify duplicates by idempotency keys.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare customer communication.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Escalate to finance and legal and assess notification duties.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do customers get double charged and how do you confirm?</li><li>Who authorizes voids or refunds?</li><li>What notification obligations exist?</li><li>How is this prevented next time?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Financial impact raises stakes.</li><li>Look for use of processor records as truth.</li><li>Ask who owns the customer message.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Business wants the old primary</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Underwriting argues the old primary has more complete recent data because it kept receiving writes from the batch job. The DBE notes the promoted cluster has data from agents who connected after DNS moved.</p>
+<p>Both sides have data the other lacks.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Choose the authoritative source and state the basis.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database Reliability Engineering (Aurora)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compare both datasets and present counts and risk for each option.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify which business transactions exist only on each side.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record the decision and approver.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which database is authoritative and why?</li><li>Can both sets be merged and how?</li><li>Who decides conflicts?</li><li>What is the impact on audit trails?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>No right answer; evaluate reasoning.</li><li>Ensure a named approver.</li><li>Look for a merge plan.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Replication cause remains unknown</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The cross-region network disturbance that started the lag is still occurring, with packet loss between regions. The team wants to rebuild the old primary as a secondary, but doing so would copy data across the unstable link.</p>
+<p>AWS support has not yet provided a root cause.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide whether to delay rebuilding.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database Reliability Engineering (Aurora)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan rebuild timing and consider a snapshot-based approach.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Network Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Diagnose with path metrics and compare with AWS Health information.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AWS Support &amp; TAM Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Escalate for a root cause and ask about rebuild guidance.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is it safe to rebuild now?</li><li>What are the alternatives while the link is unstable?</li><li>How long can you run without a secondary?</li><li>What risk does that create?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests risk acceptance of no DR posture.</li><li>Look for temporary protections such as snapshots.</li><li>Record the exposure window.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands an ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The CEO asks when policy issuance can resume and whether customer data is correct. Sales leaders are escalating calls from brokers.</p>
+<p>The team has not finished the reconciliation plan.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Give a status based on integrity gates, not time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify which transactions can resume safely.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Draft broker and customer messages and a manual issuance workaround.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Advise on regulatory communications.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you commit to?</li><li>What gates must pass before issuance resumes?</li><li>How do brokers get informed?</li><li>Can any transactions resume earlier?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reward integrity-first answers.</li><li>Watch for pressure to resume early.</li><li>Check message consistency.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Merge script finds conflicts</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The reconciliation script finds 126 conflicts where the same policy number was created in both clusters with different customers. Sequence collisions are the cause.</p>
+<p>Nobody has authority to decide which customer keeps the original number.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign decision authority.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database Reliability Engineering (Aurora)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Present conflict categories and a proposed renumbering rule.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review business impact and customer notices needed.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record the rule and approver.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Who decides conflicts?</li><li>How are customers on renumbered policies notified?</li><li>How do you avoid downstream breakage from renumbering?</li><li>What would prevent this in design?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests ownership.</li><li>Look for business involvement.</li><li>Link to unique key design.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Regulatory data integrity question</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The insurance regulator asks whether policy and claims records are reliable and requests an incident description within 24 hours.</p>
+<p>Counsel asks for facts, not conclusions, and wants everything verified.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve the content.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database Reliability Engineering (Aurora)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide verified counts and checks.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Coordinate with legal and communications.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Draft a factual description with verified numbers only.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you state as fact?</li><li>How do you handle unverified items?</li><li>Who approves a regulatory response?</li><li>What follow-up commitments are reasonable?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests disciplined communication.</li><li>Reject speculation.</li><li>Check approval path.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Automated failover proposed</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Engineering proposes fully automated failover based on a lag threshold to avoid human error. Security and GRC worry about automation causing a similar dual-writer event.</p>
+<p>The CTO asks for a recommendation.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record the decision.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database Reliability Engineering (Aurora)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess safeguards required, such as fencing and write tokens.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Network Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Describe DNS and client behavior under automation.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review control and approval implications.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Should failover be automated?</li><li>What safeguards must exist first?</li><li>How is automation tested?</li><li>What stays manual?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>No single answer.</li><li>Look for fencing and tokens.</li><li>Capture rationale.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out and exit criteria</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Data is reconciled and the old primary has been rebuilt as a secondary. Replication lag is within the RPO. Several emergency rules remain in security groups and a temporary DNS record is still in place.</p>
+<p>The scribe lists open actions.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database Reliability Engineering (Aurora)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verify replication and data integrity checks.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; Network Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Remove temporary rules and records.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions and review date.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What must be true before closing?</li><li>Which temporary changes remain?</li><li>Who owns follow-up actions?</li><li>When is the review?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads into the debrief.</li><li>Check temporary changes.</li><li>Confirm owners and dates.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, prioritizes stopping dual writes and protecting data integrity above availability.</li><li>Runs a 20-minute cadence at first, assigns the scribe and records decisions.</li><li>Authorizes the choice of the authoritative database and acceptance of any data loss.</li><li>Approves a temporary business freeze on policy issuance.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Database Reliability Engineering (Aurora)</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verifies which cluster is writer, checks replication lag history and determines the data window at risk.</li><li>Identifies divergent writes by comparing transaction logs, sequences and timestamps.</li><li>Plans the reconciliation approach and the rebuild of the detached cluster as a secondary.</li><li>Checks for sequence collisions and unique key conflicts.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Platform &amp; Network Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Controls Route 53 failover records and TTLs, and checks health checks that may have flapped.</li><li>Blocks application traffic to the old primary at security groups or load balancers as an emergency fence.</li><li>Verifies cross-region network health and the cause of the disturbance.</li><li>Plans staged traffic restoration.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Service Desk</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners stop batch jobs and writers pointed at the old endpoint, and restart pools with the right endpoint.</li><li>Identify transactions at risk: policy issuance, payments and claims.</li><li>The service desk issues guidance and tracks tickets.</li><li>Prepare reconciliation tests.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Operations &amp; Monitoring</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Builds a dashboard of writes per cluster, replication lag, connections by endpoint and application errors.</li><li>Confirms alarms and checks for silent failures.</li><li>Records exact timelines.</li><li>Creates the missing alarms for dual-writer detection.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">AWS Support &amp; TAM Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Opens a high-severity case and asks about the state of the detached cluster and recommended rebuild.</li><li>Asks about safe re-attachment and the lag cause.</li><li>Requests confirmation of Aurora behavior in the failover.</li><li>Records the guidance.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates the continuity plan and informs underwriting and customer service of a policy issuance hold.</li><li>Issues time-stamped updates to leadership.</li><li>Coordinates manual policy issuance if needed.</li><li>Tracks downtime against RTO and RPO.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28, 8.13 backup, 8.14 redundancy; SOC 2 availability and processing integrity).</li><li>Evaluates regulatory implications of data integrity issues for insurance records.</li><li>Captures evidence of the failover decision and approvals.</li><li>Logs findings on failover approval and fencing.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Separate lag from failure. Alarm on AuroraGlobalDBRPOLag against the documented RPO and require evidence of lag and a second approver before an unplanned failover; prefer managed planned failover when both regions are healthy.</p>
+<p>Fence before you promote. A runbook step that stops writers or blocks the old endpoint at the network layer must come first, because clients, caches and batch jobs will not follow DNS promptly.</p>
+<p>Design clients for region change: short DNS TTLs, connection pool refresh, endpoint discovery through a single control point and write fencing tokens that prevent writes to a demoted cluster.</p>
+<p>Plan reconciliation: globally unique keys (ULIDs or region-prefixed sequences), change data capture for comparison and a documented rule for conflict resolution owned by the business.</p>
+<p>Auditors for ISO/IEC 27001:2022 (8.14) and SOC 2 expect tested failover with data integrity checks, approval records and monitoring of replication against stated RPO.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on the failover approval and the time to stop dual writes.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What was the replication lag when the failover was triggered and who knew?</li><li>What approvals does an unplanned failover require and were they followed?</li><li>How did the team discover both clusters were accepting writes?</li><li>How quickly were writes to the old primary stopped and how?</li><li>How was the authoritative database chosen and what evidence supported it?</li><li>How were divergent transactions identified and reconciled?</li><li>How did sequence collisions affect the merge?</li><li>What did DNS TTL and client caching do to the incident?</li><li>What happened to payments and policy issuance during the window?</li><li>How did underwriting and customers receive information?</li><li>What did the AWS support case add?</li><li>What evidence did the scribe capture that auditors would need?</li><li>What alarms for dual-writer detection should exist?</li><li>What access or permissions were missing?</li><li>What will change in the failover runbook?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

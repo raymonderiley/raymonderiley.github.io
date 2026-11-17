@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AS/400 iSeries Internal DASD Array Parity Failure | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">AS/400 iSeries Internal DASD Array Parity Failure</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">On-Premises Infrastructure</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines a multiple-drive failure in the internal disk array (DASD) of an IBM i (AS/400, iSeries) system, where a parity set loses more drives than it can tolerate, taking the system&#x27;s single-level storage into a failed state. Because IBM i spreads objects across all disks in the auxiliary storage pool, damage to one parity set can threaten the whole system image, and recovery often involves restoring the operating system and data from backup.</p>
+<p>Participants are working-level: IBM i administrators, storage and backup operators, application and batch owners, network and infrastructure staff, the maintenance provider liaison, business continuity coordinators and compliance staff. The scenario reflects the realities of a legacy platform with a small, specialized team and critical business applications.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Fairbanks Distribution runs order entry, inventory, warehouse management and accounting on a single IBM Power system running IBM i 7.4, with 12 internal drives in RAID-5 parity sets in the system ASP and a small independent ASP for journal receivers. Nightly saves go to a virtual tape library; a full system save (SAVSYS and SAVLIB *NONSYS) runs weekly on Saturday night, and journaling to a remote system via high availability software was discontinued two years ago to save licensing cost. There is a second Power system, older, used for development.</p>
+<p>At 03:15 on Wednesday, drive 4 in parity set 2 fails and the system continues in a degraded (exposed) state. At 04:40 drive 9 in the same parity set shows predictive failure, followed by a media error that causes the parity set to be marked failed at 05:05. Because the parity set is part of the system ASP, the system hits a disk unit error SRC and a system reference code that halts the system (a DASD failure code), which also leaves the operating system unable to continue. Warehouse shifts begin at 06:00 with a hard dependency on order picking lists.</p>
+<p>What the team does not yet know: the last complete save was five days ago, Tuesday&#x27;s incremental saves captured changes to some libraries but not objects in use, the journal receivers that would allow roll-forward are in the damaged ASP, the maintenance contract covers replacement drives with a 4-hour response but not data recovery, and the licensing information required for restore of some third-party software is in a binder offsite.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Assess the damage and stabilize the system.</strong> Participants interpret the SRC codes, the parity set status and the LPAR state, and decide not to take actions that worsen damage, such as repeated IPLs.</li><li><strong class="text-white">Choose the recovery path.</strong> The team compares repair (replace drives, rebuild parity), restoration of the system from the weekly save and incremental saves, and failover or workaround on the development system.</li><li><strong class="text-white">Understand data loss exposure.</strong> Participants determine the recovery point for data and the loss of transactions since the last save, and plan how to reconstruct them from paper, EDI files and customer records.</li><li><strong class="text-white">Restore the business processes in priority order.</strong> The team prioritizes order entry, picking, shipping and invoicing, and decides on manual processes during restoration.</li><li><strong class="text-white">Handle vendor and software dependencies.</strong> The team manages hardware replacement, licensing keys, PTF levels and the recovery of third-party software.</li><li><strong class="text-white">Address legacy platform risk.</strong> The team examines single points of failure, backup coverage, skills concentration and the business case for high availability.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Use IBM i terminology and commands where known; if the team does not know the restore sequence, record that as a finding.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> The system halt and warehouse impact lead to incident declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Triage and vendor engagement.</span> SRC codes are analyzed and the maintenance provider is engaged.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Backup assessment.</span> Available saves, tapes and journal data are inventoried.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Recovery path.</span> Repair or restore is selected with data loss accepted.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Manual operations.</span> Warehouse and finance switch to manual processing.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Execution.</span> Hardware repair and the restore sequence proceed.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Data reconciliation, application tests and batch cycle readiness.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Normal processing resumes and incident closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Parity set failure halts the production IBM i system</a></p><p><strong class="text-white">#2 &middot; T+00:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Maintenance provider has no spare drives</a></p><p><strong class="text-white">#3 &middot; T+00:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Tape from Saturday unreadable</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Dev system underpowered</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">License keys missing</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Customers demand orders</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Skill gap</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Restore proceeds slowly</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Reconciliation mismatch</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Business case for HA</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Parity set failure halts the production IBM i system</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 05:30. The overnight operator reports the production system is unresponsive and the front panel shows an SRC code indicating a disk unit failure in the system ASP. The HMC reports &#x27;Disk unit failed: parity set 2 degraded and exposed&#x27; with a second drive failure afterward.</p>
+<p>The warehouse supervisor says picking lists for the 06:00 shift did not print. Inventory and order entry terminals show disconnected. The call center has 14 open orders for same-day delivery.</p>
+<p>The IBM i administrator has been paged. The maintenance provider&#x27;s service desk gives a 4-hour response time for drive replacement. The administrator notes the last full save was Saturday night and this is Wednesday; journal receivers were in the system ASP.</p>
+<p>Facilitator provides: the SRC code description, the parity set status, the save schedule and the maintenance contract terms.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and name leads for recovery, operations and communications.</li><li>Decide how the warehouse operates for the next 8 hours.</li><li>Set the next update at T+00:30.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">IBM i (AS/400) Systems Administration</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Describe the state of the system and what must not be done.</li><li>Outline the options and the order of restore.</li><li>Estimate time for each option.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage, Tape &amp; Backup Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Locate the last full save and incrementals and verify they are readable.</li><li>Ask what is on offsite media.</li><li>Prepare replacement drives.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Rank restoration priority and prepare manual procedures.</li><li>Identify batch jobs since the last save.</li><li>Plan order reconstruction.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; Infrastructure Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check connectivity for warehouse terminals and printers.</li><li>Prepare an alternate path to the dev system.</li><li>Check HMC and console.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Maintenance Provider Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Call the maintenance provider and confirm response time and parts.</li><li>Ask about data recovery.</li><li>Request microcode details.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activate manual warehouse procedures.</li><li>Prepare the first update.</li><li>Ask for documented RTO.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask whether high availability was risk accepted.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What does a failed parity set mean for an IBM i system with single-level storage, and what are your options?</li><li>Why is repeated IPL risky and who has authority to attempt one?</li><li>What data will be lost if you restore from Saturday&#x27;s save plus Tuesday&#x27;s incrementals?</li><li>Where are the journal receivers, and what does their location mean for roll-forward?</li><li>Can the development system run production, and what is needed?</li><li>How do you operate the warehouse manually for a day?</li><li>How long does a full restore take and what are the dependencies like licensing keys?</li><li>What do customers with same-day orders hear?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the location of the journal receivers until the administrator checks them.</li><li>If the team wants to IPL repeatedly, ask about the risk of further damage.</li><li>Look for the recognition that high availability was removed to save cost, and who accepted that risk.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Maintenance provider has no spare drives</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The provider has two of four required drives in the region.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Maintenance Provider Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Source.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you wait for parts or restore to different hardware?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Supply.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Tape from Saturday unreadable</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A save tape reports read errors.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage, Tape &amp; Backup Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Alternate.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What do you fall back to?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Backup test.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Dev system underpowered</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The dev system has 30 percent of production capacity.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">IBM i (AS/400) Systems Administration</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Can it run order entry only?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Workaround.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: License keys missing</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Keys for the ERP package are in the offsite binder.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Retrieve.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Vendor &amp; Maintenance Provider Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Obtain.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you get keys at 7 AM?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Dependency.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Customers demand orders</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A key customer needs a shipment by noon.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Manual.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Message.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you fulfill manually?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Business.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Skill gap</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The only experienced administrator is exhausted after 18 hours.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Rotate.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Who relieves them?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Skills.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The CEO asks.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Options.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Message.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you say?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Communication.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Restore proceeds slowly</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The restore will take 11 hours.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">IBM i (AS/400) Systems Administration</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is there a faster way?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Execution.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Reconciliation mismatch</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Inventory counts differ from the physical warehouse.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reconcile.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you rebuild inventory?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Data loss.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Business case for HA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Leadership asks about high availability.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Present.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Capture risk.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What would you recommend?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Investment.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>System restored.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What exit criteria close the incident?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads to debrief.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, sets priorities and decides the recovery path based on data loss and time estimates.</li><li>Runs a 30-minute cadence, assigns the scribe and records decisions.</li><li>Authorizes acceptance of data loss and manual processes.</li><li>Approves emergency vendor spend and any use of the development system for production.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">IBM i (AS/400) Systems Administration</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reads the SRC and system reference information, determines the state of the parity set and the ASP, and advises against repeated IPLs.</li><li>Plans the recovery sequence: replace failed units, install the operating system from distribution media, restore the system save, then libraries, then apply journal receivers if available.</li><li>Identifies licensing keys and PTF levels needed for restore.</li><li>Plans validation and the reconstruction of lost transactions.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Storage, Tape &amp; Backup Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Locates the last full system save and incremental saves, verifies them on the virtual tape library, and ensures offsite copies are accessible.</li><li>Checks the integrity and readability of save media before relying on them.</li><li>Prepares additional storage and replacement drives with the maintenance provider.</li><li>Documents the exact save times and gaps.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Batch Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners rank restoration order: order entry, picking, shipping, billing, inventory and accounting.</li><li>Batch operators identify which batch jobs ran since the last save and the data affected.</li><li>Owners prepare manual procedures and the reconstruction of orders from paper and EDI.</li><li>Prepare reconciliation tests.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Network &amp; Infrastructure Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures connectivity for warehouse terminals, EDI links and printers to the development system if used.</li><li>Prepares DNS and network changes for any alternate system.</li><li>Checks the console and HMC access.</li><li>Supports the physical replacement work.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Vendor &amp; Maintenance Provider Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Engages the maintenance provider for drive replacement within the contract window and requests firmware and microcode details.</li><li>Asks about data recovery services as a last resort.</li><li>Obtains required licensing and PTF details from the software vendors.</li><li>Records every vendor action and time.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates continuity plans for warehouse and customer service.</li><li>Issues time-stamped updates to leadership and customers.</li><li>Coordinates manual picking lists and paper order handling.</li><li>Tracks downtime against RTO.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28, 8.13 backup; SOC 2 availability).</li><li>Evaluates financial reporting and audit trail impacts.</li><li>Captures evidence of decisions and accepted data loss.</li><li>Logs findings on missing high availability, backup gaps and skills concentration.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Legacy does not mean low risk. Treat the IBM i platform as a critical system: define RPO and RTO, and fund replication or high availability if the business needs it. Single-level storage means a disk failure can be a system failure.</p>
+<p>Protect against multiple failures in a parity set: monitor exposed and degraded states, replace failed drives immediately, and consider mirroring or independent ASPs for journals.</p>
+<p>Backups must be recent and restorable: weekly full saves are insufficient for daily transaction volume. Journal to a remote location, test full-system restores and keep licensing keys and PTF lists accessible.</p>
+<p>Reduce skills concentration: document restore procedures step by step, cross-train staff and retain vendor support for specialist assistance.</p>
+<p>Auditors for ISO/IEC 27001:2022 (8.13) and SOC 2 expect backup and restore testing, risk acceptance records for removed protections and evidence of capacity and maintenance management.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on data loss exposure and the decision to remove high availability.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How long was the system exposed after the first drive failure and who was alerted?</li><li>What does your maintenance contract cover and what are the response times in practice?</li><li>What does your recovery sequence look like and who can execute it?</li><li>How old was the last restorable save and was that a surprise?</li><li>Where were the journal receivers and what would have changed with remote journaling?</li><li>What did the team decide about the development system?</li><li>How did the warehouse operate manually and for how long can it continue?</li><li>What licensing and PTF information was needed and where was it?</li><li>How was data loss reconciled?</li><li>Who accepted the removal of high availability and was the risk documented?</li><li>How accurate were communications to customers and the warehouse?</li><li>What evidence did the scribe capture that auditors would need?</li><li>How do you manage staff fatigue during a long restore?</li><li>What access or credentials were missing?</li><li>What would you change about backup frequency and testing?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

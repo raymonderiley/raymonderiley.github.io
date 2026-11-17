@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oracle RAC Cluster Split-Brain Condition Across Campus Fiber Links | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Oracle RAC Cluster Split-Brain Condition Across Campus Fiber Links</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">On-Premises Infrastructure</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines the response to a split-brain condition in a four-node Oracle Real Application Clusters (RAC) deployment stretched across two buildings on a campus, after both redundant fiber paths between the buildings degrade at once. Cluster interconnect heartbeats are lost, the voting disk and node eviction logic engage, and the team must decide how to restore a consistent database without losing committed transactions or corrupting data.</p>
+<p>Participants are working-level: Oracle DBAs, clusterware and storage engineers, network and fiber technicians, operating system engineers, application and batch owners, business continuity coordinators and compliance staff. The exercise explores how clusterware fencing is meant to behave, where it can fail, and how people reason about data integrity under pressure.</p>
+<p>A full run takes 3 to 4 hours. The twelve-inject library supports repeated sessions with different injects. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Cascade Freight Logistics runs its order management, dispatch and billing on a four-node Oracle RAC 19c cluster (nodes RAC1 and RAC2 in Building A, RAC3 and RAC4 in Building B), using ASM on synchronously mirrored storage with an extended-distance configuration. The campus has two diverse fiber routes between buildings, about 1.8 km, carrying the private interconnect VLANs, the SAN extension and the public network. A third voting file sits on an NFS quorum device in a small third location.</p>
+<p>At 10:22 on a Tuesday, a utility contractor cuts the primary fiber duct. The secondary route had been rerouted through the same duct during a recent re-pull and no one updated the diagram. Both paths fail within 90 seconds. Interconnect traffic between the two buildings stops. Cluster Synchronization Services (CSS) on each side loses heartbeats; nodes RAC3 and RAC4 can still reach the quorum NFS voting file but RAC1 and RAC2 can reach neither building B nor, because of a firewall rule, the quorum location.</p>
+<p>What the team does not yet know: the quorum NFS path was routed through building B and fails for building A, the extended RAC node eviction timeout was tuned to 30 seconds without testing, one node has been evicted and rebooted twice and is looping, the ASM mirrored disks may be partially stale, and the application tier uses connection pools that keep reconnecting to evicted nodes.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Recognize split-brain and its risks.</strong> Participants interpret CSS, CRS and ASM alert logs (cssd.log, ocssd, crsd, alert_&lt;SID&gt;.log), voting file status and interconnect error counters to determine which nodes are in the surviving cluster and which were evicted.</li><li><strong class="text-white">Protect data integrity.</strong> The team agrees that integrity takes priority over availability, identifies how to confirm that only one sub-cluster is writing to the shared disks, and decides whether to stop all instances before restoring connectivity.</li><li><strong class="text-white">Restore connectivity and cluster membership safely.</strong> Participants plan the sequence for re-establishing fiber, verifying interconnect health, rejoining nodes and checking ASM disk group status.</li><li><strong class="text-white">Make a recovery decision with incomplete information.</strong> The team weighs running on two nodes in one building, failing over to a standby or restoring from backup, and documents the decision criteria.</li><li><strong class="text-white">Manage the application layer.</strong> Application owners address connection pool storms, in-flight transactions, batch jobs and customer-facing timeouts.</li><li><strong class="text-white">Learn from the diverse-path failure.</strong> The team examines why path diversity was not real, how documentation became stale and how change control missed the route consolidation.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Cluster state evidence must come from logs and commands the participants would actually use. Do not assume the vendor or Oracle Support can resolve the incident quickly.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Interconnect and node eviction alarms, plus application timeouts, lead to incident declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Cluster state assessment.</span> The team establishes which nodes are up, which were evicted, and whether both sides were writing.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Integrity decision.</span> Decision on stopping instances, fencing and the safe recovery path.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Connectivity restoration.</span> Fiber repair options and temporary links are evaluated.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Recovery path decision.</span> Run on one side, rejoin nodes, or fail over; approvals are given.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Execution.</span> Rejoin, ASM rebalance and application reconnect steps are performed.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Data consistency checks, reconciliation and performance verification.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Normal operations resume, communications issued, and incident closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Both campus fiber paths fail and the cluster splits</a></p><p><strong class="text-white">#2 &middot; T+00:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Application sessions failover unexpectedly</a></p><p><strong class="text-white">#3 &middot; T+00:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Evicted node starts writing again</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Temporary link offered with limited bandwidth</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Redo analysis shows divergent SCNs</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Data Guard standby offered as fallback</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Backups unavailable on the A side</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership asks for ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Fiber restored; node rejoin</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Data reconciliation finds discrepancies</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Firewall rule discovery</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Both campus fiber paths fail and the cluster splits</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 10:25 on Tuesday. Monitoring alerts show the interconnect between Building A and Building B is down. The dispatch application is timing out, and the order desk reports &#x27;cannot save&#x27; errors. The DBA on call sees in the cluster logs that RAC3 and RAC4 evicted RAC1 and RAC2 at 10:23 and that RAC1 and RAC2 evicted each other repeatedly afterward. One node is in a reboot loop.</p>
+<p>The alert log on RAC3 shows instance recovery completed for threads 1 and 2. The alert log on RAC1 shows that it continued to write redo for 46 seconds after the interconnect failed because its eviction timer was still counting down. The ASM alert log shows disks from the Building A failure group as offline on the B side and vice versa.</p>
+<p>The network team reports that both fiber pairs show loss of light. The contractor on site says they cut a duct that has &#x27;all the fiber on campus.&#x27; The quorum NFS voting file in the third location is reachable from Building B but not from Building A.</p>
+<p>Facilitator provides: log excerpts from RAC1 and RAC3, the ASM disk group status, the fiber map showing two supposed routes and the application connection pool configuration.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident. State the priority between data integrity and availability.</li><li>Decide whether to stop all instances now.</li><li>Set the next update at T+00:30.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Oracle DBA &amp; RAC Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify which instances are alive and which wrote redo after the split.</li><li>Explain the risk if both sides wrote to the same disks and how you would check.</li><li>List the checks before allowing nodes to rejoin.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage &amp; Clusterware Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Report the ASM disk group state and any stale mirrors.</li><li>Check which voting files each side can reach.</li><li>Estimate resync time and performance impact.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; Campus Fiber Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm that both paths are down and the reason.</li><li>Ask the contractor for estimated repair time and review temporary link options.</li><li>Check why building A cannot reach the quorum location.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify which services are failing and which are partially working.</li><li>Hold batch jobs and enable maintenance pages.</li><li>Reduce connection pool reconnects.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Operating System Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Stop reboot loops on the failing node.</li><li>Check clusterware status and fencing behavior on each host.</li><li>Preserve logs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activate manual dispatch and order entry procedures.</li><li>Prepare the first update.</li><li>Ask for the documented RTO.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask whether diversity of fiber routes was validated.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is your leading hypothesis for the node evictions and how would you confirm which side is authoritative?</li><li>RAC1 wrote redo for 46 seconds after the split. What are the possible consequences and how would you test for them?</li><li>Should you stop everything now or keep the B side running? What are the trade-offs?</li><li>What do you know about the voting file configuration and why can Building A not reach the quorum?</li><li>What does your runbook say about rejoining evicted nodes?</li><li>How would you know whether the ASM mirrors are consistent?</li><li>Why was the second route in the same duct, and how did documentation go stale?</li><li>What do you tell the order desk and dispatch teams right now?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the shared duct until the network team checks the physical route.</li><li>If players want to restart the evicted nodes immediately, ask what they would check first and who approves.</li><li>Pay attention to whether the DBA identifies the 46-second window as a data integrity risk.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Application sessions failover unexpectedly</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Application servers failed over to RAC3 and RAC4 and users are working, but some see stale data.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Oracle DBA &amp; RAC Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess read consistency.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Warn users.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you allow production on the B side while the A side is down?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests availability versus integrity.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Evicted node starts writing again</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A reboot loop ends and RAC1 starts CRS, which attempts to rejoin the cluster while the interconnect is still down.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Oracle DBA &amp; RAC Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check ASM.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Operating System Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Stop the node.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you prevent a node from rejoining?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Fencing logic.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Temporary link offered with limited bandwidth</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A 1 Gbps wireless bridge can be installed in 3 hours but cannot carry the interconnect at the required latency.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide on use.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; Campus Fiber Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Describe suitability.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which traffic should use the temporary link?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Extended cluster latency limits.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Redo analysis shows divergent SCNs</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>SCN analysis suggests that both sides applied different transactions for 46 seconds.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Oracle DBA &amp; RAC Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan reconciliation.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What are your options, and what business data may be lost?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Critical decision.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Data Guard standby offered as fallback</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The Data Guard standby is 4 minutes behind and is in the remote site.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Oracle DBA &amp; RAC Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Evaluate failover.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is fail-over to the standby safer than repair?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Introduces DR option.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Backups unavailable on the A side</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>RMAN backup catalog is in Building A and cannot be reached.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Oracle DBA &amp; RAC Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Find alternate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage &amp; Clusterware Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Locate the backups.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Where is your backup catalog?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Dependency discovery.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership asks for ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The operations director asks for firm restoration time.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide options.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare message.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you express uncertainty?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Communication.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Fiber restored; node rejoin</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The fiber is spliced. The cluster interconnect is up and nodes begin to rejoin.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Oracle DBA &amp; RAC Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Control sequence.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage &amp; Clusterware Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Resync ASM.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which node rejoins first and what do you verify?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Controlled rejoin.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Data reconciliation finds discrepancies</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Reconciliation finds 47 orders duplicated and 12 shipment records missing.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reconcile.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess control impact.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Who approves manual data corrections?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Financial controls.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Firewall rule discovery</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Network finds a rule blocking quorum from Building A, added months ago.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; Campus Fiber Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Correct.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Log change control gap.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How did this change go untested?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Change control.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The cluster is healthy. Management wants to know whether it can happen again.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What exit criteria close the incident?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads to debrief.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, sets severity, and states that data integrity takes priority over availability.</li><li>Decides whether to stop the database on all nodes until the cluster state is verified.</li><li>Runs a 30-minute cadence, assigns the scribe and records decisions.</li><li>Authorizes emergency work from the fiber contractor and any temporary link.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Oracle DBA &amp; RAC Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reviews alert logs and cluster logs on each node, notes the eviction events and reason codes, and determines which instances are running.</li><li>Confirms whether both sides issued writes after the interconnect failure, using redo thread and SCN analysis.</li><li>Runs consistency checks when instances return, including instance recovery messages, and decides if RMAN restore or Data Guard fallback is needed.</li><li>Plans the order for restarting instances and enabling services.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Storage &amp; Clusterware Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Checks ASM disk group state, mirror consistency and failure groups after the split, including any offline or stale disks.</li><li>Verifies the voting file configuration and quorum access from each building.</li><li>Prepares for ASM resync, noting the duration and performance impact.</li><li>Ensures write ordering and storage-level mirroring does not mask an inconsistency.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Network &amp; Campus Fiber Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirms the fiber path status with the carrier or contractor and identifies that the second path shares the damaged duct.</li><li>Looks for temporary links: wireless bridge, leased circuit, rerouted wavelengths.</li><li>Verifies that firewall rules do not block the quorum path from building A.</li><li>Corrects network documentation and prepares a path diversity audit.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Batch Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners identify which services run on which nodes, and which transactions were in flight.</li><li>Batch operations hold the scheduler and queue restarts.</li><li>Owners adjust connection pools to prevent reconnect storms and use the maintenance page.</li><li>Prepare reconciliation tests and the business sign-off.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Server &amp; Operating System Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Checks the operating system and clusterware health on evicted nodes, including reboot loops and node fencing behavior.</li><li>Ensures that nodes are not rebooted repeatedly in a way that damages evidence or storage.</li><li>Confirms time synchronization and kernel messages.</li><li>Prepares for rejoining nodes in a controlled order.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates the continuity plan for order management and dispatch, and coordinates manual dispatch procedures.</li><li>Issues time-stamped updates to leadership and customer service.</li><li>Communicates with key customers about delays.</li><li>Tracks actual downtime vs RTO.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 controls 5.24-5.28; 8.14 redundancy; SOC 2 availability).</li><li>Evaluates contractual obligations and customer notification.</li><li>Captures evidence for decisions about stopping and recovery.</li><li>Logs findings on path diversity and stale diagrams.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Path diversity must be verified physically. Two fibers in one duct are one path. Maintain authoritative cable maps, walk the route, and re-verify after every re-pull or carrier change.</p>
+<p>Design extended clusters with a quorum location that both sites can reach independently, and test every failure combination: site A isolated, site B isolated, interconnect only, and quorum only. Tune eviction timeouts based on test results, not defaults.</p>
+<p>Fencing is the main protection from split-brain. Confirm that I/O fencing (for example, via storage or IPMI) works, that reboot loops cannot rejoin, and that the 46-second write window is understood and minimized.</p>
+<p>Prepare an integrity-first runbook: when to stop all instances, how to compare SCN and redo, when to fail over to the standby, and who decides. Keep RMAN catalogs and backups reachable from both sides.</p>
+<p>Evidence matters. Auditors for ISO/IEC 27001:2022 and SOC 2 look for redundancy testing, change control for network and firewall changes, and recovery tests that include data validation.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on how the team protected integrity and who made the decisions about stopping or continuing instances.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How did the team determine which nodes were authoritative and how long did it take?</li><li>What would you have done about the 46 seconds of redo written by RAC1, and how would you verify the impact?</li><li>Which was the greater risk: continuing on the B side or stopping all instances, and who decided?</li><li>How did you confirm the ASM mirrors were consistent?</li><li>What does your runbook say about rejoining evicted nodes and was it followed?</li><li>Why could Building A not reach the quorum, and when did that configuration change?</li><li>How did the shared duct escape notice, and what verification of path diversity do you perform?</li><li>Where was the RMAN catalog and backups, and were they reachable?</li><li>What is the eviction timeout, who set it and was it tested?</li><li>How did application owners handle connection pools and in-flight transactions?</li><li>What business data was at risk and who signs off on reconciliation?</li><li>What communications went to dispatch and customers and were they accurate?</li><li>What evidence did the scribe capture that an auditor would need?</li><li>What access or credentials were missing during recovery?</li><li>What will you test before the next construction season?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

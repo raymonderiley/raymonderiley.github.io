@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Server Always On Availability Group Quorum Loss | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">SQL Server Always On Availability Group Quorum Loss</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">On-Premises Infrastructure</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines the response to a loss of Windows Server Failover Cluster (WSFC) quorum underneath a SQL Server Always On Availability Group. When quorum is lost the cluster service stops, the availability group goes offline and listeners disappear, even though databases on individual replicas may be intact. The team must decide whether to force quorum, accept possible data loss, and restore service without causing split-brain.</p>
+<p>The exercise is for working-level participants: SQL Server DBAs, Windows and cluster engineers, network and DNS staff, application and batch owners, storage and backup operators, business continuity coordinators and compliance staff. It tests understanding of quorum models, the difference between synchronous and asynchronous replicas and the risks of forced failover.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Copperline Insurance runs its policy and claims platform on a four-node WSFC with an Always On Availability Group of five databases (about 3 TB). SQL1 and SQL2 are in the primary data center as synchronous replicas with automatic failover; SQL3 is a synchronous replica in the secondary data center; SQL4 is an asynchronous readable secondary at the disaster recovery site. The cluster uses node majority with a file share witness hosted on a file server in the primary data center.</p>
+<p>At 03:05 a scheduled storage firmware update on the file server hosting the witness takes it offline and the cluster raises a warning that nobody sees. At 03:20 a switch fault isolates SQL3 and SQL4 from the primary data center. Votes: SQL1, SQL2 are on one side with no witness, SQL3 and SQL4 on the other. Neither side has a majority of five votes (two nodes plus no witness gives only two of five votes on either side). The cluster service stops on all nodes at 03:21 and the listener name goes offline. The claims application and the broker portal fail.</p>
+<p>What the team does not yet know: dynamic quorum was disabled by a previous consultant, SQL2 had been lagging in synchronization for 40 minutes due to a log send queue, the asynchronous replica SQL4 is 11 minutes behind, and the application connection strings use the listener name with MultiSubnetFailover disabled, which will complicate failover even after quorum returns.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Diagnose the quorum loss.</strong> Participants use cluster logs, Event IDs (1135, 1177, 1069, 1573) and the Get-ClusterQuorum and Get-ClusterNodeState outputs to determine that the cluster is down by design, not corrupted.</li><li><strong class="text-white">Decide whether and how to force quorum.</strong> The team compares restoring the witness, restoring network connectivity, and forcing quorum on a chosen node, understands the risk of split-brain and the effect on replica roles, and agrees on who decides.</li><li><strong class="text-white">Protect data integrity and quantify data loss.</strong> Participants assess synchronization state of each replica, the log send queue and redo queue, and estimate the potential data loss from each failover option.</li><li><strong class="text-white">Restore the listener and applications.</strong> The team restores the listener, tests application connectivity and resolves client-side issues such as connection string settings.</li><li><strong class="text-white">Control re-synchronization.</strong> Participants plan how to resume data movement, re-seed lagging replicas and prevent log growth and disk exhaustion.</li><li><strong class="text-white">Improve quorum design.</strong> The team examines witness placement, dynamic quorum and the monitoring of quorum health.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Be explicit about which replica you would trust as the source of truth, and why.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Application errors, listener failure and cluster alerts prompt declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Quorum diagnosis.</span> Cluster state, vote counts and replica synchronization are established.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Options and risk.</span> Witness recovery, network repair and forced quorum are compared.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Data loss assessment.</span> Potential data loss for each option is quantified and accepted or rejected.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Recovery path decision.</span> A path is chosen and approved.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Execution.</span> Quorum restored, listener online and replicas resynchronized.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Application tests, data reconciliation and monitoring are verified.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Services released and the incident closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Cluster service stops and the listener disappears</a></p><p><strong class="text-white">#2 &middot; T+00:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Witness restored but nodes will not rejoin</a></p><p><strong class="text-white">#3 &middot; T+00:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">SQL3 becomes reachable and tries to form its own cluster</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Log disk filling</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Replica SQL4 is 11 minutes behind</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Business refuses data loss</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Batch job started automatically</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Forced quorum completed; databases suspended</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Application connection failures persist</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Data reconciliation of claims</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Cluster service stops and the listener disappears</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 03:24. The claims application reports &#x27;cannot connect to database&#x27;. The on-call DBA finds that the Availability Group listener does not respond. On SQL1, Failover Cluster Manager cannot connect to the cluster; the cluster service has stopped. Event ID 1177 appears: the cluster service is shutting down because quorum was lost.</p>
+<p>SQL Server on SQL1 and SQL2 is running, but the databases show as &#x27;Not Synchronizing / Resolving&#x27; in SSMS. SQL3 and SQL4 are unreachable from the primary data center. The network team says a core switch fault began at 03:20. The storage team notes that the file server hosting the witness restarted for a firmware update at 03:05 and has not come back.</p>
+<p>Dashboards show that the broker portal is down and 340 claims are queued at the call center. A batch job for premium collection is scheduled at 04:00 and would run against the claims databases.</p>
+<p>Facilitator provides: the cluster event log extract, the vote map, SSMS replica states screenshot and the application connection string examples.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and name the DBA lead, cluster lead and scribe.</li><li>Decide whether to hold the 04:00 batch.</li><li>Set the next update at T+00:30.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">SQL Server DBA &amp; Availability Group Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Explain what the database state means and why databases are Resolving.</li><li>Check synchronization and last commit times of SQL1 and SQL2, and estimate the state of SQL3 and SQL4.</li><li>List the options and the data loss risk.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Windows Server &amp; Failover Cluster Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Interpret the vote counts and why neither side has quorum.</li><li>Check whether dynamic quorum is enabled.</li><li>Describe how forced quorum works and what risks it brings.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; DNS Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Diagnose and prioritize the switch fault.</li><li>Check whether the witness share is reachable by any node.</li><li>Verify listener IP and DNS.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>List which applications use the listener and how they connect.</li><li>Hold the batch job.</li><li>Check MultiSubnetFailover settings.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage &amp; Backup Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check the witness file server and the firmware update status.</li><li>Confirm log backups are current.</li><li>Check log disk space on SQL1.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activate manual claims intake.</li><li>Prepare the first update.</li><li>Ask for documented RTO and RPO.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask whether the firmware change was approved and communicated.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Why is the cluster down, and why did dynamic quorum not save it?</li><li>What is the difference between restoring the witness and forcing quorum, and what are the risks of each?</li><li>What do you know about the synchronization state of each replica, and which has the latest data?</li><li>SQL2 was lagging by 40 minutes. How does that affect your decision?</li><li>Who decides to accept data loss, and how do you document it?</li><li>If you force quorum on SQL1 and the network returns, what happens to SQL3 and SQL4?</li><li>How will applications connect after failover given the connection string settings?</li><li>What should the call center tell claimants?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the lag on SQL2 until the DBA checks replica states.</li><li>If the team forces quorum immediately, ask what they checked first and who approved data loss.</li><li>Watch for confusion between node majority, witness and dynamic quorum.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Witness restored but nodes will not rejoin</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The witness returns online but the cluster still does not start because of a split vote history.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Windows Server &amp; Failover Cluster Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Diagnose.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you start the cluster safely?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Quorum nuance.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: SQL3 becomes reachable and tries to form its own cluster</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The switch partially recovers; SQL3 and SQL4 begin to attempt to form a cluster.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Windows Server &amp; Failover Cluster Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prevent split-brain.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; DNS Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Block.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you stop two clusters forming?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Split-brain risk.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Log disk filling</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The primary log disk is at 91 percent because unsent logs cannot be truncated.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">SQL Server DBA &amp; Availability Group Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Mitigate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage &amp; Backup Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Extend.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you avoid a full log disk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Secondary effect.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Replica SQL4 is 11 minutes behind</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>SQL4 is the only replica that is reachable from the DR network and is 11 minutes behind.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">SQL Server DBA &amp; Availability Group Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Quantify.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you fail over to SQL4 and accept 11 minutes of loss?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decision.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Business refuses data loss</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The claims director says no data loss is acceptable.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Negotiate.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">SQL Server DBA &amp; Availability Group Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Recover.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How can lost claims be recovered after the fact?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Recoverability.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Batch job started automatically</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The premium collection job started against SQL1 databases in resolving state and failed midway.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What cleanup is required?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Batch control.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The CEO&#x27;s office asks for an update.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Options.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Message.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you say?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Communication.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Forced quorum completed; databases suspended</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>After forced quorum, databases on other replicas are suspended and show divergence.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">SQL Server DBA &amp; Availability Group Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Resume or reseed.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which replicas are resumed and which reseeded?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Execution detail.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Application connection failures persist</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Applications on the secondary subnet cannot connect to the listener.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; DNS Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Fix.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you resolve MultiSubnetFailover issues?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Client config.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Data reconciliation of claims</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Reconciliation finds 18 claims submitted in the failure window lost.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Batch Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Recover.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How are lost claims recovered?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Customer impact.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The AG is healthy. Management asks about design changes.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What exit criteria close the incident?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads to debrief.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, owns the decision on forcing quorum and data loss tolerance, informed by the DBA and cluster leads.</li><li>Runs a 30-minute cadence, assigns the scribe and records decisions with the data loss accepted.</li><li>Confirms who has authority to accept data loss for policy and claims data.</li><li>Authorizes emergency changes including witness reconfiguration.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">SQL Server DBA &amp; Availability Group Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Examines replica states using sys.dm_hadr_database_replica_states: synchronization state, log send queue, redo queue and last commit time.</li><li>Determines which replica has the latest committed transactions and what is lost if each is chosen.</li><li>Plans forced failover with allow data loss, and the later resume of data movement and suspended databases.</li><li>Prepares to reseed or restore databases on replicas that diverge.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Windows Server &amp; Failover Cluster Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Diagnoses the cluster state, vote assignments and the witness failure, and reviews cluster logs.</li><li>Decides how to start the cluster with forced quorum (/fq) on one node and what happens to the other nodes when they return.</li><li>Plans witness replacement and enabling dynamic quorum and dynamic witness.</li><li>Checks prevention of quorum arbitration problems.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Network &amp; DNS Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Diagnoses the switch fault isolating SQL3 and SQL4 and plans restoration.</li><li>Verifies DNS records, listener IP addresses across subnets and static routes.</li><li>Checks firewall rules for cluster ports and the file share witness.</li><li>Prepares for DNS TTL and client caching issues.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Batch Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners list services dependent on the listener and test connection strings and MultiSubnetFailover settings.</li><li>Batch operators hold jobs and plan restart.</li><li>Claims and broker portal owners prepare messaging and manual workarounds.</li><li>Prepare validation tests.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Storage &amp; Backup Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Checks the file server storage firmware update and the witness share state.</li><li>Confirms backups and log backups are current for all databases and available for restore.</li><li>Monitors log disk space for the primary as log truncation is blocked by unsent logs.</li><li>Prepares restore capacity.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates continuity plans for claims intake and broker support.</li><li>Issues time-stamped updates to leadership and brokers.</li><li>Coordinates manual claims intake.</li><li>Tracks downtime against RTO and RPO.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28; SOC 2 availability and processing integrity).</li><li>Evaluates regulatory implications of any lost claims data.</li><li>Captures evidence for decisions to accept data loss.</li><li>Logs findings on quorum design, change control for firmware updates and monitoring.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Quorum is a design decision. Use dynamic quorum with dynamic witness, place the witness in a third failure domain (not on a primary-site file server) or use a cloud witness, and test every site-failure combination.</p>
+<p>Monitor quorum health, not just node health: alert when the witness is offline, when vote count drops and when a node is removed from voting. A warning that nobody sees at 03:05 is a design gap.</p>
+<p>Know the data loss of each failover option at any time. Track log send queue, redo queue and last commit time per replica, and alert on thresholds so that decision-makers have numbers.</p>
+<p>Prepare a forced-quorum runbook with named approvers and explicit data loss acceptance, plus procedures for resuming, reseeding and validating replicas afterward.</p>
+<p>Review client configuration: use MultiSubnetFailover, sensible timeouts and listener DNS settings. Auditors for ISO/IEC 27001:2022 and SOC 2 expect evidence of failover testing and change control for infrastructure maintenance.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on how the team reasoned about quorum and who accepted data loss.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How long did it take to conclude that quorum loss, not corruption, was the cause?</li><li>How is quorum configured today and who reviewed the witness placement?</li><li>Why did dynamic quorum not protect the cluster?</li><li>What were the log send queue and last commit time for each replica and where were those numbers found?</li><li>Who has authority to accept data loss and how was that decision recorded?</li><li>What are the risks of forced quorum and how were they mitigated?</li><li>How did the team prevent two clusters from forming?</li><li>How did applications connect after recovery, and what client changes were needed?</li><li>How did the team handle the batch job and log disk growth?</li><li>How were lost claims identified and recovered?</li><li>What communications went to claims, brokers and leadership and were they accurate?</li><li>What evidence did the scribe capture for auditors?</li><li>What monitoring should have caught the witness outage?</li><li>What access or credentials were missing?</li><li>What would you change in cluster design?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

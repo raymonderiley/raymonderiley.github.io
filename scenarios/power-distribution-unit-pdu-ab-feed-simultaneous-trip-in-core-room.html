@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Distribution Unit (PDU) A/B Feed Simultaneous Trip in Core Room | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Power Distribution Unit (PDU) A/B Feed Simultaneous Trip in Core Room</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">On-Premises Infrastructure</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines the simultaneous loss of both the A and B power feeds to a core data center room when two power distribution units trip together. Racks that were assumed to have two independent power paths lose both, and equipment shuts down abruptly without graceful shutdown. The scenario challenges the assumption that A/B dual feeding guarantees power resilience.</p>
+<p>Participants are working-level: facilities and electrical engineers, server and virtualization operators, storage and network engineers, application owners, the service desk, physical security, business continuity coordinators and compliance staff. They must work out why both feeds failed, how to restore power safely and how to recover from dirty shutdowns.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Granite Peak Financial runs a core room with 48 racks fed by two UPS-backed power paths: Path A from UPS-A through PDU-A1 and PDU-A2, and Path B from UPS-B through PDU-B1 and PDU-B2. Each rack has two power strips, one per path. The room holds core network switches, two storage arrays, 120 hosts and a payments gateway. Generators back the utility feed and the facility uses a static transfer switch (STS) on a few single-corded devices.</p>
+<p>At 11:47 on a Wednesday, an electrician performing a thermal scan on PDU-A1 opens a panel door, and a ground fault trips PDU-A1&#x27;s input breaker. Within a few seconds, the load transfers to Path B, which carries the load of both paths. PDU-B1&#x27;s breaker, which had been set to a lower trip threshold during a recent re-labeling and was already at 87 percent load, trips on overcurrent. Within 11 seconds both paths have lost power to 31 racks. UPS-A and UPS-B remain online but have no load path.</p>
+<p>What the team does not yet know: the breaker settings on PDU-B1 differ from the design, the dual-feed racks were assumed to be at under 40 percent on each path but several were above 50 percent, three storage arrays have a single power supply plugged into one path through a power strip adaptor, and some of the dirty shutdown devices have corrupted file systems.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Establish the facts of the power loss.</strong> Participants use the electrical single-line diagram, breaker panel states, UPS logs and the power monitoring system to explain the trip sequence and confirm the room is safe to re-energize.</li><li><strong class="text-white">Restore power safely.</strong> Facilities decide how to re-energize PDUs without causing another overload, including resetting breakers, staged re-energization and load balancing.</li><li><strong class="text-white">Recover from dirty shutdowns.</strong> Operators sequence boot-up of network, storage, hypervisors, databases and applications, and plan integrity checks for devices that lost power abruptly.</li><li><strong class="text-white">Identify hidden single points of failure.</strong> The team finds single-corded devices, lost redundancy, breaker settings and capacity errors that made A/B feeds ineffective.</li><li><strong class="text-white">Protect people and equipment.</strong> The team handles electrical safety, arc flash precautions and re-energization authority.</li><li><strong class="text-white">Manage communications and priorities.</strong> The team prioritizes restoration of the payments gateway, trading data feeds and customer channels.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Electrical safety decisions in the exercise follow your own site safety procedures. Do not simulate bypassing lockout/tagout.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Mass alarms, host and network loss and facility reports prompt incident declaration.</p><p><strong class="text-white">T+00:20</strong> &mdash; <span class="text-green-400">Safety and facts.</span> The electrical state is reviewed and the room is cleared for work.</p><p><strong class="text-white">T+00:45</strong> &mdash; <span class="text-green-400">Power restoration plan.</span> Re-energization sequence and load management are agreed.</p><p><strong class="text-white">T+01:30</strong> &mdash; <span class="text-green-400">Power restored.</span> PDUs are re-energized in stages; infrastructure boots.</p><p><strong class="text-white">T+02:30</strong> &mdash; <span class="text-green-400">Infrastructure recovery.</span> Network, storage and hypervisors are recovered and checked.</p><p><strong class="text-white">T+04:00</strong> &mdash; <span class="text-green-400">Application recovery.</span> Databases and applications are restarted in priority order.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Integrity checks, reconciliations and redundancy verification.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Services released, communications issued and incident closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Both A and B power paths drop to 31 racks</a></p><p><strong class="text-white">#2 &middot; T+00:20 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">PDU-A1 shows damage</a></p><p><strong class="text-white">#3 &middot; T+00:20 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Utility voltage fluctuation</a></p><p><strong class="text-white">#4 &middot; T+00:45 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Electrical contractor delayed</a></p><p><strong class="text-white">#5 &middot; T+00:45 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Racks above load assumption</a></p><p><strong class="text-white">#6 &middot; T+01:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Storage array restarts degraded</a></p><p><strong class="text-white">#7 &middot; T+01:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Hosts boot with datastore errors</a></p><p><strong class="text-white">#8 &middot; T+02:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Payments partner calls</a></p><p><strong class="text-white">#9 &middot; T+04:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Database recovery runs long</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Reconciliation mismatch</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Redundancy not restored</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Both A and B power paths drop to 31 racks</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 11:48 on Wednesday. The data center monitoring wall turns red. Power monitoring shows PDU-A1 input breaker open since 11:47:12 and PDU-B1 input breaker open at 11:47:23. UPS-A and UPS-B are both online and reporting zero load on those outputs.</p>
+<p>Network monitoring has lost 14 core and distribution switches. Storage reports two arrays offline and one running on a single controller. Ninety-six hosts are unreachable. The payments gateway is down and the card authorization queue is failing. The electrician who was performing a thermal scan reports a flash and loud bang from PDU-A1, and is unhurt but shaken.</p>
+<p>The facility manager says the PDU-B1 breaker is set to 80 percent of the rating, not the designed 100 percent, due to a re-labeling project. Load per path at the time was above the design assumption. Three storage arrays are reported to have one power supply on a path adaptor from the A side only.</p>
+<p>Facilitator provides: the single-line diagram, the power monitoring trend, the breaker settings sheet and the list of impacted racks.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident, name the facilities lead, IT recovery lead and scribe.</li><li>Decide how to handle the injured or shaken electrician and the safety review before any re-energization.</li><li>Set the next update at T+00:20.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities &amp; Electrical Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Explain the trip sequence in plain language, and what must be verified before re-energizing.</li><li>Confirm lockout/tagout and arc-flash conditions on PDU-A1.</li><li>Plan the staged re-energization and the load to expect.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>List the hosts that lost power and hold HA and DRS actions.</li><li>Plan the order of power-on.</li><li>Check for datastore corruption.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage &amp; Network Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan boot order: network core, storage, hosts.</li><li>Check the single-power-supply arrays and their state.</li><li>Check replication and out-of-band access.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners: state priority and the consistency checks needed.</li><li>Payments owner: begin the manual process plan.</li><li>Service desk: issue holding message.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Security &amp; Physical Access</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Lock down room access.</li><li>Check that CCTV and badge systems work or have failed safe.</li><li>Plan contractor escort.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activate the continuity plan for payments.</li><li>Prepare the first update.</li><li>Ask for documented RTO.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask whether the breaker settings were approved under change control.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Why did both paths fail? Walk through the sequence and which assumptions were wrong.</li><li>What must be true before the first breaker is closed, and who has authority to say so?</li><li>How do you avoid another overload when re-energizing 31 racks at once?</li><li>What do you know about the load per path and how do you verify it quickly?</li><li>In what order do network, storage and hosts return, and why?</li><li>Which devices are single-corded or single-supplied, and what is the fix?</li><li>How do you validate databases and file systems that lost power abruptly?</li><li>What do you tell payment partners and customers?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the breaker setting discrepancy until the facilities lead is asked about trip thresholds.</li><li>If the team wants to re-close breakers immediately, ask about the fault, the electrical safety and the load.</li><li>Look for tension between speed and safety.</li><li>Time-box to 30 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: PDU-A1 shows damage</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Inspection shows burn marks inside PDU-A1 and the electrician refuses to re-energize it.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities &amp; Electrical Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan using only B path.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Can you run the room on one path and what is the risk?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reduced redundancy.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Utility voltage fluctuation</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The utility reports voltage sags in the area; the generator is on standby but not started.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities &amp; Electrical Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide on generator.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you start the generator proactively?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Power source choice.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Electrical contractor delayed</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:45 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The contractor can attend in 3 hours, not 1.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities &amp; Electrical Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Replan.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you wait for the contractor to re-energize?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Authority.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Racks above load assumption</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:45 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Measurements show some racks draw 58 percent on each path.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities &amp; Electrical Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Rebalance.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reduce load.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you reduce load safely during restart?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Capacity.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Storage array restarts degraded</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>One array restarts with two failed drives and rebuild starts.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage &amp; Network Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you proceed with rebuild while hosts boot?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Risk.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Hosts boot with datastore errors</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Four datastores report inconsistencies.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Server &amp; Virtualization Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you validate before powering VMs?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Integrity.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Payments partner calls</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The partner bank demands a recovery estimate.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Options.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Message.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you commit?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Communication.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Database recovery runs long</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Crash recovery on the authorization database will take 90 minutes.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you wait or use a replica?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decision.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Reconciliation mismatch</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Authorizations from the outage window mismatch the bank records.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reconcile.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Who approves corrections?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Financial controls.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Redundancy not restored</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Path A remains unavailable for 5 days pending parts.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide on change freeze.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Facilities &amp; Electrical Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you operate with reduced redundancy?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Risk acceptance.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Services are restored and leadership asks for a root cause.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What exit criteria close the incident?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads to debrief.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, sets priorities (payments gateway and network core first) and authorizes the re-energization plan after the safety review.</li><li>Runs a 20-minute cadence at first, then 30 minutes; assigns the scribe.</li><li>Ensures only one voice directs re-energization and that all changes are logged.</li><li>Authorizes emergency electrical contractor engagement.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Facilities &amp; Electrical Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reviews breaker and PDU status, the UPS logs and the single-line diagram to explain why PDU-B1 tripped, including the setting discrepancy.</li><li>Confirms the safety of the room: no fault remains, arc-flash precautions are applied and lockout/tagout is respected.</li><li>Plans staged re-energization and measures load per path before enabling downstream breakers.</li><li>Provides a corrected rack-level load report.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Server &amp; Virtualization Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Determines which hosts lost power, which came back and which are in a failed state, and lists virtual machines affected.</li><li>Plans controlled power-on order for hosts, preventing HA storms and disabling DRS temporarily.</li><li>Checks hosts for corrupted datastores and local disk errors.</li><li>Prepares for vCenter and management recovery if impacted.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Storage &amp; Network Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Lists network devices and storage arrays that lost power and plans boot order: core network first, then storage, then hosts.</li><li>Checks storage arrays for cache loss, degraded RAID and the three single-power-supply arrays.</li><li>Verifies network device configurations after unclean shutdown.</li><li>Checks replication and out-of-band management.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Service Desk</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners rank restoration order and describe consistency checks for databases after unclean shutdown.</li><li>The payments owner prepares for manual processes and partner communications.</li><li>The service desk tracks tickets and issues the incident script.</li><li>Prepare validation tests.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security &amp; Physical Access</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Controls room access and ensures only authorized staff enter during re-energization.</li><li>Verifies that access control and CCTV systems in the room came back and were not compromised.</li><li>Checks that doors and badge readers fail safe.</li><li>Supports contractors.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates the continuity plan for payments and trading data and informs partners as needed.</li><li>Issues time-stamped updates to leadership and customer support.</li><li>Coordinates manual payment alternatives.</li><li>Tracks downtime against RTO.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28; 7.11 supporting utilities; SOC 2 availability).</li><li>Evaluates regulatory notification for payment service disruption.</li><li>Captures evidence of emergency electrical work and approvals.</li><li>Logs findings on breaker settings, capacity management and single-corded devices.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Dual feeds protect only if each path can carry the whole load. Measure load per path continuously, keep each path below roughly 40 percent so that a failover does not overload the survivor, and alert on imbalance.</p>
+<p>Protect settings with change control. Breaker trip thresholds, PDU configurations and labeling projects can silently change the design. Compare as-found settings with the design and verify after every maintenance.</p>
+<p>Eliminate single points: single-corded devices, adaptors that tie power supplies to one path, and shared upstream components. Audit rack-by-rack and use static transfer switches where needed.</p>
+<p>Make restoration safe: staged re-energization, authority to close breakers, lockout/tagout and a load plan. Define a boot order for network, storage, hypervisors, databases and applications, and test it.</p>
+<p>Auditors for ISO/IEC 27001:2022 (control 7.11) and SOC 2 expect evidence of capacity management, preventive maintenance, failover tests of power paths and electrical safety procedures.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on the decisions about safety and re-energization and the discovery of hidden single points of failure.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which assumptions about A/B power turned out to be false?</li><li>How did the team confirm the actual breaker settings and who approved them?</li><li>What was the per-path load per rack and how was it measured?</li><li>What safety conditions had to be met before re-energizing, and who had authority?</li><li>How were load and boot order managed to avoid another trip?</li><li>Which devices were single-corded or single-supplied, and how will you find the rest?</li><li>How did the team validate databases and file systems after dirty shutdown?</li><li>How long was the payments gateway down and how were partners informed?</li><li>Did the electrical contractor arrangement meet your needs?</li><li>How did physical security manage access during the event?</li><li>What did the team learn about running with one path degraded?</li><li>How accurate were communications to leadership and customers?</li><li>What evidence did the scribe capture that auditors would need?</li><li>What access or credentials were missing?</li><li>What preventive maintenance would have found the setting discrepancy?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

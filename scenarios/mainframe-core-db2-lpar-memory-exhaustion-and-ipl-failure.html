@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mainframe Core DB2 LPAR Memory Exhaustion and IPL Failure | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Mainframe Core DB2 LPAR Memory Exhaustion and IPL Failure</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">On-Premises Infrastructure</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines the response to a z/OS logical partition (LPAR) hosting the production DB2 subsystem that runs out of real and auxiliary storage, goes into a wait state, and then fails to complete an Initial Program Load (IPL). It tests the mainframe team&#x27;s ability to diagnose storage exhaustion, make controlled decisions about re-IPL options, protect DB2 data integrity and coordinate with the business while a core platform is down.</p>
+<p>Participants are working-level: systems programmers, DB2 database administrators, batch schedulers and operators, network and channel staff, application owners, the service desk, business continuity coordinators and compliance staff. The scenario assumes a modern but aging mainframe estate with a small, experienced and aging staff, which makes tribal knowledge a risk worth examining.</p>
+<p>A full run takes 3 to 4 hours. The twelve-inject library supports repeated sessions with different injects at each time frame. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Meridian Mutual Insurance runs policy administration, claims adjudication and billing on a z15 mainframe with two LPARs in the primary data center: PRD1 (production DB2 data sharing member DB1A and CICS regions) and PRD2 (batch, MQ and test-sharing workloads). A GDPS-style disaster recovery site exists at a second location with replication at the disk level and a documented recovery time of eight hours. Production DB2 runs in a two-member data sharing group with the coupling facility in the primary site.</p>
+<p>At 05:40 on the last business day of the month, a runaway batch job begins to allocate enormous virtual storage in a common area, driving real storage frames and auxiliary page data sets toward 98 percent utilization. At 05:58 PRD1 enters a restartable wait state with message IEA793A and the console reports page data set exhaustion. The operator performs a console-directed re-IPL at 06:10. The IPL stalls at the nucleus initialization program because the master catalog alias for a critical SYS1 data set cannot be located, a symptom of a half-completed catalog update the previous night. Production CICS and DB2 are down, month-end close is at risk, and the claims call center is receiving calls.</p>
+<p>What the team does not yet know: the runaway job is a vendor-supplied utility run from a changed JCL proc, the page data sets were sized years ago and never reviewed, the last DB2 image copy and the system log archive are on tape that must be mounted via the same catalog, and the one engineer who understands the catalog structure is on a flight.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Diagnose storage exhaustion on z/OS.</strong> Participants use SDSF, RMF/Monitor III views, IEA793A/IEA794I messages, SMF records and console logs to identify the runaway address space and the page data set shortfall, and decide what can be done without an IPL.</li><li><strong class="text-white">Manage the IPL failure and catalog dependency.</strong> The team identifies why the nucleus initialization stalled, evaluates fallback options such as an alternate IPL volume and a previous LOADxx or catalog backup, and determines who has authority to execute them.</li><li><strong class="text-white">Protect DB2 data integrity.</strong> DB2 DBAs plan restart processing, log and BSDS verification, coupling facility structure rebuild or recovery for the data sharing group, and decide whether a point-in-time recovery or a switch to the DR site is warranted.</li><li><strong class="text-white">Evaluate disaster recovery invocation criteria.</strong> Participants state the thresholds and approvals for declaring a disaster and the effect on RPO and month-end processing, and avoid invoking DR prematurely or too late.</li><li><strong class="text-white">Control month-end processing and dependent applications.</strong> Batch schedulers, application owners and the business determine the revised batch sequence and the minimum acceptable close deliverables.</li><li><strong class="text-white">Address knowledge concentration and runbook quality.</strong> The team tests whether runbooks cover this failure and whether junior operators can follow them without the senior engineer.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Use the actual console message IDs, procedures and library names where participants know them. Where they do not, record that as a documentation gap.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Console messages, CICS and DB2 alerts and call center reports prompt incident declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Triage and IPL attempt review.</span> Storage exhaustion is confirmed, the first re-IPL failure is analyzed and the bridge is formed.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Root cause and options.</span> The runaway job and catalog problem are identified; recovery options are listed.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Dependency and business impact.</span> DB2, CICS, MQ and batch dependencies and the month-end schedule are assessed.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Recovery path decision.</span> Fix and IPL locally, or invoke DR; decision criteria and approvals are applied.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Execution.</span> IPL recovery, DB2 restart or DR failover steps and application bring-up are sequenced.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> DB2 consistency, CICS transaction tests and batch reconciliations are performed.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Services are released in priority, communications are issued and the incident is closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">PRD1 enters a wait state and the first re-IPL stalls</a></p><p><strong class="text-white">#2 &middot; T+00:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">The runaway job is confirmed and still queued to restart</a></p><p><strong class="text-white">#3 &middot; T+00:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Alternate IPL volume has an old catalog</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Systems programmer unreachable</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Coupling facility structure damage reported</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Month-end deadline moves forward</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Tape mount for DB2 archive logs fails</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">DR invocation decision point</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">IPL succeeds but DB2 restart hangs</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">CICS comes up with intermittent abends</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Business asks to restart the interrupted batch</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out and root cause review</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: PRD1 enters a wait state and the first re-IPL stalls</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 06:14 on the last business day of the month. The operations console shows IEA793A and IEA794I messages that ran from 05:52 to 05:58, then a restartable wait state at 05:58. The operator re-IPLed PRD1 at 06:10 following the console procedure. The IPL has stalled at the nucleus initialization phase for 4 minutes with a message that a required SYS1 data set cannot be located through the master catalog.</p>
+<p>CICS regions PRODA and PRODB, the DB2 member DB1A and MQ are down. The surviving member of the data sharing group on PRD2 is running but all DB2 work is routed to DB1A. The call center reports 90 callers on hold and the claims intake screen is unavailable. The month-end close job network is scheduled to start at 07:00.</p>
+<p>RMF history indicates a sustained rise in ECSA and page data set usage starting at 05:40 from a batch address space named STMTGEN. The JCL for STMTGEN was last modified yesterday evening under a change record that listed &#x27;minor parm change&#x27;.</p>
+<p>Facilitator provides: the console log excerpt, the RMF page data set usage chart, the IPL stall screen description and the change record.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident, set severity and name the lead, scribe and vendor contacts.</li><li>Freeze all other changes to PRD1, PRD2 and the coupling facility.</li><li>Decide whether to alert the DR site team now, even though invocation is not yet decided.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Mainframe Systems Programming</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Interpret the console messages and tell the team what exhausted and why a re-IPL was attempted.</li><li>Describe options for the stalled IPL: alternate IPL volume, previous catalog backup, loading with a different LOADxx.</li><li>State what information you need from the hardware management console and from the previous night&#x27;s catalog changes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">DB2 Database Administration</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Determine the likely DB2 state on DB1A after the abnormal stop and whether any log or BSDS damage is possible.</li><li>Check the status of the surviving DB2 member and the coupling facility structures.</li><li>Estimate restart time for DB2 once z/OS is back.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Batch &amp; Job Scheduling Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify which jobs were running at 05:58 and what needs restart handling.</li><li>Hold the scheduler and decide what happens to the 07:00 month-end start.</li><li>Find who changed the STMTGEN proc and what the change was.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; Channel Connectivity</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verify channel paths and FICON director state; confirm that the HMC is accessible.</li><li>Verify network paths to the DR site and partner connections.</li><li>Be ready to execute DVIPA/VIPA changes for DR.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Service desk: classify ticket volume, issue the holding message and provide the call center script.</li><li>Application owners: list affected transactions and interfaces.</li><li>Claims owner: state the manual intake workaround.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm month-end close deadlines and who must be notified.</li><li>Open the communications log and prepare the first update.</li><li>Ask for the documented RTO of the policy and claims systems.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record and record the detection and declaration times.</li><li>Ask whether the STMTGEN change followed change control and testing.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is your leading hypothesis for the page data set exhaustion and what data would confirm it quickly?</li><li>Was a console-directed re-IPL the right first action? What did it cost, and what does the runbook say about what to check first?</li><li>What are your options for an IPL that fails because a SYS1 data set cannot be found, and who can execute each?</li><li>How would you know whether DB2 has log or BSDS damage, and what does that change?</li><li>The month-end job network is scheduled for 07:00. Who decides to delay it and what is the minimum viable close?</li><li>How long would DR invocation take, and what is the trigger?</li><li>What happens if the one engineer who knows the catalog structure is unavailable?</li><li>What do you tell the call center in the first 15 minutes?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not mention the catalog update from last night unless the team asks about recent catalog or SMS changes.</li><li>If players jump to DR invocation, ask for the evidence that the primary cannot be recovered within the DR time, and what data loss DR entails.</li><li>Watch for dependence on a single named engineer. Ask what documentation they would use if that person were unreachable.</li><li>Time-box to about 35 minutes and capture decisions on the flip chart.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: The runaway job is confirmed and still queued to restart</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The scheduler has an automatic restart rule for STMTGEN. If the system returns, it will start again within minutes.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Mainframe Systems Programming</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Impose a region and storage limit.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Batch &amp; Job Scheduling Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Disable the rule and hold dependent jobs.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Who has authority to change automatic restart rules in an emergency?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Looks for controls that prevent a repeat on IPL.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Alternate IPL volume has an old catalog</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The alternate IPL volume is intact, but its master catalog copy is three weeks old and lacks newly allocated volumes.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Mainframe Systems Programming</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Evaluate what the stale catalog would break.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">DB2 Database Administration</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify DB2 data sets allocated recently.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is it better to IPL with a stale catalog and repair or wait for the right one?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Pushes discussion of catalog backup frequency.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Systems programmer unreachable</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The engineer who knows the catalog structure is on a flight with no connectivity for four hours. The backup engineer has not done a catalog restore.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Choose between waiting and proceeding.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Mainframe Systems Programming</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Use the documented procedure or vendor support.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you wait four hours or proceed with the backup engineer and vendor on the line?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests knowledge concentration.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Coupling facility structure damage reported</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The surviving DB2 member reports the group buffer pool structure in a failed state and a rebuild is failing.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">DB2 Database Administration</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan structure rebuild and the recovery of pages in group buffer pool recovery pending.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What are the recovery options and the risk of data loss?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>For experienced DBAs.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Month-end deadline moves forward</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Finance announces that regulatory filing must go out by 17:00 today, not tomorrow.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Batch &amp; Job Scheduling Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Revise critical path.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Escalate to the business owner.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What parts of month-end can be completed on the DR site?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Introduces business pressure.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Tape mount for DB2 archive logs fails</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The archive logs needed for restart are on tape, and the library manager cannot mount them because tape catalog entries live in the broken catalog.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Mainframe Systems Programming</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Find an alternate path to the tape catalog.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">DB2 Database Administration</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify disk copies of logs.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Where do copies of the logs and image copies live and how would you reach them?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reveals hidden circular dependency.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: DR invocation decision point</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The vendor estimates a further 3 hours to restore the catalog. DR documentation says invocation takes 8 hours and loses up to 4 minutes of disk replication data.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide with documented criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">DB2 Database Administration</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>State data loss implications.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you invoke DR at T+03:00 or continue local recovery?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Observe how the decision is documented.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: IPL succeeds but DB2 restart hangs</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>z/OS is up. DB2 restart is stuck during log apply with a long-running unit of recovery.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">DB2 Database Administration</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide whether to wait, cancel or restore.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How long do you wait before intervening?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Good for DBA discussion.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: CICS comes up with intermittent abends</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>CICS regions start but several transactions abend with storage violations.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Mainframe Systems Programming</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check common storage settings.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify affected transactions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Do you release with known abends or hold?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ties to release criteria.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Business asks to restart the interrupted batch</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Finance wants STMTGEN restarted immediately, since statements are due.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Mainframe Systems Programming</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set storage limits.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Batch &amp; Job Scheduling Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Insist on limits.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What controls must exist before the job is rerun?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Root cause prevention.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out and root cause review</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Services are restored. Leadership wants to know why a proc change could take down production.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Capture corrective actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which control would have stopped this?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads into debrief.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, owns severity and decides whether to invoke the DR site, based on recovery time estimates from systems programming and DB2.</li><li>Runs a 30-minute cadence, assigns the scribe and records decisions with times.</li><li>Approves emergency changes, including a change to the IPL parameters and temporary expansion of page data sets.</li><li>Ensures the single point of knowledge risk is handled by pulling in the on-call manager, retired contractors if retained, and the vendor support line.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Mainframe Systems Programming</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reviews the IEA793A console log, identifies the offending address space and page data set utilization history from RMF and SMF.</li><li>Determines why the IPL failed at nucleus initialization and checks the master catalog, the LOADxx member and the alternate IPL volume.</li><li>Prepares the alternate IPL path and the backup master catalog restore from the most recent dump.</li><li>Plans additional page data set allocation and the review of common storage limits (CSA/ECSA) after recovery.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">DB2 Database Administration</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assesses DB2 state on DB1A and the second data sharing member, including the BSDS, active and archive logs and the status of the coupling facility lock and group buffer pool structures.</li><li>Plans DB2 restart and determines whether in-flight units of recovery will resolve automatically.</li><li>Identifies the last image copies and log archives and the tape or disk location of each.</li><li>Defines the criteria for point-in-time recovery of specific tables if corruption is found.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Batch &amp; Job Scheduling Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Holds the scheduler, identifies jobs that were running and those that completed, and determines which can be restarted from checkpoint.</li><li>Maps the month-end close job network and critical path and identifies the minimum viable close.</li><li>Tracks the runaway job&#x27;s JCL proc change and who made it.</li><li>Prepares the restart sequence and the hold list to prevent job floods when the system returns.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Network &amp; Channel Connectivity</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirms that channel paths, FICON directors and OSA/network connectivity are healthy so that the problem is not mistaken for a connectivity fault.</li><li>Prepares network and DNS changes in case DR is invoked, including VIPA and DVIPA failover and external partner connections.</li><li>Verifies that the HMC and the support element are accessible and the out-of-band access works.</li><li>Supports the DR site network readiness checks.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Service Desk</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners list transactions and interfaces affected: policy inquiry, claims entry, billing, agent portal and partner feeds.</li><li>The service desk activates the call script, tracks ticket volume and gives approved guidance to the call center.</li><li>Owners identify manual workarounds, paper intake or delayed processing, and the maximum tolerable downtime.</li><li>Prepare test scripts for validating CICS and DB2 transactions after recovery.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates the business continuity plan and confirms the impact on month-end close, regulatory reports and customer service.</li><li>Issues time-stamped updates to leadership, the call center and the broker network.</li><li>Coordinates manual claims intake and customer communication plans if outage extends.</li><li>Tracks actual outage time against the RTO of the policy and claims systems.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified under the incident management process, and notes the control implications for ISO/IEC 27001:2022 and SOC 2 availability criteria.</li><li>Evaluates regulatory and contractual obligations arising from a prolonged outage, including financial reporting deadlines.</li><li>Captures evidence of change approvals and decisions to invoke or not invoke DR.</li><li>Logs findings on capacity management, change control for batch procs and knowledge concentration.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Treat common storage and page space as capacity-managed resources with alerts, not set-and-forget definitions. Monitor ECSA, real frames and page data set utilization with thresholds well below 90 percent, and test the response automation.</p>
+<p>Control changes to production JCL procs and batch parameters through the same change and testing process as code. A minor parameter change that reaches production without a storage limit is a systemic control gap.</p>
+<p>Document and rehearse IPL fallbacks: alternate IPL volumes, LOADxx members, catalog backups and their frequency, and the sequence of decisions. Keep these documents outside the systems that fail.</p>
+<p>Eliminate circular dependencies: tape catalogs, archive logs and DR runbooks should not depend on the production catalog being healthy. Know the break-glass path.</p>
+<p>Plan for knowledge concentration. Cross-train, record runbooks as step-by-step procedures, and verify with a junior operator. Define the invocation criteria and approvals for DR and test the full sequence with DB2 recovery at least annually; auditors for ISO/IEC 27001:2022 and SOC 2 will ask for evidence.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Pay specific attention to the first-response decisions and the documented fallback paths for IPL.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which console messages told you the system was exhausting storage, and was there an earlier signal that could have triggered action before the wait state?</li><li>What does your runbook say to do after IEA793A and was a re-IPL the correct step? What would a more careful first response have checked?</li><li>Who in the group could execute a catalog restore and how long does that take? What is documented?</li><li>What was the time to find the runaway address space and the proc change, and what should have alerted on it?</li><li>How did the DBAs assess the DB2 state and what would have changed the restart plan?</li><li>What are the actual DR invocation criteria and who approves them, and when did the team last rehearse them?</li><li>How did the scheduler and batch team control the restart storm and protect the month-end critical path?</li><li>Were there circular dependencies between tape, catalogs and logs that the team only discovered during the exercise?</li><li>How accurate were the messages to the call center and to the business?</li><li>Who was unreachable or single-threaded in your team, and what is the plan to reduce that risk?</li><li>What change control evidence exists for the STMTGEN proc change, and what test would have caught it?</li><li>What capacity alerts exist for page data sets and common storage and who owns them?</li><li>What evidence would an auditor want that the scribe did not capture?</li><li>What access or credentials (HMC, support element, vendor) were missing?</li><li>If this happened at 02:00 on a holiday, who would respond?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

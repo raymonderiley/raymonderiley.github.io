@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Control Tower Landing Zone Service Control Policy Lockout | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">AWS Control Tower Landing Zone Service Control Policy Lockout</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">AWS Cloud Resiliency</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines a Control Tower landing zone update that applies a new set of preventive guardrails (service control policies) which block actions required by the Control Tower account factory, drift remediation and the pipelines that deploy workloads. Accounts cannot be provisioned or repaired, and the landing zone enters a drifted or failed state.</p>
+<p>Participants are working-level: cloud governance and landing zone engineers, cloud identity and security engineers, application and pipeline owners, cloud operations and monitoring staff, the AWS support liaison, business continuity coordinators and compliance staff. The exercise tests understanding of Control Tower, SCP inheritance, managed controls and recovery paths.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Calder Pharma uses AWS Control Tower to govern 52 accounts across regulated and non-regulated organizational units. The platform team enables a batch of new controls recommended by a compliance review, including region deny, deny public S3 and mandatory encryption, and adds a custom SCP to the &#x27;Workloads&#x27; OU to deny all actions in regions other than two approved regions.</p>
+<p>At 15:00 on Thursday, the landing zone update runs. The custom region-deny SCP does not exempt global services and Control Tower&#x27;s own roles such as AWSControlTowerAdmin and StackSet execution roles. Within minutes, account factory fails, drift detection reports errors, StackSet updates fail with AccessDenied, and CloudFormation pipelines in 18 accounts fail. Control Tower shows &#x27;Landing zone: drifted&#x27; and the dashboard shows enrollment failing.</p>
+<p>What the team does not yet know: the same SCP blocks IAM and Route 53 global actions that are routed through us-east-1, a new regulated account needed for a clinical trial system by tomorrow cannot be created, repairing the landing zone requires the very roles that are blocked, and the compliance change was approved without a test OU.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Recognize SCP-driven failure in Control Tower.</strong> Participants interpret AccessDenied messages, CloudTrail events and the Control Tower dashboard to see that an SCP is blocking managed roles.</li><li><strong class="text-white">Restore governance operations.</strong> The team detaches or corrects the SCP, then repairs the landing zone and checks drift.</li><li><strong class="text-white">Avoid a worse state.</strong> Engineers sequence fixes to avoid leaving accounts without any guardrails or in a broken enrollment state.</li><li><strong class="text-white">Protect deadlines.</strong> Participants decide how to provision the clinical trial account and which pipelines to prioritize.</li><li><strong class="text-white">Preserve compliance posture.</strong> The team assesses whether controls were bypassed during the window and records exceptions.</li><li><strong class="text-white">Improve governance practice.</strong> Participants review testing in a sandbox OU, exemptions for service roles and staged rollouts.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Be explicit about which OU or account an SCP is attached to when you discuss changes.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Failed pipelines and landing zone drift lead to declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Containment.</span> SCP changes are frozen and the blocking policy is identified.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Diagnosis.</span> The affected roles and OUs are confirmed.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Remediation planning.</span> A fix plan and repair sequence is agreed.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Execution.</span> SCP is corrected and landing zone repaired.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Stabilization.</span> Drift and enrollment return to healthy.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Pipelines and account provisioning are verified.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to normal and close-out.</span> Normal operations resume and the incident is closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Landing zone drift and failing account factory</a></p><p><strong class="text-white">#2 &middot; T+00:20 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Repair fails while SCP is attached</a></p><p><strong class="text-white">#3 &middot; T+00:20 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Detach leaves regulated OU exposed</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Clinical trial account deadline</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Global service actions blocked</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Drift remains after fix</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Audit evidence request</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands an ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Pipelines replay and cause drift</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Regulator inquiry</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Governance process review</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out and exit criteria</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Landing zone drift and failing account factory</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 15:40. Engineers report CloudFormation and StackSet failures with AccessDenied citing &#x27;explicit deny in a service control policy&#x27;. The Control Tower dashboard shows the landing zone as drifted and Account Factory fails to enroll a new account for the clinical trial system required tomorrow.</p>
+<p>The governance engineer inspects CloudTrail and sees AWSControlTowerAdmin and StackSet execution role calls denied in regions outside the two approved regions, and certain global actions routed via us-east-1. A custom region-deny SCP was attached to the Workloads OU at 14:58.</p>
+<p>The change was approved by two reviewers who did not test it. The AWS Health Dashboard shows no events. Compliance asks whether the new controls are in effect.</p>
+<p>Facilitator provides: the SCP JSON, the CloudTrail AccessDenied extract, the Control Tower status and the failed StackSet list.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and name the technical lead and scribe.</li><li>Freeze SCP and landing zone changes.</li><li>Set the next update at T+00:20.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Governance &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify the blocking SCP and OU.</li><li>Plan the correction and landing zone repair.</li><li>Prepare exemptions for Control Tower roles.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Identity &amp; Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Analyze the policy and global service actions.</li><li>Test the fix in a sandbox OU.</li><li>Plan staged reattachment.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application &amp; Pipeline Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>List failed deployments.</li><li>Confirm the clinical account deadline.</li><li>Hold releases.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Build the dashboard.</li><li>Confirm logs.</li><li>List missing alarms.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AWS Support &amp; TAM Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open a case.</li><li>Ask about repair paths.</li><li>Record guidance.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Inform trial leaders.</li><li>Prepare the first update.</li><li>Ask for deadlines.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask how the change was tested.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you recognize an SCP block in Control Tower from the error and logs?</li><li>Which roles and actions did the SCP block that it should not have?</li><li>What is the safest way to fix it: detach, edit or add exemptions?</li><li>What order restores governance without leaving accounts unprotected?</li><li>How do you meet the clinical account deadline?</li><li>Were controls bypassed during the window?</li><li>Why did the change skip a test OU?</li><li>What do trial leaders and compliance need to hear?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the global service impact until IAM analyzes the SCP.</li><li>If players detach the SCP everywhere, ask what protections vanish.</li><li>Look for a sandbox OU test.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Repair fails while SCP is attached</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The team tries to repair the landing zone before fixing the SCP. The repair fails because the roles needed for repair are denied.</p>
+<p>The dashboard shows &#x27;repair failed&#x27;.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reinforce sequence.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Governance &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Fix the SCP first, then repair.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Identity &amp; Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verify exemptions.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Why did the repair fail?</li><li>What order is correct?</li><li>How do you verify?</li><li>What is the risk of repeated attempts?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests sequencing.</li><li>Look for dependency awareness.</li><li>Avoid thrash.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Detach leaves regulated OU exposed</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Detaching the SCP from the Workloads OU also removes the region deny, and a developer immediately launches resources in an unapproved region.</p>
+<p>Compliance notices.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Governance &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Monitor.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Identity &amp; Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reattach a corrected SCP promptly and review exposure.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record exception.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you minimize exposure while fixing?</li><li>What do you do about resources launched?</li><li>Who approves exceptions?</li><li>What is recorded?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests risk during fix.</li><li>Look for quick correction.</li><li>Avoid blame.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Clinical trial account deadline</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The clinical operations lead says the trial system must go live tomorrow at 08:00 and needs a regulated account with specific controls.</p>
+<p>Account Factory is still failing.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Governance &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provision manually or via a supported path and enroll later.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Identity &amp; Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensure controls apply.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess regulatory risk.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Can the account be created safely now?</li><li>What controls must exist first?</li><li>Who approves exceptions?</li><li>What is documented?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests prioritization.</li><li>Look for control equivalence.</li><li>Avoid shortcuts.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Global service actions blocked</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>IAM, Route 53 and CloudFront actions fail for pipelines because they route through us-east-1, which the SCP denies.</p>
+<p>Teams are confused about &#x27;global services&#x27;.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Governance &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Test.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Identity &amp; Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Add NotAction exemptions for global services.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application &amp; Pipeline Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Report effects.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Why do global services break region deny?</li><li>How do you exempt them safely?</li><li>How do you test?</li><li>Who approves?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests knowledge.</li><li>Look for exemptions.</li><li>Link to design.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Drift remains after fix</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>After correcting the SCP, Control Tower still shows drift for 14 accounts and several StackSets are stuck in &#x27;OUTDATED&#x27;.</p>
+<p>Some accounts need manual remediation.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prioritize accounts.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Governance &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Run repair and handle stuck StackSets.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AWS Support &amp; TAM Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ask about recommended steps.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you clear drift?</li><li>Which accounts go first?</li><li>What manual steps are risky?</li><li>What does AWS advise?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests recovery.</li><li>Look for prioritization.</li><li>Avoid mass changes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Audit evidence request</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Internal audit asks for evidence of the change approval, test results and emergency actions.</p>
+<p>Records are incomplete.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm decisions.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Governance &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide change records.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Identity &amp; Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide policy diffs.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Compile evidence.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What evidence exists?</li><li>What gaps?</li><li>Who signs?</li><li>What improvements follow?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests evidence.</li><li>Look for honesty.</li><li>Link to change management.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands an ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The CIO and the head of clinical operations ask when governance operations and the trial account will be ready.</p>
+<p>The team has partial restoration.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>State status, risks, next decision.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application &amp; Pipeline Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm status.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Draft message.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track exposure.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you commit to?</li><li>What is the trial account plan?</li><li>What do regulators need to know?</li><li>What do leaders hear?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reward honesty.</li><li>Check trial impact.</li><li>Look for decisions.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Pipelines replay and cause drift</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Held pipelines are released and several deploy changes that conflict with the repaired baseline.</p>
+<p>New drift appears.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Control order.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Governance &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check baseline.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application &amp; Pipeline Owners</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Stage releases.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Track.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you release held pipelines safely?</li><li>What order?</li><li>How do you check drift?</li><li>Who approves?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests control.</li><li>Look for staging.</li><li>Avoid premature closure.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Regulator inquiry</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A regulator asks about controls on the clinical system during the window.</p>
+<p>Counsel wants verified facts.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Approve.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Governance &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide timeline.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Identity &amp; Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide control evidence.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess and respond.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you state as fact?</li><li>Were controls effective?</li><li>Who approves?</li><li>What follow-up?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Tests discipline.</li><li>Reject speculation.</li><li>Check approvals.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Governance process review</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Review finds no sandbox OU for SCP testing, no exemptions for Control Tower roles and no staged rollouts.</p>
+<p>Leadership asks for a plan.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign owners.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Governance &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Propose sandbox OU and staged rollout.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Identity &amp; Security Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Propose exemption standards.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Frame evidence.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What testing is required?</li><li>How are exemptions managed?</li><li>How are rollouts staged?</li><li>Who owns?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Feed the debrief.</li><li>Insist on owners.</li><li>Look for design fixes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out and exit criteria</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Landing zone is healthy and the trial account exists. Temporary SCP edits, manual provisioning and held changes need follow-up.</p>
+<p>The scribe lists open actions.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Governance &amp; Landing Zone Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Review temporary changes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm alarms.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What must be true before closing?</li><li>Which temporary changes remain?</li><li>Who owns follow-up?</li><li>When is the review?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads into the debrief.</li><li>Check temporary changes.</li><li>Confirm owners and dates.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, prioritizes restoring governance operations and the clinical trial account and sets a change freeze.</li><li>Runs a 20-minute cadence at first, assigns the scribe and records decisions.</li><li>Authorizes SCP detachment or edits.</li><li>Decides on temporary manual account creation.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Governance &amp; Landing Zone Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reads the Control Tower dashboard, drift reports and CloudTrail for AccessDenied events citing SCPs.</li><li>Identifies which SCP and OU are responsible.</li><li>Plans correction and landing zone repair or re-register OUs.</li><li>Prepares exemptions for Control Tower roles.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Identity &amp; Security Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Analyzes policy documents and conditions and the effect on service-linked and global actions.</li><li>Tests the fix in a sandbox OU.</li><li>Plans staged reattachment to OUs.</li><li>Reviews whether controls were bypassed.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application &amp; Pipeline Owners</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Pipeline owners list failed deployments and hold releases.</li><li>Application owners confirm which workloads cannot change.</li><li>Owners identify the clinical trial account deadline and impact.</li><li>Prepare validation tests.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Operations &amp; Monitoring</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Builds a dashboard of failed StackSet operations, drift status and AccessDenied counts.</li><li>Confirms CloudTrail and Config.</li><li>Checks AWS Health.</li><li>Adds alarms.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">AWS Support &amp; TAM Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Opens a case on landing zone repair and enrollment failures.</li><li>Asks about supported recovery paths.</li><li>Requests review of the SCP design.</li><li>Records guidance.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates continuity for clinical operations and informs trial leaders.</li><li>Issues time-stamped updates.</li><li>Coordinates alternative provisioning.</li><li>Tracks deadlines.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28, 8.2 privileged access, 8.32 change management; SOC 2 security and availability).</li><li>Assesses regulatory implications for the clinical system.</li><li>Captures evidence of approvals.</li><li>Logs findings on testing and exemptions.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Test guardrails before production. Use a sandbox OU with representative accounts and a policy simulator, and roll out OU by OU with staged waves and automated checks.</p>
+<p>Exempt the governance plane by design: Control Tower roles, StackSet execution roles and break-glass roles must be excluded from deny guardrails through reviewed conditions.</p>
+<p>Handle global services properly in region deny policies using NotAction lists and condition keys, and test with real pipelines.</p>
+<p>Keep a documented recovery path for landing zone failures, including how to repair, who can act and how to provision critical accounts manually.</p>
+<p>Auditors for ISO/IEC 27001:2022 (8.2, 8.32) and SOC 2 expect tested change management, evidence of approvals and controls during exceptions.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on guardrail testing and exemptions for governance roles.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How quickly did you link failures to the SCP?</li><li>Which roles and actions did the SCP block?</li><li>How did you decide between detach and edit?</li><li>What order did you use for repair?</li><li>How did you handle the clinical account?</li><li>Were controls bypassed during the window?</li><li>How did you handle global services?</li><li>How was drift cleared?</li><li>How accurate were updates to leadership?</li><li>What did AWS support add?</li><li>What evidence did the scribe capture for auditors?</li><li>Why was there no test OU?</li><li>What access or permissions were missing?</li><li>Who owns exemptions for governance roles?</li><li>What would you change in guardrail rollout?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VMware vCenter Database Corruption and ESXi Host Isolation | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">VMware vCenter Database Corruption and ESXi Host Isolation</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">On-Premises Infrastructure</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines what happens when the vCenter Server database becomes corrupted and hosts in the cluster are simultaneously isolated from management. Virtual machines may still be running on ESXi hosts, but the management plane is gone: no vMotion, no DRS, no HA coordination and no reliable inventory. The team must decide how to restore control of the virtual infrastructure without disrupting running workloads.</p>
+<p>The exercise targets working-level staff: virtualization engineers, database administrators who support the vCenter database, storage and backup operators, network and security staff, application owners, the service desk, business continuity coordinators and compliance staff. It tests understanding of vCenter dependencies, HA behavior during management loss, and the safety of restoring from backup.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Summit Retail Group runs about 1,100 virtual machines on 36 ESXi 7.0 hosts in two clusters, managed by a single vCenter Server Appliance (VCSA) with an embedded PostgreSQL database, plus an external Microsoft SQL Server hosting the VMware Update Manager and a separate monitoring database. Storage is a mix of vSAN and a fibre-channel array. vSphere HA and DRS are enabled, and VM backups use the vSphere APIs for Data Protection through a backup appliance that depends on vCenter.</p>
+<p>At 04:50 on a Sunday, a log partition on the VCSA fills while a failed database vacuum job runs, and the PostgreSQL service stops. An engineer, attempting to fix it, increases the disk and restarts services, but the database has already corrupted its write-ahead log. vCenter fails to start with the error that the database schema is invalid. Meanwhile, a network maintenance on a top-of-rack switch isolates six hosts in cluster B from the management network. HA on those hosts detects isolation, and the isolation response is set to &#x27;Power off and restart VMs&#x27;, which begins to power off VMs without the ability to restart them elsewhere.</p>
+<p>What the team does not yet know: the last VCSA file-based backup is eleven days old, the backup appliance cannot restore VMs without vCenter, the isolation response was set years ago during a design that no longer applies, and some hosts have lockdown mode enabled with no known local credentials.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Understand vCenter dependencies and the effect of management loss.</strong> Participants explain what continues to run without vCenter and what does not, and map their application and backup dependencies on it.</li><li><strong class="text-white">Contain host isolation responses.</strong> The team determines the HA isolation response behavior, stops VMs from being powered off unnecessarily, and decides how to restore host connectivity.</li><li><strong class="text-white">Decide how to recover vCenter.</strong> Participants choose between repairing the database, restoring the VCSA from file-based backup, restoring from image-based backup, or deploying a new VCSA and re-registering hosts, and understand the loss of inventory, permissions, tags, and distributed switch data.</li><li><strong class="text-white">Maintain access to critical workloads.</strong> The team uses direct host UI and PowerCLI access, SSH, and the host client to manage essential VMs while vCenter is down.</li><li><strong class="text-white">Handle backup and DR dependency.</strong> The team identifies that backups depend on vCenter and designs a workaround for protecting data during the outage.</li><li><strong class="text-white">Restore services in a controlled sequence.</strong> Participants reconnect hosts, validate HA and DRS, and avoid DRS or HA actions that cause mass movement.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Use the actual HA isolation settings and procedures where known; if nobody knows, record that as a finding.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> vCenter unavailable alerts, host isolation alarms and VM outages prompt incident declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Containment.</span> Isolation responses are halted and affected VMs are stabilized.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Cause and options.</span> The database corruption and the backup status are identified; recovery options are listed.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Direct host management.</span> Essential workloads are managed through hosts directly.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Recovery path decision.</span> Restore, rebuild or repair vCenter is decided.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Execution.</span> vCenter recovery and host reconnection are carried out.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Inventory, HA, DRS, networking, backups and permissions are verified.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Normal operations resume and the incident is closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">vCenter will not start and six hosts are isolated</a></p><p><strong class="text-white">#2 &middot; T+00:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">More hosts begin to isolate</a></p><p><strong class="text-white">#3 &middot; T+00:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Powered off VMs will not start</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Vault is unreachable</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">DBA offers a repair that may lose data</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Distributed switch configuration missing</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">License and permission loss</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Management demands ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Restored vCenter shows stale VM inventory</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">DRS storm after reconnect</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Backup gap exposure</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: vCenter will not start and six hosts are isolated</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 05:12 on Sunday. The monitoring system shows the vSphere Client is unreachable. The on-call virtualization engineer finds the VCSA console showing &#x27;database schema is invalid&#x27;. The PostgreSQL log shows a corrupted WAL segment after the disk full event.</p>
+<p>At the same time, six ESXi hosts in cluster B report &#x27;host isolated&#x27; alarms. Eleven VMs, including the point-of-sale gateway and the inventory service, have been powered off by the isolation response and HA cannot restart them because vCenter is unavailable. The remaining hosts in the cluster continue to run their VMs. The network team says a switch firmware upgrade began at 04:45 and has not completed.</p>
+<p>The backup appliance reports &#x27;vCenter unreachable&#x27; and all jobs have failed since 04:50. The last file-based VCSA backup completed eleven days ago. Two hosts have lockdown mode enabled and the credentials for the local root accounts are in a vault that is accessed through a privileged tool hosted in the virtual environment.</p>
+<p>Facilitator provides: the VCSA console message, the HA isolation alarm list, the backup job status and the list of the 11 powered off VMs.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident, set severity and name the lead and scribe.</li><li>Decide how to stop further isolation responses and whether to freeze network maintenance.</li><li>Set the next update at T+00:30.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Virtualization Engineering (vSphere)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Explain what runs without vCenter and what does not.</li><li>Use the host client or SSH to check the isolated hosts and the state of VMs.</li><li>Describe how to change isolation response settings and power on critical VMs directly.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database Administration (vCenter DB)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess the PostgreSQL corruption and options.</li><li>Estimate time for repair or restore.</li><li>Describe what is lost if the database is rebuilt.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage &amp; Backup Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>List all vCenter backups and ages.</li><li>Check whether VM backups can run without vCenter.</li><li>Check vSAN health for isolated hosts.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Pause and roll back the switch maintenance if needed.</li><li>Restore host management connectivity.</li><li>Provide out-of-band access.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prioritize VMs for restart: POS gateway and inventory service.</li><li>The service desk issues the holding message.</li><li>Confirm start order.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Contact store operations and activate offline POS procedures.</li><li>Prepare the first update.</li><li>Ask for the documented RTO.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask whether the HA isolation response was reviewed and approved.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What still works when vCenter is down, and what stops working that people may not expect?</li><li>Why did HA power off VMs on isolated hosts, and what should the isolation response be in your design?</li><li>How do you power on the 11 VMs without vCenter, and in what order?</li><li>Where are the local root credentials for hosts with lockdown mode, and what happens if the vault is also a VM?</li><li>What does restoring an 11-day-old VCSA backup lose, and can hosts be re-added safely?</li><li>Do you attempt to repair the PostgreSQL database or restore, and who decides?</li><li>How will you protect data while backups cannot run?</li><li>What should store managers be told about the point-of-sale gateway?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not volunteer the lockdown credentials issue; see if teams ask how they get to the host UI.</li><li>If the team starts to rebuild vCenter immediately, ask what happens to the running VMs and to the distributed switch configuration.</li><li>Look for circular dependencies: vault in the virtual environment, backups depending on vCenter.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: More hosts begin to isolate</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Switch maintenance continues and cluster A hosts begin to report isolation alarms.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Virtualization Engineering (vSphere)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Change isolation responses.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Stop the maintenance.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Who can stop network maintenance, and how fast?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Change control authority.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Powered off VMs will not start</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Direct power-on of some VMs fails with storage lock errors from the HA agent.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Virtualization Engineering (vSphere)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Clear locks.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage &amp; Backup Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Check datastore.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you resolve file locks safely?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Technical depth.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Vault is unreachable</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The privileged access vault is a VM on an isolated host and is down.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Invoke break-glass.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Virtualization Engineering (vSphere)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Recover the vault VM.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Where are the break-glass credentials?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Circular dependency.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: DBA offers a repair that may lose data</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The DBA can repair PostgreSQL by discarding the last 6 hours of transactions in the database.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Virtualization Engineering (vSphere)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Describe effects on inventory.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database Administration (vCenter DB)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Describe the risk.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is it acceptable to lose 6 hours of vCenter changes?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decision with partial info.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Distributed switch configuration missing</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Restoring from the 11-day backup shows a distributed switch that no longer matches the hosts&#x27; uplink configuration.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Virtualization Engineering (vSphere)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan host reconnect.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan the remediation.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you reconcile the switch config?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Complex recovery.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: License and permission loss</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>After a rebuild, the licenses and the role-based permissions are missing.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Virtualization Engineering (vSphere)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Restore.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess access controls.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you restore permissions safely?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Access control.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Management demands ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Store operations need point-of-sale before 09:00 when stores open.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provide options.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare stores.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you commit?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Communication.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Restored vCenter shows stale VM inventory</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The restored VCSA shows VMs that no longer exist and lacks VMs created in the last 11 days.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Virtualization Engineering (vSphere)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reconcile.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you rebuild inventory accurately?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Operational discipline.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: DRS storm after reconnect</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>DRS begins mass vMotion operations as hosts return, causing network saturation.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Virtualization Engineering (vSphere)</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set DRS to manual.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Network &amp; Security Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Monitor.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which settings protect you after reconnect?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Controlled reconnect.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Backup gap exposure</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>No VM backups ran for 27 hours. A ransomware warning arrives from the security team.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Storage &amp; Backup Operations</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Protect data.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess risk.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you manage exposure from the backup gap?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Security overlap.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Environment is stable and management asks about the single vCenter design.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set exit criteria.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign actions.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Should vCenter be made resilient with enhanced linked mode or a standby?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads to debrief.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident and sets priorities: keep running VMs running, prevent further isolation responses and protect the data.</li><li>Decides the recovery path for vCenter based on options and risk from virtualization and DBA leads.</li><li>Runs the cadence, assigns the scribe and records decisions.</li><li>Approves emergency change to HA settings and any host-level access.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Virtualization Engineering (vSphere)</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Determines which hosts are isolated and which VMs have been powered off or are at risk, and uses the host client to check the state.</li><li>Disables HA isolation responses where possible or removes hosts from the HA group directly through the host agent settings.</li><li>Evaluates VCSA recovery options and the impact of missing inventory and distributed switch configuration.</li><li>Plans re-adding hosts, including license assignments, tags, permissions and VM folder structure.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Database Administration (vCenter DB)</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assesses the PostgreSQL corruption and determines whether a repair or point-in-time recovery from WAL is feasible.</li><li>Checks the SQL Server instance used by update manager and monitoring databases for related impact.</li><li>Assesses whether vpxd can start in a degraded state using a reset schema and the data lost in doing so.</li><li>Advises on the integrity risk of restoring a database eleven days old.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Storage &amp; Backup Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identifies the available vCenter backups (file-based, image-level and snapshot) and their ages.</li><li>Determines whether backups of production VMs can run without vCenter and, if not, protects critical data by other means such as array snapshots.</li><li>Checks vSAN health and storage paths for isolated hosts.</li><li>Prepares restore capacity for a replacement VCSA.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Network &amp; Security Operations</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Restores management network connectivity to the isolated hosts and checks the maintenance on the top-of-rack switch.</li><li>Verifies VLANs, uplinks and the management VMkernel configuration.</li><li>Checks firewall and security rules to ensure the SSH and host client access paths function.</li><li>Provides access to the out-of-band management network.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Service Desk</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners identify which VMs are down because of the isolation response and prioritize restarts.</li><li>The service desk issues guidance and tracks incidents.</li><li>Owners confirm the order of application start and dependencies.</li><li>Prepare validation tests for post-recovery checks.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates continuity plans for retail systems and coordinates with store operations.</li><li>Issues time-stamped updates to leadership and store managers.</li><li>Coordinates manual processes for point-of-sale fallbacks.</li><li>Tracks downtime against RTO.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28; 8.13 backup; SOC 2 availability).</li><li>Evaluates data protection implications of the outage and any regulatory requirements.</li><li>Captures evidence for emergency changes.</li><li>Logs findings on backup age, HA settings and management plane resilience.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Treat vCenter as a tier-zero service. Protect it with frequent file-based backups verified by restore tests, image-level backups, a documented rebuild procedure and monitoring of its database and disk partitions.</p>
+<p>Review HA isolation responses. &#x27;Power off and restart&#x27; is a poor default in many designs where network isolation does not mean storage isolation. Choose &#x27;leave powered on&#x27; or a tested alternative and document the reason.</p>
+<p>Remove circular dependencies: privileged access vaults, backup software and monitoring should not rely exclusively on the environment they protect. Keep break-glass credentials for hosts in a location reachable without vCenter.</p>
+<p>Know how to operate without vCenter: host client, PowerCLI against hosts, direct power operations, and the steps to protect data and run backups at host level.</p>
+<p>Test restores. Auditors for ISO/IEC 27001:2022 and SOC 2 will ask for evidence that vCenter backups restore and that infrastructure changes such as network firmware followed change control.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on what the team could and could not do without vCenter and how quickly isolation responses were stopped.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What did the team assume still worked without vCenter and what turned out to be wrong?</li><li>What is your HA isolation response and who last reviewed it?</li><li>How were the 11 VMs restarted and how long did it take?</li><li>Where are the host root credentials stored and could you reach them when the vault was down?</li><li>How old is your latest VCSA backup, and have you ever restored it?</li><li>What would be lost with each recovery option: repair, restore, rebuild?</li><li>How would you protect data while backups could not run?</li><li>Who approved the network maintenance and how was it coordinated with virtualization?</li><li>How did you avoid a DRS storm or HA reactions after reconnecting hosts?</li><li>How did you reconcile inventory, distributed switches, permissions and licenses?</li><li>What did store operations do for point-of-sale, and what was told to them?</li><li>What evidence did the scribe capture that an auditor would need?</li><li>What monitoring should have caught the disk partition filling?</li><li>What access or credentials were missing?</li><li>Would a second vCenter or linked mode have changed the outcome?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

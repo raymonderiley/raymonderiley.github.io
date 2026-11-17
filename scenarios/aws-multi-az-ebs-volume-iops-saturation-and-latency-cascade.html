@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Multi-AZ EBS Volume IOPS Saturation and Latency Cascade | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black text-center font-semibold hover:bg-[#00cc55] transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">AWS Multi-AZ EBS Volume IOPS Saturation and Latency Cascade</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">AWS Cloud Resiliency</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines a latency cascade that begins when Amazon EBS volumes backing a multi-AZ application tier and its self-managed databases hit their provisioned IOPS and throughput ceilings. Queues build, health checks fail, Auto Scaling replaces healthy instances, and the replacement instances add more load to the same saturated volumes.</p>
+<p>Participants are working-level: cloud platform and SRE engineers, database and storage engineers, application owners, the service desk, cloud operations and monitoring staff, the AWS support liaison, business continuity coordinators and compliance staff. The exercise tests how well the team reads EBS metrics, distinguishes saturation from an AWS-side impairment and avoids automated actions that worsen the problem.</p>
+<p>A full run takes 3 to 4 hours, and the twelve-inject library supports repeated sessions. Inject #1 alone supports a 90-minute session.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>Bluepine Commerce runs its order platform in one AWS region across three Availability Zones. Application servers run in Auto Scaling groups behind an Application Load Balancer. Order and inventory data live on self-managed PostgreSQL primaries and replicas on EC2, using gp3 volumes provisioned at 6,000 IOPS and 250 MB/s, plus a few io2 volumes for the write-ahead log. Monitoring uses CloudWatch with alarms on CPU and status checks but no alarm on VolumeQueueLength or burst balance.</p>
+<p>At 10:20 on a Monday, a marketing promotion starts and an unrelated analytics export begins scanning the order tables on the primary&#x27;s replica in us-east-1b. Read and write IOPS climb to the volume limit. By 10:35, VolumeQueueLength on the primary data volume is above 40, query latency rises from 8 ms to 900 ms, and the application&#x27;s connection pool saturates. The ALB health checks begin to fail on application instances because requests time out. Auto Scaling terminates &#x27;unhealthy&#x27; instances and launches new ones, which open fresh connections and warm caches by reading from the same database.</p>
+<p>What the team does not yet know: gp3 throughput was provisioned below what the instance type&#x27;s EBS bandwidth could use, the primary is on an instance type whose EBS-optimized baseline is far below its burst, the analytics export has been running unthrottled for 15 minutes, and replica lag has grown to 4 minutes so failover would lose recent orders.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Recognize EBS saturation rather than an AWS fault.</strong> Participants read VolumeQueueLength, VolumeReadOps, VolumeWriteOps, VolumeThroughputPercentage and instance-level EBS metrics, and distinguish saturation from an impaired volume or an AZ event on the AWS Health Dashboard.</li><li><strong class="text-white">Stop the amplification loop.</strong> The team suspends Auto Scaling replacement for the affected group, protects the database from new connections and avoids restarting instances that add load.</li><li><strong class="text-white">Relieve the volume safely.</strong> Participants decide between modifying the volume online (IOPS, throughput, size), stopping the analytics export, moving reads to another replica and changing instance size, understanding the optimization cooldown and performance effects.</li><li><strong class="text-white">Decide on failover with data-loss awareness.</strong> The team weighs promoting a replica against the 4-minute lag, and decides who accepts the risk.</li><li><strong class="text-white">Protect customer experience.</strong> Application owners shed load with rate limits, queueing or a maintenance page and manage the promotion traffic.</li><li><strong class="text-white">Fix the observability and design gaps.</strong> The team identifies missing alarms, unthrottled analytics access, provisioning headroom and volume right-sizing practice.</li><li><strong class="text-white">Communicate precisely and document for audit.</strong> Updates to leadership, site managers and users are accurate and time-stamped, and the evidence collected would satisfy ISO/IEC 27001:2022 incident management and SOC 2 availability reviewers.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a discussion-based exercise. No production systems, accounts, configurations or backups will be touched. Commands and consoles are discussed, not executed.</li><li>Participants answer as they would in their real roles, using the runbooks, contact lists and tools that exist today. If a document or control does not exist, say so; that is a finding, not a failure.</li><li>Treat every inject as true unless the facilitator states otherwise. Do not argue the premise. Work the problem.</li><li>Time moves on the facilitator&#x27;s clock. When an inject lands, the exercise clock is the time stated in the inject, regardless of how long discussion took.</li><li>Decisions must be stated aloud and recorded by the scribe with the decision maker&#x27;s name and the exercise-clock time.</li><li>No blame. The exercise evaluates systems, process and documentation, not individuals.</li><li>Observers and evaluators record but do not answer questions for players unless the facilitator asks.</li><li>Name the real AWS services, metrics and console or CLI actions where you know them; where nobody knows, record it as a gap.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+00:00</strong> &mdash; <span class="text-green-400">Detection and declaration.</span> Latency alarms, failing health checks and customer complaints lead to incident declaration.</p><p><strong class="text-white">T+00:30</strong> &mdash; <span class="text-green-400">Containment.</span> Auto Scaling replacement is suspended and the heavy query source is found.</p><p><strong class="text-white">T+01:15</strong> &mdash; <span class="text-green-400">Diagnosis.</span> EBS metrics confirm saturation; AWS Health shows no service event.</p><p><strong class="text-white">T+02:00</strong> &mdash; <span class="text-green-400">Relief options.</span> Volume modification, read offload and instance changes are evaluated.</p><p><strong class="text-white">T+03:00</strong> &mdash; <span class="text-green-400">Failover decision.</span> Replica promotion versus in-place relief is decided with data-loss awareness.</p><p><strong class="text-white">T+04:30</strong> &mdash; <span class="text-green-400">Execution.</span> Changes are applied and traffic is restored in stages.</p><p><strong class="text-white">T+06:00</strong> &mdash; <span class="text-green-400">Validation.</span> Latency, replication lag and error rates are verified.</p><p><strong class="text-white">T+07:30</strong> &mdash; <span class="text-green-400">Return to service and close-out.</span> Promotion traffic is released and the incident is closed for debrief.</p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">High-Level Inject Library</h3>
+<p>Select one inject per time frame to vary each run. Variants A and B share a time frame and can be swapped between runs. Inject #1 is the primary, fully detailed inject.</p>
+<div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 &middot; T+00:00 &middot; Primary</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-1">Latency spikes and Auto Scaling starts replacing healthy instances</a></p><p><strong class="text-white">#2 &middot; T+00:20 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-2">Volume modification stuck in optimizing</a></p><p><strong class="text-white">#3 &middot; T+00:20 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-3">Analytics export restarts automatically</a></p><p><strong class="text-white">#4 &middot; T+01:15 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-4">Replica lag rises to 11 minutes</a></p><p><strong class="text-white">#5 &middot; T+01:15 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-5">Burst balance exhausted on a gp2 backup volume</a></p><p><strong class="text-white">#6 &middot; T+02:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-6">Instance type change requires downtime</a></p><p><strong class="text-white">#7 &middot; T+02:00 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-7">Cost anomaly from auto scaling churn</a></p><p><strong class="text-white">#8 &middot; T+03:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-8">Leadership demands an ETA</a></p><p><strong class="text-white">#9 &middot; T+04:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-9">Connection storm after relief</a></p><p><strong class="text-white">#10 &middot; T+06:00 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-10">Orders lost in the incident window</a></p><p><strong class="text-white">#11 &middot; T+07:30 &middot; A</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-11">Capacity planning review</a></p><p><strong class="text-white">#12 &middot; T+07:30 &middot; B</strong> &mdash; <a class="text-green-400 hover:underline" href="#inject-12">Close-out and exit criteria</a></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: Latency spikes and Auto Scaling starts replacing healthy instances</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:00 &middot; Variant Primary</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>It is 10:38. Customer support reports checkout timeouts. CloudWatch shows the ALB target response time at 11 seconds and 38 percent of targets unhealthy. Auto Scaling has terminated 22 instances in 10 minutes and launched 25. The on-call SRE sees CPU on the application tier is low.</p>
+<p>The database engineer finds the primary&#x27;s data volume with VolumeQueueLength around 46, VolumeThroughputPercentage at 100 percent and the volume at its 6,000 IOPS limit. pg_stat_activity shows a long analytics export query from a reporting role. The connection count is at the maximum.</p>
+<p>The AWS Health Dashboard shows no open events for the region. Replica lag on the us-east-1c replica is 4 minutes. The marketing promotion is driving three times normal traffic.</p>
+<p>Facilitator provides: the CloudWatch graphs described verbally, the Auto Scaling activity history, the pg_stat_activity summary and the volume configuration sheet.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declare the incident and name the technical lead and scribe.</li><li>Decide whether to pause the promotion or shed load immediately.</li><li>Set the next update at T+00:20.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Suspend Auto Scaling replacement and explain why.</li><li>Check metrics across AZs and the Health Dashboard.</li><li>Apply connection limits at the application tier.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identify and stop the analytics export, and explain the effect on IOPS.</li><li>Report replica lag and which replica can serve reads.</li><li>Explain what EBS modification can and cannot do during saturation.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>List failing flows and propose a degraded mode.</li><li>Service desk: issue the holding message.</li><li>Prepare queued-order handling.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Build the saturation dashboard and confirm data freshness.</li><li>Check Health Dashboard events.</li><li>List missing alarms.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">AWS Support &amp; TAM Liaison</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open a support case with evidence.</li><li>Ask about instance EBS bandwidth limits.</li><li>Request modification guidance.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Coordinate with marketing about the promotion.</li><li>Prepare the first update.</li><li>Ask for the documented RTO.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Open the incident record.</li><li>Ask whether capacity limits were reviewed before the promotion.</li><li>Start the evidence log.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What evidence distinguishes EBS saturation from an AWS-side impairment, and where do you find it?</li><li>Why does Auto Scaling make this worse, and what do you change first?</li><li>What can be done to the volume while it is saturated, and what is the cooldown after a modification?</li><li>Who authorizes stopping the analytics export and how fast can that happen?</li><li>Is promoting the us-east-1c replica reasonable with 4 minutes of lag?</li><li>What degraded mode protects order placement?</li><li>Which alarms should have fired and why do they not exist?</li><li>What should customers and the marketing team be told?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not reveal the instance EBS bandwidth limit until the SRE checks instance-level metrics.</li><li>If players restart application instances, ask what that does to database connections.</li><li>Watch for teams that assume an AWS outage; the Health Dashboard is green.</li><li>Time-box to 35 minutes.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: Volume modification stuck in optimizing</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The database engineer submitted an online modification raising the primary data volume to 16,000 IOPS and 600 MB/s. The console shows the volume state &#x27;modifying&#x27; and then &#x27;optimizing&#x27; at 14 percent. Query latency has not improved and the application tier is still timing out.</p>
+<p>The incident commander asks whether the change worked. Nobody on the call has used the modification workflow under load, and someone suggests submitting a second, larger change.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide whether to wait, and set a time at which the plan changes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare an interim plan that does not depend on the volume change, such as load shedding and read offload.</li><li>Check whether the instance&#x27;s EBS-optimized limit now caps throughput regardless of the volume setting.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Explain that the new values are not fully effective until optimization completes and that a further modification is blocked during the cooldown.</li><li>Estimate time to completion from volume size and load, and say what remains true meanwhile.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What do the &#x27;modifying&#x27; and &#x27;optimizing&#x27; states mean for performance, and what can you not do while they last?</li><li>Why might a larger volume setting not help if the instance is the bottleneck?</li><li>What interim action protects order placement while you wait?</li><li>Who decides how long to wait?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Do not tell players the optimization time; make the DBE estimate it and defend the estimate.</li><li>If someone proposes a second modification, ask what happens to the first.</li><li>Look for the instance-versus-volume limit insight.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Analytics export restarts automatically</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+00:20 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The DBE cancels the analytics export query, and IOPS falls for about four minutes. A scheduler at the reporting team then relaunches the same export, because its retry policy treats a cancellation as failure. IOPS climbs back to the limit.</p>
+<p>The reporting team lead is in another time zone and the on-call contact for the scheduler is unknown. The export credentials are shared by three other jobs.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Authorize cutting the reporting role&#x27;s access and accept the impact on reports.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Revoke or restrict the reporting role&#x27;s connection rights, or set a statement timeout and connection limit for that role.</li><li>Explain the effect on the other jobs that share the credential.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Find the owner of the scheduler and disable the job at the source.</li><li>Service desk: log the dependency and open a call to the reporting team.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record the emergency access change and the shared credential finding.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you stop a job you do not own, and who can authorize it?</li><li>What should happen to a cancelled job&#x27;s retry behavior in a capacity incident?</li><li>Why is a shared reporting credential a risk here?</li><li>What should be logged for audit?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Let the team discover the retry loop before telling them.</li><li>Push on authority: who may cut off another team&#x27;s job?</li><li>Note whether anyone proposes a read replica dedicated to analytics.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Replica lag rises to 11 minutes</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>With the primary saturated, the us-east-1c replica falls behind as well. Replica lag moves from 4 to 11 minutes and keeps rising. A manager asks again whether to fail over &#x27;to get out of this&#x27;.</p>
+<p>The order table receives roughly 90 writes per second at promotion-driven peak, so 11 minutes of lag represents a large number of committed orders that exist only on the primary.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide who may accept data loss and record the decision with the number.</li><li>Set a lag threshold above which promotion is not allowed.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>State the approximate number of transactions at risk and how it is computed from lag and write rate.</li><li>Explain whether stopping writers lets the replica catch up and how long that takes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Estimate how orders could be reconstructed from the load balancer logs and payment provider records.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record that RPO is being exceeded and notify contract owners as the policy requires.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How does 11 minutes of lag change your failover decision?</li><li>What is the quickest way to let the replica catch up?</li><li>Who can accept the loss of committed orders?</li><li>What outside records can reconstruct orders if a promotion occurs?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Make the DBE do the arithmetic aloud.</li><li>If the IC approves promotion without a number, ask what was accepted.</li><li>Watch for fixation on failover as the fix for saturation.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Burst balance exhausted on a gp2 backup volume</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+01:15 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The nightly backup staging volume, still on gp2, drops to zero burst balance as the snapshot job starts early because of a changed schedule. The backup job now competes with production traffic for IOPS on the shared instance.</p>
+<p>Monitoring shows the instance has three volumes of mixed types. Nobody has a current inventory of which volumes are gp2, gp3 or io2, or why.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan migration from gp2 to gp3 as an online modification after the incident.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Pause the backup job and confirm there is a recent good snapshot.</li><li>List volume types for the primary and what each is used for.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Query volume types across the account and produce an inventory.</li><li>Add burst balance to the dashboard.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record the missing inventory and backup scheduling as findings.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which volumes still use gp2 and why?</li><li>What is the risk of pausing the backup job?</li><li>How would you find all gp2 volumes quickly?</li><li>Who approves a backup schedule change?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Test that the team knows how gp2 burst credits behave.</li><li>Ask when the last good snapshot was taken and how they know.</li><li>Link to the debrief on inventory discipline.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Instance type change requires downtime</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The SRE recommends moving the primary to an instance type with higher EBS bandwidth. The change requires stopping the instance, which means about six minutes of write outage plus connection storm on restart.</p>
+<p>The business owner for ordering asks whether a short planned outage is better than continued degradation. Marketing wants the promotion to continue.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Decide whether to proceed and who is told in advance.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Describe the steps, the expected downtime and how to confirm the new EBS-optimized limits.</li><li>Prepare a rollback if the instance does not start cleanly.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Plan a clean shutdown, checkpoint and a warm-up of the buffer cache after restart.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Coordinate a short maintenance message and the promotion pause.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Is a six-minute outage better than ongoing degradation, and how do you decide?</li><li>What risks exist when restarting a saturated primary?</li><li>How will you avoid a connection storm after restart?</li><li>Who must be told before you proceed?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Look for explicit comparison of outage cost and degradation cost.</li><li>If the team does not consider rollback, prompt for it.</li><li>Time-box the decision.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-7" class="text-lg font-bold text-green-400">Inject #7: Cost anomaly from auto scaling churn</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+02:00 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Finance operations receives a cost anomaly alert: EC2 and EBS charges have tripled for the day because the Auto Scaling group launched and terminated more than 400 instances, each with new volumes and data transfer.</p>
+<p>The finance contact asks whether there is an attack or a runaway process. A manager asks if spending approvals are needed to continue.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Authorize emergency spend within a stated ceiling.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Explain the churn and set a maximum capacity and cooldown now.</li><li>Check for orphaned volumes left by terminated instances.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Add a cost anomaly and scaling activity view to the dashboard.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Record the cost impact and the lack of a scaling guardrail.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What guardrails limit runaway Auto Scaling?</li><li>Who can approve emergency spend and up to what limit?</li><li>How do you rule out abuse or compromise as the cause?</li><li>How are orphaned resources cleaned up?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>A short inject; use it to raise financial controls.</li><li>Ask whether the anomaly alert was configured by anyone.</li><li>Connect to the architect guidance on scaling limits.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-8" class="text-lg font-bold text-green-400">Inject #8: Leadership demands an ETA</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+03:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The VP of Ecommerce joins the bridge and asks when checkout will be reliable, because the promotion is the biggest of the quarter and press has noticed delays.</p>
+<p>The technical team has two plausible paths with different timelines and risks, and has not agreed which to follow.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Summarize the options, risks and decision points in three sentences.</li><li>Commit to a next-update time, not a fix time.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Give honest, bounded estimates with confidence levels.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepare the degraded mode to offer if the fix takes longer.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Draft a customer-facing status message and an internal update.</li><li>Confirm what customer service should say.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What can you commit to and what can you not?</li><li>How do you express uncertainty to leadership?</li><li>What should customers be told now?</li><li>What degraded experience could be offered?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Reward honest ranges over false certainty.</li><li>Watch for engineers overpromising.</li><li>Check consistency between internal and customer messages.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-9" class="text-lg font-bold text-green-400">Inject #9: Connection storm after relief</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+04:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The volume change completes and the analytics job is gone. As soon as the application tier recovers, all pooled and queued clients reconnect at once. Database connections spike to the maximum, latency climbs again and health checks flap.</p>
+<p>The SRE sees Auto Scaling resume, adding instances that open still more connections.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ramp traffic with weighted target groups or rate limits, restoring a fraction at a time.</li><li>Keep Auto Scaling replacement suspended until stable.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Raise or manage connection limits and consider a pooler such as PgBouncer.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Add jittered retry and backoff and reduce pool sizes.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Watch queue length, connections and p95 latency against agreed thresholds before each step.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How do you restore traffic in stages and what are the thresholds?</li><li>Why do retries amplify the problem?</li><li>What role should a connection pooler play?</li><li>When is it safe to resume Auto Scaling?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Introduce this only if the team declares recovery too quickly.</li><li>Look for percentages and thresholds, not &#x27;turn it back on&#x27;.</li><li>Record the thundering-herd lesson.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-10" class="text-lg font-bold text-green-400">Inject #10: Orders lost in the incident window</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+06:00 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Reconciliation against the payment provider shows 214 orders were charged but are not in the order database, and 37 customers received duplicate confirmation emails from retries.</p>
+<p>Customer service is receiving calls, and the finance team asks whether refunds or reprocessing are needed.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Verify idempotency keys so reprocessing does not create duplicates.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Application Owners &amp; Service Desk</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Rebuild missing orders from payment provider records and load balancer logs and agree the process with finance.</li><li>Stop duplicate emails and prepare a correction message.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Business Continuity &amp; Communications</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Coordinate customer communication.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assess customer and contractual impact and decide whether notifications are required.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How are lost orders recovered and who verifies them?</li><li>What prevents duplicates during reprocessing?</li><li>Who notifies customers and what do they say?</li><li>What does this mean for the stated RPO?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Use after failover or heavy lag decisions.</li><li>Look for idempotency awareness.</li><li>Connect to the hot wash on RPO.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-11" class="text-lg font-bold text-green-400">Inject #11: Capacity planning review</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant A</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The CTO asks why volumes were provisioned this way, why no alarm existed on queue length, and whether capacity was reviewed before the promotion.</p>
+<p>The team finds a three-year-old sizing document, no load test for the promotion and a standing exception for analytics access to production replicas.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assign owners and dates for each action.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Propose headroom targets and load tests for promotions.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Database &amp; Storage Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Propose isolating analytics on dedicated replicas with query governors.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Capture the findings against ISO/IEC 27001:2022 8.6 capacity management and the change process.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which capacity process failed and why?</li><li>What headroom is appropriate and who decides?</li><li>How should analytics access to production be controlled?</li><li>How will you verify these fixes?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Use to feed the debrief.</li><li>Insist on owners and dates.</li><li>Avoid blame; focus on process.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<h3 id="inject-12" class="text-lg font-bold text-green-400">Inject #12: Close-out and exit criteria</h3>
+<div class="font-mono text-xs text-neutral-500">Time frame T+07:30 &middot; Variant B</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Latency is normal and replica lag is under five seconds. The commander proposes closing the incident, but the monitoring lead notes that two alarms were disabled during the response and Auto Scaling is still partly suspended.</p>
+<p>The scribe has a draft timeline with several gaps.</p>
+<h4 class="text-base font-bold text-white mt-4">Role actions</h4>
+<h5 class="text-sm font-bold text-green-300 mt-3">Incident Commander</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Set explicit exit criteria and confirm each is met.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Platform &amp; SRE Engineering</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Document all temporary changes to revert or make permanent.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">Cloud Operations &amp; Monitoring</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Re-enable alarms and Auto Scaling processes and confirm.</li></ul>
+<h5 class="text-sm font-bold text-green-300 mt-3">GRC, Audit &amp; Compliance</h5>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Confirm the timeline, evidence and action list.</li></ul>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What exit criteria must be true before closing?</li><li>Which temporary changes still need to be reverted?</li><li>What gaps remain in the timeline?</li><li>Who owns each follow-up action?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Leads into the debrief.</li><li>Check that temporary changes are tracked.</li><li>Confirm the post-incident review date.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Declares the incident, sets priorities (order placement first) and decides on load shedding and failover.</li><li>Runs a 20-minute cadence at first, assigns the scribe and records decisions with times.</li><li>Authorizes emergency spend for larger instances and provisioned IOPS.</li><li>Decides when to pause the marketing promotion with the business owner.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Platform &amp; SRE Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Suspends Auto Scaling process types (Terminate, HealthCheck replacement) and adjusts ALB health check behavior.</li><li>Reads CloudWatch EBS and EC2 metrics and compares AZs to rule out an AWS-side event.</li><li>Plans instance resizing or EBS-optimized changes and the order across AZs.</li><li>Implements connection limits and rate limits at the application tier.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Database &amp; Storage Engineering</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identifies the heavy queries and the analytics export from pg_stat_activity, and cancels or throttles them.</li><li>Checks replica lag and which replica can safely serve reads or be promoted.</li><li>Plans online EBS volume modification, noting the optimization state and the cooldown before the next change.</li><li>Prepares write-ahead log and checkpoint tuning to reduce write bursts.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application Owners &amp; Service Desk</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Application owners identify which flows are failing and which can be deferred.</li><li>The service desk issues the incident script and tracks ticket volume.</li><li>Owners prepare a degraded mode: read-only catalog, queued orders or a maintenance page.</li><li>Prepare validation tests.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Cloud Operations &amp; Monitoring</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Builds a temporary dashboard of queue length, burst balance, IOPS and throughput percentage by volume and AZ.</li><li>Confirms CloudWatch data is flowing and that alarms are not suppressed.</li><li>Checks the AWS Health Dashboard and Personal Health events.</li><li>Creates the missing alarms after the incident.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">AWS Support &amp; TAM Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Opens a high-severity support case with volume IDs, timelines and metrics.</li><li>Asks whether any underlying EBS or Nitro event exists and what limits apply to the instance type.</li><li>Requests guidance on safe volume modification under load.</li><li>Records every recommendation.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity &amp; Communications</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Activates the continuity plan for online ordering and coordinates with marketing and customer service.</li><li>Issues time-stamped updates to leadership.</li><li>Coordinates customer-facing messages and promotion changes.</li><li>Tracks the outage against RTO and RPO.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">GRC, Audit &amp; Compliance</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ensures the incident is recorded and classified (ISO/IEC 27001:2022 5.24-5.28, 8.6 capacity management; SOC 2 availability).</li><li>Evaluates customer or contractual impact.</li><li>Captures evidence for emergency changes.</li><li>Logs findings on missing alarms, unthrottled analytics access and capacity planning.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Resilience Architect Guidance</h2>
+<p>Treat storage performance as a capacity dimension with headroom. Alarm on VolumeQueueLength, throughput percentage and burst balance, and size provisioned IOPS and throughput against the instance type&#x27;s EBS bandwidth limits.</p>
+<p>Make automation fail safe. Auto Scaling health checks tied only to a slow dependency create replacement loops; use grace periods, scaling cooldowns and circuit breakers, and be able to suspend processes quickly.</p>
+<p>Isolate analytics from transactions: read replicas with their own volumes, query governors, resource limits per role and export jobs that are rate-limited.</p>
+<p>Pre-plan failover with explicit data-loss thresholds, including replica lag limits at which promotion needs named operational approval and when it is forbidden.</p>
+<p>Auditors for ISO/IEC 27001:2022 (8.6) and SOC 2 expect capacity management evidence, tested alarms and change control for production scaling.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Close the exercise formally. The facilitator announces the end of the exercise, reminds participants that all actions were simulated, and thanks the players. Nobody leaves before the hot wash.</li><li>Take five minutes of silent individual notes. Each participant writes three things that worked, three that did not, and any gap in tools, access or documentation, before group discussion begins.</li><li>Run the hot wash with the full group. Use the Hot wash questions below, going role by role for the first pass and then opening the floor. Keep to 45 to 60 minutes. Focus on the time to recognize saturation and the decision to suspend automation.</li><li>Hold evaluator readouts. Evaluators share timing observations, decision-log quality, communication accuracy and gaps against each objective.</li><li>Prioritize findings. Group findings into people, process, technology and documentation, rate each by impact and effort, and select no more than ten for the corrective action plan.</li><li>Assign corrective actions. Each action has an owner, a due date and a verification method. Record them in the GRC tracker as evidence for ISO/IEC 27001:2022 management review and SOC 2 reviews.</li><li>Publish the after-action report within 10 business days. Include the timeline, decisions, findings, root causes, corrective actions and runbook updates, and circulate for review.</li><li>Schedule the follow-up. Plan a validation drill in 90 days for the highest-priority gaps and rerun the exercise with different injects within 6 to 12 months.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group of participants after the individual note-taking step.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>How long did it take to conclude this was EBS saturation and not an AWS event, and what data told you?</li><li>Which alarms existed for volume queue length and throughput and who owns them?</li><li>How did Auto Scaling behavior make the incident worse and who can suspend it?</li><li>Who authorized stopping the analytics export and how long did it take?</li><li>What are the actual IOPS and throughput limits of each volume and instance type?</li><li>How did the team decide between modifying volumes, resizing instances and failing over?</li><li>What was the replica lag at each decision point and who accepted data-loss risk?</li><li>How did the application tier shed load and what was customers&#x27; experience?</li><li>What happened to orders accepted during the incident and how are they reconciled?</li><li>How did you handle the marketing promotion?</li><li>What did the AWS support case provide?</li><li>What evidence did the scribe capture for auditors?</li><li>Which volumes still use older types and what is the migration plan?</li><li>What access or permissions were missing?</li><li>What would you change before the next promotion?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Observations:</p><p>Findings and corrective actions:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>
