@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Experience | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* Canvas background styling locking it to the viewport behind all site content */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: 0;
+            pointer-events: none; /* Ensures mouse clicks pass straight through to the page */
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <!-- The Scrolling Slanted Recovery Diagram Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Header Navigation (Elevated z-index) -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-green-500">&lt;</span>Raymond E. Riley<span class="text-green-500">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-green-500">&lt;</span>Home<span class="text-green-500">/&gt;</span></a>
+                <a href="about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-green-500">&lt;</span>About<span class="text-green-500">/&gt;</span></a>
+                <a href="experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-green-500">&lt;</span>Experience<span class="text-green-500">/&gt;</span></a>
+                <a href="certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-green-500">&lt;</span>Certification/Training<span class="text-green-500">/&gt;</span></a>
+                <a href="skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-green-500">&lt;</span>Skills<span class="text-green-500">/&gt;</span></a>
+                <a href="contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="blog.html" class="px-4 py-2 rounded-lg bg-green-500 text-black font-semibold hover:bg-green-400 transition-all">Blog</a>
+                <a href="masterttexs.html" class="px-4 py-2 rounded-lg bg-green-500 text-black font-semibold hover:bg-green-400 transition-all">Ex. Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+                <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Ex. Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+    <!-- Hero Content (Elevated z-index to sit cleanly above the canvas background) -->
+    <main class="flex-grow pt-32 pb-20 px-6 max-w-[1400px] mx-auto flex flex-col justify-center items-start relative z-10 w-full">
+
+        <!-- Scrolling Ticker Container -->
+        <div class="w-full overflow-hidden relative mb-6 py-2 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+            
+            <!-- Scrolling Track (Content is duplicated twice for a seamless infinite loop) -->
+            <div class="animate-marquee flex items-center gap-4">
+                
+                <!-- FIRST SET OF ITEMS -->
+                <div class="flex items-center gap-4 shrink-0">
+                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
+                        <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
+                        <span>Disaster Recovery, Risk Management & Cyber-Recovery Specialist</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
+                        <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
+                        <span>Identity, Automation, Infrastructure & Cloud Specialist</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
+                        <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
+                        <span>Resilience Protection</span>
+                    </div>
+                </div>
+
+                <!-- DUPLICATE SET OF ITEMS (Required for seamless infinite loop) -->
+                <div class="flex items-center gap-4 shrink-0" aria-hidden="true">
+                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
+                        <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
+                        <span>Disaster Recovery, Risk Management & Cyber-Recovery Specialist</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
+                        <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
+                        <span>Identity, Automation, Infrastructure & Cloud Specialist</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm whitespace-nowrap">
+                        <span class="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
+                        <span>Resilience Protection</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>        
+
+        <div class="my-photo-container my-8 flex justify-center self-center w-full">
+            <img src="assets/images/picinsuit.jpg" alt="Raymond E. Riley" class="rounded-full border border-neutral-800 shadow-2xl w-36 h-36 object-cover aspect-square">
+        </div>
+
+        <h1 class="text-green-500 text-lg md:text-4xl lg:text-5xl font-extrabold tracking-tight justify-center self-center">Building Disaster Recovery Programs &
+        </h1>
+        <h1 class="text-green-500 text-lg md:text-4xl lg:text-5xl font-extrabold tracking-tight justify-center self-center">Cyber-Recovery efforts
+        </h1>
+
+        <h1 class="text-lg md:text-2xl lg:text-3xl tracking-tight text-white mb-6 justify-center self-center">
+            Protecting critical business operations & architecting 
+        </h1>
+        <h1 class="text-lg md:text-2xl lg:text-3xl tracking-tight text-white mb-6 justify-center self-center ">
+            recovery frameworks for complex environments
+        </h1>
+        <p class="text-lg md:text-xl text-neutral-400 max-w-2xl mb-10 leading-relaxed bg-black/60 p-4 rounded-xl backdrop-blur-sm border border-neutral-900 justify-center self-center">
+            Hi, I'm Raymond Riley. I specialize in disaster recovery, cyber-recovery, risk management in complex environments & complex architecture implementations. I also have experience in identity and access management, automation frameworks, and various cloud architecture.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center self-center ">
+            <a href="experience.html" class="px-6 py-3 rounded-xl bg-white text-black font-semibold hover:bg-neutral-200 transition-all flex items-center gap-2">
+                Explore Professional Experience <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a href="contact.html" class="px-6 py-3 rounded-xl bg-neutral-900 border border-neutral-800 text-white font-medium hover:bg-neutral-800 transition-all">
+                Get in Touch
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-neutral-900 text-center text-xs text-neutral-500 relative z-10 bg-black/80">
+        <p>© <span id="year"></span> Raymond E. Riley. Precision and depth.</p>
+    </footer>
+
+
+</body>
+</html>
