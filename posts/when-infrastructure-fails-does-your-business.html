@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>When Infrastructure Fails, Does Your Business? | Blog | Raymond E. Riley</title>
+    <meta name="description" content="Recent outages show many organizations are not ready. A plain-language look at business continuity for technical staff and CEOs alike.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-2 py-1 text-xs max-w-[95px] inline-block text-center leading-tight rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Exercise Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Exercise Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../blog.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Blog</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Blog /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">When Infrastructure Fails, Does Your Business?</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">Business Continuity &amp; Resilience</div>
+<p class="text-neutral-400 leading-relaxed">The past few weeks have shown how many organizations are one bad day away from standing still. This is why business continuity has to be owned by the business, and proven, not just written down.</p>
+<div class="font-mono text-xs text-neutral-500 mt-4">November 2026 &middot; 5 min read &middot; For technical teams and executives</div></div>
+
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800">
+<p>On November 12, Microsoft 365 went down. Outlook, Teams, SharePoint and Copilot stopped working for businesses and governments around the world, and the disruption lasted roughly a full day. Hospitals, universities and rail operators struggled to communicate. It wasn&#x27;t a cyberattack. According to Microsoft&#x27;s preliminary report, the defect behind it had been introduced months earlier and had passed load testing at the time.</p>
+<p>That same week brought an FAA ground stop, a widespread system outage at United Airlines, and problems at major banks. Earlier this year, a ransomware attack forced Coca-Cola&#x27;s Fairlife dairy unit to halt all of its U.S. production for more than a week.</p>
+<p>Each of these events has its own cause. Together they make the same point: <strong class="text-white">technology will fail, and the only question is whether your business keeps going when it does.</strong> That is what business continuity is about.</p>
+
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">What Business Continuity Actually Means</h2>
+<p>Business continuity is the discipline of keeping a company&#x27;s most important work going while something is broken. A recovery runbook is only one piece of it. The rest is everything around the technology: the people who know the workarounds, the alternate ways to take an order or pay a supplier, the decisions about what can wait and what can&#x27;t. The test is simple. If a critical system disappeared this morning, would customers notice? A strong continuity program makes sure the answer is &ldquo;not much.&rdquo;</p>
+<p>Disaster recovery asks, &ldquo;How fast can IT restore the system?&rdquo; Business continuity asks, &ldquo;How do we keep serving customers and collecting revenue while it&#x27;s gone?&rdquo; You need both.</p>
+
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">The Assumptions That Quietly Break Plans</h2>
+<p>Most plans don&#x27;t fail because nobody wrote them. They fail because they rest on assumptions nobody has checked in years. The ones I see most in tabletop exercises:</p>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">&ldquo;The infrastructure will just be there.&rdquo;</strong> The business sets an 8-hour recovery target without asking whether identity, networks and recovery capacity can be rebuilt that fast.</li><li><strong class="text-white">&ldquo;The vendor backs up our data.&rdquo;</strong> Many SaaS contracts protect the platform, not your data. The vendor&#x27;s restore may be slow, costly or all-or-nothing.</li><li><strong class="text-white">&ldquo;The backup job succeeded, so we&#x27;re covered.&rdquo;</strong> That only proves something was copied, not that it can be restored or that it&#x27;s clean.</li><li><strong class="text-white">&ldquo;The plan is up to date.&rdquo;</strong> New cloud services and workflows go live every quarter without anyone updating or testing the recovery plan.</li><li><strong class="text-white">&ldquo;People will know what to do.&rdquo;</strong> Not if the procedures and contact lists live on the systems that just went down.</li></ul>
+
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">The Four Numbers That Matter</h2>
+<p>Here is what each measure means, for the engineer and for the executive.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Recovery Time Objective (RTO)</h3>
+<p>The longest a service can be down before the damage becomes unacceptable.</p>
+<p class="text-neutral-400"><strong class="text-white">For the CEO:</strong> How long can we be offline before we lose customers or breach contracts, and has anyone proven we can come back that fast, infrastructure included?</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Recovery Point Objective (RPO)</h3>
+<p>How much data you can afford to lose, measured in time.</p>
+<p class="text-neutral-400"><strong class="text-white">For the CEO:</strong> If we can only lose one hour of transactions, a nightly backup won&#x27;t do. Closing that gap costs money, and that&#x27;s a business decision.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Testing Frequency</h3>
+<p>How often recovery is proven, not just discussed.</p>
+<p class="text-neutral-400"><strong class="text-white">For the CEO:</strong> Once or twice a year isn&#x27;t enough when systems change monthly. Application owners should set a schedule that proves the RTO and RPO.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Failover Capability</h3>
+<p>The ability to move critical work to a redundant system or site when the primary one fails.</p>
+<p class="text-neutral-400"><strong class="text-white">For the CEO:</strong> Very short recovery targets can&#x27;t be met by restoring from backup. They need key workflows already running somewhere else.</p>
+
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<p class="text-lg font-bold text-white">An RTO that has never been tested end to end is not an objective. It&#x27;s a hope.</p>
+</div>
+
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ransomware Changes the Rules</h2>
+<p>A cloud outage is a disaster. Ransomware is a disaster with an opponent. Attackers go after backups first, because destroying your way back is how they force you to pay. Surviving that takes a few non-negotiables:</p>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Immutable backups</strong> that nobody, including your own administrators, can change or delete before they expire.</li><li><strong class="text-white">Isolation</strong> from the production network and from production logins, so an attacker who owns your environment can&#x27;t reach your last good copy.</li><li><strong class="text-white">Accounted-for credentials:</strong> know exactly who can delete or change backups, protect those accounts with strong authentication and a second approver, and review the list often.</li><li><strong class="text-white">No blind spots:</strong> on-premises, cloud and SaaS data all need a protected copy. One unprotected component can stall the whole recovery.</li><li><strong class="text-white">Proof of a clean restore:</strong> regular restore testing, integrity checks and malware scanning of recovery points, with retention long enough to reach back before the attacker first got in.</li></ul>
+
+<h3 class="text-lg font-bold text-green-400 mt-6">From the Tabletop</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p>In the business-level exercise I built around a total-loss ransomware attack, the gaps are the kind most organizations carry without knowing it: a one-hour data loss promise backed by nightly backups, a tested recovery time more than twice the customer commitment, and a last surviving copy that turns out to contain the attacker&#x27;s tools. None of it is obvious on paper. All of it is fixable once someone asks the right question.</p></div>
+
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Five Questions Every CEO Should Ask This Quarter</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>For our most critical services, is the <strong class="text-white">tested</strong> recovery time equal to or less than what we have promised customers?</li><li>If ransomware destroyed our production systems and our everyday backups tonight, what protected copy would we restore from, and who can delete it?</li><li>Does every critical application have a current recovery plan with a named owner, and when was it last tested?</li><li>What is our true data loss tolerance, and are we paying for a backup design that actually meets it?</li><li>Can a new workflow or SaaS tool reach production without a recovery test and a plan update?</li></ol>
+
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">For the Technical Team: Start Here</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Map each critical service and its infrastructure dependencies, then compare real recovery times with the business RTO.</li><li>Find every copy of your data that isn&#x27;t immutable and isolated, and every account that can delete backups.</li><li>Bring Data Protection into change management so new systems are protected before go-live.</li><li>Run a business-level tabletop with the business owner, application owner and Data Protection in the same room.</li></ul>
+
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">The Bottom Line</h2>
+<p>Outages and attacks are now a normal part of running a business on technology you don&#x27;t fully control. The organizations that come through them aren&#x27;t the ones with the thickest binders. They know their real recovery times, protect their last good copy like the company&#x27;s future depends on it, and test often enough to trust the answers.</p>
+<p>Business continuity isn&#x27;t an IT project. It&#x27;s a promise the business makes to its customers, and the only way to know whether you can keep it is to test it before the next bad day.</p>
+
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Sources</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400 text-sm"><li><a class="text-green-400 hover:underline" href="https://www.latintimes.com/microsoft-365-global-outage-outlook-teams-copilot-601369" target="_blank" rel="noopener">Latin Times: Microsoft 365 global outage hits Outlook, Teams and Copilot (Nov 2026)</a></li><li><a class="text-green-400 hover:underline" href="https://fourweekmba.com/ai-6-us-disruptions-in-6-days-what-officials-say-caused-each/" target="_blank" rel="noopener">FourWeekMBA: 6 US disruptions in 6 days (Nov 2026)</a></li><li><a class="text-green-400 hover:underline" href="https://streamlinefeed.co.ke/news/microsoft-outlook-outage-disrupts-hospitals-and-rail-worldwide" target="_blank" rel="noopener">Streamline Feed: Microsoft Outlook outage disrupts hospitals and rail worldwide (Nov 2026)</a></li><li><a class="text-green-400 hover:underline" href="https://mjtsai.com/blog/2026/11/16/microsoft-outage/" target="_blank" rel="noopener">Michael Tsai: Microsoft outage, summarizing Microsoft&#x27;s preliminary incident report (Nov 2026)</a></li><li><a class="text-green-400 hover:underline" href="https://www.fox10phoenix.com/news/airline-bank-outage-reason-tech-glitch-cyber-attack" target="_blank" rel="noopener">FOX 10: Outages everywhere at banks, airlines and email (Nov 2026)</a></li><li><a class="text-green-400 hover:underline" href="https://bleepingcomputer.com/news/security/coca-cola-says-fairlife-ransomware-attack-halts-us-dairy-production" target="_blank" rel="noopener">BleepingComputer: Coca-Cola says Fairlife ransomware attack halts US dairy production (Jul 2026)</a></li><li><a class="text-green-400 hover:underline" href="https://dev.to/netsecops_io/anubis-ransomware-attacks-fairlife-a-coca-cola-firm-475j" target="_blank" rel="noopener">DEV Community: Anubis ransomware attacks Fairlife (Jul 2026)</a></li></ul>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>
