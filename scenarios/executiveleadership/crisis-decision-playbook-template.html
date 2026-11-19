@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crisis Decision Playbook Template | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../../masterttexs.html" class="px-2 py-1 text-xs max-w-[95px] inline-block text-center leading-tight rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Exercise Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Exercise Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block mr-6">&larr; Back to Tabletop Library</a><a href="operation-pressure-point.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block mr-6">&larr; Operation Pressure Point</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Crisis Decision Playbook /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Crisis Decision Playbook Template</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">Template</div><div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">One Page</div><div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">Executive &amp; Senior Leadership</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><div class="font-mono text-xs text-neutral-500 space-y-1"><p>Organization: [Organization] &middot; Version: <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> &middot; Owner: <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span> &middot; Last exercised: <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></p></div>
+<p>Defines who decides what, how we communicate, and what happens in the first 48 hours of a major disruption or cyber event. Populate it from the outcomes of executive and senior leadership tabletop exercises, and keep a printed copy offline.</p>
+
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">1. Activation and Severity</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Declare a crisis when:</strong> revenue services down
+&gt; <span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> hrs | confirmed data theft | extortion demand | regulator/media
+inquiry | other: <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Authority to declare:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span>
+<strong class="text-white">Alternate:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Severity levels:</strong> Sev 1 (enterprise, exec CMT) /
+Sev 2 (business unit) / Sev 3 (operational). Criteria:
+<span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">2. Crisis Management Team (CMT)</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">CMT Lead:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span> <strong class="text-white">Alternate
+1:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span> <strong class="text-white">Alternate 2:</strong>
+<span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Members:</strong> CEO, CFO, COO, GC, CISO, CIO, Comms,
+CRO/Sales, CHRO, Risk/Insurance, Board liaison</li>
+<li><strong class="text-white">Quorum to decide:</strong> <span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> members incl.
+<span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span> <strong class="text-white">Scribe / decision log owner:</strong>
+<span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">If a decision owner is unreachable for <span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> hrs,</strong>
+authority passes to their named alternate.</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">3. Who Decides What (Owner / Alternate / Must Consult)</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Activate business continuity plan:</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> /
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Shut down revenue services:</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> /
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> (pre-approved limit: $<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> or <span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> hrs)</li>
+<li><strong class="text-white">Ransom / extortion response:</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> /
+Board? Y/N (standing position: <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span>)</li>
+<li><strong class="text-white">Attacker contact (only channel):</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> via
+negotiator <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> (no one else engages)</li>
+<li><strong class="text-white">Engage insurer, panel counsel, forensics:</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span>
+/ <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Materiality and investor disclosure:</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> /
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / Audit Cmte</li>
+<li><strong class="text-white">Regulatory reports (content and sign-off):</strong>
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Public spokesperson:</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> Alt: <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span>
+<strong class="text-white">Statement approver:</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Customer notifications:</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> /
+GC</li>
+<li><strong class="text-white">Employee communications:</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> /
+Comms</li>
+<li><strong class="text-white">Approve recovery plan and accepted data loss:</strong>
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Reopen revenue services (go / no-go):</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span>
+Tie-break: <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Emergency spend authority:</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> up to
+$<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">4. Escalation Path</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Detect &gt; Security on-call &gt; CISO (within <span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> min) &gt; CMT
+Lead (<span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> min) &gt; CEO (<span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> min) &gt; Board chair / Audit Cmte (<span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> hrs)
+&gt; Insurer (<span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> hrs per policy) &gt; Counsel (immediately)</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">5. Communication Channels</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Primary CMT channel:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span>
+<strong class="text-white">Out-of-band (if corporate systems compromised):</strong>
+<span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">CMT bridge line:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span> <strong class="text-white">Status
+cadence:</strong> every <span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> hrs <strong class="text-white">Offline contact list held
+by:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Leader verification (anti-impersonation):</strong>
+callback to known number + code phrase held by <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span>. No
+payment or credential change on voice/email instruction alone.</li>
+<li><strong class="text-white">Order of notification:</strong> Board &gt;
+Insurer/Counsel &gt; Employees &gt; Key customers &gt; Regulators &gt;
+Media &gt; Partners/Investors (adjust to legal obligations)</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">6. First 48 Hours</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">0 to 1 hr:</strong> confirm incident; declare severity;
+convene CMT; move to out-of-band channel; engage counsel (privilege);
+start decision log</li>
+<li><strong class="text-white">1 to 4 hrs:</strong> decide BCP activation and revenue
+shutdown; notify insurer; engage forensics; holding statement approved;
+employee notice</li>
+<li><strong class="text-white">4 to 12 hrs:</strong> key-customer outreach; board
+briefing; inventory all reporting deadlines; sanctions check if
+extortion</li>
+<li><strong class="text-white">12 to 24 hrs:</strong> ransom position confirmed;
+customer and media statements; recovery options and timeline
+presented</li>
+<li><strong class="text-white">24 to 48 hrs:</strong> regulatory and contractual notices
+drafted and approved; materiality assessment; recovery plan and
+reopening criteria approved</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">7. Pre-Approved External Support</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Insurer hotline / policy #:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span>
+<strong class="text-white">Breach counsel:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span> <strong class="text-white">Forensics /
+IR:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Ransom negotiator:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span>
+<strong class="text-white">Crisis PR:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span> <strong class="text-white">Law enforcement
+contact:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">8. Decision Principles</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Decide with the information available; record assumptions; set a
+time to revisit. Safety and legal obligations first, then data, then
+revenue. One voice externally. Facts confirmed vs. under investigation
+are always labeled. Every decision logged with owner, time and
+rationale.</li>
+</ul>
+
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

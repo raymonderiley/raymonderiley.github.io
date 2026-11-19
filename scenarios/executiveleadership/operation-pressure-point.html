@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operation Pressure Point | Executive Decision Tabletop | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../../masterttexs.html" class="px-2 py-1 text-xs max-w-[95px] inline-block text-center leading-tight rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Exercise Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Exercise Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block mr-6">&larr; Back to Tabletop Library</a><a href="crisis-decision-playbook-template.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block mr-6">Crisis Decision Playbook Template &rarr;</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Leadership Decision Exercise /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Operation Pressure Point: Decisions Under Pressure During Recovery</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">Executive &amp; Senior Leadership</div><div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">60&ndash;90 Minutes</div><div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">No-Fault</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><p class="text-neutral-400 italic">Fictional organization: Crestline Software Group, a mid-sized SaaS provider. Rename and adjust the company profile to match your organization before running.</p>
+
+
+<h3 class="text-lg font-bold text-green-400 mt-6">In This Exercise</h3><div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><a class="text-green-400 hover:underline" href="#this-is-a-no-fault-exercise">1. This Is a No-Fault Exercise</a></p><p><a class="text-green-400 hover:underline" href="#purpose-and-objectives">2. Purpose and Objectives</a></p><p><a class="text-green-400 hover:underline" href="#participants">3. Participants</a></p><p><a class="text-green-400 hover:underline" href="#agenda">4. Agenda</a></p><p><a class="text-green-400 hover:underline" href="#facilitator-guidance-individual-answers-not-groupthink">5.
+Facilitator Guidance: Individual Answers, Not Groupthink</a></p><p><a class="text-green-400 hover:underline" href="#scenario-background">6. Scenario Background</a></p><p><a class="text-green-400 hover:underline" href="#inject-1-we-are-down">7. Inject 1: We Are Down</a></p><p><a class="text-green-400 hover:underline" href="#inject-2-the-demand">8. Inject 2: The Demand</a></p><p><a class="text-green-400 hover:underline" href="#inject-3-who-is-speaking-for-us">9. Inject 3: Who Is Speaking
+for Us</a></p><p><a class="text-green-400 hover:underline" href="#inject-4-the-48-hour-clock">10. Inject 4: The 48-Hour Clock</a></p><p><a class="text-green-400 hover:underline" href="#debrief">11. Debrief</a></p><p><a class="text-green-400 hover:underline" href="#after-action-outputs">12. After-Action Outputs</a></p><p><a class="text-green-400 hover:underline" href="#appendix-a-scribe-decision-log">Appendix A: Scribe Decision
+Log</a></p><p><a class="text-green-400 hover:underline" href="#appendix-b-observer-checklist">Appendix B: Observer
+Checklist</a></p><p><a class="text-green-400 text-right hover:underline" href="crisis-decision-playbook-template.html">Crisis Decision Playbook Template</a></p></div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="this-is-a-no-fault-exercise">1. This Is a No-Fault Exercise</h2>
+<p>Read this section aloud at the start of the session. It sets the tone
+for everything that follows.</p>
+<div class="border-l-4 border-[#00e673] bg-black p-4 rounded-r-xl text-neutral-200">
+<p class="italic"><em>This is a no-fault exercise. We are not testing people, and
+nobody is being graded. We are testing our plans, our decision rights
+and our assumptions. There are no wrong answers today, only useful ones.
+If you do not know the answer, saying "I don't know" or "I'm not sure
+who owns that" is the most valuable thing you can contribute, because
+that is exactly the gap we want to find now rather than during a real
+event. Nothing said in this room will be attributed to an individual in
+the written report; findings are recorded against the organization and
+its plans.</em></p>
+</div>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Findings are attributed to <strong class="text-white">processes, plans and
+gaps</strong>, never to individuals.</li>
+<li>Disagreement between leaders is a <strong class="text-white">positive
+outcome</strong>. It tells us where decision rights are
+unclear.</li>
+<li>Participants are asked to answer <strong class="text-white">as themselves, in their
+real role</strong>, based on what they would actually do, not what the
+policy says they should do.</li>
+<li>The scenario is deliberately hard and the information is
+deliberately incomplete. Real events look like this.</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="purpose-and-objectives">2. Purpose and Objectives</h2>
+<p>The organization is past the technical question of how systems are
+restored. This exercise focuses on the business risk the leadership team
+must carry and decide on during recovery. It is structured around
+decisions, not details. The facilitator should steer the conversation
+away from technical troubleshooting and back to the decision in front of
+the room.</p>
+<h4 class="text-base font-bold text-white mt-4">Objectives</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Confirm <strong class="text-white">who has the authority</strong> to make each
+critical decision, and who must be consulted before it is made.</li>
+<li>Test whether leaders will <strong class="text-white">activate the business
+continuity plan</strong> and accept the cost of shutting down
+revenue-generating services.</li>
+<li>Surface each leader's <strong class="text-white">individual position on ransom and
+extortion</strong> before a real demand arrives.</li>
+<li>Determine <strong class="text-white">what goes into a regulatory report</strong>
+when the facts are still incomplete, and who approves it.</li>
+<li>Test <strong class="text-white">communication under pressure</strong>, including who
+speaks publicly and how leaders verify each other when impersonation is
+in play.</li>
+<li>Capture decisions, owners and gaps to populate the <strong class="text-white">Crisis
+Decision Playbook</strong> (separate template).</li>
+</ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Decisions This Exercise
+Forces</h3>
+<p>Four injects, each built around a core decision. Supporting decisions
+are folded into each inject.</p>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Inject 1, We Are Down:</strong> do we activate the
+business continuity plan and shut down revenue? Also covers who leads
+the crisis management team, escalation, making decisions without
+complete information, and balancing business impact against the security
+response.</li>
+<li><strong class="text-white">Inject 2, The Demand:</strong> the attacker wants $1M in
+bitcoin. Do we pay, and if so, on what terms and through what channel?
+Also covers ransom and extortion governance, insurer involvement, choice
+of legal counsel and external support, and sanctions screening.</li>
+<li><strong class="text-white">Inject 3, Who Is Speaking for Us:</strong> stolen data
+appears on a leak site, the media calls, and someone impersonating the
+CEO is contacting customers and staff. Also covers reputational damage,
+who speaks publicly, stakeholder communication strategy and
+communication under pressure.</li>
+<li><strong class="text-white">Inject 4, The 48-Hour Clock:</strong> regulators want a
+response within 48 hours. What is in the report? Also covers disclosure
+and materiality, regulatory reporting, external communication to
+customers and regulators, and approval of the recovery plan.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Additional decisions
+added to the mix</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Restore fast or restore clean:</strong> do we bring
+services back before we are confident the attacker is gone?</li>
+<li><strong class="text-white">Board notification:</strong> when is the board told, by
+whom, and does the board want a vote on ransom?</li>
+<li><strong class="text-white">Delegation of authority:</strong> if the CEO or another
+key decision-maker is unreachable, who decides?</li>
+<li><strong class="text-white">Legal privilege:</strong> are investigation work products
+being directed through counsel so they stay privileged?</li>
+<li><strong class="text-white">Employee communications:</strong> what do we tell staff,
+and what do we tell them not to say?</li>
+<li><strong class="text-white">Reopening revenue:</strong> what criteria must be met
+before we turn customer-facing services back on?</li>
+<li><strong class="text-white">Customer contractual obligations:</strong> which
+customers have notification clauses or SLA credits that start the clock
+immediately?</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="participants">3. Participants</h2>
+<h4 class="text-base font-bold text-white mt-4">Players</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Chief Executive Officer (CEO)</li>
+<li>Chief Financial Officer (CFO)</li>
+<li>Chief Operating Officer (COO)</li>
+<li>General Counsel (GC) / Chief Legal Officer</li>
+<li>Chief Information Security Officer (CISO)</li>
+<li>Chief Information Officer (CIO) / Chief Technology Officer
+(CTO)</li>
+<li>Chief Communications Officer or VP of Communications</li>
+<li>Chief Revenue Officer or Head of Sales / Customer
+Success</li>
+<li>Chief Human Resources Officer (CHRO)</li>
+<li>Chief Risk Officer or Risk and Insurance Manager</li>
+<li>Board liaison or Corporate Secretary (optional)</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Exercise staff</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Lead facilitator:</strong> runs the clock, delivers
+injects, directs questions. Does not offer opinions on the right
+answer.</li>
+<li><strong class="text-white">Scribe:</strong> records every decision, who made it, who
+agreed, who disagreed, and every "we don't know."</li>
+<li><strong class="text-white">Observer(s):</strong> watch for decision-rights
+confusion, information gaps and groupthink. Feed notes into the
+debrief.</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="agenda">4. Agenda</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Standard 90-minute run</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">0:00 to 0:10</strong> — <span>welcome, no-fault statement,
+ground rules, scenario background</span></p><p><strong class="text-white">0:10 to 0:25</strong> — <span>Inject 1, We Are Down</span></p><p><strong class="text-white">0:25 to 0:42</strong> — <span>Inject 2, The Demand</span></p><p><strong class="text-white">0:42 to 0:57</strong> — <span>Inject 3, Who Is Speaking for
+Us</span></p><p><strong class="text-white">0:57 to 1:12</strong> — <span>Inject 4, The 48-Hour
+Clock</span></p><p><strong class="text-white">1:12 to 1:30</strong> — <span>debrief and playbook
+capture</span></p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">Compressed 60-minute run</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">0:00 to 0:05</strong> — <span>welcome and no-fault statement
+(send the background as a pre-read)</span></p><p><strong class="text-white">0:05 to 0:17</strong> — <span>Inject 1</span></p><p><strong class="text-white">0:17 to 0:29</strong> — <span>Inject 2</span></p><p><strong class="text-white">0:29 to 0:41</strong> — <span>Inject 4 (move Inject 3 to a
+follow-up session or fold the impersonation curveball into Inject
+2)</span></p><p><strong class="text-white">0:41 to 0:60</strong> — <span>debrief and playbook
+capture</span></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="facilitator-guidance-individual-answers-not-groupthink">5.
+Facilitator Guidance: Individual Answers, Not Groupthink</h2>
+<p>The value of this exercise comes from hearing each leader's own
+position. Executives tend to defer to the most senior person in the
+room, and once the CEO speaks, the conversation usually converges. The
+techniques below are designed to prevent that. The facilitator decides
+which questions to ask and in what order; the question bank in each
+inject is a menu, not a script.</p>
+<h4 class="text-base font-bold text-white mt-4">The core technique:
+direct, then cross-check</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Direct the question to one named leader.</strong> "CFO,
+this is your call to make. What do you decide?" Do not open questions to
+the whole room.</li>
+<li><strong class="text-white">Let them answer fully</strong> before anyone else
+speaks.</li>
+<li><strong class="text-white">Cross-check with a second leader, usually the CEO or the
+person who would be affected most.</strong> "CEO, do you agree with that
+decision? Would you overrule it?"</li>
+<li><strong class="text-white">Then ask a third leader for the dissenting view.</strong>
+"GC, what concerns you about what you just heard?"</li>
+<li><strong class="text-white">The CEO speaks last</strong> on core decisions, not
+first. If the CEO answers first, the room will anchor on that
+answer.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Additional techniques</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Silent vote before discussion.</strong> For the three
+core decisions (activate BCP, pay or not, what goes in the report), have
+each leader write their answer on an index card before any discussion.
+Collect the cards and read them aloud anonymously, then reveal the
+spread. A split vote is a finding.</li>
+<li><strong class="text-white">"Whose call is it?"</strong> Before discussing any
+decision, ask the room to point to the person who owns it. If people
+point at different people, stop and record it.</li>
+<li><strong class="text-white">The empty chair.</strong> At least once, tell the room a
+key leader is unreachable (on a flight, in hospital, not answering). Ask
+who decides in their absence.</li>
+<li><strong class="text-white">Time pressure.</strong> Give leaders a hard deadline for
+some decisions ("You have 90 seconds"). Real decisions happen without
+time to deliberate.</li>
+<li><strong class="text-white">Hold the line on details.</strong> If the conversation
+drifts into how a system is restored, redirect: "Assume the technical
+team is handling it. What do you need to decide?"</li>
+<li><strong class="text-white">Record disagreement explicitly.</strong> The scribe notes
+who agreed, who disagreed and why. Unanimity is not the goal.</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="scenario-background">6. Scenario Background</h2>
+<p>Read aloud or send as a pre-read.</p>
+<p>Crestline Software Group provides a subscription platform used by
+about 1,200 business customers for billing, payments and customer
+records. The platform processes roughly $1.1M in customer transactions
+per day and is the company's sole source of revenue. Crestline holds
+personal information on several hundred thousand end users of its
+customers' businesses, including names, contact details and some partial
+payment data. Some customers are in regulated industries and have
+contractual notification requirements.</p>
+<p>It is Tuesday at 6:40 a.m. The overnight on-call engineer has
+escalated an alert: several production systems are encrypted and a
+ransom note has appeared on administrator consoles. The security team
+has confirmed this is a real incident. You have been called into an
+emergency meeting.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="inject-1-we-are-down">7. Inject 1: We Are Down</h2><div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<p class="font-mono text-xs text-neutral-500"><strong class="text-neutral-300">Time in scenario:</strong> Tuesday, 8:00 a.m. (about 1.5
+hours after detection) | <strong class="text-neutral-300">Facilitation time:</strong> 15
+minutes</p>
+<h4 class="text-base font-bold text-white mt-4">Situation (read aloud)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The customer-facing billing platform is partially available. Some
+customers can log in, but payment processing is failing
+intermittently.</li>
+<li>The security team believes the attacker may still have access to
+the environment. They cannot yet say how they got in or what else they
+touched.</li>
+<li>The CISO's team is recommending a <strong class="text-white">full shutdown</strong>
+of customer-facing services to contain the attack. That would stop all
+revenue, roughly $46,000 per hour.</li>
+<li>Customer support has received 140 tickets in the last hour. Two
+of the company's top ten customers have called their account managers
+directly.</li>
+<li>The business continuity plan was last updated 14 months ago.
+Nobody in the room has read it recently.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What you know and what you
+don't</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Known:</strong> systems are encrypted, the attacker is
+likely still present, revenue is already degraded.</li>
+<li><strong class="text-white">Unknown:</strong> how long recovery will take, whether
+data was stolen, whether backups are clean, the full blast
+radius.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Decisions to force</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Do we activate the business continuity plan?</strong> Who
+has the authority to declare it?</li>
+<li><strong class="text-white">Do we shut down revenue-generating services</strong> to
+contain the attack, or keep them running in a degraded state?</li>
+<li><strong class="text-white">Who leads the crisis management team</strong>, and who is
+their alternate?</li>
+<li><strong class="text-white">What is our escalation path</strong> from here: board,
+insurer, outside counsel?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Question bank (direct,
+then cross-check)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CEO:</strong> Who in this room has the authority
+to declare a crisis and activate the business continuity plan? Is it
+you, or have you delegated it?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the COO and the CISO
+separately who they believe holds that authority. Do the answers
+match?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CISO:</strong> You are recommending a full
+shutdown. Make the case in one minute: what happens if we do not shut
+down?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CFO: do you accept
+that recommendation at $46,000 per hour? What is your
+limit?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CFO:</strong> How many hours or days of lost
+revenue can the company absorb before this becomes a liquidity or
+covenant issue?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CEO: does that
+number change your decision on the shutdown?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Revenue Officer:</strong> Two top-ten
+customers are on the phone right now. What do your account managers tell
+them in the next 30 minutes?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC: is there
+anything in that message that creates legal exposure?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the COO:</strong> If we activate the BCP, what does
+the business actually do differently in the next four hours? Can
+customers be served manually in any way?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CIO: is that
+realistic with the systems we still have?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CEO:</strong> Who leads the crisis management
+team? If it is you, who runs the company while you run the crisis?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask each executive to name
+the crisis lead without discussion. Record the spread.</em></li>
+</ul></li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Facilitator curveballs
+(optional)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The CEO is on a flight to Singapore and unreachable for the next
+nine hours. Who decides on the shutdown?</li>
+<li>A product leader argues that shutting down will violate the 99.9%
+SLA for 300 customers and trigger penalty credits. Does that change the
+decision?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What good looks like (for
+observers)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>A single, named decision-maker for BCP activation and for the
+shutdown, with a named alternate.</li>
+<li>The shutdown decision is made deliberately, with the revenue
+impact stated and accepted, rather than defaulting to whatever the
+technical team does.</li>
+<li>A crisis management team lead is named, and that person is not
+also expected to run day-to-day operations.</li>
+<li>Leaders explicitly acknowledge they are deciding without complete
+information and set a time to revisit the decision.</li>
+</ul>
+</div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="inject-2-the-demand">8. Inject 2: The Demand</h2><div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<p class="font-mono text-xs text-neutral-500"><strong class="text-neutral-300">Time in scenario:</strong> Wednesday, 12:30 a.m. (about 18
+hours after detection) | <strong class="text-neutral-300">Facilitation time:</strong> 17
+minutes</p>
+<h4 class="text-base font-bold text-white mt-4">Situation (read aloud)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Services have been shut down since 9:00 a.m. Tuesday. Revenue
+lost so far is approximately $720,000.</li>
+<li>The attacker has made contact through a link in the ransom note.
+They demand <strong class="text-white">$1,000,000 in bitcoin within 72 hours</strong>. If
+paid, they promise a decryption tool and deletion of stolen
+data.</li>
+<li>The attacker claims to have stolen <strong class="text-white">340 GB of customer
+data</strong> and has posted a sample of 50 customer records as proof.
+The security team confirms the sample is genuine.</li>
+<li>The recovery team estimates <strong class="text-white">five to eight days</strong>
+to restore from backups. Two backup sets appear clean; a third may be
+compromised.</li>
+<li>The cyber insurance policy has a $5M limit and a $250,000
+retention. The insurer has not yet been notified.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What you know and what you
+don't</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Known:</strong> the demand amount and deadline, that some
+data was stolen, the backup timeline estimate.</li>
+<li><strong class="text-white">Unknown:</strong> whether the decryptor works, whether
+the attacker will actually delete the data, whether the attacker group
+is on a sanctions list, how much data was really taken.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Decisions to force</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Do we pay the ransom?</strong> Who has the authority to
+approve payment, and does the board need to vote?</li>
+<li><strong class="text-white">If we pay, on what terms?</strong> Do we insist on a
+single, controlled payment channel, use a professional negotiator,
+require proof of decryption first, or refuse bitcoin and push for a
+different arrangement?</li>
+<li><strong class="text-white">When do we notify the insurer</strong>, and do we use the
+insurer's panel counsel, negotiator and forensics firm, or our
+own?</li>
+<li><strong class="text-white">What is our ransom and extortion governance?</strong> Who
+is allowed to communicate with the attacker at all?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Silent vote</h4>
+<p>Before discussion, each leader writes on a card: <strong class="text-white">Pay / Don't
+pay / Need more information</strong>, plus one sentence explaining why.
+Read the cards aloud anonymously, then begin the questions.</p>
+<h4 class="text-base font-bold text-white mt-4">Question bank (direct,
+then cross-check)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CFO:</strong> Leave the ethics aside for a
+moment. Purely on the numbers, $1M in ransom against five to eight more
+days of downtime: which option is cheaper, and how confident are
+you?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CEO: is cost the
+deciding factor for you? If not, what is?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the General Counsel:</strong> What are the legal
+constraints on paying? How do we confirm the attacker is not a
+sanctioned party, and who does that check?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Risk and Insurance
+Manager: does the policy cover ransom payments, and what does the
+insurer require before we pay?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CEO:</strong> If the room is split, who makes the
+final call on ransom? Is it you alone, you with the board, or the
+board?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the board liaison:
+would the board expect to vote on this? How fast can you convene
+them?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CISO:</strong> If we pay and receive a decryptor,
+how much faster is recovery really? Does paying change what we have to
+do to make sure the attacker is gone?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CIO: would you
+trust a decryptor from the attacker on production systems?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Risk and Insurance Manager:</strong> The insurer
+has not been notified. What is our notification deadline under the
+policy, and what happens if we have already engaged our own counsel and
+forensics firm?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC: do we use the
+insurer's panel counsel or our own outside counsel? Who
+decides?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the General Counsel:</strong> If we decide to pay, do
+we insist on one controlled channel through a professional negotiator?
+Would we accept anything other than bitcoin, or require proof that
+decryption works first?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CFO: do we even
+have the ability to acquire $1M in cryptocurrency within 72 hours? Who
+in finance would do it?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Communications Officer:</strong> If we pay
+and it becomes public, what is the reputational impact? If we don't pay
+and the data is published, what is the impact?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Chief Revenue
+Officer: which outcome do our customers forgive more
+easily?</em></li>
+</ul></li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Facilitator curveballs
+(optional)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The attacker reduces the demand to $600,000 if paid within 24
+hours. Does the deadline pressure change anyone's vote?</li>
+<li>An engineer, acting on their own, has already replied to the
+attacker from a personal email account. What now?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What good looks like (for
+observers)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The ransom decision has a named owner and a defined approval path
+(for example CEO with board consultation), agreed before a demand
+arrives.</li>
+<li>Nobody communicates with the attacker except through a
+designated, professional channel.</li>
+<li>Sanctions screening and insurer notification are treated as
+prerequisites, not afterthoughts.</li>
+<li>The team separates the decryption question from the data-deletion
+question. Paying rarely guarantees deletion.</li>
+<li>Leaders state their own position rather than waiting for the
+CEO.</li>
+</ul>
+</div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="inject-3-who-is-speaking-for-us">9. Inject 3: Who Is Speaking
+for Us</h2><div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<p class="font-mono text-xs text-neutral-500"><strong class="text-neutral-300">Time in scenario:</strong> Wednesday, 2:00 p.m. (about 31
+hours after detection) | <strong class="text-neutral-300">Facilitation time:</strong> 15
+minutes</p>
+<h4 class="text-base font-bold text-white mt-4">Situation (read aloud)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The attacker has published Crestline's name on their leak site
+with a countdown timer and 2,000 customer records.</li>
+<li>A reporter from a national business publication has emailed the
+Chief Communications Officer asking for comment by 5:00 p.m. today. A
+second reporter has messaged a sales director on LinkedIn.</li>
+<li>Three customers have forwarded an email that appears to be
+<strong class="text-white">from the CEO</strong>, apologizing for the breach and asking
+them to update payment details at a new link. The CEO did not send
+it.</li>
+<li>The finance team received a voicemail that sounds like the CFO,
+asking for an urgent wire transfer to a "recovery vendor."</li>
+<li>Employees are posting about the outage on social media. One post
+says, "We got hacked and leadership won't tell us anything."</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What you know and what you
+don't</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Known:</strong> data is public, media is asking, someone
+is impersonating leaders.</li>
+<li><strong class="text-white">Unknown:</strong> whether the impersonation is the same
+attacker, how many customers received the fake email, whether any wire
+transfer was made.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Decisions to force</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Who speaks publicly</strong> for the company, and what do
+they say by 5:00 p.m.?</li>
+<li><strong class="text-white">How do we protect against impersonation of
+leaders?</strong> How do customers, staff and finance verify a message
+is real?</li>
+<li><strong class="text-white">What is our communication strategy</strong> across
+customers, employees, media, partners and investors, and in what
+order?</li>
+<li><strong class="text-white">How do we manage reputational damage</strong> when the
+attacker controls the timing of what becomes public?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Question bank (direct,
+then cross-check)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Communications Officer:</strong> Who is the
+spokesperson? Is it the CEO, you, or someone else? What is the one
+sentence we give the reporter by 5:00 p.m.?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CEO: do you agree
+that you should or should not be the face of this? Ask the GC: would you
+approve that sentence?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CEO:</strong> Someone is sending emails in your
+name to customers. How does a customer know whether a message from you
+is real?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CISO: what
+verification method do we have today, and does anyone outside this room
+know it?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CFO:</strong> Finance received a voicemail that
+sounded like you asking for a wire. What stops that payment today? What
+is the verification rule?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the COO: is that rule
+written down anywhere, and does every person who can release a wire know
+it?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CHRO:</strong> Employees are posting publicly and
+feel left in the dark. What do we tell staff today, and what do we ask
+them not to say?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Chief
+Communications Officer: does the employee message conflict with what we
+are telling the media?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Revenue Officer:</strong> In what order do
+we tell stakeholders: customers, employees, media, regulators,
+investors? Who hears first?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC: does any
+regulator or contract dictate that order for us?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CEO:</strong> Are we communicating through
+channels the attacker may be able to see? Where is the leadership team
+talking right now?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CISO: should we
+move to an out-of-band channel, and does everyone have access to
+it?</em></li>
+</ul></li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Facilitator curveballs
+(optional)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The CEO is asked to give an interview on live television tomorrow
+morning. Yes or no?</li>
+<li>A well-known industry analyst posts that Crestline "hid the
+breach for two days." Do we respond?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What good looks like (for
+observers)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>One designated spokesperson and one approval path for all
+external statements, with legal review built in.</li>
+<li>A pre-agreed verification method for leader communications
+(callback to a known number, code phrase, or out-of-band
+confirmation).</li>
+<li>A hard rule that no payment is released on voice or email
+instruction alone during a crisis.</li>
+<li>Employees are treated as a stakeholder group with their own
+message, not an afterthought.</li>
+<li>Leadership moves to an out-of-band communication channel if the
+corporate environment may be compromised.</li>
+</ul>
+</div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="inject-4-the-48-hour-clock">10. Inject 4: The 48-Hour Clock</h2><div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<p class="font-mono text-xs text-neutral-500"><strong class="text-neutral-300">Time in scenario:</strong> Thursday, 9:00 a.m. (about 50
+hours after detection) | <strong class="text-neutral-300">Facilitation time:</strong> 15
+minutes</p>
+<h4 class="text-base font-bold text-white mt-4">Situation (read aloud)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>A data protection regulator has contacted Crestline after seeing
+press coverage. They want a <strong class="text-white">written response within 48
+hours</strong> describing the incident, the data involved, affected
+individuals and the actions taken.</li>
+<li>Two customers in regulated industries have formally invoked their
+contract's breach notification clause and want written details within 24
+hours.</li>
+<li>Forensics now believes the attacker entered <strong class="text-white">17 days
+before</strong> encryption, through a compromised vendor remote-access
+account.</li>
+<li>The recovery team has a plan to restore the billing platform in
+three days from the clean backups. It requires the business to accept
+that <strong class="text-white">some transactions from the last 36 hours before the attack
+will be lost</strong> and must be reconstructed manually.</li>
+<li>The CFO's team estimates total impact so far at $2.3M in lost
+revenue, plus recovery costs. The auditors have asked whether this is
+material.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What you know and what you
+don't</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Known:</strong> the regulator deadline, the entry point,
+the recovery plan and its trade-off.</li>
+<li><strong class="text-white">Unknown:</strong> the final count of affected
+individuals, whether other vendors are affected, whether the attacker is
+fully removed.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Decisions to force</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">What is in the regulatory report?</strong> What do we
+state as fact, what do we state as still under investigation, and who
+signs it?</li>
+<li><strong class="text-white">Is this incident material?</strong> Who decides, and does
+it trigger disclosure to investors, lenders or auditors?</li>
+<li><strong class="text-white">Do we approve the recovery plan</strong>, including the
+data loss it requires? Who signs off on the business continuity and
+recovery plan?</li>
+<li><strong class="text-white">What criteria must be met before we reopen
+revenue</strong> and turn customer-facing services back on?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Silent vote</h4>
+<p>Before discussion, each leader writes on a card the <strong class="text-white">three
+things that must be in the regulator report</strong> and <strong class="text-white">one
+thing that must not be</strong>. Compare the cards.</p>
+<h4 class="text-base font-bold text-white mt-4">Question bank (direct,
+then cross-check)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><strong class="text-green-400">Ask the General Counsel:</strong> Walk us through what
+goes in the report. What do we say about data we have not finished
+analyzing?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CISO: is anything
+in that report technically wrong or likely to change? Ask the CEO: are
+you comfortable signing it?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CFO:</strong> Is this material? What is the
+threshold, and who makes the materiality determination?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC: if we are
+wrong about materiality, what is the exposure? Ask the board liaison:
+does the audit committee need to be involved?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the COO:</strong> The recovery plan loses 36 hours of
+transactions. Do you approve it? Who else needs to approve it?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Chief Revenue
+Officer: can our customers live with that loss? Ask the CFO: what is the
+financial impact of reconstructing those transactions?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CISO:</strong> What must be true before you are
+comfortable reopening customer-facing services? Are you confident the
+attacker is out?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CEO: if the CISO
+says "not yet" but the business is bleeding, who wins? Who breaks the
+tie?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Revenue Officer:</strong> Two regulated
+customers want details in 24 hours, before we tell the regulator. What
+do we give them?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC: is what we
+tell customers consistent with what we will tell the
+regulator?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Risk and Insurance Manager:</strong> The entry
+point was a vendor account. Do we have a claim against the vendor, and
+does that affect what we say publicly?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC: when do we
+notify the vendor, and who does it?</em></li>
+</ul></li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Facilitator curveballs
+(optional)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The regulator asks why they learned about the incident from the
+press. What is our answer?</li>
+<li>A second regulator in another jurisdiction contacts you with a
+72-hour deadline. Who tracks every reporting obligation and
+deadline?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What good looks like (for
+observers)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The report distinguishes clearly between confirmed facts and
+facts still under investigation, and commits to supplemental
+updates.</li>
+<li>One person owns the inventory of all reporting deadlines across
+regulators, customers, insurers and investors.</li>
+<li>Materiality is assessed by a defined group with a documented
+rationale, not decided informally.</li>
+<li>Recovery plan approval, including accepted data loss, is a
+documented business decision with a named approver.</li>
+<li>Reopening criteria are agreed between security and the business
+before the pressure to reopen peaks.</li>
+</ul>
+</div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="debrief">11. Debrief</h2>
+<p>Allow at least 18 minutes. The debrief is the most valuable part of
+the exercise. Keep the no-fault tone: findings are about plans and
+decision rights, not people.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">How to run it</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Go around the room first.</strong> Ask each leader for
+one answer to each core question before opening the floor. Start with
+the most junior leader and finish with the CEO.</li>
+<li><strong class="text-white">Revisit the silent votes.</strong> Show the spread of
+answers from the cards. Ask: "We were split on this. What would it take
+to agree before a real event?"</li>
+<li><strong class="text-white">Name the owner for every gap.</strong> Every gap
+identified leaves the room with an owner and a target date.</li>
+<li><strong class="text-white">Capture straight into the playbook.</strong> The scribe
+maps each decision to the Crisis Decision Playbook template during the
+debrief.</li>
+</ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">The three core questions</h3>
+<h4 class="text-base font-bold text-white mt-4">1. What decisions did we
+struggle with?</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Which decision took the longest, or never got made?</li>
+<li>Where did two leaders believe they owned the same decision, or
+where did nobody believe they owned it?</li>
+<li>Which decision would you make differently now that you have heard
+the discussion?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">2. What information
+did we need but didn't have?</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>What did you need to know to make your decision, and who should
+have been able to tell you?</li>
+<li>Was the information available somewhere in the organization but
+not in the room?</li>
+<li>What did we assume that we have not actually verified (for
+example insurance coverage, backup integrity, contract terms)?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">3. What should we
+formalize before a real event?</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Which decisions need a pre-agreed owner, alternate and approval
+path?</li>
+<li>Which thresholds should we set now (for example revenue shutdown
+limits, ransom position, reopening criteria)?</li>
+<li>What pre-approved relationships do we need in place (outside
+counsel, forensics, negotiator, PR firm, insurer contacts)?</li>
+</ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Additional debrief questions</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Where did we default to the most senior person</strong>
+instead of the person who owns the decision?</li>
+<li><strong class="text-white">Who was missing from the room</strong> who should have
+been part of these decisions?</li>
+<li><strong class="text-white">What would have happened if a key leader were
+unavailable</strong> for 24 hours?</li>
+<li><strong class="text-white">Where did the business and security priorities
+conflict</strong>, and how should that conflict be resolved next
+time?</li>
+<li><strong class="text-white">What is our current position on ransom?</strong> Is it
+written down, and does the board agree with it?</li>
+<li><strong class="text-white">What did we say we would communicate that we don't
+actually have a template for?</strong></li>
+<li><strong class="text-white">Which of our plans did we reference today, and which did
+nobody mention?</strong> A plan nobody remembers is not a plan.</li>
+<li><strong class="text-white">What is the single most important action</strong> we
+should take in the next 30 days?</li>
+<li><strong class="text-white">On a scale of 1 to 5, how confident are you</strong> that
+we could make these decisions in a real event? Ask each leader
+individually.</li>
+</ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Closing statement (read
+aloud)</h3>
+<div class="border-l-4 border-[#00e673] bg-black p-4 rounded-r-xl text-neutral-200">
+<p class="italic"><em>Thank you. Every gap we found today is one we will not have to
+discover during a real incident. Nothing said here will be attributed to
+individuals. We will circulate a summary of findings, the decisions we
+captured, and the draft Crisis Decision Playbook within five business
+days. Each action item will have an owner and a date.</em></p>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="after-action-outputs">12. After-Action Outputs</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">After-action summary</strong> within five business days:
+decisions made, decisions not made, gaps, and confidence
+scores.</li>
+<li><strong class="text-white">Action register:</strong> every gap with an owner, target
+date and status.</li>
+<li><strong class="text-white">Draft Crisis Decision Playbook</strong> populated with
+the decision owners, alternates and thresholds agreed today.</li>
+<li><strong class="text-white">Parking lot:</strong> technical or detailed items raised
+during the session, routed to the right team.</li>
+<li><strong class="text-white">Next exercise:</strong> schedule a follow-up session to
+validate the playbook and test any decisions left unresolved.</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="appendix-a-scribe-decision-log">Appendix A: Scribe Decision
+Log</h2>
+<p>For each decision raised during the exercise, the scribe records the
+following. Use one block per decision.</p>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Decision:</strong> what was being decided</li>
+<li><strong class="text-white">Inject:</strong> 1, 2, 3 or 4</li>
+<li><strong class="text-white">Who the room said owns it:</strong> and whether everyone
+agreed</li>
+<li><strong class="text-white">Decision made:</strong> or "not made"</li>
+<li><strong class="text-white">Who agreed / who disagreed:</strong> and the reason given
+for any disagreement</li>
+<li><strong class="text-white">Information that was missing</strong></li>
+<li><strong class="text-white">Gap or action item:</strong> with proposed owner</li>
+<li><strong class="text-white">Playbook section it belongs in</strong></li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="appendix-b-observer-checklist">Appendix B: Observer
+Checklist</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Did leaders answer individually, or did they defer to the most
+senior person?</li>
+<li>Was each core decision assigned to one named owner?</li>
+<li>Did anyone reference the business continuity plan, ransom policy
+or communication plan by name?</li>
+<li>Were insurer notification and legal counsel engaged early
+enough?</li>
+<li>Did leaders acknowledge uncertainty and set a time to revisit
+decisions?</li>
+<li>Did the conversation drift into technical detail, and how quickly
+was it redirected?</li>
+<li>Was the impersonation risk recognized and addressed with a
+concrete verification rule?</li>
+<li>Were employees, customers, regulators and media treated as
+separate audiences?</li>
+</ul>
+
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Silent vote results:</p><p>Decisions with no clear owner:</p><p>Findings and corrective actions:</p><p>Items for the Crisis Decision Playbook:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

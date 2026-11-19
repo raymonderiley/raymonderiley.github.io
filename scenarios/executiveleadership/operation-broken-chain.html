@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operation Broken Chain | Executive Decision Tabletop | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../../masterttexs.html" class="px-2 py-1 text-xs max-w-[95px] inline-block text-center leading-tight rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Exercise Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Exercise Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block mr-6">&larr; Back to Tabletop Library</a><a href="crisis-decision-playbook-supply-chain-edition-template.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block mr-6">Crisis Decision Playbook: Supply Chain Edition &rarr;</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Leadership Decision Exercise /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Operation Broken Chain: When We Become the Source of Our Customers&#x27; Incident</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">Executive &amp; Senior Leadership</div><div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">60&ndash;90 Minutes</div><div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">No-Fault</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><p class="text-neutral-400 italic">Fictional organization: Halden Systems, a SaaS provider of IT management software. Rename and adjust the company profile to match your organization before running.</p>
+
+
+<h3 class="text-lg font-bold text-green-400 mt-6">In This Exercise</h3><div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><a class="text-green-400 hover:underline" href="#this-is-a-no-fault-exercise">1. This Is a No-Fault Exercise</a></p><p><a class="text-green-400 hover:underline" href="#how-this-exercise-differs">2. How This Exercise Differs</a></p><p><a class="text-green-400 hover:underline" href="#objectives">3. Objectives</a></p><p><a class="text-green-400 hover:underline" href="#participants">4. Participants</a></p><p><a class="text-green-400 hover:underline" href="#agenda">5. Agenda</a></p><p><a class="text-green-400 hover:underline" href="#facilitator-guidance">6. Facilitator Guidance</a></p><p><a class="text-green-400 hover:underline" href="#scenario-background">7. Scenario Background</a></p><p><a class="text-green-400 hover:underline" href="#inject-1-is-it-us">8. Inject 1: Is It Us?</a></p><p><a class="text-green-400 hover:underline" href="#inject-2-the-price-of-silence">9. Inject 2: The Price of
+Silence</a></p><p><a class="text-green-400 hover:underline" href="#inject-3-trust-is-the-product">10. Inject 3: Trust Is the
+Product</a></p><p><a class="text-green-400 hover:underline" href="#inject-4-rebuild-or-patch-forward">11. Inject 4: Rebuild or
+Patch Forward</a></p><p><a class="text-green-400 hover:underline" href="#debrief">12. Debrief</a></p><p><a class="text-green-400 hover:underline" href="#after-action-outputs">13. After-Action Outputs</a></p><p><a class="text-green-400 hover:underline" href="#appendix-a-scribe-decision-log">Appendix A: Scribe Decision
+Log</a></p><p><a class="text-green-400 hover:underline" href="#appendix-b-observer-checklist">Appendix B: Observer
+Checklist</a></p><p><a class="text-green-400 hover:underline" href="crisis-decision-playbook-supply-chain-edition-template.html">Crisis Decision Playbook: Supply Chain Edition Template</a></p></div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="this-is-a-no-fault-exercise">1. This Is a No-Fault Exercise</h2>
+<p>Read this section aloud at the start of the session.</p>
+<div class="border-l-4 border-[#00e673] bg-black p-4 rounded-r-xl text-neutral-200">
+<p class="italic"><em>This is a no-fault exercise. Nobody is being tested and nobody is
+being graded. Today's scenario is uncomfortable on purpose: in it, our
+own product is the reason our customers are under attack. We want your
+honest instincts, including the ones that put the company first and the
+ones that put customers first, because the tension between those two is
+exactly what we are here to examine. If you don't know who owns a
+decision, say so. That answer is a finding about our plans, not about
+you. Nothing said in this room will be attributed to an individual in
+the written report.</em></p>
+</div>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Findings are recorded against <strong class="text-white">plans, decision rights and
+gaps</strong>, never against individuals.</li>
+<li>There is no single correct answer to most of today's decisions.
+<strong class="text-white">Reasoned disagreement is a useful result.</strong></li>
+<li>Answer <strong class="text-white">as yourself, in your real role</strong>, based on
+what you would actually do.</li>
+<li>Some decisions today could look different in a deposition, a
+regulator's office or a customer's boardroom. <strong class="text-white">Say what you would
+really do, then we'll talk about how it would look.</strong></li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="how-this-exercise-differs">2. How This Exercise Differs</h2>
+<p>Operation Pressure Point tested how leadership responds when the
+company is the victim. Operation Broken Chain turns that around. Here
+the company is both the victim and the source of harm: a compromised
+third-party build component has put malicious code into a routine
+software update, and the company has pushed that update to its own
+customers. Nothing is encrypted and nothing is down. The product works,
+which is the problem.</p>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">From availability to integrity.</strong> The issue is not
+getting systems back but whether anything we ship can be
+trusted.</li>
+<li><strong class="text-white">From our losses to our customers' losses.</strong>
+Customers' environments, data and regulators are now part of our
+incident.</li>
+<li><strong class="text-white">From ransom to silence.</strong> The extortion demand is
+not for decryption but for keeping quiet.</li>
+<li><strong class="text-white">From one adversary to two pressures.</strong> The
+attacker is one; a vendor that may share responsibility, but does not
+want to be named, is another.</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="objectives">3. Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Decide <strong class="text-white">how the company behaves when it is both victim and
+vector</strong>, and whether leadership leans customer-first or
+company-first, deliberately or by default.</li>
+<li>Confirm <strong class="text-white">who has authority to disable our own
+product</strong> in customer environments, and the threshold for doing
+so.</li>
+<li>Test <strong class="text-white">whether and when we notify customers before the
+facts are confirmed</strong>, weighing duty of care against legal
+exposure.</li>
+<li>Surface each leader's position on <strong class="text-white">pure data
+extortion</strong>: paying for silence when nothing is
+encrypted.</li>
+<li>Define our <strong class="text-white">posture toward a third-party vendor</strong>
+that contributed to the incident: partner, adversary or both, and who
+decides.</li>
+<li>Establish <strong class="text-white">how customers can tell a genuine company
+message from an attacker's</strong>, when the attacker is impersonating
+us to them.</li>
+<li>Agree <strong class="text-white">what "safe again" means</strong>, who certifies it,
+and what we are willing to attest to customers and their
+regulators.</li>
+<li>Capture outputs for the <strong class="text-white">Crisis Decision Playbook: Supply
+Chain and Customer-Impact Edition</strong> (separate template).</li>
+</ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Decisions This Exercise
+Forces</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Inject 1, Is It Us?</strong> Do we disable our own
+product in every customer environment, and do we tell customers now or
+once we are sure? Also covers who leads the crisis team, escalation and
+making decisions without complete information.</li>
+<li><strong class="text-white">Inject 2, The Price of Silence.</strong> An extortion
+group demands $750,000 in Monero not to publish our source code and a
+list of exposed customers. Also covers extortion governance, insurer
+involvement, counsel selection, and a vendor asking us not to name
+them.</li>
+<li><strong class="text-white">Inject 3, Trust Is the Product.</strong> Attackers
+impersonate our security team and our CEO to customers. Also covers who
+speaks publicly, how customers verify us, reputational damage, and
+whether we pay for customers' remediation.</li>
+<li><strong class="text-white">Inject 4, Rebuild or Patch Forward.</strong> A fast fix
+versus a full rebuild, while customers' regulators demand attestations
+from us. Also covers recovery plan approval, disclosure and materiality,
+and who certifies the product as safe.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Additional decisions
+added to the mix</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Kill switch authority:</strong> who can turn off our
+product inside a customer's environment, and when?</li>
+<li><strong class="text-white">Customer triage:</strong> which customers do we help
+first when we cannot help everyone at once (hospitals, banks, largest
+accounts)?</li>
+<li><strong class="text-white">Customer remediation funding:</strong> do we pay for
+customers' incident response, and is that an admission of
+liability?</li>
+<li><strong class="text-white">Vendor posture:</strong> do we name the vendor publicly,
+pursue legal action, or keep working with them to get the
+facts?</li>
+<li><strong class="text-white">Pausing sales and releases:</strong> do we stop selling,
+stop all releases, or stop marketing while the incident is
+open?</li>
+<li><strong class="text-white">Trading blackout:</strong> do we close the insider
+trading window for leaders and employees with knowledge of the
+incident?</li>
+<li><strong class="text-white">Attestation:</strong> who signs a statement to a
+customer's regulator that our product is safe, and what evidence do they
+need?</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="participants">4. Participants</h2>
+<h4 class="text-base font-bold text-white mt-4">Players</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Chief Executive Officer (CEO)</li>
+<li>Chief Financial Officer (CFO)</li>
+<li>Chief Operating Officer (COO)</li>
+<li>General Counsel (GC) / Chief Legal Officer</li>
+<li>Chief Information Security Officer (CISO)</li>
+<li>Chief Product Officer or Chief Technology Officer (owns the
+product and release pipeline)</li>
+<li>Chief Customer Officer or Head of Customer Success</li>
+<li>Chief Communications Officer or VP of Communications</li>
+<li>Head of Third-Party Risk or Procurement (owns the vendor
+relationship)</li>
+<li>Chief Risk Officer or Risk and Insurance Manager</li>
+<li>Board liaison or Corporate Secretary (optional)</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Exercise staff</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Lead facilitator:</strong> runs the clock, delivers
+injects, directs questions to individuals.</li>
+<li><strong class="text-white">Customer voice (optional but recommended):</strong> a
+staff member who plays the CIO of an affected hospital customer and
+"calls in" during Injects 1 and 3.</li>
+<li><strong class="text-white">Scribe:</strong> records every decision, its owner, who
+agreed, who disagreed and every "we don't know."</li>
+<li><strong class="text-white">Observer(s):</strong> watch for decision-rights
+confusion, customer-first versus company-first patterns, and
+groupthink.</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="agenda">5. Agenda</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Standard 90-minute run</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">0:00 to 0:10</strong> — <span>welcome, no-fault statement, how
+this exercise differs, scenario background</span></p><p><strong class="text-white">0:10 to 0:26</strong> — <span>Inject 1, Is It Us?</span></p><p><strong class="text-white">0:26 to 0:42</strong> — <span>Inject 2, The Price of
+Silence</span></p><p><strong class="text-white">0:42 to 0:57</strong> — <span>Inject 3, Trust Is the
+Product</span></p><p><strong class="text-white">0:57 to 1:12</strong> — <span>Inject 4, Rebuild or Patch
+Forward</span></p><p><strong class="text-white">1:12 to 1:30</strong> — <span>debrief and playbook
+capture</span></p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">Compressed 60-minute run</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">0:00 to 0:05</strong> — <span>welcome and no-fault statement
+(send the background as a pre-read)</span></p><p><strong class="text-white">0:05 to 0:18</strong> — <span>Inject 1</span></p><p><strong class="text-white">0:18 to 0:30</strong> — <span>Inject 3 (fold the extortion
+demand from Inject 2 in as a curveball)</span></p><p><strong class="text-white">0:30 to 0:42</strong> — <span>Inject 4</span></p><p><strong class="text-white">0:42 to 0:60</strong> — <span>debrief and playbook
+capture</span></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="facilitator-guidance">6. Facilitator Guidance</h2>
+<p>The same rule applies as in every exercise in this series: individual
+answers first, then the cross-check. The facilitator chooses which
+questions to ask; the question bank in each inject is a menu, not a
+script.</p>
+<h4 class="text-base font-bold text-white mt-4">The core technique:
+direct, then cross-check</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Direct each question to one named leader</strong> and let
+them answer fully before anyone else speaks.</li>
+<li><strong class="text-white">Cross-check with a second leader,</strong> usually the
+CEO or the leader whose function pays the price of the
+decision.</li>
+<li><strong class="text-white">Invite the dissent:</strong> ask a third leader what
+concerns them about what they just heard.</li>
+<li><strong class="text-white">The CEO speaks last</strong> on the core
+decisions.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Techniques specific to
+this scenario</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Silent vote.</strong> Use index cards before the core
+decisions in Injects 1, 2 and 4. Read them aloud anonymously, then
+discuss the spread.</li>
+<li><strong class="text-white">The customer in the room.</strong> Have the customer
+voice call in as the CIO of a hospital customer. Ask the leader who owns
+the relationship to respond live, in front of the room.</li>
+<li><strong class="text-white">The deposition test.</strong> After a decision, ask the
+GC: "If this decision were read aloud in a deposition a year from now,
+how would it sound?" Then ask the Chief Customer Officer: "How would it
+sound to the customer?"</li>
+<li><strong class="text-white">Company-first or customer-first.</strong> At the end of
+each inject, ask the observer to say which way the room leaned. Ask the
+CEO whether that was deliberate.</li>
+<li><strong class="text-white">The empty chair.</strong> At least once, make the Chief
+Product Officer unreachable. Who decides on the kill switch?</li>
+<li><strong class="text-white">Hold the line on details.</strong> Redirect technical
+debate: "Assume engineering is handling it. What do you need to
+decide?"</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="scenario-background">7. Scenario Background</h2>
+<p>Read aloud or send as a pre-read.</p>
+<p>Halden Systems sells a cloud-based IT management platform to about
+900 business customers, including regional banks, credit unions,
+healthcare clinics and hospitals, manufacturers and local governments.
+Customers install the Halden agent on their servers and laptops, about
+310,000 devices in total. The agent patches software, monitors device
+health and runs scripts the customer's IT team schedules, so it runs
+with high privileges inside every customer environment. Updates to the
+agent are pushed automatically unless a customer opts out. Halden's
+subscription revenue is roughly $95M a year.</p>
+<p>On Friday at 11:00 p.m., Halden released agent version 8.4.2, a
+routine maintenance update. By Saturday morning it had reached about 70%
+of customer devices. Halden's build pipeline uses a third-party
+component from ForgeLine, a vendor that provides build and code-signing
+tooling to hundreds of software companies.</p>
+<p>It is Monday at 7:15 a.m. The security team at one of Halden's
+largest customers, a regional bank, has called to report that the Halden
+agent on their servers is making outbound connections to a domain nobody
+recognizes. Halden's security team has looked overnight and confirms
+that version 8.4.2 contains code Halden did not write. You have been
+called into an emergency meeting.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="inject-1-is-it-us">8. Inject 1: Is It Us?</h2><div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<p class="font-mono text-xs text-neutral-500"><strong class="text-neutral-300">Time in scenario:</strong> Monday, 9:30 a.m. (about 2 hours
+after the customer's call) | <strong class="text-neutral-300">Facilitation time:</strong> 16
+minutes</p>
+<h4 class="text-base font-bold text-white mt-4">Situation (read aloud)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Version 8.4.2 contains a hidden component that can receive
+commands from an outside server. Security cannot yet say what commands
+have been sent or to how many customers.</li>
+<li>Early evidence points to the ForgeLine build component, but this
+is not confirmed. ForgeLine has not responded to two calls.</li>
+<li>Engineering can push an <strong class="text-white">emergency command that disables
+the Halden agent on every customer device</strong> within an hour. It
+would stop the malicious code, and it would also stop patching,
+monitoring and scheduled scripts for every customer, including hospitals
+that use Halden to manage clinical workstations.</li>
+<li>A second option is to <strong class="text-white">revoke Halden's code-signing
+certificate</strong>, which blocks the bad version but also breaks every
+older version of the agent.</li>
+<li>Three other customers have opened tickets about unusual outbound
+traffic. Nobody has told customers anything yet.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What you know and what you
+don't</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Known:</strong> our update contains malicious code, it is
+installed on roughly 217,000 customer devices, and we can switch the
+agent off.</li>
+<li><strong class="text-white">Unknown:</strong> what the attacker has done with the
+access, whether older versions are affected, whether ForgeLine is the
+source, and what disabling the agent will break for customers.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Decisions to force</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Do we disable our own product in every customer
+environment now?</strong> Who has the authority to pull that
+trigger?</li>
+<li><strong class="text-white">Do we tell customers now,</strong> before we know what
+happened, or wait until we have facts?</li>
+<li><strong class="text-white">Who leads the crisis management team</strong> when the
+incident is happening inside our customers' environments, not
+ours?</li>
+<li><strong class="text-white">What is the escalation path:</strong> board, insurer,
+outside counsel, ForgeLine, law enforcement?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Silent vote</h4>
+<p>Before discussion, each leader writes on a card: <strong class="text-white">Disable now
+/ Disable after notifying customers / Don't disable yet</strong>, and
+<strong class="text-white">Notify customers now / Notify when we know more</strong>.</p>
+<h4 class="text-base font-bold text-white mt-4">Question bank (direct,
+then cross-check)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Product Officer:</strong> You can switch
+off our product across 310,000 devices in an hour. Is that your call to
+make? What breaks for customers if you do?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CEO: would you
+overrule a decision to disable? Would you overrule a decision not
+to?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CISO:</strong> Every hour the agent stays on, the
+attacker has privileged access to our customers' systems. How long can
+we wait for better information?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Chief Customer
+Officer: what does a hospital customer lose if the agent goes dark
+without warning?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the General Counsel:</strong> If we tell customers
+now and some of what we say turns out to be wrong, what is our exposure?
+If we wait and they find out we knew, what is it then?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CEO: which of
+those two risks are you more willing to carry?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Customer Officer:</strong> A hospital CIO
+is on the phone and wants to know if they are safe. What do you say,
+right now?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC whether they
+would approve that answer, and the Chief Communications Officer whether
+it would survive being forwarded to a reporter.</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CEO:</strong> Who runs this incident? The CISO,
+because it is a security event; the Chief Product Officer, because it is
+our product; or someone else?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask each leader to name
+the crisis lead on a card without discussion. Record the
+spread.</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Head of Third-Party Risk:</strong> ForgeLine
+isn't answering. What does our contract with them say about incident
+notification and cooperation, and who on our side owns that relationship
+today?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC: do we go
+through their executive team, their lawyers or both?</em></li>
+</ul></li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Facilitator curveballs
+(optional)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Customer voice: "This is the CIO at Riverside Health. Our nurses
+use workstations your agent manages. If you switch it off, will our
+clinical systems keep working?"</li>
+<li>The Chief Product Officer is on a plane for the next four hours.
+Who authorizes the kill switch?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What good looks like (for
+observers)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>A named leader with clear authority to disable the product, and a
+named alternate.</li>
+<li>The decision to disable, or not, is made explicitly and weighs
+harm to customers on both sides, not only harm to the company.</li>
+<li>Customers are told something early, even if it is only what we
+know, what we don't, and when we'll update them.</li>
+<li>The crisis lead is named and is not also the person running the
+technical response.</li>
+</ul>
+</div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="inject-2-the-price-of-silence">9. Inject 2: The Price of
+Silence</h2><div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<p class="font-mono text-xs text-neutral-500"><strong class="text-neutral-300">Time in scenario:</strong> Tuesday, 11:00 a.m. (about 28
+hours in) | <strong class="text-neutral-300">Facilitation time:</strong> 16 minutes</p>
+<h4 class="text-base font-bold text-white mt-4">Situation (read aloud)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The agent was disabled at 1:00 p.m. Monday. Customers were sent a
+short advisory at 3:00 p.m. Monday.</li>
+<li>An extortion group has posted on a criminal forum claiming it
+holds <strong class="text-white">Halden's full source code and a list of every customer
+still running 8.4.2</strong>, with instructions for exploiting them. It
+demands <strong class="text-white">$750,000 in Monero within 48 hours</strong>, or it will
+publish everything. Nothing has been encrypted; this is purely a demand
+for silence.</li>
+<li>Security confirms the customer list sample is genuine. About 60
+customers have devices the kill switch did not reach because they were
+offline.</li>
+<li><strong class="text-white">ForgeLine's General Counsel</strong> has sent a letter:
+they deny responsibility, say their own investigation is ongoing, and
+ask Halden not to name ForgeLine publicly while it continues.</li>
+<li>The insurer has been notified. The policy includes a
+<strong class="text-white">$500,000 cyber extortion sublimit</strong>. The insurer wants
+Halden to use its panel law firm and says publicly naming ForgeLine
+could complicate recovering costs from them later.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What you know and what you
+don't</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Known:</strong> the demand, the deadline, that the
+customer list is real, that about 60 customers are still
+exposed.</li>
+<li><strong class="text-white">Unknown:</strong> whether the group really has the source
+code, whether it is connected to the original attacker, whether paying
+would stop publication, and whether the group is a sanctioned
+party.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Decisions to force</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Do we pay for silence</strong> when nothing is encrypted
+and paying cannot undo the compromise?</li>
+<li><strong class="text-white">If we pay, on what terms?</strong> A single controlled
+channel through a professional negotiator? Would we pay in Monero, or
+insist on a currency that can be traced and screened?</li>
+<li><strong class="text-white">Do we name ForgeLine</strong> publicly, keep quiet as
+they ask, or say nothing either way? Who decides?</li>
+<li><strong class="text-white">Whose counsel do we use:</strong> the insurer's panel
+firm, our own outside counsel, or both?</li>
+<li><strong class="text-white">What do we do for the 60 customers who are still
+exposed</strong> before the deadline?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Silent vote</h4>
+<p>Each leader writes on a card: <strong class="text-white">Pay / Don't pay / Need more
+information</strong>, and <strong class="text-white">Name ForgeLine / Don't name
+ForgeLine</strong>.</p>
+<h4 class="text-base font-bold text-white mt-4">Question bank (direct,
+then cross-check)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CEO:</strong> In Operation Pressure Point the
+ransom bought a decryption key. Here it buys only a promise not to
+publish. Does that change your answer?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CFO and the CISO
+separately whether they agree. Record both answers.</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CISO:</strong> If the customer list is published,
+what happens to the 60 exposed customers? Can we protect them before the
+deadline without paying?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Chief Customer
+Officer: have we called those 60 customers personally? Who
+should?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the General Counsel:</strong> The demand is in
+Monero, which is designed to be hard to trace. How do we screen the
+recipient against sanctions lists, and could we legally pay at all?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Risk and Insurance
+Manager: will the insurer reimburse a payment we can't
+screen?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Risk and Insurance Manager:</strong> The insurer
+wants its panel firm and wants us quiet about ForgeLine. Whose interests
+does that serve, ours or theirs?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC: do we accept
+the panel firm, keep our own counsel, or both? Who makes that
+call?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Communications Officer:</strong> ForgeLine
+asks us not to name them. Our customers want to know how this happened.
+What do we say about the cause?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Head of
+Third-Party Risk: if we name them, can we still get the cooperation we
+need from them? Ask the CEO to decide.</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CFO:</strong> The extortion sublimit is $500,000
+and the demand is $750,000. If we pay, where does the other $250,000
+come from, and who approves it?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the board liaison:
+does the board expect to approve any extortion payment, regardless of
+amount?</em></li>
+</ul></li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Facilitator curveballs
+(optional)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The group publishes a 10-customer sample early to prove it is
+serious. Two of those customers are banks.</li>
+<li>A customer's general counsel emails asking whether Halden intends
+to pay, and says their board will "draw conclusions" from the
+answer.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What good looks like (for
+observers)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Leaders separate the extortion decision from the duty to protect
+exposed customers. Protecting customers starts regardless of the
+decision on payment.</li>
+<li>Sanctions screening, insurer requirements and board approval are
+treated as conditions of any payment.</li>
+<li>The decision about naming the vendor has a named owner and weighs
+customer transparency, legal recovery and investigative
+cooperation.</li>
+<li>The choice of counsel is deliberate and protects the company's
+privilege and interests, not only the insurer's.</li>
+</ul>
+</div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="inject-3-trust-is-the-product">10. Inject 3: Trust Is the
+Product</h2><div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<p class="font-mono text-xs text-neutral-500"><strong class="text-neutral-300">Time in scenario:</strong> Wednesday, 2:00 p.m. (about 55
+hours in) | <strong class="text-neutral-300">Facilitation time:</strong> 15 minutes</p>
+<h4 class="text-base font-bold text-white mt-4">Situation (read aloud)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Customers have received emails from "Halden Security Response"
+containing a <strong class="text-white">remediation tool to clean up 8.4.2</strong>. Halden
+did not send them. The tool is malware. Two customers have already run
+it.</li>
+<li>A short video of <strong class="text-white">Halden's CEO</strong> is circulating on
+social media, saying the problem is fully fixed and customers can turn
+the agent back on. The CEO never recorded it.</li>
+<li>A national technology publication is running a story at 6:00 p.m.
+and wants comment. A trade journal for community banks is asking
+separately.</li>
+<li>A competitor is emailing Halden customers offering free migration
+and six months at no cost.</li>
+<li>The CIO of Riverside Health has posted publicly that Halden "left
+hospitals blind for two days without a phone call."</li>
+<li>Customer Success has a list of 140 customers asking whether
+Halden will pay for their own incident response costs.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What you know and what you
+don't</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Known:</strong> someone is impersonating our security
+team and our CEO to our customers, the media is about to publish, and
+customers want compensation.</li>
+<li><strong class="text-white">Unknown:</strong> how many customers received the fake
+email, whether the impersonators are the original attacker, and how many
+customers are considering leaving.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Decisions to force</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Who speaks publicly</strong> for Halden, and what do they
+say by 6:00 p.m.?</li>
+<li><strong class="text-white">How does a customer know a message is really from
+us</strong> when the attacker is copying our name, our security team and
+our CEO?</li>
+<li><strong class="text-white">Do we pay for customers' incident response
+costs,</strong> offer credits, or neither? Is an offer an admission of
+liability?</li>
+<li><strong class="text-white">How do we respond to public criticism</strong> from a
+customer, and to a competitor targeting our customers?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Question bank (direct,
+then cross-check)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Communications Officer:</strong> Who is our
+spokesperson today? Is it the CEO, the CISO or you? What is the one
+sentence we give the publication by 6:00 p.m.?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CEO whether you
+agree you should or should not be the face of this. Ask the GC whether
+you would approve that sentence.</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CISO:</strong> The attacker is sending tools in
+our name. What single, simple rule can we give every customer so they
+can tell a real message from a fake one?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Chief Customer
+Officer: can every customer success manager explain that rule today? Ask
+the Communications Officer: how do we get it to customers through a
+channel the attacker can't fake?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CEO:</strong> A video of you is telling customers
+the problem is fixed. What do you personally do in the next hour?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Chief
+Communications Officer: do we respond to the fake video publicly, or
+would that spread it further?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CFO:</strong> 140 customers want us to pay for
+their incident response. What would that cost, and who has authority to
+say yes?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC: is paying an
+admission of liability? Ask the Chief Customer Officer: what happens to
+retention if we say no?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Customer Officer:</strong> Riverside
+Health's CIO is criticizing us publicly. Who calls them, and what do we
+offer?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CEO: should that
+call come from you?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Operating Officer:</strong> A competitor is
+offering our customers free migration. Do we pause sales and marketing
+while this is open? Do we respond to the competitor at all?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CFO: what does a
+pause cost us this quarter?</em></li>
+</ul></li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Facilitator curveballs
+(optional)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Customer voice: "Your account manager just called offering us a
+discount. We don't want a discount. We want to know if our patient data
+was touched."</li>
+<li>An employee posts on a public forum that leadership "knew about
+the ForgeLine problem weeks ago." It isn't true, but it is
+spreading.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What good looks like (for
+observers)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>One spokesperson and one approval path, with legal review built
+in.</li>
+<li>A single customer verification rule, for example: we will never
+send a tool by email, and every advisory is posted on one official
+status page.</li>
+<li>The compensation decision has a named owner, a defined budget
+limit and legal input on how it is framed.</li>
+<li>Affected customers are treated as partners in recovery, not only
+as a retention risk.</li>
+</ul>
+</div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="inject-4-rebuild-or-patch-forward">11. Inject 4: Rebuild or
+Patch Forward</h2><div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<p class="font-mono text-xs text-neutral-500"><strong class="text-neutral-300">Time in scenario:</strong> Thursday, 9:00 a.m. (about 74
+hours in) | <strong class="text-neutral-300">Facilitation time:</strong> 15 minutes</p>
+<h4 class="text-base font-bold text-white mt-4">Situation (read aloud)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Engineering presents two recovery options:</li>
+<li><strong class="text-white">Patch forward:</strong> a clean version 8.4.3 in two
+days, built on the existing pipeline after it is cleaned and the
+ForgeLine component is removed. Engineering's confidence is moderate.
+Customers turn the agent back on automatically.</li>
+<li><strong class="text-white">Rebuild:</strong> a new build pipeline, new code-signing
+keys and a full code review, ready in 12 days. Customers must reinstall
+the agent manually on about 310,000 devices. Engineering's confidence is
+high.</li>
+<li>Two banking customers say their regulators, as part of
+third-party risk oversight, have asked for a <strong class="text-white">written attestation
+from Halden</strong> that the product is safe, within five business
+days.</li>
+<li>Forensics now shows the attacker used the agent to <strong class="text-white">copy
+files from 41 customer environments</strong>, including some personal
+data. Several customers face their own 72-hour regulatory notification
+clocks and want Halden's facts today.</li>
+<li>The CFO estimates customer credits, lost renewals and response
+costs could reach $14M, about 15% of annual revenue. The board chair has
+requested a special meeting.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What you know and what you
+don't</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Known:</strong> the two recovery options, the attestation
+request, that data was copied from 41 customers, the estimated financial
+impact.</li>
+<li><strong class="text-white">Unknown:</strong> whether older versions of the agent are
+clean, whether the patch-forward pipeline is fully trustworthy, and how
+many customers will leave.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Decisions to force</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Do we approve patch forward or rebuild?</strong> Who
+signs off on the recovery plan and the risk it carries?</li>
+<li><strong class="text-white">Who certifies that our product is safe,</strong> and what
+evidence must they see before they sign an attestation to a customer's
+regulator?</li>
+<li><strong class="text-white">What do we give the 41 customers</strong> whose data was
+copied, so they can meet their own regulatory deadlines?</li>
+<li><strong class="text-white">Is this material?</strong> What does the board need to
+hear, and does this trigger disclosure to investors or lenders?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Silent vote</h4>
+<p>Each leader writes on a card: <strong class="text-white">Patch forward /
+Rebuild</strong>, and the <strong class="text-white">name of the person who should sign the
+attestation</strong>.</p>
+<h4 class="text-base font-bold text-white mt-4">Question bank (direct,
+then cross-check)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Product Officer:</strong> Patch forward or
+rebuild? If you choose patch forward and it turns out the pipeline
+wasn't clean, what happens?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CISO: would you
+put your name on the patch-forward option? Ask the Chief Customer
+Officer: can customers absorb a 12-day wait and a manual
+reinstall?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CEO:</strong> Who signs the attestation to the
+customers' regulators: you, the CISO or the Chief Product Officer? What
+would you need to see before signing it yourself?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC: what wording
+would you approve, and what must it never say?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the General Counsel:</strong> Forty-one customers
+need facts for their own regulators within 72 hours. What do we give
+them, and how do we keep it consistent with what we tell everyone
+else?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CISO: what can we
+state as confirmed today, and what is still under
+investigation?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CFO:</strong> Is $14M material? Who makes that
+determination, and when does the board need it?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the board liaison:
+what decision does the board want to make at the special meeting, and
+what does it want management to decide without it?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the COO:</strong> When customers turn the agent back
+on, which ones go first? Do hospitals and banks get priority, or our
+largest accounts?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Chief Customer
+Officer and the CFO separately. Do their answers match?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Head of Third-Party Risk:</strong> ForgeLine's
+component is in our pipeline. What other third-party components could do
+the same thing, and who knew they were there?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CEO: does this
+change what we require from vendors, and who owns that
+change?</em></li>
+</ul></li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Facilitator curveballs
+(optional)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>ForgeLine announces publicly that it was breached and that "a
+small number of software customers" were affected. It does not name
+Halden. Does that change our disclosure?</li>
+<li>A major customer says it will stay only if Halden chooses the
+rebuild option and pays for an independent code review.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What good looks like (for
+observers)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The recovery choice is a documented business decision with a
+named approver who accepts the risk explicitly.</li>
+<li>The attestation is signed by someone with the authority and the
+evidence to sign it, and its wording separates confirmed facts from
+ongoing investigation.</li>
+<li>The company supports customers' own regulatory deadlines with
+consistent facts.</li>
+<li>Materiality is assessed by a defined group with a documented
+rationale, and the board's role is clear.</li>
+</ul>
+</div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="debrief">12. Debrief</h2>
+<p>Allow at least 18 minutes. Keep the no-fault tone. This scenario
+raises harder questions about responsibility than a ransomware exercise,
+so remind the room that findings are about plans and decision rights,
+not individuals.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">How to run it</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Go around the room first,</strong> starting with the most
+junior leader and finishing with the CEO.</li>
+<li><strong class="text-white">Revisit the silent votes,</strong> especially kill
+switch, pay for silence, and patch forward versus rebuild.</li>
+<li><strong class="text-green-400">Ask the observer to report</strong> whether the room
+leaned customer-first or company-first in each inject.</li>
+<li><strong class="text-white">Name an owner and date for every gap,</strong> and map
+each decision into the playbook as it is captured.</li>
+</ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">The three core questions</h3>
+<h4 class="text-base font-bold text-white mt-4">1. What decisions did we
+struggle with?</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Which decision took longest, or was never made?</li>
+<li>Where did two leaders believe they owned the same decision, such
+as the kill switch or the attestation?</li>
+<li>Where did our duty to customers and our need to protect the
+company pull in different directions, and how did we resolve
+it?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">2. What information
+did we need but didn't have?</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Did we know which customers depend on our product for
+safety-critical or regulated work?</li>
+<li>Did we know what our vendor contracts require of ForgeLine, and
+of us, during an incident?</li>
+<li>Did we know what our insurance covers for extortion, customer
+claims and dependent business interruption?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">3. What should we
+formalize before a real event?</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Who can disable our product in customer environments, and under
+what conditions?</li>
+<li>Our threshold for telling customers before the facts are
+confirmed.</li>
+<li>Our position on paying for silence, and how we would protect
+customers regardless.</li>
+<li>How customers verify official Halden communications.</li>
+</ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Additional
+debrief questions for this scenario</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Were we customer-first or company-first?</strong> Was
+that a deliberate choice, and would we make the same choice
+again?</li>
+<li><strong class="text-white">How did the vendor's role change our decisions?</strong>
+Did it make us slower, more cautious or more defensive?</li>
+<li><strong class="text-white">What would our most affected customer say</strong> about
+how we treated them in the first 24 hours?</li>
+<li><strong class="text-white">Which commitments did we make to customers</strong> that
+we may not be able to keep?</li>
+<li><strong class="text-white">Who certified the product as safe,</strong> and on what
+evidence? Would that person sign again?</li>
+<li><strong class="text-white">Which third parties in our own supply chain</strong>
+could put us in this position tomorrow, and does anyone own that
+list?</li>
+<li><strong class="text-white">Where did fear of liability delay a decision</strong>
+that customers needed us to make?</li>
+<li><strong class="text-white">On a scale of 1 to 5, how confident are you</strong> that
+we could handle an incident where we are the source of harm? Ask each
+leader individually.</li>
+<li><strong class="text-white">What is the single most important action</strong> we
+should take in the next 30 days?</li>
+</ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Closing statement (read
+aloud)</h3>
+<div class="border-l-4 border-[#00e673] bg-black p-4 rounded-r-xl text-neutral-200">
+<p class="italic"><em>Thank you. Today we looked at the hardest kind of incident for a
+software company: one where our customers are harmed through something
+we sent them. Every gap we found is one we won't have to discover in a
+real event. Nothing said here will be attributed to individuals. We will
+circulate a summary of findings, the decisions we captured and the draft
+supply chain edition of the Crisis Decision Playbook within five
+business days, with an owner and a date for every action.</em></p>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="after-action-outputs">13. After-Action Outputs</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">After-action summary</strong> within five business days:
+decisions made, decisions not made, customer-first versus company-first
+observations, and confidence scores.</li>
+<li><strong class="text-white">Action register:</strong> every gap with an owner, target
+date and status.</li>
+<li><strong class="text-white">Draft Crisis Decision Playbook (Supply Chain and
+Customer-Impact Edition)</strong> populated with the owners, thresholds
+and verification rules agreed today.</li>
+<li><strong class="text-white">Third-party dependency follow-up:</strong> a list of
+critical build and delivery vendors, with owners, for review by
+third-party risk.</li>
+<li><strong class="text-white">Parking lot:</strong> technical items raised during the
+session, routed to the right team.</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="appendix-a-scribe-decision-log">Appendix A: Scribe Decision
+Log</h2>
+<p>Use one block per decision.</p>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Decision:</strong> what was being decided</li>
+<li><strong class="text-white">Inject:</strong> 1, 2, 3 or 4</li>
+<li><strong class="text-white">Who the room said owns it:</strong> and whether everyone
+agreed</li>
+<li><strong class="text-white">Decision made:</strong> or "not made"</li>
+<li><strong class="text-white">Customer-first or company-first:</strong> the observer's
+view</li>
+<li><strong class="text-white">Who agreed / who disagreed:</strong> and the reason
+given</li>
+<li><strong class="text-white">Information that was missing</strong></li>
+<li><strong class="text-white">Gap or action item:</strong> with proposed owner</li>
+<li><strong class="text-white">Playbook section it belongs in</strong></li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="appendix-b-observer-checklist">Appendix B: Observer
+Checklist</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Did leaders answer individually, or defer to the most senior
+person?</li>
+<li>Was the kill switch decision owned by one named leader?</li>
+<li>Did leaders weigh harm to customers on both sides of each
+decision?</li>
+<li>Were customers told something early, even with incomplete
+facts?</li>
+<li>Was the vendor's role handled deliberately, with a named
+owner?</li>
+<li>Was a concrete verification rule set for customer
+communications?</li>
+<li>Was the person who certified the product as safe also the person
+with the evidence?</li>
+<li>Did fear of liability visibly slow decisions? Where?</li>
+</ul>
+
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Silent vote results:</p><p>Decisions with no clear owner:</p><p>Findings and corrective actions:</p><p>Customer-first or company-first observations:</p><p>Items for the Supply Chain Edition playbook:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>
