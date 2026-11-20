@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operation Dark Region | Executive Decision Tabletop | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../../masterttexs.html" class="px-2 py-1 text-xs max-w-[95px] inline-block text-center leading-tight rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Exercise Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Exercise Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block mr-6">&larr; Back to Tabletop Library</a><a href="crisis-decision-playbook-extended-outage-concentration-risk-edition-template.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block mr-6">Crisis Decision Playbook: Extended Outage Edition &rarr;</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Leadership Decision Exercise /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Operation Dark Region: A Multi-Day Cloud Outage With No Attacker and No ETA</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">Executive &amp; Senior Leadership</div><div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">60&ndash;90 Minutes</div><div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">No-Fault</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><p class="text-neutral-400 italic">Company profile: a SaaS e-commerce and payments platform. The exercise refers only to "the company" so it can be used with any organization. Adjust the profile details to match yours before running.</p>
+
+
+<h3 class="text-lg font-bold text-green-400 mt-6">In This Exercise</h3><div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><a class="text-green-400 hover:underline" href="#this-is-a-no-fault-exercise">1. This Is a No-Fault Exercise</a></p><p><a class="text-green-400 hover:underline" href="#how-this-exercise-differs">2. How This Exercise Differs</a></p><p><a class="text-green-400 hover:underline" href="#objectives">3. Objectives</a></p><p><a class="text-green-400 hover:underline" href="#participants">4. Participants</a></p><p><a class="text-green-400 hover:underline" href="#agenda">5. Agenda</a></p><p><a class="text-green-400 hover:underline" href="#facilitator-guidance">6. Facilitator Guidance</a></p><p><a class="text-green-400 hover:underline" href="#scenario-background">7. Scenario Background</a></p><p><a class="text-green-400 hover:underline" href="#inject-1-no-eta">8. Inject 1: No ETA</a></p><p><a class="text-green-400 hover:underline" href="#inject-2-everyone-is-leaving-at-once">9. Inject 2: Everyone Is
+Leaving at Once</a></p><p><a class="text-green-400 hover:underline" href="#inject-3-whose-fault-is-it">10. Inject 3: Whose Fault Is
+It?</a></p><p><a class="text-green-400 hover:underline" href="#inject-4-never-again">11. Inject 4: Never Again?</a></p><p><a class="text-green-400 hover:underline" href="#debrief">12. Debrief</a></p><p><a class="text-green-400 hover:underline" href="#after-action-outputs">13. After-Action Outputs</a></p><p><a class="text-green-400 hover:underline" href="#appendix-a-scribe-decision-log">Appendix A: Scribe Decision
+Log</a></p><p><a class="text-green-400 hover:underline" href="#appendix-b-observer-checklist">Appendix B: Observer
+Checklist</a></p></div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="this-is-a-no-fault-exercise">1. This Is a No-Fault Exercise</h2>
+<p>Read this section aloud at the start of the session.</p>
+<div class="border-l-4 border-[#00e673] bg-black p-4 rounded-r-xl text-neutral-200">
+<p class="italic"><em>This is a no-fault exercise. Nobody is being tested and nobody is
+being graded. There is no attacker in today's scenario. Our cloud
+provider has a long outage, and every decision we make is about waiting,
+moving or spending, without knowing when it will end. Many of the gaps
+we find today will be the result of design and investment choices made
+years ago, in good faith. They are not anyone's fault. If you don't know
+who owns a decision or what our limits are, say so. That is exactly what
+we want to find. Nothing said in this room will be attributed to an
+individual.</em></p>
+</div>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Findings are recorded against <strong class="text-white">plans, design choices and
+decision rights</strong>, never against individuals.</li>
+<li>Past architecture and budget decisions are <strong class="text-white">context, not
+blame</strong>.</li>
+<li>Answer <strong class="text-white">as yourself, in your real role</strong>, based on
+what you would actually do.</li>
+<li>Disagreement is useful. <strong class="text-white">It shows where our tolerances
+have never been agreed.</strong></li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="how-this-exercise-differs">2. How This Exercise Differs</h2>
+<p>The earlier exercises in this series had an adversary: ransomware, a
+compromised supply chain, an insider. Operation Dark Region has none. A
+major cloud provider region fails for days during the busiest week of
+the year. Nothing is stolen and nothing is encrypted. The decisions are
+about how much disruption we are willing to accept, how much data we are
+willing to lose, how we share scarce capacity, and whether we are
+prepared to change how we are built.</p>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">No adversary, no ransom, no investigation.</strong> The
+threat is time and uncertainty.</li>
+<li><strong class="text-white">The provider controls the clock.</strong> Their status
+page says "investigating" and gives no time for recovery.</li>
+<li><strong class="text-white">Recovery has a price tag.</strong> Failing over loses
+data and money; waiting loses customers and revenue.</li>
+<li><strong class="text-white">Scarcity forces choices.</strong> Everyone else on the
+same provider is trying to move at the same time.</li>
+<li><strong class="text-white">The real question comes last.</strong> Leadership must
+decide how much resilience it is willing to pay for.</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="objectives">3. Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Confirm <strong class="text-white">who has authority to fail over</strong> to our
+disaster recovery region and to accept the data loss that comes with
+it.</li>
+<li>Agree on our <strong class="text-white">impact tolerance</strong>: the longest
+outage and the most data loss we can accept for our most important
+services.</li>
+<li>Test <strong class="text-white">how leadership prioritizes customers and
+services</strong> when recovery capacity is limited, and whether those
+priorities exist in writing.</li>
+<li>Decide <strong class="text-white">when to return to normal operations</strong>
+(failback) and who accepts that risk during a peak trading
+period.</li>
+<li>Determine our <strong class="text-white">contractual and public stance</strong> when
+the outage is the provider's fault: SLA credits, force majeure and
+attribution.</li>
+<li>Test <strong class="text-white">emergency spending authority</strong> and how staff
+fatigue is managed during a multi-day event.</li>
+<li>Decide <strong class="text-white">how much concentration risk</strong> we are
+willing to carry, and whether to fund multi-region or multi-provider
+resilience.</li>
+<li>Capture outputs for the <strong class="text-white">Crisis Decision Playbook:
+Extended Outage and Concentration Risk Edition</strong> (separate
+template).</li>
+</ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Decisions This Exercise
+Forces</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Inject 1, No ETA.</strong> The provider's primary region
+is down and won't say when it will be back. Fail over now and lose data,
+or wait? Also covers business continuity plan activation, who leads,
+escalation, and communicating when it's not our fault.</li>
+<li><strong class="text-white">Inject 2, Everyone Is Leaving at Once.</strong> Disaster
+recovery capacity is scarce. Which customers and services come back
+first? Also covers emergency spend, a customer offering to pay for
+priority, impersonation of the provider and staff fatigue.</li>
+<li><strong class="text-white">Inject 3, Whose Fault Is It?</strong> The region is
+partly back on the eve of Black Friday. Fail back now or stay put? Also
+covers SLA credits, force majeure, who speaks publicly, blaming the
+provider, and regulatory reporting.</li>
+<li><strong class="text-white">Inject 4, Never Again?</strong> A week later, the board
+wants answers. Also covers impact tolerance, a $9M-a-year resilience
+investment, reconciling lost transactions, insurance and renegotiating
+the provider contract.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Additional decisions
+added to the mix</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Accepting data loss:</strong> who can approve losing up
+to 40 minutes of transactions, and how are affected customers
+told?</li>
+<li><strong class="text-white">Paid priority:</strong> do we let a large customer pay to
+be restored first?</li>
+<li><strong class="text-white">Change freeze:</strong> do we stop all non-recovery
+changes, including planned holiday releases?</li>
+<li><strong class="text-white">Staff fatigue:</strong> who can order engineers to stand
+down, even mid-recovery?</li>
+<li><strong class="text-white">Attribution:</strong> do we name the provider publicly as
+the cause?</li>
+<li><strong class="text-white">Resilience investment:</strong> what level of outage are
+we prepared to pay to avoid?</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="participants">4. Participants</h2>
+<h4 class="text-base font-bold text-white mt-4">Players</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Chief Executive Officer (CEO)</li>
+<li>Chief Financial Officer (CFO)</li>
+<li>Chief Operating Officer (COO)</li>
+<li>General Counsel (GC) / Chief Legal Officer</li>
+<li>Chief Technology Officer (CTO) or Chief Information Officer, who
+owns the platform and the cloud relationship</li>
+<li>Chief Information Security Officer (CISO)</li>
+<li>Chief Customer Officer or Head of Customer Success</li>
+<li>Chief Revenue Officer or Head of Sales</li>
+<li>Chief Communications Officer or VP of Communications</li>
+<li>Chief Human Resources Officer (CHRO), for staff fatigue and
+welfare</li>
+<li>Chief Risk Officer or Risk and Insurance Manager</li>
+<li>Board liaison (optional)</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Exercise staff</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Lead facilitator:</strong> runs the clock, delivers
+injects, directs questions to individuals.</li>
+<li><strong class="text-white">Provider voice (optional):</strong> a staff member who
+plays the cloud provider's account manager and gives only vague
+updates.</li>
+<li><strong class="text-white">Scribe:</strong> records each decision, its owner, who
+agreed and who disagreed.</li>
+<li><strong class="text-white">Observer(s):</strong> watch for decision-rights
+confusion, untested assumptions about recovery and groupthink.</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="agenda">5. Agenda</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Standard 90-minute run</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">0:00 to 0:10</strong> — <span>welcome, no-fault statement, how
+this exercise differs, scenario background</span></p><p><strong class="text-white">0:10 to 0:26</strong> — <span>Inject 1, No ETA</span></p><p><strong class="text-white">0:26 to 0:42</strong> — <span>Inject 2, Everyone Is Leaving at
+Once</span></p><p><strong class="text-white">0:42 to 0:57</strong> — <span>Inject 3, Whose Fault Is
+It?</span></p><p><strong class="text-white">0:57 to 1:12</strong> — <span>Inject 4, Never Again?</span></p><p><strong class="text-white">1:12 to 1:30</strong> — <span>debrief and playbook
+capture</span></p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">Compressed 60-minute run</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">0:00 to 0:05</strong> — <span>welcome and no-fault statement
+(send the background as a pre-read)</span></p><p><strong class="text-white">0:05 to 0:18</strong> — <span>Inject 1</span></p><p><strong class="text-white">0:18 to 0:30</strong> — <span>Inject 2</span></p><p><strong class="text-white">0:30 to 0:42</strong> — <span>Inject 4 (use the failback
+decision from Inject 3 as a curveball)</span></p><p><strong class="text-white">0:42 to 0:60</strong> — <span>debrief and playbook
+capture</span></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="facilitator-guidance">6. Facilitator Guidance</h2>
+<p>The series rule still applies: individual answers first, then the
+cross-check. Choose questions from each inject's bank; it is a menu, not
+a script.</p>
+<h4 class="text-base font-bold text-white mt-4">The core technique:
+direct, then cross-check</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Direct each question to one named leader</strong> and let
+them answer fully before anyone else speaks.</li>
+<li><strong class="text-white">Cross-check with a second leader,</strong> usually the
+CEO or the leader whose function carries the consequence.</li>
+<li><strong class="text-white">Invite the dissent:</strong> ask a third leader what
+concerns them about what they just heard.</li>
+<li><strong class="text-white">The CEO speaks last</strong> on the core
+decisions.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Techniques specific to
+this scenario</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Silent vote.</strong> Use index cards before the core
+decisions in Injects 1, 3 and 4.</li>
+<li><strong class="text-white">Write the number.</strong> Before discussing impact
+tolerance, ask every leader to write down the longest outage they
+believe our customers would tolerate. Compare the numbers.</li>
+<li><strong class="text-white">The vague provider.</strong> Have the provider voice give
+answers like "engineers are working on it" and "we expect progress
+soon." Watch whether leaders plan around hope.</li>
+<li><strong class="text-white">The clock keeps running.</strong> Announce lost revenue
+every few minutes during Inject 1 ("Another $180,000 lost").</li>
+<li><strong class="text-white">The tired engineer.</strong> In Inject 2, read a message
+from an engineer who has been working for 22 hours. Ask the CHRO and the
+CTO what happens next.</li>
+<li><strong class="text-white">Hold the line on details.</strong> Redirect technical
+debate: "Assume engineering can do it. What do you need to
+decide?"</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="scenario-background">7. Scenario Background</h2>
+<p>Read aloud or send as a pre-read.</p>
+<p>The company runs online storefronts, checkout and payment processing
+for about 3,100 retailers, from small independent shops to several
+national brands. During the holiday season, the company processes up to
+$45M in sales per day and earns a percentage of every transaction. About
+40% of its annual revenue is earned between Thanksgiving and New
+Year.</p>
+<p>The company runs on one major cloud provider. Its production platform
+sits in a single primary region. A disaster recovery region exists, with
+data copied every few minutes, but the last full failover test was 18
+months ago, and the recovery region is sized to run about 60% of normal
+traffic. The company's payment service is licensed in two countries, and
+its retailer contracts include a 99.95% availability commitment with
+service credits.</p>
+<p>It is the Tuesday before Thanksgiving, 6:10 a.m. The provider's
+primary region has suffered a major failure: a power and cooling
+incident followed by problems with the provider's own management
+systems. The company's storefronts and checkout are down for every
+retailer. The provider's status page says "investigating." You have been
+called into an emergency meeting.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="inject-1-no-eta">8. Inject 1: No ETA</h2><div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<p class="font-mono text-xs text-neutral-500"><strong class="text-neutral-300">Time in scenario:</strong> Tuesday, 9:00 a.m. (about 3 hours
+into the outage) | <strong class="text-neutral-300">Facilitation time:</strong> 16 minutes</p>
+<h4 class="text-base font-bold text-white mt-4">Situation (read aloud)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Every storefront and checkout is down. The company is losing
+about <strong class="text-white">$180,000 in fees per hour</strong>, and retailers are
+losing about $1.9M in sales per hour.</li>
+<li>The provider's account manager says engineers are "making
+progress" but will not give a recovery time. Industry chatter suggests
+it could be anywhere from hours to days.</li>
+<li>Engineering can <strong class="text-white">fail over to the disaster recovery
+region</strong> in about six hours. Because of how data is copied, up to
+<strong class="text-white">40 minutes of transactions</strong> from before the failure may
+be lost or need to be rebuilt by hand. The recovery region can carry
+only about 60% of normal traffic.</li>
+<li>The failover procedure hasn't been fully tested for 18 months.
+Engineering gives it a 75% chance of working the first time.</li>
+<li>Once we fail over, coming back to the primary region (failback)
+takes another 8 to 12 hours of planned downtime.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What you know and what you
+don't</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Known:</strong> we are fully down, we are losing money
+every hour, failover is possible but costly, and we have done it before,
+though not recently.</li>
+<li><strong class="text-white">Unknown:</strong> when the provider will recover, whether
+the failover will work first time, and exactly which transactions would
+be lost.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Decisions to force</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Do we fail over now,</strong> accepting lost transactions
+and reduced capacity, or wait for the provider?</li>
+<li><strong class="text-white">Who has the authority</strong> to make that call and to
+accept the data loss?</li>
+<li><strong class="text-white">Do we activate the business continuity plan,</strong> and
+what does that mean for retailers who can't take orders?</li>
+<li><strong class="text-white">What do we tell retailers</strong> when we don't know the
+recovery time and the cause is the provider's?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Silent vote</h4>
+<p>Each leader writes on a card: <strong class="text-white">Fail over now / Wait __ more
+hours, then fail over / Wait for the provider</strong>.</p>
+<h4 class="text-base font-bold text-white mt-4">Question bank (direct,
+then cross-check)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CTO:</strong> Six hours to fail over, a 75%
+chance it works the first time, and up to 40 minutes of lost
+transactions. Do you recommend we go? Whose decision is it?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CEO: do you agree
+it is the CTO's call? Would you overrule it?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CFO:</strong> Every hour of waiting costs
+$180,000 in fees and much more for our retailers. At what point does
+waiting become the more expensive choice?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CTO: does the cost
+of a failed failover change that math?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Customer Officer:</strong> If we fail over,
+some retailers lose orders that customers think they've already placed.
+Which is worse for retailers: more downtime, or lost orders they have to
+fix?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC: what do our
+contracts say about data loss compared with downtime?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CEO:</strong> Have we ever agreed how long we are
+willing to be down before we fail over? If not, what is the number
+today?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask each leader to write
+their number on a card. Compare the spread.</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Communications Officer:</strong> Retailers
+are calling. What do we tell them about the cause, the recovery time and
+our plan, when we don't know the recovery time?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC whether you
+would approve naming the provider as the cause in that
+message.</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the COO:</strong> Who leads the crisis team for a
+multi-day event with no attacker, and how do we run it in shifts?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CHRO: who decides
+when a leader needs to hand over and rest?</em></li>
+</ul></li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Facilitator curveballs
+(optional)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Provider voice: "We're seeing positive signs. We'd strongly
+recommend not making any big moves for the next couple of hours." Does
+that change the decision?</li>
+<li>Halfway through the failover, a database copy step fails.
+Engineering needs another four hours. Do we push on or abort?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What good looks like (for
+observers)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>A named leader with authority to fail over, and an agreed
+threshold or a decision time, rather than waiting indefinitely.</li>
+<li>Data loss is explicitly accepted by someone with the authority to
+accept it.</li>
+<li>Communication to retailers is honest about what is unknown and
+gives a time for the next update.</li>
+<li>The crisis lead plans for a multi-day event, including shifts and
+handovers.</li>
+</ul>
+</div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="inject-2-everyone-is-leaving-at-once">9. Inject 2: Everyone Is
+Leaving at Once</h2><div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<p class="font-mono text-xs text-neutral-500"><strong class="text-neutral-300">Time in scenario:</strong> Tuesday, 8:00 p.m. (about 14 hours
+in) | <strong class="text-neutral-300">Facilitation time:</strong> 16 minutes</p>
+<h4 class="text-base font-bold text-white mt-4">Situation (read aloud)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The failover was approved at 10:00 a.m. and the recovery region
+is partly running. Thousands of the provider's other customers are
+moving to the same region, and the provider is <strong class="text-white">rationing new
+computing capacity</strong>.</li>
+<li>the company can run only about <strong class="text-white">45% of normal
+traffic</strong>. Engineering needs leadership to decide <strong class="text-white">which
+retailers and which services</strong> come back first.</li>
+<li>A national retailer that makes up 9% of the company's revenue
+offers to <strong class="text-white">pay $250,000 for guaranteed priority</strong>. Several
+small retailers have posted that they will go out of business if they
+miss this weekend.</li>
+<li>The provider offers <strong class="text-white">reserved capacity for $2.1M</strong>
+for the next two weeks, with payment needed tonight. This is above any
+executive's normal spending authority.</li>
+<li>An email that appears to come from the provider's support team
+offers "priority capacity" if the company pays through a payment link.
+It is a scam.</li>
+<li>Several engineers have been working for <strong class="text-white">22 hours
+straight</strong>. One has just made an error that took a service back
+down for 30 minutes.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What you know and what you
+don't</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Known:</strong> we can run less than half our traffic,
+capacity can be bought, a large retailer wants to pay for priority, and
+the team is exhausted.</li>
+<li><strong class="text-white">Unknown:</strong> when the primary region will return,
+whether more capacity will become available without paying, and how many
+retailers will leave.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Decisions to force</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Which retailers and services come back first,</strong>
+and who decides?</li>
+<li><strong class="text-white">Do we accept paid priority</strong> from a large
+retailer?</li>
+<li><strong class="text-white">Do we spend $2.1M tonight</strong> on reserved capacity,
+and who can authorize it?</li>
+<li><strong class="text-white">Who can order engineers to stop and rest,</strong> even
+if it slows recovery?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Question bank (direct,
+then cross-check)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Revenue Officer:</strong> We can bring back
+less than half our retailers. Do we restore by revenue, by risk of going
+out of business, or by contract terms?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Chief Customer
+Officer: is that order fair? Ask the CEO: is it written down anywhere
+today?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CEO:</strong> A retailer offers $250,000 for
+priority. Do we take it?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC: does accepting
+create obligations to everyone else? Ask the Chief Communications
+Officer: how would it look if it became public?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CFO:</strong> $2.1M tonight for capacity. Can you
+approve that alone? If not, who can, and can we reach them tonight?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the board liaison:
+does the board have an emergency approval process, and has anyone ever
+used it?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CHRO:</strong> Engineers have worked 22 hours and
+one has just made a costly mistake. Who has the authority to send people
+home?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CTO: can recovery
+continue if half the team rests for 8 hours? What do you need from
+leadership?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CISO:</strong> An email offering paid priority,
+supposedly from the provider, is a scam. How does anyone in finance or
+engineering know which provider messages are real?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CFO: what stops
+someone approving a payment from that email tonight?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Customer Officer:</strong> Small retailers
+are posting that they'll close if they miss this weekend. What do we say
+to them?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CEO whether you
+would make a public commitment to small retailers.</em></li>
+</ul></li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Facilitator curveballs
+(optional)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The payments service and the storefront service are competing for
+the same capacity. Without payments, storefronts can show products but
+can't take money. Which comes first?</li>
+<li>A partner offers to host a basic checkout page for retailers for
+free on a different cloud provider, but it has never been
+security-reviewed.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What good looks like (for
+observers)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>A clear prioritization of services and retailers, decided by a
+named leader on stated principles.</li>
+<li>A deliberate position on paid priority, with legal and
+reputational implications considered.</li>
+<li>Emergency spending authority exists and can be used at night, or
+the gap is recorded.</li>
+<li>Staff welfare is treated as a recovery risk, with a named person
+who can order rest.</li>
+<li>Provider communications are verified before any payment or
+action.</li>
+</ul>
+</div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="inject-3-whose-fault-is-it">10. Inject 3: Whose Fault Is
+It?</h2><div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<p class="font-mono text-xs text-neutral-500"><strong class="text-neutral-300">Time in scenario:</strong> Thursday, Thanksgiving Day, 4:00
+p.m. (about 58 hours in) | <strong class="text-neutral-300">Facilitation time:</strong> 15
+minutes</p>
+<h4 class="text-base font-bold text-white mt-4">Situation (read aloud)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The provider says its primary region is "substantially
+recovered." The company is still in the recovery region at about 70% of
+normal capacity.</li>
+<li>Failing back to the primary region would need 8 to 12 hours of
+planned downtime, which would end <strong class="text-white">just as Black Friday
+begins</strong>. Staying in the recovery region means running at reduced
+capacity through the biggest sales weekend of the year.</li>
+<li>Retailers are demanding <strong class="text-white">service credits</strong>. Under
+the 99.95% commitment, credits could total about <strong class="text-white">$3.8M</strong>.
+The GC believes the contracts' <strong class="text-white">force majeure</strong> clause
+might excuse the company, but invoking it would anger
+retailers.</li>
+<li>A national news outlet is running a story titled "Payments
+Platform Down for Thanksgiving." The provider has asked customers not to
+discuss the cause until its own report is published.</li>
+<li>Financial regulators in both countries where the company's
+payment service is licensed have asked for an <strong class="text-white">incident report
+within 72 hours</strong> of the start of the outage. That deadline is
+tomorrow morning.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What you know and what you
+don't</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Known:</strong> the primary region is mostly back,
+failback would collide with Black Friday, credits are owed or disputed,
+and regulators want a report tomorrow.</li>
+<li><strong class="text-white">Unknown:</strong> whether the primary region is truly
+stable, the provider's final explanation of the cause, and how retailers
+will react to force majeure.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Decisions to force</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Do we fail back now</strong> and risk downtime at the
+start of Black Friday, or <strong class="text-white">stay in the recovery region</strong>
+at reduced capacity?</li>
+<li><strong class="text-white">Do we pay service credits, invoke force majeure,</strong>
+or something in between? Who decides?</li>
+<li><strong class="text-white">Do we name the provider publicly as the cause,</strong>
+despite their request?</li>
+<li><strong class="text-white">What goes in the regulatory report</strong> when we don't
+yet have the provider's explanation?</li>
+<li><strong class="text-white">Who speaks publicly</strong> for the company?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Silent vote</h4>
+<p>Each leader writes on a card: <strong class="text-white">Fail back now / Stay in
+recovery region through the weekend</strong>, and <strong class="text-white">Pay credits /
+Invoke force majeure / Something else</strong>.</p>
+<h4 class="text-base font-bold text-white mt-4">Question bank (direct,
+then cross-check)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CTO:</strong> Fail back now or stay put through
+the weekend? What is the risk of each?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Chief Revenue
+Officer: what does running at 70% cost us over Black Friday weekend? Ask
+the CEO to decide.</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the General Counsel:</strong> Force majeure might
+excuse $3.8M in credits. Do you recommend invoking it?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Chief Customer
+Officer: what happens to retailer relationships if we do? Ask the CFO:
+what happens to the quarter if we don't?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Communications Officer:</strong> The
+provider asked us not to discuss the cause. Our retailers and the press
+are asking. Do we name them?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CTO: does naming
+them affect our relationship with the provider while we still depend on
+them? Ask the CEO to decide.</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the COO:</strong> Regulators want a report tomorrow.
+What do we say about the cause when the provider hasn't published its
+findings?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC: who signs the
+report, and what must it never say?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CEO:</strong> Do you personally speak publicly
+about this outage, or does someone else?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Chief
+Communications Officer whether you agree.</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Risk and Insurance Manager:</strong> Does our
+insurance cover losses from a provider outage? Is there a waiting
+period, and have we started the clock on a claim?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CFO: is the
+potential recovery large enough to matter to this
+decision?</em></li>
+</ul></li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Facilitator curveballs
+(optional)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The provider's primary region has a brief 20-minute wobble at
+7:00 p.m. Does that change the failback decision?</li>
+<li>A large retailer publicly announces it is moving to a competitor
+that "stayed up all week" because it runs across two providers.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What good looks like (for
+observers)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The failback decision is made deliberately by a named leader,
+weighing technical and commercial risk.</li>
+<li>The credits versus force majeure decision considers long-term
+relationships, not only short-term cost.</li>
+<li>Attribution to the provider is decided deliberately, with legal
+and relationship implications understood.</li>
+<li>The regulatory report separates confirmed facts from what is
+still unknown, and commits to an update.</li>
+</ul>
+</div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="inject-4-never-again">11. Inject 4: Never Again?</h2><div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<p class="font-mono text-xs text-neutral-500"><strong class="text-neutral-300">Time in scenario:</strong> the following Wednesday, at a
+special board meeting (8 days after the outage began) |
+<strong class="text-neutral-300">Facilitation time:</strong> 15 minutes</p>
+<h4 class="text-base font-bold text-white mt-4">Situation (read aloud)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>the company failed back to the primary region on Monday night.
+Total outage and reduced-capacity time was about 4 days.</li>
+<li>Estimated impact: <strong class="text-white">$11M</strong> in lost fees, credits and
+response costs, about 6% of annual revenue. Seven retailers, about 4% of
+revenue, have given notice to leave.</li>
+<li>About <strong class="text-white">12,000 orders</strong> from the 40 minutes of lost
+transactions were shipped by retailers but never paid for. Retailers
+want the company to cover the loss.</li>
+<li>Engineering presents two options. <strong class="text-white">Option A: active-active
+across two regions</strong> of the same provider, about <strong class="text-white">$4M a
+year</strong>, recovering in minutes for most failures but not for a
+provider-wide problem. <strong class="text-white">Option B: multi-provider</strong>, about
+<strong class="text-white">$9M a year</strong> plus an 18-month program, protecting against
+a single provider's failure.</li>
+<li>The board chair asks: "What is the longest outage this company is
+prepared to accept, and why didn't we know that number before last
+week?"</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What you know and what you
+don't</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Known:</strong> the impact, the lost retailers, the
+unpaid orders and the cost of each resilience option.</li>
+<li><strong class="text-white">Unknown:</strong> whether this kind of outage will happen
+again, whether more retailers will leave, and how much insurance will
+pay.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Decisions to force</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">What is our impact tolerance:</strong> the longest outage
+and the most data loss we will accept for our most important
+services?</li>
+<li><strong class="text-white">Option A, Option B, or neither?</strong> Who owns the
+recommendation to the board?</li>
+<li><strong class="text-white">Do we cover the 12,000 unpaid orders</strong> for
+retailers, and how much of the cost do we absorb?</li>
+<li><strong class="text-white">Do we renegotiate the provider contract,</strong> pursue
+compensation, or both?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Silent vote</h4>
+<p>Each leader writes on a card: <strong class="text-white">the longest acceptable outage
+for checkout and payments</strong>, and <strong class="text-white">Option A / Option B /
+Neither</strong>.</p>
+<h4 class="text-base font-bold text-white mt-4">Question bank (direct,
+then cross-check)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CEO:</strong> The board asks for our impact
+tolerance. What number do you give them for checkout and payments?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Read aloud the numbers
+each leader wrote on their cards. Ask the CFO and the CTO whether they
+can deliver against the CEO's number.</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CTO:</strong> Option A or Option B? What does
+each protect us from, and what does it leave exposed?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CFO: can we afford
+Option B? Ask the Chief Risk Officer: can we afford not
+to?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CFO:</strong> Retailers want us to cover 12,000
+unpaid orders. What does it cost, and do we pay?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Chief Customer
+Officer: what happens to retention if we don't? Ask the GC: are we
+obligated to?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Risk Officer:</strong> Did our risk
+register ever say that one provider region was a single point of
+failure? Who accepted that risk, and when?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the board liaison:
+does the board believe it accepted that risk?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the General Counsel:</strong> What can we recover
+from the provider, and do we push for it while we still depend on
+them?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CTO: what would we
+ask for in a renegotiated contract?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Customer Officer:</strong> Seven retailers
+have given notice. What would it take to keep them, and is it worth
+it?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Chief Revenue
+Officer whether you agree with that assessment.</em></li>
+</ul></li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Facilitator curveballs
+(optional)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>A board member says: "This was a once-in-a-decade event. Why
+spend $9M a year on it?" Who answers?</li>
+<li>Regulators in one country write that they expect licensed payment
+providers to show they can recover critical services within a defined
+time, and ask for the company's plan within 60 days.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What good looks like (for
+observers)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Leadership commits to an impact tolerance, or explicitly assigns
+someone to bring one to the board by a date.</li>
+<li>The investment choice is tied to the impact tolerance, not to the
+memory of last week.</li>
+<li>Concentration risk is recognized as a risk the board must accept
+or reduce, not something technology decides alone.</li>
+<li>Commitments to retailers are deliberate and affordable.</li>
+</ul>
+</div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="debrief">12. Debrief</h2>
+<p>Allow at least 18 minutes. Remind the room that most of today's gaps
+come from design and budget choices made in good faith, and that
+findings are about plans, tolerances and decision rights.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">How to run it</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Go around the room first,</strong> starting with the most
+junior leader and finishing with the CEO.</li>
+<li><strong class="text-white">Revisit the written numbers:</strong> the outage leaders
+said customers would tolerate in Inject 1, and the impact tolerance in
+Inject 4. How far apart were they?</li>
+<li><strong class="text-white">Name an owner and a date for every gap,</strong> and map
+each decision into the playbook as it is captured.</li>
+</ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">The three core questions</h3>
+<h4 class="text-base font-bold text-white mt-4">1. What decisions did we
+struggle with?</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Which decision took longest: failover, prioritization, failback
+or investment?</li>
+<li>Where did we wait for the provider instead of deciding for
+ourselves?</li>
+<li>Which decisions were really about money, and which were really
+about trust?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">2. What information
+did we need but didn't have?</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Did we know how long our recovery takes, and how much data we
+would lose, from a recent test rather than an estimate?</li>
+<li>Did we know which retailers and services matter most, in
+writing?</li>
+<li>Did we know what our contracts, insurance and regulators require
+during a provider outage?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">3. What should we
+formalize before a real event?</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Our impact tolerance for each critical service.</li>
+<li>Who can fail over, accept data loss and authorize emergency
+spend, including at night and on holidays.</li>
+<li>Our restoration priority order for services and
+customers.</li>
+<li>Our position on paid priority, service credits and force
+majeure.</li>
+</ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Additional
+debrief questions for this scenario</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Did we plan around hope?</strong> Where did we wait
+because the provider said "soon"?</li>
+<li><strong class="text-white">When was our failover last really tested,</strong> and
+what would we do differently if it failed halfway?</li>
+<li><strong class="text-white">How did we treat small customers</strong> compared with
+large ones? Are we comfortable with that?</li>
+<li><strong class="text-white">Who protected our people</strong> from exhaustion, and
+should that be someone's explicit job?</li>
+<li><strong class="text-white">Is concentration risk on our risk register,</strong> and
+has the board ever consciously accepted it?</li>
+<li><strong class="text-white">Would we make the same investment decision</strong> if
+this outage had happened in February instead of Thanksgiving
+week?</li>
+<li><strong class="text-white">On a scale of 1 to 5, how confident are you</strong> that
+we could survive a four-day provider outage? Ask each leader
+individually.</li>
+<li><strong class="text-white">What is the single most important action</strong> we
+should take in the next 30 days?</li>
+</ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Closing statement (read
+aloud)</h3>
+<div class="border-l-4 border-[#00e673] bg-black p-4 rounded-r-xl text-neutral-200">
+<p class="italic"><em>Thank you. Today there was no attacker, only a long outage, a
+busy week and choices about time, money and fairness. The gaps we found
+are the result of choices made in good faith, and now we can make them
+deliberately. Nothing said here will be attributed to individuals. We
+will circulate the findings, the decisions we captured and the draft
+Extended Outage and Concentration Risk Edition of the Crisis Decision
+Playbook within five business days, with an owner and a date for every
+action.</em></p>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="after-action-outputs">13. After-Action Outputs</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">After-action summary</strong> within five business days:
+decisions made, decisions not made, and confidence scores.</li>
+<li><strong class="text-white">Action register:</strong> every gap with an owner, target
+date and status.</li>
+<li><strong class="text-white">Draft Crisis Decision Playbook (Extended Outage and
+Concentration Risk Edition)</strong> populated with the authorities,
+priorities and limits agreed today.</li>
+<li><strong class="text-white">Impact tolerance proposal</strong> for each critical
+service, for board approval.</li>
+<li><strong class="text-white">Failover test plan:</strong> a full, timed failover test
+of the recovery region within 90 days.</li>
+<li><strong class="text-white">Concentration risk entry</strong> in the risk register,
+with an owner and a board-level decision.</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="appendix-a-scribe-decision-log">Appendix A: Scribe Decision
+Log</h2>
+<p>Use one block per decision.</p>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Decision:</strong> what was being decided</li>
+<li><strong class="text-white">Inject:</strong> 1, 2, 3 or 4</li>
+<li><strong class="text-white">Who the room said owns it:</strong> and whether everyone
+agreed</li>
+<li><strong class="text-white">Decision made:</strong> or "not made"</li>
+<li><strong class="text-white">Numbers written by leaders:</strong> outage tolerance,
+data loss tolerance, spend limits</li>
+<li><strong class="text-white">Who agreed / who disagreed:</strong> and the reason
+given</li>
+<li><strong class="text-white">Information that was missing</strong></li>
+<li><strong class="text-white">Gap or action item:</strong> with proposed owner</li>
+<li><strong class="text-white">Playbook section it belongs in</strong></li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="appendix-b-observer-checklist">Appendix B: Observer
+Checklist</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Did leaders answer individually, or defer to the most senior
+person?</li>
+<li>Did anyone set a time limit on waiting for the provider?</li>
+<li>Was data loss explicitly accepted by someone with the authority
+to accept it?</li>
+<li>Was there a written restoration priority, or was it invented in
+the room?</li>
+<li>Could emergency spend be approved at night or on a
+holiday?</li>
+<li>Was staff fatigue treated as a recovery risk?</li>
+<li>Were provider messages verified before any payment?</li>
+<li>Did leadership commit to an impact tolerance, or defer
+it?</li>
+</ul>
+
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Silent vote results:</p><p>Decisions with no clear owner:</p><p>Findings and corrective actions:</p><p>Outage and data-loss numbers written by each leader:</p><p>Items for the Extended Outage and Concentration Risk Edition playbook:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>

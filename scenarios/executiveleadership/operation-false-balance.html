@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operation False Balance | Executive Decision Tabletop | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../../masterttexs.html" class="px-2 py-1 text-xs max-w-[95px] inline-block text-center leading-tight rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Exercise Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Exercise Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block mr-6">&larr; Back to Tabletop Library</a><a href="crisis-decision-playbook-data-integrity-insider-edition-template.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block mr-6">Crisis Decision Playbook: Data Integrity and Insider Edition &rarr;</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Leadership Decision Exercise /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Operation False Balance: When the Data Can&#x27;t Be Trusted and the Suspect Is One of Our Own</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">Executive &amp; Senior Leadership</div><div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">60&ndash;90 Minutes</div><div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">No-Fault</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><p class="text-neutral-400 italic">Company profile: a SaaS payroll and benefits provider. The exercise refers only to "the company" so it can be used with any organization. Adjust the profile details to match yours before running.</p>
+
+
+<h3 class="text-lg font-bold text-green-400 mt-6">In This Exercise</h3><div class="space-y-3 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><a class="text-green-400 hover:underline" href="#this-is-a-no-fault-exercise">1. This Is a No-Fault Exercise</a></p><p><a class="text-green-400 hover:underline" href="#how-this-exercise-differs">2. How This Exercise Differs</a></p><p><a class="text-green-400 hover:underline" href="#objectives">3. Objectives</a></p><p><a class="text-green-400 hover:underline" href="#participants">4. Participants</a></p><p><a class="text-green-400 hover:underline" href="#agenda">5. Agenda</a></p><p><a class="text-green-400 hover:underline" href="#facilitator-guidance">6. Facilitator Guidance</a></p><p><a class="text-green-400 hover:underline" href="#scenario-background">7. Scenario Background</a></p><p><a class="text-green-400 hover:underline" href="#inject-1-which-numbers-are-true">8. Inject 1: Which Numbers Are
+True?</a></p><p><a class="text-green-400 hover:underline" href="#inject-2-one-of-our-own">9. Inject 2: One of Our Own</a></p><p><a class="text-green-400 hover:underline" href="#inject-3-paychecks-are-personal">10. Inject 3: Paychecks Are
+Personal</a></p><p><a class="text-green-400 hover:underline" href="#inject-4-restating-the-record">11. Inject 4: Restating the
+Record</a></p><p><a class="text-green-400 hover:underline" href="#debrief">12. Debrief</a></p><p><a class="text-green-400 hover:underline" href="#after-action-outputs">13. After-Action Outputs</a></p><p><a class="text-green-400 hover:underline" href="#appendix-a-scribe-decision-log">Appendix A: Scribe Decision
+Log</a></p><p><a class="text-green-400 hover:underline" href="#appendix-b-observer-checklist">Appendix B: Observer
+Checklist</a></p></div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="this-is-a-no-fault-exercise">1. This Is a No-Fault Exercise</h2>
+<p>Read this section aloud at the start of the session.</p>
+<div class="border-l-4 border-[#00e673] bg-black p-4 rounded-r-xl text-neutral-200">
+<p class="italic"><em>This is a no-fault exercise. Nobody is being tested and nobody is
+being graded. Today's scenario involves a colleague who may have done
+something seriously wrong, or who may be completely innocent. It is
+fictional and does not refer to anyone in this organization. We are
+testing how our plans, our controls and our decision rights hold up when
+the threat is inside, when our records can't be trusted, and when real
+people's pay is at stake. If you don't know who owns a decision, or you
+aren't sure what the law allows us to do, say so. That is a finding
+about our plans, not about you. Nothing said in this room will be
+attributed to an individual.</em></p>
+</div>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Findings are recorded against <strong class="text-white">plans, controls and
+decision rights</strong>, never against individuals.</li>
+<li>The suspect in this scenario is <strong class="text-white">fictional</strong>.
+Please do not speculate about real colleagues.</li>
+<li>Answer <strong class="text-white">as yourself, in your real role</strong>, based on
+what you would actually do.</li>
+<li>Disagreement is useful. <strong class="text-white">It shows where our decision
+rights are unclear.</strong></li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="how-this-exercise-differs">2. How This Exercise Differs</h2>
+<p>Operation Pressure Point tested leadership when systems were down.
+Operation Broken Chain tested leadership when our product harmed
+customers. Operation False Balance removes the outside attacker and the
+outage. Every system is up. The problem is that nobody can say which of
+our records are true, there is no clean backup to go back to, and the
+evidence points at a long-serving colleague who may have been
+framed.</p>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">From outage to integrity.</strong> Systems are running.
+The data inside them is wrong in ways we can't yet measure.</li>
+<li><strong class="text-white">From outside attacker to insider.</strong> The likely
+actor has legitimate access, knows our controls and has colleagues in
+this room.</li>
+<li><strong class="text-white">No clean restore point.</strong> Nine weeks of backups
+contain altered data. Recovery means rebuilding the truth, not restoring
+it.</li>
+<li><strong class="text-white">Real people, real money.</strong> The people harmed are
+workers who didn't get paid, not abstract customers.</li>
+<li><strong class="text-white">Our own assurance is in question.</strong> The controls
+report our customers' auditors rely on may no longer be
+reliable.</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="objectives">3. Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Decide <strong class="text-white">whether to keep processing on data we can't fully
+trust</strong>, delay, or fall back to an older known-good state, and
+who has the authority to choose.</li>
+<li>Test how leadership <strong class="text-white">balances fairness to an accused
+employee</strong> with protecting the company, its customers and the
+evidence.</li>
+<li>Confirm <strong class="text-white">who leads an insider investigation</strong> (HR,
+Legal, Security or Internal Audit) and when law enforcement is
+involved.</li>
+<li>Resolve the tension between <strong class="text-white">preserving evidence and
+correcting the data</strong>.</li>
+<li>Decide <strong class="text-white">whether we make affected people whole before we
+know the full facts</strong> or before insurance responds, and who
+approves the money.</li>
+<li>Determine <strong class="text-white">what we owe customers' auditors and
+regulators</strong> when our own controls report may no longer be
+reliable.</li>
+<li>Agree <strong class="text-white">who certifies that our data is trustworthy
+again</strong>, and what evidence they need.</li>
+<li>Capture outputs for the <strong class="text-white">Crisis Decision Playbook: Data
+Integrity and Insider Edition</strong> (separate template).</li>
+</ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Decisions This Exercise
+Forces</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Inject 1, Which Numbers Are True?</strong> Payroll for
+380,000 workers is due in three days, and nine weeks of data may be
+altered. Run it, delay it, or run it from old data? Also covers business
+continuity plan activation, pausing changes on the platform, and
+deciding without complete information.</li>
+<li><strong class="text-white">Inject 2, One of Our Own.</strong> The evidence points to
+a senior database administrator with 11 years' service. Also covers who
+leads the investigation, suspending access, law enforcement, which
+insurance policy responds, and what we tell staff.</li>
+<li><strong class="text-white">Inject 3, Paychecks Are Personal.</strong> Workers whose
+pay was diverted are going public, and employers are furious. Also
+covers making people whole, who speaks publicly, reputational damage and
+communicating with people who aren't our direct customers.</li>
+<li><strong class="text-white">Inject 4, Restating the Record.</strong> Tax filings are
+wrong, our controls report may be unreliable, and our own revenue may be
+misstated. Also covers regulatory reporting, disclosure and materiality,
+and approval of the recovery plan.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Additional decisions
+added to the mix</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Preserve or fix first:</strong> do we correct records
+immediately, or freeze them so the evidence stays intact?</li>
+<li><strong class="text-white">Collective suspension:</strong> do we suspend every
+administrator's access, knowing it would cripple recovery?</li>
+<li><strong class="text-white">Presumption of innocence:</strong> what do we say to and
+about an employee who may not be responsible?</li>
+<li><strong class="text-white">Trusting the investigators:</strong> who investigates the
+people who have the same access as the suspect?</li>
+<li><strong class="text-white">Customers' auditors:</strong> do we tell customers their
+auditors should not rely on our controls report?</li>
+<li><strong class="text-white">Separation of duties:</strong> which single person today
+can change data and cover their tracks, and who decides to fix
+that?</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="participants">4. Participants</h2>
+<h4 class="text-base font-bold text-white mt-4">Players</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Chief Executive Officer (CEO)</li>
+<li>Chief Financial Officer (CFO)</li>
+<li>Chief Operating Officer (COO), who owns payroll
+operations</li>
+<li>General Counsel (GC) / Chief Legal Officer</li>
+<li>Chief Information Security Officer (CISO)</li>
+<li>Chief Information Officer (CIO) or Chief Technology
+Officer</li>
+<li>Chief Human Resources Officer (CHRO)</li>
+<li>Head of Internal Audit or Chief Compliance Officer</li>
+<li>Chief Customer Officer or Head of Client Services</li>
+<li>Chief Communications Officer or VP of Communications</li>
+<li>Chief Risk Officer or Risk and Insurance Manager</li>
+<li>Board liaison or Audit Committee representative
+(optional)</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Exercise staff</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Lead facilitator:</strong> runs the clock, delivers
+injects, directs questions to individuals.</li>
+<li><strong class="text-white">Scribe:</strong> records each decision, its owner, who
+agreed and who disagreed. <strong class="text-white">Do not record personal opinions about
+the fictional suspect.</strong></li>
+<li><strong class="text-white">Observer(s):</strong> watch for decision-rights confusion
+between HR, Legal, Security and Internal Audit, and for
+groupthink.</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="agenda">5. Agenda</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Standard 90-minute run</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">0:00 to 0:10</strong> — <span>welcome, no-fault statement, how
+this exercise differs, scenario background</span></p><p><strong class="text-white">0:10 to 0:26</strong> — <span>Inject 1, Which Numbers Are
+True?</span></p><p><strong class="text-white">0:26 to 0:42</strong> — <span>Inject 2, One of Our Own</span></p><p><strong class="text-white">0:42 to 0:57</strong> — <span>Inject 3, Paychecks Are
+Personal</span></p><p><strong class="text-white">0:57 to 1:12</strong> — <span>Inject 4, Restating the
+Record</span></p><p><strong class="text-white">1:12 to 1:30</strong> — <span>debrief and playbook
+capture</span></p></div>
+<h3 class="text-lg font-bold text-green-400 mt-6">Compressed 60-minute run</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">0:00 to 0:05</strong> — <span>welcome and no-fault statement
+(send the background as a pre-read)</span></p><p><strong class="text-white">0:05 to 0:18</strong> — <span>Inject 1</span></p><p><strong class="text-white">0:18 to 0:30</strong> — <span>Inject 2</span></p><p><strong class="text-white">0:30 to 0:42</strong> — <span>Inject 4 (use the make-whole
+decision from Inject 3 as a curveball)</span></p><p><strong class="text-white">0:42 to 0:60</strong> — <span>debrief and playbook
+capture</span></p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="facilitator-guidance">6. Facilitator Guidance</h2>
+<p>The series rule still applies: individual answers first, then the
+cross-check. Choose questions from each inject's bank; it is a menu, not
+a script.</p>
+<h4 class="text-base font-bold text-white mt-4">The core technique:
+direct, then cross-check</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Direct each question to one named leader</strong> and let
+them answer fully before anyone else speaks.</li>
+<li><strong class="text-white">Cross-check with a second leader,</strong> usually the
+CEO or the leader whose function carries the consequence.</li>
+<li><strong class="text-white">Invite the dissent:</strong> ask a third leader what
+concerns them about what they just heard.</li>
+<li><strong class="text-white">The CEO speaks last</strong> on the core
+decisions.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Techniques specific to
+this scenario</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Silent vote.</strong> Use index cards before the core
+decisions in Injects 1, 2 and 4.</li>
+<li><strong class="text-white">Four owners, one question.</strong> In Inject 2, ask the
+CHRO, GC, CISO and Head of Internal Audit separately: "Who leads this
+investigation?" Record all four answers before any discussion.</li>
+<li><strong class="text-white">The other side of the table.</strong> At least once, ask
+a leader to answer as the accused employee's lawyer would: "What would
+you say about how the company treated your client?"</li>
+<li><strong class="text-white">The worker's view.</strong> Read the Inject 3 social
+media post aloud, then ask a leader to respond to that worker directly,
+as if on the phone.</li>
+<li><strong class="text-white">Hold the line on details.</strong> Redirect technical
+debate: "Assume the data team is handling it. What do you need to
+decide?"</li>
+<li><strong class="text-white">Keep it fictional.</strong> If anyone starts linking the
+suspect to a real person, stop and restate that the scenario is
+fictional.</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="scenario-background">7. Scenario Background</h2>
+<p>Read aloud or send as a pre-read.</p>
+<p>The company runs payroll, tax filing and benefits administration for
+about 2,400 employers with roughly 380,000 workers between them. The
+company moves about $1.9 billion in wages every month and files payroll
+taxes on its clients' behalf. Many clients rely on the company's annual
+independent controls report (a SOC 1 and SOC 2) to satisfy their own
+auditors. The company's revenue is about $140M a year.</p>
+<p>The company's databases are managed by a team of eight database
+administrators who have broad access to production data so they can fix
+problems quickly. Backups are taken nightly and kept for 90 days.</p>
+<p>It is Tuesday at 8:00 a.m. Last night, the payroll reconciliation
+team noticed that the total tax withheld for one client didn't match the
+total filed with the tax authority. Overnight, the data team found
+similar mismatches across dozens of clients, going back at least nine
+weeks. Some workers' bank account details appear to have been changed
+and then changed back. Database audit logs for several of those changes
+are missing. You have been called into an emergency meeting.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="inject-1-which-numbers-are-true">8. Inject 1: Which Numbers Are
+True?</h2><div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<p class="font-mono text-xs text-neutral-500"><strong class="text-neutral-300">Time in scenario:</strong> Tuesday, 10:00 a.m. (2 hours after
+the meeting is called) | <strong class="text-neutral-300">Facilitation time:</strong> 16
+minutes</p>
+<h4 class="text-base font-bold text-white mt-4">Situation (read aloud)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The data team has confirmed that records were deliberately
+altered: bank account details, tax withholding amounts and some
+year-to-date totals. This was not a software bug.</li>
+<li>Changes started at least <strong class="text-white">nine weeks ago</strong>. Every
+backup from the last nine weeks contains altered data. The oldest clean
+backup is from before then and is missing nine weeks of legitimate new
+hires, raises and terminations.</li>
+<li>The next payroll run for about <strong class="text-white">210,000 workers is due
+Friday</strong>. Files must go to the banks by Thursday at 5:00
+p.m.</li>
+<li>The data team cannot yet say how many records were changed. Its
+best estimate is between 0.5% and 3% of workers.</li>
+<li>The person or account responsible may still have access. Anything
+we change now may be changed again.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What you know and what you
+don't</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Known:</strong> data was altered deliberately, over nine
+weeks, and payroll is due in three days.</li>
+<li><strong class="text-white">Unknown:</strong> how many records are wrong, who did it,
+whether they still have access, and how much money has left the
+company.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Decisions to force</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Do we run Friday's payroll</strong> on data we know is
+partly wrong, delay it, or run it from the nine-week-old clean backup
+and correct later?</li>
+<li><strong class="text-white">Do we activate the business continuity plan</strong> and
+freeze all non-essential changes to production data?</li>
+<li><strong class="text-white">Do we preserve the evidence or start fixing the
+data?</strong> We can't fully do both at once.</li>
+<li><strong class="text-white">Who leads the crisis team</strong> for an incident that
+is part security, part operations and part HR?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Silent vote</h4>
+<p>Each leader writes on a card: <strong class="text-white">Run payroll as is / Delay
+payroll / Run from the old clean backup</strong>, and <strong class="text-white">Preserve
+first / Fix first</strong>.</p>
+<h4 class="text-base font-bold text-white mt-4">Question bank (direct,
+then cross-check)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><strong class="text-green-400">Ask the COO:</strong> 210,000 people expect to be paid
+Friday. Which option do you choose, and how many people get paid the
+wrong amount under each?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CEO: would you
+overrule that choice? Ask the CFO: what does each option cost
+us?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the General Counsel:</strong> If we knowingly run
+payroll on data we believe is wrong, what is our exposure? If we delay
+pay, what is it then?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CHRO: what happens
+to workers, and to our clients' relationships with their workers, if pay
+is late?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CISO:</strong> If we start correcting records
+now, what happens to the evidence? How long do you need before the data
+can be touched?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the COO: can payroll
+wait that long? Ask the CEO to break the tie.</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CFO:</strong> If we pay from nine-week-old data,
+some people are overpaid and some underpaid. Do we absorb the
+difference, and up to what amount without board approval?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the board liaison: at
+what amount does the audit committee need to be told?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CEO:</strong> This is a security incident, an
+operations crisis and possibly an employment matter. Who leads the
+crisis team?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask each leader to write
+the name on a card without discussion. Record the spread.</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Customer Officer:</strong> 2,400 employers
+will need to be told something before Thursday. What do we say today,
+and to whom: their payroll contact, their CFO or their CEO?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC whether you
+would approve that message.</em></li>
+</ul></li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Facilitator curveballs
+(optional)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>A large client's payroll manager calls: "Our CEO's direct deposit
+went to a different bank last month. Is this connected?"</li>
+<li>The data team says that if we freeze changes, about 4,000
+legitimate new hires and terminations entered this week won't be
+processed Friday.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What good looks like (for
+observers)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>A named leader decides how payroll will run, with the number of
+workers affected under each option stated and accepted.</li>
+<li>Evidence preservation is explicitly weighed against correction,
+with a time limit agreed rather than a default.</li>
+<li>The crisis lead is named, and HR, Legal and Security understand
+their roles under that lead.</li>
+<li>Clients hear from the company before they hear from their own
+workers.</li>
+</ul>
+</div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="inject-2-one-of-our-own">9. Inject 2: One of Our Own</h2><div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<p class="font-mono text-xs text-neutral-500"><strong class="text-neutral-300">Time in scenario:</strong> Tuesday, 4:00 p.m. (8 hours in) |
+<strong class="text-neutral-300">Facilitation time:</strong> 16 minutes</p>
+<h4 class="text-base font-bold text-white mt-4">Situation (read aloud)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Nearly every altered record traces back to the administrator
+account of <strong class="text-white">a senior database administrator with 11 years at the
+company</strong>. They are well liked, have been on vacation since
+Friday, and are scheduled to return Monday.</li>
+<li>Most changes came from the employee's home internet connection.
+<strong class="text-white">Three changes came from an overseas connection</strong> while
+the employee was known to be in the office. Their credentials may have
+been stolen, or they may have used a tool to hide their
+location.</li>
+<li>Bank details for about <strong class="text-white">1,900 workers</strong> were
+changed to accounts at two online banks, then changed back after payday.
+Roughly <strong class="text-white">$4.2M</strong> appears to have been diverted.</li>
+<li>The other seven administrators have the same level of access. One
+of them is leading the data recovery work.</li>
+<li>the company has a <strong class="text-white">cyber insurance policy</strong> and a
+separate <strong class="text-white">crime (employee dishonesty) policy</strong>. They have
+different deductibles, and each insurer may argue the other should
+pay.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What you know and what you
+don't</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Known:</strong> the account used, the amount diverted,
+the number of workers affected, the overseas logins.</li>
+<li><strong class="text-white">Unknown:</strong> whether the employee did it, acted
+under pressure, or was framed; whether anyone else is involved; whether
+more money is still moving.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Decisions to force</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Who leads the investigation</strong> into the employee:
+HR, Legal, Security or Internal Audit?</li>
+<li><strong class="text-white">Do we contact the employee now,</strong> suspend them, or
+wait until they return? Do we suspend access for <strong class="text-white">all</strong>
+administrators?</li>
+<li><strong class="text-white">When do we involve law enforcement,</strong> and who
+makes that call?</li>
+<li><strong class="text-white">Which insurance policy do we notify,</strong> and do we
+notify both?</li>
+<li><strong class="text-white">What do we tell staff,</strong> especially the employee's
+own team?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Silent vote</h4>
+<p>Before discussion, have the CHRO, GC, CISO and Head of Internal Audit
+each write <strong class="text-white">who leads the investigation</strong>. Have every
+leader write <strong class="text-white">Suspend the employee now / Wait / Suspend all
+administrators</strong>.</p>
+<h4 class="text-base font-bold text-white mt-4">Question bank (direct,
+then cross-check)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CHRO:</strong> The employee is on vacation and
+may be innocent. Do we call them, and if so, who calls and what do they
+say?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC: is anything in
+that approach a legal risk? Ask the CISO: does calling them warn a
+guilty person?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CISO:</strong> Seven other administrators have
+the same access. Do we suspend them all? If we do, who recovers the
+data?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CIO: can recovery
+continue without them? Ask the Head of Internal Audit: who watches the
+person leading recovery?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the General Counsel:</strong> When do we call law
+enforcement? Once we do, what control do we lose over the investigation
+and the timeline?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CEO: are you
+comfortable with that trade-off? Ask the Chief Communications Officer:
+does a police report change what becomes public?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Risk and Insurance Manager:</strong> Cyber policy
+or crime policy? What do we lose if we notify the wrong one, or notify
+one too late?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CFO: which outcome
+is better for us financially, and who decides?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Head of Internal Audit:</strong> How did one
+person make these changes for nine weeks without anyone noticing? Which
+control failed?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CIO: is that a gap
+you knew about? Ask the CEO: who owns fixing it?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CHRO:</strong> The employee's team is asking
+where their colleague is and why their access has changed. What do they
+hear?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Chief
+Communications Officer whether that message is consistent with what
+clients are being told.</em></li>
+</ul></li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Facilitator curveballs
+(optional)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The employee emails the CEO from a personal account: "I've seen
+messages from my team. I didn't do anything. Please call me." Does the
+CEO reply?</li>
+<li>A second administrator quietly tells the CISO they shared their
+password with the suspect last year "to cover a shift."</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What good looks like (for
+observers)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>One function leads the investigation, with the others in defined
+supporting roles.</li>
+<li>Leaders treat the employee fairly and don't assume guilt, while
+still protecting evidence and limiting access.</li>
+<li>Access decisions balance the risk of collusion against the need
+to keep recovery going, with independent oversight of the recovery
+team.</li>
+<li>Both insurers are notified promptly and the decision is
+documented.</li>
+</ul>
+</div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="inject-3-paychecks-are-personal">10. Inject 3: Paychecks Are
+Personal</h2><div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<p class="font-mono text-xs text-neutral-500"><strong class="text-neutral-300">Time in scenario:</strong> Thursday, 9:00 a.m. (about 49
+hours in) | <strong class="text-neutral-300">Facilitation time:</strong> 15 minutes</p>
+<h4 class="text-base font-bold text-white mt-4">Situation (read aloud)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Workers whose pay was diverted in past months have started to
+realize it. A social media post from a warehouse worker reads:
+<strong class="text-white">"My paycheck vanished in September and my payroll company told
+my employer it was MY bank's fault. Now I find out it was
+THEM."</strong> It has been shared 40,000 times.</li>
+<li>Several employers have told their workers to contact the company
+directly. The company has no relationship with workers and no call
+center for them.</li>
+<li>A client with <strong class="text-white">18,000 workers</strong> says it will move
+to a competitor unless every affected worker is repaid by Friday's
+payday.</li>
+<li>Repaying all 1,900 workers now would cost about
+<strong class="text-white">$4.2M</strong> from the company's own funds. Neither insurer has
+confirmed coverage, and the investigation may later show some claims
+were not genuine.</li>
+<li>A business reporter is asking for comment by noon. A state labor
+department official has emailed asking for "an explanation."</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What you know and what you
+don't</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Known:</strong> who was affected, how much, that some
+workers were wrongly told earlier that it was their bank's fault, and
+that the media and a regulator are asking.</li>
+<li><strong class="text-white">Unknown:</strong> whether the insurers will pay, how many
+more workers will come forward, and how many clients will
+leave.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Decisions to force</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Do we repay affected workers now,</strong> from our own
+funds, before insurance responds and before the investigation is
+complete?</li>
+<li><strong class="text-white">Who speaks publicly,</strong> and do we acknowledge that
+some workers were wrongly told it was their bank's fault?</li>
+<li><strong class="text-white">How do we communicate with workers</strong> who aren't
+our customers, without going around the employers who are?</li>
+<li><strong class="text-white">What do we say about the employee?</strong> Anything at
+all?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Question bank (direct,
+then cross-check)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CFO:</strong> $4.2M from our own funds by Friday.
+Can we do it, should we do it, and who approves it?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Risk and Insurance
+Manager: does paying now affect our insurance claim? Ask the CEO to
+decide.</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Communications Officer:</strong> Who
+speaks, and what do we say about the worker who was told it was their
+bank's fault?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC: can we admit
+that without creating more liability? Ask the CEO: should
+we?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Chief Customer Officer:</strong> Employers are
+sending their workers to us. Do we set up a worker hotline, or insist
+everything go through the employer?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the COO: can we stand
+up a hotline by Friday, and who staffs it?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the General Counsel:</strong> A state labor
+department is asking for an explanation. Who responds, and what do we
+commit to in writing?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Head of Internal
+Audit: are the facts we would give them verified?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CHRO:</strong> If asked, what do we say publicly
+about the employee under investigation?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC whether that
+answer protects both the company and the employee's
+rights.</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CEO:</strong> The client with 18,000 workers
+wants every worker repaid by Friday or it leaves. Do we let one client
+set our timeline?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Chief Customer
+Officer: if we do it for them, do we have to do it for
+everyone?</em></li>
+</ul></li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Facilitator curveballs
+(optional)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>An email that appears to come from the company's CFO tells
+clients to send affected workers' bank details to a new address "for
+fast repayment." It is fake.</li>
+<li>The employee's name appears in a local news story. Nobody at the
+company admits to sharing it.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What good looks like (for
+observers)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>A clear decision on repaying workers, made with the insurance and
+legal implications understood, not avoided.</li>
+<li>One spokesperson and honest acknowledgment where the company got
+something wrong.</li>
+<li>A way for affected workers to get help that respects the employer
+relationship.</li>
+<li>Nothing is said publicly that names or prejudges the
+employee.</li>
+</ul>
+</div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="inject-4-restating-the-record">11. Inject 4: Restating the
+Record</h2><div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3">
+<p class="font-mono text-xs text-neutral-500"><strong class="text-neutral-300">Time in scenario:</strong> the following Wednesday, 9:00 a.m.
+(about 8 days in) | <strong class="text-neutral-300">Facilitation time:</strong> 15 minutes</p>
+<h4 class="text-base font-bold text-white mt-4">Situation (read aloud)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The data team presents two recovery options:</li>
+<li><strong class="text-white">Targeted correction:</strong> fix only the records proven
+to be altered. Ready in 5 days. Confidence moderate, because the missing
+audit logs mean some changes may never be found.</li>
+<li><strong class="text-white">Full rebuild:</strong> rebuild nine weeks of payroll
+records from clients' original source files and bank confirmations. 6
+weeks of work, about $3M, and every client must re-confirm its data.
+Confidence high.</li>
+<li>Payroll tax filings for about <strong class="text-white">600 clients</strong> over
+the past nine weeks were wrong. Amended filings will be needed, and tax
+authorities may apply penalties.</li>
+<li>the company's <strong class="text-white">controls report</strong> was issued to
+clients five weeks ago and states that access to payroll data is
+properly controlled. The audit firm says clients' auditors may no longer
+be able to rely on it.</li>
+<li>The CFO says the company's own fee revenue for the quarter may
+also be misstated. The external auditor wants a meeting. The audit
+committee chair has called a special session.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What you know and what you
+don't</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Known:</strong> the two recovery options, the filings
+that need amending, the controls report problem and that our own numbers
+may be affected.</li>
+<li><strong class="text-white">Unknown:</strong> whether all altered records have been
+found, the final penalties, and how many clients' auditors will
+react.</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Decisions to force</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Targeted correction or full rebuild?</strong> Who
+approves the recovery plan and accepts the risk that remains?</li>
+<li><strong class="text-white">Do we tell clients their auditors should not rely on our
+controls report,</strong> and how?</li>
+<li><strong class="text-white">Who certifies that our data is trustworthy
+again,</strong> and what evidence must they see?</li>
+<li><strong class="text-white">Is this material</strong> to our own financial
+statements, and what does the audit committee need to decide?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Silent vote</h4>
+<p>Each leader writes on a card: <strong class="text-white">Targeted correction / Full
+rebuild</strong>, and the <strong class="text-white">name of the person who should certify
+the data as trustworthy</strong>.</p>
+<h4 class="text-base font-bold text-white mt-4">Question bank (direct,
+then cross-check)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CIO:</strong> Targeted correction or full
+rebuild? If we choose targeted correction and more altered records
+surface in six months, what happens?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the Head of Internal
+Audit: would you sign off on targeted correction? Ask the Chief Customer
+Officer: will clients accept re-confirming nine weeks of
+data?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the Head of Internal Audit:</strong> Our controls
+report says access is properly controlled. Do we proactively tell
+clients it may not be reliable, or wait for the audit firm?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the GC: what is our
+exposure either way? Ask the CEO to decide.</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CFO:</strong> Is this material? Who decides, and
+does it change what we tell the external auditor or lenders?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the board liaison:
+what does the audit committee want to decide itself?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CEO:</strong> Who signs a statement that our
+payroll data is trustworthy again? Would you sign it yourself? On what
+evidence?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CISO and the Head
+of Internal Audit separately whether they would co-sign.</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the COO:</strong> 600 clients need amended tax
+filings. Who tells them, who pays the penalties, and in what order do we
+work?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CFO: is there a
+limit on penalties we absorb without approval?</em></li>
+</ul></li>
+<li class="text-neutral-500"><strong class="text-green-400">Ask the CISO:</strong> What has to be true about
+administrator access before we can say this can't happen again?
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li class="text-neutral-500"><em><strong class="text-green-300">Then cross-check:</strong> Ask the CIO: what does
+that cost in speed and staff? Ask the CEO: are you willing to accept
+that cost?</em></li>
+</ul></li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">Facilitator curveballs
+(optional)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Forensics now finds that the overseas logins came from malware on
+the employee's home computer. The employee may be a victim. How does
+that change our decisions and our communications?</li>
+<li>A competitor's sales team is telling the company's clients that
+"their controls report is worthless."</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">What good looks like (for
+observers)</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>The recovery choice is a documented business decision with a
+named approver who explicitly accepts the remaining risk.</li>
+<li>Clients and their auditors are told promptly and plainly about
+the reliability of the controls report.</li>
+<li>The person certifying the data is independent of the people who
+had the access, and has the evidence.</li>
+<li>Materiality is assessed by a defined group with a documented
+rationale.</li>
+</ul>
+</div><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="debrief">12. Debrief</h2>
+<p>Allow at least 18 minutes. Restate that the suspect was fictional and
+that findings are about plans, controls and decision rights. This
+scenario touches on trust between colleagues, so keep the tone calm and
+constructive.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">How to run it</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Go around the room first,</strong> starting with the most
+junior leader and finishing with the CEO.</li>
+<li><strong class="text-white">Revisit the silent votes,</strong> especially the four
+answers to "who leads the investigation."</li>
+<li><strong class="text-white">Name an owner and a date for every gap,</strong> and map
+each decision into the playbook as it is captured.</li>
+</ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">The three core questions</h3>
+<h4 class="text-base font-bold text-white mt-4">1. What decisions did we
+struggle with?</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Which decision took longest, or was never made?</li>
+<li>Did HR, Legal, Security and Internal Audit agree on who leads an
+insider investigation?</li>
+<li>Where did fairness to the employee and protection of the company
+pull in different directions?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">2. What information
+did we need but didn't have?</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Did we know when our data was last proven correct, and how we
+would prove it?</li>
+<li>Did we know which insurance policy covers insider fraud, and what
+each requires of us?</li>
+<li>Did we know what our controls report promises our clients and
+their auditors?</li>
+</ul>
+<h4 class="text-base font-bold text-white mt-4">3. What should we
+formalize before a real event?</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Who leads an insider investigation, and how HR, Legal, Security
+and Internal Audit work together.</li>
+<li>Our rule for preserving evidence versus correcting data,
+including a time limit.</li>
+<li>Our authority and limits for making affected people whole before
+insurance responds.</li>
+<li>Who certifies data as trustworthy after an integrity
+incident.</li>
+</ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Additional
+debrief questions for this scenario</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">How fairly did we treat the employee?</strong> Would we
+be comfortable if they read the transcript of today's
+discussion?</li>
+<li><strong class="text-white">Which single person in our real organization</strong>
+could change critical data and hide it today?</li>
+<li><strong class="text-white">How would we know our data is wrong</strong> if a
+reconciliation hadn't caught it?</li>
+<li><strong class="text-white">Did we treat workers as people or as a
+liability?</strong> What would the worker who posted online say about
+our response?</li>
+<li><strong class="text-white">What do our controls reports promise,</strong> and are we
+confident those promises are true right now?</li>
+<li><strong class="text-white">Who watches the people who recover the data</strong>
+after an insider incident?</li>
+<li><strong class="text-white">On a scale of 1 to 5, how confident are you</strong> that
+we could handle an insider incident well? Ask each leader
+individually.</li>
+<li><strong class="text-white">What is the single most important action</strong> we
+should take in the next 30 days?</li>
+</ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Closing statement (read
+aloud)</h3>
+<div class="border-l-4 border-[#00e673] bg-black p-4 rounded-r-xl text-neutral-200">
+<p class="italic"><em>Thank you. Today we worked through one of the hardest kinds of
+incident: one where the threat may be a colleague, the records can't be
+trusted and real people's pay is affected. The suspect in this scenario
+was fictional. Every gap we found is one we won't have to discover in a
+real event. Nothing said here will be attributed to individuals. We will
+circulate the findings, the decisions we captured and the draft Data
+Integrity and Insider Edition of the Crisis Decision Playbook within
+five business days, with an owner and a date for every action.</em></p>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="after-action-outputs">13. After-Action Outputs</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">After-action summary</strong> within five business days:
+decisions made, decisions not made, and confidence scores.</li>
+<li><strong class="text-white">Action register:</strong> every gap with an owner, target
+date and status.</li>
+<li><strong class="text-white">Draft Crisis Decision Playbook (Data Integrity and
+Insider Edition)</strong> populated with the owners and rules agreed
+today.</li>
+<li><strong class="text-white">Privileged access review:</strong> a list of roles that
+can change critical data without independent review, for Internal Audit
+and the CISO.</li>
+<li><strong class="text-white">Insurance review:</strong> confirm how the cyber and
+crime policies interact for insider events.</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="appendix-a-scribe-decision-log">Appendix A: Scribe Decision
+Log</h2>
+<p>Use one block per decision. Record decisions and reasons only; do not
+record opinions about the fictional suspect.</p>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Decision:</strong> what was being decided</li>
+<li><strong class="text-white">Inject:</strong> 1, 2, 3 or 4</li>
+<li><strong class="text-white">Who the room said owns it:</strong> and whether everyone
+agreed</li>
+<li><strong class="text-white">Decision made:</strong> or "not made"</li>
+<li><strong class="text-white">Who agreed / who disagreed:</strong> and the reason
+given</li>
+<li><strong class="text-white">Information that was missing</strong></li>
+<li><strong class="text-white">Gap or action item:</strong> with proposed owner</li>
+<li><strong class="text-white">Playbook section it belongs in</strong></li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28" id="appendix-b-observer-checklist">Appendix B: Observer
+Checklist</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Did leaders answer individually, or defer to the most senior
+person?</li>
+<li>Did HR, Legal, Security and Internal Audit agree on who leads the
+investigation?</li>
+<li>Was the employee treated fairly, without assuming guilt?</li>
+<li>Was evidence preservation weighed deliberately against data
+correction?</li>
+<li>Was independent oversight placed on the people recovering the
+data?</li>
+<li>Were both insurers considered and notified?</li>
+<li>Were affected workers treated as people who need help, not only
+as claims?</li>
+<li>Was the person certifying the data independent of the people who
+had access?</li>
+</ul>
+
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 text-neutral-500 font-mono text-xs space-y-3"><p>Date / run number:</p><p>Participants and roles:</p><p>Injects selected:</p><p>Silent vote results:</p><p>Decisions with no clear owner:</p><p>Findings and corrective actions:</p><p>Who each leader named as investigation lead:</p><p>Items for the Data Integrity and Insider Edition playbook:</p></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>
