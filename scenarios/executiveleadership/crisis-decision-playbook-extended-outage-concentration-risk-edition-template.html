@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crisis Decision Playbook: Extended Outage Edition Template | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../../masterttexs.html" class="px-2 py-1 text-xs max-w-[95px] inline-block text-center leading-tight rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Exercise Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Exercise Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block mr-6">&larr; Back to Tabletop Library</a><a href="operation-dark-region.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block mr-6">&larr; Operation Dark Region</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Crisis Decision Playbook /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Crisis Decision Playbook: Extended Outage and Concentration Risk Edition</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">Template</div><div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">One Page</div><div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6 mr-2">Companion to the Core Playbook</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><div class="font-mono text-xs text-neutral-500 space-y-1"><p>Organization: [Organization] &middot; Version: <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> &middot; Owner: <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span> &middot; Last exercised: <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></p></div>
+<p>Decisions for long outages caused by a cloud provider or other critical third party, where there is no attacker and no recovery time. Use it alongside the core Crisis Decision Playbook, populate it from tabletop outcomes, and keep a printed copy offline.</p>
+
+
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">1. Activation Triggers and Impact Tolerances</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Provider outage of critical services &gt; <span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> min with no recovery
+time | provider status "investigating" &gt; <span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> min | recovery region
+needed | other: <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Impact tolerance, checkout / payments:</strong> max
+outage <span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> hrs; max data loss <span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> min <strong class="text-white">Other critical
+services:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Authority to declare:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span>
+<strong class="text-white">Alternate:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">2. Crisis Team Additions</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">CMT Lead:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span>
+<strong class="text-white">Alternate:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span> <strong class="text-white">Shift lead rota
+owner:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Add to core CMT:</strong> CTO / platform owner, provider
+account manager contact, CHRO (staff welfare), Chief Revenue
+Officer</li>
+<li><strong class="text-white">Single provider liaison (one voice to the
+provider):</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">3. Who Decides What (Owner / Alternate / Must Consult)</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Fail over to recovery region:</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> /
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> Auto-trigger after <span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> hrs without a provider recovery
+time</li>
+<li><strong class="text-white">Accept data loss (up to <span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> min of transactions):</strong>
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Abort a failover in progress:</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> /
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Restoration priority (services, then customers):</strong>
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> Written order held by <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Paid priority requests from customers:</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> /
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> Standing position: <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Emergency spend (capacity, vendors):</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> /
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> Limit: $<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> Night / holiday approver:
+<span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Change freeze (non-recovery changes):</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> /
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Order staff to stand down / rest:</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> /
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Fail back to primary region (timing):</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> /
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Service credits vs force majeure:</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> /
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Name the provider publicly as cause:</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> /
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Regulatory incident reports:</strong> <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> /
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Resilience investment recommendation to board:</strong>
+<span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span> / <span class="inline-block w-12 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">4. Escalation Path</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Monitoring &gt; On-call SRE &gt; CTO (<span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> min) &gt; CMT Lead (<span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span>
+min) &gt; CEO (<span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> min) &gt; Board chair (<span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> hrs) &gt; Insurer
+(contingent business interruption, waiting period <span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> hrs) &gt;
+Regulators (per license, <span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> hrs)</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">5. Communication Channels</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Customer status page:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span> Update
+every <span class="inline-block w-7 border-b border-dashed border-green-500/60 align-bottom"></span> min even when nothing has changed</li>
+<li><strong class="text-white">Provider verification:</strong> confirm any provider
+request via known account manager at <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span>; never pay through
+emailed links</li>
+<li><strong class="text-white">Out-of-band CMT channel (not hosted on the affected
+provider):</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Order:</strong> customers (status page) &gt; employees
+&gt; regulators &gt; media &gt; partners and investors</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">6. First 48 Hours</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">0 to 1 hr:</strong> confirm provider outage; declare;
+convene CMT; status page live; start decision log; start insurance
+waiting-period clock</li>
+<li><strong class="text-white">1 to 4 hrs:</strong> failover decision against impact
+tolerance; data loss accepted by named owner; change freeze; shift
+rota</li>
+<li><strong class="text-white">4 to 12 hrs:</strong> restoration priority applied;
+emergency spend decisions; customer updates on a fixed cadence; board
+briefed</li>
+<li><strong class="text-white">12 to 24 hrs:</strong> staff rest enforced; paid priority
+and credit positions confirmed; regulatory reporting deadlines
+tracked</li>
+<li><strong class="text-white">24 to 48 hrs:</strong> failback criteria agreed;
+regulatory reports filed; reconciliation of lost transactions
+planned</li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">7. Pre-Approved External Support</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li><strong class="text-white">Provider escalation contacts:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span>
+<strong class="text-white">Alternate capacity / second provider:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span>
+<strong class="text-white">Contract counsel:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+<li><strong class="text-white">Insurer / policy # (contingent BI):</strong>
+<span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span> <strong class="text-white">Crisis PR:</strong> <span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span>
+<strong class="text-white">Surge staffing / support vendor:</strong>
+<span class="inline-block w-28 border-b border-dashed border-green-500/60 align-bottom"></span></li>
+</ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4 scroll-mt-28">8. Decision Principles</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400">
+<li>Decide against agreed tolerances, not the provider's optimism.
+Set a time to decide, and decide at that time. Prioritize by written
+criteria, not by who calls loudest. Rested people make fewer recovery
+errors. Concentration risk is a board decision, not an IT default. Log
+every decision with owner, time and rationale.</li>
+</ul>
+
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>
