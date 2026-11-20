@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Endpoint Management Server Is Compromised and Its Powerful Service Accounts Push Ransomware to Every Device | Disaster Recovery Tabletop Library | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../../masterttexs.html" class="px-2 py-1 text-xs max-w-[95px] inline-block text-center leading-tight rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Exercise Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Exercise Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-20 flex-grow">
+<div class="mb-8"><a href="../../masterttexs.html" class="text-xs font-mono text-green-400 hover:underline mb-4 inline-block">&larr; Back to Tabletop Library</a>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-2">&lt; Scenario Simulation /&gt;</span>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-4">The Endpoint Management Server Is Compromised and Its Powerful Service Accounts Push Ransomware to Every Device</h1>
+<div class="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-mono mb-6">Active Directory Compromise &amp; Recovery</div></div>
+<div class="space-y-6 text-neutral-300 leading-relaxed bg-neutral-950 p-8 rounded-2xl border border-neutral-800"><h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Overview</h2>
+<p>This tabletop exercise examines a ransomware intrusion that uses the company&#x27;s endpoint management or remote monitoring platform. The platform runs as a privileged service, stores network access credentials and can push software to every managed device and server, including domain controllers.</p>
+<p>Participants are the working-level incident team and a liaison to Sr. Leadership. The exercise tests understanding of management tools as tier-zero systems and how to recover a directory when the tool that deploys software is itself the weapon.</p>
+<p>A full run takes three to four hours, and Inject 1 alone supports a 90-minute session.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Attack Path Category</h3>
+<p>Weak Connected Infrastructure. This is attack path 13 of 20 in the Active Directory ransomware series. Each path is a different way an attacker could take control of the directory, and each leads to the same recovery problem: restoring a trustworthy Active Directory while the attacker, or what the attacker left behind, may still be in the environment.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Scenario</h2>
+<p>The company uses a software deployment platform with a service account that has local administrator rights everywhere and a separate account used to reach file shares. The platform&#x27;s administrator group includes members from desktop engineering, a managed service provider and two contractors.</p>
+<p>An attacker compromises a managed service provider engineer, logs on to the management console and creates a deployment that runs a script on all devices, including servers. The script harvests credentials and runs the encryptor. Domain controllers are in scope because the platform manages them for patching.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">What Participants Know at the Start</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>A deployment named like a routine update ran across the estate.</li><li>Domain controllers and file servers are encrypted.</li><li>The deployment was created by a provider account.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">What Is Not Yet Known</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Which credentials the platform exposed.</li><li>Whether the platform database was copied.</li><li>Whether the provider is the only entry point.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Likely Indicators</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Deployments created outside change control.</li><li>Provider accounts logging on to the console at unusual times.</li><li>The platform service account used on domain controllers.</li><li>Scripts that harvest credentials running through the platform.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Objectives</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li><strong class="text-white">Declare and scope.</strong> Participants declare an Active Directory compromise on the evidence available, state the assumptions they are making about credentials and name who has the authority to declare it.</li><li><strong class="text-white">Choose a recovery path.</strong> The group compares in-place eviction, forest recovery and rebuild, and records the evidence that supports the choice and the conditions that would change it.</li><li><strong class="text-white">Prove a clean restore point.</strong> The group states how it will prove a backup predates the intrusion and what it will do if it cannot.</li><li><strong class="text-white">Sequence the recovery.</strong> The group orders restoration of the first domain controller, FSMO roles, DNS, time, credential resets and additional domain controllers, and explains why that order matters.</li><li><strong class="text-white">Protect the recovery.</strong> Participants name the controls that stop reinfection during recovery: isolation, tiered administration, credential hygiene and monitoring.</li><li><strong class="text-white">Return business services.</strong> The group agrees the order in which identity-dependent applications and users return and who accepts each tier as ready.</li><li><strong class="text-white">Treat management tools as tier zero.</strong> The group names every tool that can run code on domain controllers and who administers it.</li><li><strong class="text-white">Decide on third-party access.</strong> The group decides how provider access is suspended, audited and restored.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Ground Rules</h2>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>This is a no-fault exercise. The aim is to find gaps in plans, authority and tooling, not to assign blame to people or teams.</li><li>Treat all information in the scenario as true unless a facilitator corrects it. Do not fight the scenario by assuming a control worked unless it is documented.</li><li>Assume the domain directory cannot be trusted. Do not assume you can use domain accounts, domain-joined tools or domain-based messaging unless the group has agreed how.</li><li>Ask each role for an individual answer first, then open the discussion. Where the room is quiet, ask the next person whether they agree and why.</li><li>Use real names for roles and real systems from your own environment where you can, but do not use real credentials, real hostnames of sensitive systems or live data.</li><li>Do not run tools or commands on live systems during the exercise. Describe what you would do and what you would expect to see.</li><li>Record decisions, assumptions and open questions in the decision log as the exercise runs.</li><li>Facilitators may pause to correct a technical error but should prefer asking a question over giving the answer.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Exercise Timelines</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Timeline and Escalation Triggers</h3>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">T+0 to T+2 hours: Detect and declare.</strong> Privileged changes, encrypted domain controllers, failed logons at scale or an attacker message arrive without a known cause. Escalation trigger: any unexplained change to Domain Admins, Enterprise Admins or the domain controller OU, or any encrypted domain controller, means declare an Active Directory compromise and treat every domain credential as exposed until proven otherwise.</p><p><strong class="text-white">T+2 to T+6 hours: Contain and scope.</strong> Isolate domain controllers and management tiers, disable suspect accounts and preserve volatile evidence. Escalation trigger: evidence of replication of directory secrets (DCSync), theft of the ntds.dit database or a krbtgt hash means the whole forest is compromised and in-place cleanup alone is not defensible.</p><p><strong class="text-white">T+6 to T+12 hours: Decide the recovery path.</strong> Choose between in-place eviction, forest recovery from a known-clean backup, or rebuild into a new forest. Escalation trigger: no backup can be shown to predate the intrusion, or the attacker has persistence in the configuration partition, the certificate services or the hypervisor management plane. In those cases escalate to Sr. Leadership for a rebuild or a controlled restore with extended monitoring.</p><p><strong class="text-white">T+12 to T+24 hours: Build the clean room and restore the first domain controller.</strong> Stand up the isolated network, restore one writable domain controller per domain from clean backup (root domain first), seize FSMO roles, clean metadata and reset the credentials that must change first. Escalation trigger: the first restore fails integrity or replication checks, or the backup catalog or backup credentials are themselves compromised.</p><p><strong class="text-white">T+24 to T+48 hours: Restore directory services at scale.</strong> Reset the krbtgt account twice, reset trust and privileged credentials, add domain controllers by fresh promotion rather than restore, and recover DNS and time. Escalation trigger: replication does not converge, or the investigations team finds attacker activity in the recovered directory.</p><p><strong class="text-white">T+48 to T+72 hours: Return applications and users in tiers.</strong> Bring back identity-dependent platforms in the agreed order, run service account and SPN validation and begin controlled user logon. Escalation trigger: a tier-zero or tier-one application cannot authenticate, or reset volumes overwhelm the service desk.</p><p><strong class="text-white">T+72 hours to T+30 days: Harden and monitor.</strong> Complete the second krbtgt reset after the required interval, rotate remaining secrets, rebuild or repair PKI and federation, remove legacy exposure and run continuous identity threat detection. Escalation trigger: any sign of re-entry restarts the decision between containment and rebuild.</p></div>
+<h4 class="text-base font-bold text-white mt-4">Path-specific escalation trigger</h4>
+<p>If the management platform ran code on domain controllers, treat the directory as compromised and escalate to the recovery path decision.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Inject Library</h3>
+<p>Six injects advance the scenario. Run them in order for a full session, or choose Inject 1 and one later inject for a shorter one. Each inject lists discussion questions; ask each role for an individual answer before opening the discussion.</p>
+<div class="space-y-4 font-mono text-xs text-neutral-400 bg-black p-4 rounded-xl border border-neutral-900"><p><strong class="text-white">#1 T+0h</strong> A routine update runs everywhere</p><p><strong class="text-white">#2 T+4h</strong> The platform&#x27;s accounts</p><p><strong class="text-white">#3 T+10h</strong> Third-party access</p><p><strong class="text-white">#4 T+30h</strong> Rebuilding deployment</p><p><strong class="text-white">#5 T+60h</strong> Restoring management</p><p><strong class="text-white">#6 T+100h</strong> Provider renewal</p></div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Injects</h2>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3"><h3 id="inject-1" class="text-lg font-bold text-green-400">Inject #1: A routine update runs everywhere</h3><div class="font-mono text-xs text-neutral-500">Time frame T+0h</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>A deployment named as a monthly patch ran at 22:00. By 22:30, 14,000 devices show an encryptor.</p>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Who can stop the platform?</li><li>Do you cut the provider?</li><li>What is the legal and contractual effect?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ask the Incident Commander, the Active Directory lead and the investigations lead for individual answers before opening the discussion.</li><li>Capture each decision, the evidence behind it and its owner in the decision log.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3"><h3 id="inject-2" class="text-lg font-bold text-green-400">Inject #2: The platform&#x27;s accounts</h3><div class="font-mono text-xs text-neutral-500">Time frame T+4h</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The platform service account has local administrator rights on all servers including domain controllers.</p>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which credentials do you presume stolen?</li><li>What do you reset?</li><li>What do you tell Sr. Leadership?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ask the Incident Commander, the Active Directory lead and the investigations lead for individual answers before opening the discussion.</li><li>Capture each decision, the evidence behind it and its owner in the decision log.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3"><h3 id="inject-3" class="text-lg font-bold text-green-400">Inject #3: Third-party access</h3><div class="font-mono text-xs text-neutral-500">Time frame T+10h</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The provider has access to multiple clients and says it is investigating.</p>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Who talks to the provider?</li><li>What evidence do you ask for?</li><li>Who owns the contract?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ask the Incident Commander, the Active Directory lead and the investigations lead for individual answers before opening the discussion.</li><li>Capture each decision, the evidence behind it and its owner in the decision log.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3"><h3 id="inject-4" class="text-lg font-bold text-green-400">Inject #4: Rebuilding deployment</h3><div class="font-mono text-xs text-neutral-500">Time frame T+30h</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>Recovery needs a deployment tool, but the platform is compromised.</p>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What do you use to rebuild domain controllers?</li><li>How do you deploy to thousands of devices?</li><li>Who approves?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ask the Incident Commander, the Active Directory lead and the investigations lead for individual answers before opening the discussion.</li><li>Capture each decision, the evidence behind it and its owner in the decision log.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3"><h3 id="inject-5" class="text-lg font-bold text-green-400">Inject #5: Restoring management</h3><div class="font-mono text-xs text-neutral-500">Time frame T+60h</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The business wants patching to resume.</p>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is the order?</li><li>What controls are required?</li><li>Who signs off?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ask the Incident Commander, the Active Directory lead and the investigations lead for individual answers before opening the discussion.</li><li>Capture each decision, the evidence behind it and its owner in the decision log.</li></ul>
+</div>
+<div class="p-5 rounded-xl border border-neutral-800 bg-black space-y-3"><h3 id="inject-6" class="text-lg font-bold text-green-400">Inject #6: Provider renewal</h3><div class="font-mono text-xs text-neutral-500">Time frame T+100h</div>
+<h4 class="text-base font-bold text-white mt-4">Situation</h4>
+<p>The contract is up for renewal in a week.</p>
+<h4 class="text-base font-bold text-white mt-4">Discussion questions</h4>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>What is the decision?</li><li>What conditions apply?</li><li>Who owns it?</li></ol>
+<h4 class="text-base font-bold text-white mt-4">Facilitator notes</h4>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Ask the Incident Commander, the Active Directory lead and the investigations lead for individual answers before opening the discussion.</li><li>Capture each decision, the evidence behind it and its owner in the decision log.</li></ul>
+</div>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Recovery Considerations for This Attack Path</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Management tools are powerful</h3>
+<p>A deployment platform can run code as SYSTEM on every device. Its administrators are effectively domain administrators.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Containment</h3>
+<p>Suspend provider access, disable the platform, rotate every credential it held and isolate its database.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Rebuilding with a clean tool</h3>
+<p>Use a separate clean tool or manual process to rebuild domain controllers and critical servers before restoring the platform.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Closing the path</h3>
+<p>Restrict administrator rights on the platform, require approval for broad deployments, remove domain controllers from general deployments and monitor provider access.</p>
+<h3 class="text-lg font-bold text-green-400 mt-6">Common Failures to Watch For</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Restoring the compromised platform to push recovery.</li><li>Leaving provider access unchanged.</li><li>Managing domain controllers with the same tool as desktops.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Active Directory Recovery Checklist for Facilitators</h2>
+<p>Use this list to judge the quality of the group&#x27;s decisions. It is deliberately ordered. Groups that restore many domain controllers at once, reconnect to production early or skip credential resets are making the mistakes that cause reinfection.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Isolate and preserve. Cut domain controllers and management tiers off from untrusted networks, keep at least one intact domain controller powered off and disconnected as evidence and as a possible restore source, and capture memory and logs before any rebuild.</li><li>Establish an out-of-band operating mode. Move command and communication to channels that do not need the directory, confirm local and break-glass credentials in a sealed store and agree on who may approve decisions.</li><li>Inventory what exists. Document forests, domains, trusts, sites, domain controllers, FSMO holders, functional levels, DNS zones, certificate authorities and every system that binds to the directory. Without this inventory a forest recovery stalls on the first question.</li><li>Select and prove a clean backup. Identify system state backups per domain that predate the earliest evidence of compromise, verify integrity and scan restored copies in isolation. Prefer the oldest backup that still meets the business tolerance for lost changes.</li><li>Restore one writable domain controller per domain. Restore the root domain first, offline and non-authoritatively, then each child domain. Do not reconnect these domain controllers to production.</li><li>Seize roles and clean metadata. Seize all five FSMO roles on the restored domain controller, remove metadata for every domain controller that was not restored, increase the RID pool, reset the domain controller computer account password and set DNS and global catalog roles deliberately.</li><li>Reset what the attacker may hold. Reset the krbtgt password twice with the required interval between resets, reset trust passwords, privileged and service account secrets, DSRM passwords and the computer account passwords of domain controllers, and rotate hybrid identity and federation secrets.</li><li>Rebuild the remaining domain controllers by promotion. Install clean operating systems and promote them; do not restore the rest of the fleet from backup. Use install-from-media for large domains to limit replication traffic.</li><li>Validate before reconnecting. Check replication, SYSVOL, DNS, time, Kerberos and LDAP health, compare privileged group membership and delegation to a known baseline and run an identity compromise assessment.</li><li>Return applications and users in tiers. Reconnect by site and by tier, confirm service accounts and SPNs, bring up identity-dependent platforms in the agreed order and then release users with controlled password resets.</li><li>Harden and monitor. Implement tiered administration, remove excessive rights, patch domain controllers and management servers, protect service accounts, enable identity threat detection and rehearse the plan.</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Roles and Responsibilities Summary</h2>
+<h3 class="text-lg font-bold text-green-400 mt-6">Incident Commander</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Owns the overall response, the decision log and the cadence of updates; decides when to declare an Active Directory compromise and when to invoke forest recovery.</li><li>Keeps the room on decisions rather than detail and asks each role for an individual answer before opening discussion.</li><li>Confirms that every decision has an owner, a time and an evidence basis before moving on.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Active Directory and Identity Engineering Lead (Forest Recovery Lead)</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Owns the technical recovery plan: which domain controller to restore first, which FSMO roles to seize, which metadata to clean, and the order in which domains return.</li><li>Maintains the authoritative inventory of forests, domains, domain controllers, sites, trusts, functional levels and FSMO holders.</li><li>Validates replication, SYSVOL, DNS and Kerberos health before declaring any milestone met.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Security Investigations and Forensics Lead</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Determines how the attacker got in, which credentials and systems were touched and whether persistence exists in Active Directory, in backups or in connected infrastructure.</li><li>Advises on the last known-clean point and tells the recovery team which backups, images and accounts cannot be trusted.</li><li>Runs identity threat detection and compromise assessment on the rebuilt environment before users return.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Backup and Recovery Lead</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Identifies candidate system state and image backups per domain, proves their age and integrity and confirms that they predate the intrusion.</li><li>Restores into an isolated recovery network and owns the safekeeping of backup credentials, catalogs and immutable copies.</li><li>Reports honestly on what cannot be restored and how long each restore will take at scale.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Infrastructure and Virtualization Lead</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Provides compute, storage and hypervisor capacity for the clean-room recovery environment and rebuilds the management plane if it was compromised.</li><li>Controls out-of-band access, hardware management interfaces and the physical or virtual console path to domain controllers.</li><li>Reports dependencies between the hypervisor management plane and the directory.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Network and DNS Lead</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Builds and enforces isolation: segmentation of the recovery network, blocking of domain controller traffic from untrusted segments and controlled reconnection by site.</li><li>Owns DNS recovery, the SRV records that let clients find domain controllers and the forwarders, conditional forwarders and DHCP options that depend on them.</li><li>Confirms time synchronization sources so that Kerberos does not fail on clock skew.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">PKI and Certificate Services Lead</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Assesses whether certificate authorities, templates or issued certificates were abused and decides whether the PKI can be trusted, repaired or must be rebuilt.</li><li>Plans revocation, certificate re-issuance and the order in which domain controllers, VPN, wireless and smart card authentication return.</li><li>Protects the offline root and its key material.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hybrid Identity and Cloud Lead</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Owns directory synchronization, federation and cloud identity: containing the synchronization server, rotating connector and federation secrets and protecting cloud administrator access.</li><li>Decides when synchronization is paused and when it resumes against the recovered directory.</li><li>Confirms that cloud tenants are not being used to re-enter the recovered environment.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Application and Service Owners</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Report which applications need directory authentication to start, which use service accounts, SPNs or Kerberos delegation and which can run in a degraded mode.</li><li>Supply start-up order and validation tests for their applications and confirm break-glass local accounts.</li><li>Accept or reject a restored identity layer as ready for their tier.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Service Desk Lead</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Prepares for mass credential resets with verified identity procedures that do not rely on the compromised directory and are resistant to social engineering.</li><li>Manages the queue, scripts and out-of-band channels for staff who cannot sign in.</li><li>Feeds early indicators of misuse of the reset process to the investigations lead.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Privacy, Legal and Regulatory Counsel</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Advises on notification duties, evidence preservation, law-enforcement contact and ransom-payment questions.</li><li>Reviews all external statements and approves what is said to regulators, customers and insurers.</li><li>Tracks contractual duties that are triggered by loss of identity services.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Communications Lead</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Maintains a communication path that does not depend on the compromised directory, such as out-of-band messaging and personal contact trees for key roles.</li><li>Drafts internal and external messages and keeps them consistent with the decision log.</li><li>Controls the cadence of staff updates and tells people what not to do, such as reusing passwords or attaching unmanaged devices.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Sr. Leadership Liaison</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Represents senior leaders, and the board of directors where needed, and carries decisions to them in plain language: the options, the cost, the time and the risk of each.</li><li>Brings back decisions on business priority, acceptance of risk and spending.</li><li>Does not direct technical steps; asks what is needed to decide and what happens if the decision is delayed.</li></ul>
+<h3 class="text-lg font-bold text-green-400 mt-6">Business Continuity Coordinator</h3>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Maps the order in which business processes return as identity services return and tracks manual workarounds.</li><li>Confirms that business owners know their manual procedures and that those procedures do not depend on the directory.</li><li>Records the business impact of each recovery decision.</li></ul>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Post-Exercise Debrief Guide</h2>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Capture individual notes. Ask each participant to write down the three decisions they found hardest and one thing they would change before a real event.</li><li>Review the decision log. Walk the log in order and mark each decision as made with evidence, made without evidence or deferred.</li><li>Compare to the checklist. Compare the group&#x27;s sequence with the recovery checklist and discuss every difference.</li><li>Name gaps and owners. Record each gap with an owner, a date and a measure of done.</li><li>Agree retest. Agree when the exercise will be repeated with a different attack path.</li></ol>
+<h3 class="text-lg font-bold text-green-400 mt-6">Hot wash questions</h3>
+<p>Use these with the full group after individual notes are written.</p>
+<ol class="list-decimal pl-6 space-y-2 text-neutral-400"><li>Which tools can run code on your domain controllers?</li><li>Who has administrator rights on your deployment platform?</li><li>What would you use to deploy a recovery if that platform were lost?</li><li>Who had the authority to declare an Active Directory compromise, and did everyone agree on that before the exercise?</li><li>What did you assume about the safety of backups, and what evidence would you need to turn the assumption into a fact?</li><li>Which dependency surprised you most: DNS, time, PKI, hypervisor, backup, hybrid identity or an application?</li><li>Where did the plan assume access to a domain account, a domain-joined tool or a domain-based channel?</li><li>How long would the first restored domain controller really take, from decision to a verified, isolated, working directory?</li><li>What would you tell Sr. Leadership about time to first logon, time to tier-one applications and the risk of reinfection?</li></ol>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Related Exercises and Themes</h2>
+<p>This path belongs to the Active Directory ransomware series and builds on themes from earlier tabletop exercises in the library.</p>
+<ul class="list-disc pl-6 space-y-2 text-neutral-400"><li>Active Directory Forest Root Collapse via Replication Lock: the on-premises exercise that started this library and that examines a failed forest root and the replication state around it.</li><li>Ransomware and cyber-recovery forensics exercises: which cover isolation, evidence, clean restore points and proving that recovered data can be trusted.</li><li>AI Gone Rogue exercises on hybrid identity, access review and orchestration agents: where automated tools disabled accounts, revoked access and widened their own permissions across directories.</li><li>Hybrid and multi-cloud exercises: which treat cloud identity, federation and on-premises directories as one failure domain.</li><li>Risk-during-recovery decision tabletops for Sr. Leadership: which ask each leader for an individual answer and which feed the crisis decision playbook.</li></ul>
+<p>See the flagship exercise, the exercise template and the playbook template for the complete recovery runbook and fill-in worksheets.</p>
+<h2 class="text-xl font-bold text-white border-b border-neutral-800 pb-2 pt-4">Facilitator Notes</h2>
+<p>Use this section to record your own notes when running or adapting this exercise as a template.</p>
+<div class="border border-dashed border-neutral-700 rounded-xl p-4 h-40"></div>
+</div>
+</main>
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+    </footer>
+</body>
+</html>
