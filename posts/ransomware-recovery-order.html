@@ -98,7 +98,7 @@ long before an incident strikes:
 
 What needs to come back first, and what must wait?
 
-The answer typically follows a five-stage sequence:
+The answer typically follows a five-stage sequence (after security containment and forensic preservation occurs):
 
   * Identity and authentication
   * Core network services
@@ -109,8 +109,106 @@ The answer typically follows a five-stage sequence:
 Each stage provides the structural support for the one that follows. Skipping 
 ahead might shave off a few hours immediately, but it dramatically increases 
 the danger of reinfection, further data loss, and prolonged downtime.</code></pre>
-                        </p>
-                    </p>
+
+</p>
+</p>
+<!-- Imports the comic/cartoon font --><link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet"><style>
+  /* 3-color blinking animation for NEWSFLASH text */
+  @keyframes newsflashBlink {
+    0%, 50% {
+      color: #00e673; /* Bright green */
+      text-shadow: 2px 2px 0px #000000;
+    }
+    51%, 100% {
+      color: #ffffff; /* Crisp white */
+      text-shadow: 2px 2px 0px #000000;
+    }
+  }
+  /* 3-color blinking animation for the jagged bubble border */
+  @keyframes bubbleBlink {
+    0%, 50% {
+      stroke: #00e673; /* Bright green */
+    }
+    51%, 100% {
+      stroke: #ffffff; /* Crisp white */
+    }
+  }
+  .newsflash-layout {
+    display: flex;
+    align-items: center; /* Vertically centers the bubble with the 3 lines */
+    gap: 20px;           /* Space between the bubble and the text lines */
+    padding-left: 2ch;
+    white-space: normal;
+    margin: 0;
+  }
+  .newsflash-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;      /* Prevents the bubble from squishing on narrow screens */
+    padding: 20px 30px;
+    transform: rotate(-6deg);
+  }
+  .newsflash-bubble {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: visible;
+  }
+  .newsflash-bubble polygon {
+    animation: bubbleBlink 1.5s infinite;
+  }
+  .newsflash-badge {
+    position: relative;
+    z-index: 1;
+    font-family: 'Bangers', cursive, sans-serif;
+    letter-spacing: 0.08em;
+    animation: newsflashBlink 2s infinite;
+  }
+  /* Slow color rotation for the 3 lines */
+  @keyframes lineHighlight {
+    0%, 100% {
+      color: #a3a3a3; /* Tailwind text-neutral-400 */
+    }
+    15%, 35% {
+      color: #00e673; /* Bright green */
+    }
+    50% {
+      color: #a3a3a3; /* Fades back to neutral-400 */
+    }
+  }
+  .rotate-highlight {
+    color: #a3a3a3;
+    animation: lineHighlight 4s infinite ease-in-out;
+  }
+  .rotate-highlight:nth-child(1) { animation-delay: 0s; }
+  .rotate-highlight:nth-child(2) { animation-delay: 2ms; }
+  .rotate-highlight:nth-child(3) { animation-delay: 4s; }
+</style>
+<div class="newsflash-layout">
+  <!-- Left: Jagged comic bubble + 3-color blinking NEWSFLASH -->
+  <div class="newsflash-container">
+    <svg class="newsflash-bubble" viewBox="0 0 220 90" preserveAspectRatio="none">
+      <polygon 
+        points="12,18 38,24 52,4 78,20 110,2 142,20 168,4 182,24 208,18 196,45 214,68 184,68 172,86 142,72 110,88 78,72 48,86 36,68 6,68 24,45" 
+        fill="#111111" 
+        stroke="#00e673" 
+        stroke-width="3" 
+        stroke-linejoin="miter"
+      />
+    </svg>
+    <span class="newsflash-badge text-2xl">NEWSFLASH!!!</span>
+  </div>
+  <!-- Right: Rotating lines -->
+  <div class="text-sm font-bold font-mono" style="margin: 0;">
+    <p class="rotate-highlight" style="margin: 0 0 6px 0;">Compromised systems require immediate isolation for recovery.</p>
+    <p class="rotate-highlight" style="margin: 0 0 6px 0;">Replication data/VM's (think Zerto/SRM/etc.) are tainted, so they cannot be used for recovery.</p>
+    <p class="rotate-highlight" style="margin: 0;">The true source of truth must be established. This should be your immutable backups and/or air-gapped storage.</p>
+  </div>
+</div>
 
                     <p class="text-sm font-mono text-neutral-400 leading-relaxed">
                         Standard disaster recovery playbooks—built for hardware failures, power outages, or natural disasters—routinely fail during cyberattacks. This failure stems from cascading dependency locks and hidden attacker footholds. To achieve true operational continuity without rolling out the red carpet for attackers a second time, organizations must enforce a strict, staged restoration hierarchy.
