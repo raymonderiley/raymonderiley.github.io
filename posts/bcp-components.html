@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Goes Into a Business Continuity Plan (and How to Keep It From Going Stale) | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-2 py-1 text-xs max-w-[95px] inline-block text-center leading-tight rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Exercise Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Exercise Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+    <main class="relative z-10 flex-grow pt-32 pb-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-8">
+                <a href="../blog.html" class="text-sm font-mono text-neutral-400 hover:text-[#00e673] transition-colors inline-flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Master Blog
+                </a>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Blog Article Container -->
+                <article class="p-6 md:p-8 rounded-2xl bg-neutral-950/80 border border-neutral-800 backdrop-blur-sm transition-all space-y-6">
+                    <div class="flex items-center justify-between text-xs font-mono text-neutral-500">
+                        <span>June 17, 2026</span>
+                        <span>11 min read</span>
+                    </div>
+<!--Fill in blog content here -->
+<pre class="text-sm font-mono text-neutral-400 whitespace-pre-wrap break-words"><code>
+<h2 class="text-3xl md:text-2xl font-bold mb-4 text-[#00e673] text-center">What Goes Into a Business Continuity Plan 
+(and How to Keep It From Going Stale)</h2>
+<h2 class="text-xl font-bold font-mono text-[#00e673]">A Plan Is a Set of Answers</h2>Strip away the templates and the jargon, and a business continuity plan is a set of answers to questions people will ask on a very bad day. What is happening? Does this plan apply? What do I do first? Who is in charge? What do we restore first? Who do I call? What do we tell customers? How long can we keep going like this?
+
+If the plan answers those questions clearly, it works. If it leaves people guessing, it does not, no matter how many pages it has.
+
+This is the third post in my business continuity series. The <a href="bcp-trends.html" class="text-[#00e673] hover:underline">first post</a> covered current trends, and the <a href="bcp-roles.html" class="text-[#00e673] hover:underline">second</a> covered how DR and BCP roles differ and why a plan must be usable under pressure. This one walks through the essential components of a BCP, then covers the part most programs struggle with: keeping it current as people, technology, suppliers and operations change.
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">The Foundation: Know What Matters and What Threatens It</h2><h2 class="text-xl font-bold font-mono text-[#00e673]">  Business Impact Analysis (BIA):</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">Before anyone writes recovery steps, the business needs to agree on what is critical. The BIA identifies the organization's most important services and processes, what happens if each one stops (financial, customer, regulatory, safety and reputational impact) and how long each can be down before that impact becomes unacceptable. That limit, often called the maximum tolerable period of disruption, drives everything else: recovery priorities, recovery time objectives and how much to spend on recovery options.</p></div><h2 class="text-xl font-bold font-mono text-[#00e673]">  Risk Assessment:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">The risk assessment looks at what could cause a disruption and how likely and severe each threat is. Typical categories include loss of facilities (fire, flood, power, access), loss of technology (outage, cyberattack, data corruption), loss of people (illness, key person departure, strikes, travel restrictions), loss of suppliers (failure, outage, insolvency, geopolitical restrictions) and external events (severe weather, civil unrest, regional infrastructure failures). The goal is not to write a plan for every threat, but to plan for the impacts they share: loss of a site, loss of systems, loss of people, loss of a supplier.</p></div>
+A practical tip: plan around impacts, not causes. Whether the building is closed by a flood, a fire or a police cordon, the response is largely the same. That keeps the plan shorter and makes it work for threats nobody predicted.
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">The Core Components</h2>Every organization's plan will look a little different, but these components belong in almost every BCP.
+
+<div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Scope and objectives:</strong> Which services, processes, locations and teams the plan covers, and what it aims to achieve (for example, "restore customer order intake within four hours at a reduced level, and full service within three days").</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Activation triggers:</strong> The specific conditions that put the plan into action. Clear triggers prevent two common failures: waiting too long because nobody is sure they are allowed to act, and activating for every minor hiccup until people stop taking it seriously. Examples: "the order system is unavailable for more than 30 minutes," "the main site cannot be occupied," "more than 25 percent of a team is unavailable," or "a critical supplier declares an outage expected to last more than four hours."</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Activation authority and escalation:</strong> Who can activate the plan, who must be informed and how quickly, and who the backups are if the primary cannot be reached.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">First actions:</strong> A short checklist for the first 15 to 60 minutes: confirm everyone is safe, assess the situation, notify the right people, start a log, gather the response team and decide whether to activate workarounds. This is the most-used page of any plan and should fit on one page.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Roles and responsibilities:</strong> The response roles (plan owner, incident lead, team leads, communications contact, recovery coordinator, scribe) with what each role does and who fills it today, plus at least one backup per role.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Recovery priorities:</strong> The order in which services and processes come back, taken from the BIA, with the target recovery time for each. This list must match the IT disaster recovery restore order, or the business and IT will be working toward different goals.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Recovery strategies and workarounds:</strong> How each critical process will continue during the disruption. Options include an alternate site, remote work, moving work to another team or location, manual or paper procedures, a backup supplier or a reduced "minimum viable" level of service. Each strategy should say what it needs (people, equipment, forms, access) and how long it can be sustained.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Dependencies:</strong> What each critical process relies on: applications, data, infrastructure, facilities, other internal teams and external suppliers. This is where business continuity connects to the rest of the organization.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Key contacts and resources:</strong> Contact details for the response team, staff, key suppliers, customers, regulators, insurers, emergency services and facilities, plus the resources needed to execute the plan (alternate site details, equipment, supplies, access cards, manual forms).</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Communications plan:</strong> Who communicates with which audience (employees, customers, suppliers, regulators, media, the board), through which channels, how often and who approves messages. It should include pre-drafted message templates and backup channels for when email and chat are unavailable.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Data and records protection:</strong> How the business data and vital records each process needs are backed up or protected, how they can be accessed during a disruption and how manual records captured during the event will be re-entered and reconciled afterward.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Return to normal:</strong> How to move from workarounds back to normal operations in a controlled way, including data reconciliation, catching up on backlogs, confirming the service is stable and formally closing the incident.</p><p style="margin: 0;"><strong class="font-bold text-md text-[#00e673]">Testing and maintenance:</strong> How the plan will be exercised, reviewed and kept current, and who is responsible. More on this below.</p></div>
+<h2 class="text-xl font-bold font-mono text-[#00e673]">Dependencies: Where Plans Usually Break</h2>Dependencies deserve extra attention because they are where most continuity plans fail in practice. A process can have a perfect workaround and still stop because of something nobody listed.
+
+Think of each critical process as sitting on a stack of things it needs. A typical example for a customer order process:
+
+                  [ Customer Order Intake ]  &lt;- business service
+                                                 │
+                  ┌──────────────┼───────────────┬─────────────────┬──────────────────┐
+                  ▼              ▼               ▼                 ▼                  ▼
+                People      Applications     Facilities       Suppliers          Other teams
+                order       order system,    contact          payment            warehouse,
+                desk        CRM, phones,     center site,     processor,         finance,
+                staff       email            power, WAN       telecom carrier    IT service desk
+
+Compared to how IT treats applications, business continuity looks at dependencies more broadly. An application's DR plan focuses on the technical chain: servers, databases, storage, networks and the other applications it exchanges data with. A business process depends on all of that plus people, buildings, suppliers and the other teams it hands work to. Two processes that use the same application may also have very different tolerances: the application might need to be back in four hours for one team, while another team can work on paper for three days.
+
+Good practice is to record dependencies in a structured way, ideally in the same application inventory or CMDB IT already uses for DR, so a change in one place (a new supplier, a retired system, a moved team) can be seen by everyone who relies on it.
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">  The Technical View:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">Map each critical business process to the applications it uses, and use the application records to inherit their technical dependencies and recovery times. Then compare: if a process can only tolerate four hours of disruption but its key application has a tested recovery time of two days, that gap needs a workaround, an investment decision or a formal risk acceptance. This comparison is one of the most valuable outputs of a joined-up DR and BCP program.</p></div><h2 class="text-xl font-bold font-mono text-[#00e673]">  Leadership Translation:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">Every critical service depends on more than its own team. Knowing those dependencies, and checking that each one can recover in time, is how you avoid discovering during a real event that the plan relied on a supplier, a system or a team that was never part of it.</p></div>
+<h2 class="text-xl font-bold font-mono text-[#00e673]">Testing Without Disrupting the Business</h2>One of the most common objections to testing is "we can't afford to take the business down to test the plan." Fair enough. You rarely need to. There is a range of testing options, and most of them cause no disruption at all.
+
+<div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Plan walkthroughs:</strong> The plan owner and team read through the plan together, step by step, checking that it makes sense and is current. Low effort, no disruption.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Tabletop exercises:</strong> The team talks through a realistic scenario in a meeting room or video call, deciding what they would do at each stage. No systems are touched.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Component tests:</strong> Test one piece in isolation: a call tree, the emergency notification system, a manual form, remote access for the team or access to the alternate site.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Small live workarounds:</strong> Have one team or one shift run its manual process for a short window during a quiet period, while normal operations continue alongside it.</p><p style="margin: 0;"><strong class="font-bold text-md text-[#00e673]">Recovery in parallel:</strong> IT restores systems into an isolated environment while the business validates the restored data, without touching production.</p></div>
+Schedule tests during known quiet periods, avoid month-end and peak seasons, tell stakeholders in advance and agree on stop conditions so a test can be halted if it starts to affect customers. The fourth post in this series covers exercise types in more detail.
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">Keeping the Plan Current</h2>A plan is accurate on the day it is approved. From then on, it starts to drift. People change roles. Systems are upgraded or retired. Suppliers change. Teams move. Processes are redesigned. If nothing keeps up with those changes, the plan quietly becomes a description of an organization that no longer exists.
+
+The fix is a combination of a regular rhythm and change-driven updates.
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">  A Regular Rhythm:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Monthly:</strong> Check that contact lists and role assignments are current. In most organizations this can be automated from the HR system and directory.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Quarterly:</strong> Plan owners confirm their plan still reflects how the team works, and the continuity office reviews open issues from past exercises.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Twice a year:</strong> Test communications tools and call trees, and run short component tests or workaround drills for the most critical processes.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Annually:</strong> Refresh the BIA and risk assessment, run at least one tabletop exercise per critical plan, formally review and re-approve each plan and report program status to leadership.</p><p style="margin: 0;"><strong class="font-bold text-md text-[#00e673]">Every two to three years (or as the program matures):</strong> Run a larger integrated exercise or full-scale drill that brings business continuity, IT recovery and crisis management together.</p></div><h2 class="text-xl font-bold font-mono text-[#00e673]">  Change-Driven Updates:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">People changes:</strong> When someone named in a plan changes roles or leaves, the plan owner is notified and assigns a replacement. Ideally, the HR system triggers this automatically.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Technology changes:</strong> When an application is added, retired, migrated to the cloud or changes its recovery time, affected business processes are flagged for review. Change management tickets are a natural trigger.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Supplier changes:</strong> When a critical supplier is added, replaced or changes its service, procurement and third-party risk notify the plan owners whose processes depend on it.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Operational changes:</strong> Reorganizations, new locations, new products, mergers and process redesigns all trigger a plan review for the affected areas.</p><p style="margin: 0;"><strong class="font-bold text-md text-[#00e673]">After every exercise or real event:</strong> Lessons learned become tracked actions with owners and due dates, and plans are updated within an agreed timeframe, such as 30 to 60 days.</p></div>
+<h2 class="text-xl font-bold font-mono text-[#00e673]">Who Is Responsible for What</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Executive sponsor:</strong> Sets expectations, provides funding and decides on risk acceptances when gaps cannot be closed.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Business continuity program office:</strong> Owns the standard, templates, tools and calendar. Facilitates BIAs and exercises, tracks issues, reports to leadership and keeps owners on schedule. It supports the plans but does not own them.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Plan owners (business unit or process leaders):</strong> Own their plan's content and accuracy, keep roles assigned, take part in exercises and close their actions.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Team members in assigned roles:</strong> Know their role, know where the plan is and take part in training and exercises.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">IT and DR teams:</strong> Provide accurate application recovery times and dependencies, and align the restore order with business priorities.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Supporting functions (HR, facilities, procurement, communications, legal):</strong> Feed changes in people, sites and suppliers into the program, and own their parts of the response.</p><p style="margin: 0;"><strong class="font-bold text-md text-[#00e673]">Internal audit:</strong> Independently checks that the program works as described.</p></div>
+<h2 class="text-xl font-bold font-mono text-[#00e673]">Keeping Track of It All</h2>Plans, contacts, dependencies and test results scattered across documents and spreadsheets will drift faster than any team can keep up with. Where possible, keep continuity information in one structured system: a dedicated continuity tool, or the enterprise application inventory or CMDB the organization already maintains. Link plans to the applications, suppliers and locations they depend on. Pull contact and role data from authoritative sources such as HR and the directory instead of retyping it. Track every exercise finding as an action with an owner and a due date.
+
+Then report on it. A simple dashboard showing plans overdue for review, roles without a named person, exercises completed and open actions past due tells leadership more about readiness than any document.
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">The Bottom Line</h2>A business continuity plan is a set of answers: when to act, what to do first, who is in charge, what comes back first, what it depends on, who to call and what to say. The components above make sure those answers exist.
+
+But the harder work is keeping those answers true. Organizations change constantly, and a plan that does not change with them becomes a liability. A regular rhythm, change-driven updates, clear ownership and one place to keep the information are what keep a plan useful long after it is signed.
+
+In the final post of this series, I will cover BCP best practices for testing: tabletop discussions, simulations and full-scale drills, how long each takes and what each one should teach you, along with a simple template you can use to run your own exercises.
+</code></pre>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+            <div class="flex items-center gap-4">
+                <a href="https://github.com/raymonderiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
+                <a href="https://linkedin.com/in/RaymondERiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin text-lg"></i></a>
+                <a href="../contact.html" class="hover:text-white transition-colors"><i class="fa-solid fa-envelope text-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+    </script>
+</body>
+</html>

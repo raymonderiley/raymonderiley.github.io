@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DR vs. BCP: Who Does What, and Why the Plan Has to Work at 3 a.m. | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-2 py-1 text-xs max-w-[95px] inline-block text-center leading-tight rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Exercise Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Exercise Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+    <main class="relative z-10 flex-grow pt-32 pb-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-8">
+                <a href="../blog.html" class="text-sm font-mono text-neutral-400 hover:text-[#00e673] transition-colors inline-flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Master Blog
+                </a>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Blog Article Container -->
+                <article class="p-6 md:p-8 rounded-2xl bg-neutral-950/80 border border-neutral-800 backdrop-blur-sm transition-all space-y-6">
+                    <div class="flex items-center justify-between text-xs font-mono text-neutral-500">
+                        <span>June 16, 2026</span>
+                        <span>9 min read</span>
+                    </div>
+<!--Fill in blog content here -->
+<pre class="text-sm font-mono text-neutral-400 whitespace-pre-wrap break-words"><code>
+<h2 class="text-3xl md:text-2xl font-bold mb-4 text-[#00e673] text-center">DR vs. BCP: Who Does What, and Why the Plan Has to Work at 3 a.m.</h2>
+<h2 class="text-xl font-bold font-mono text-[#00e673]">Two Plans, One Bad Day</h2>Ask ten people in a company what the difference is between disaster recovery and business continuity, and you will probably get ten answers. Some will say they are the same thing. Some will say DR is "the IT one." A few will shrug and say, "Isn't that the binder in the risk team's office?"
+
+The confusion is understandable. Both plans activate on the same bad day. Both talk about recovery times. Both get tested, audited and occasionally forgotten. But they answer different questions, they are owned by different people and, most importantly, they are used by different people under pressure.
+
+This is the second post in my business continuity series. In the <a href="bcp-trends.html" class="text-[#00e673] hover:underline">first post</a>, I looked at the trends reshaping BCP. Here, I will briefly sort out who does what between DR and BCP, and then spend most of the time on the point that matters more than any org chart: a business continuity plan is only useful if people can find it and follow it when everything is going wrong.
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">The Short Version: Different Questions</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Disaster recovery asks:</strong> How do we restore the technology? Which systems come back first, from where, and how fast? It is measured in recovery time and recovery point objectives for applications and infrastructure.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Business continuity asks:</strong> How does the business keep delivering its most important services while the disruption lasts, whatever caused it? It covers people, processes, facilities, suppliers and communications, as well as technology.</p><p style="margin: 0;"><strong class="font-bold text-md text-[#00e673]">Crisis management asks:</strong> Who is in charge, what decisions need to be made and what do we tell employees, customers, regulators and the public?</p></div>
+A simple way to put it: DR brings the systems back. BCP keeps the business running until they are back, and also when the problem is not technology at all, such as a building closure, a supplier failure or a large number of staff out at once.
+
+                         [ Disruption ]
+                               │
+          ┌────────────────────┼─────────────────────┐
+          ▼                    ▼                     ▼
+   [ Crisis Management ]  [ Business Continuity ] [ Disaster Recovery ]
+   Decides and informs    Keeps services running  Restores technology
+   Executives, comms,     Business and process    IT, infrastructure,
+   legal, HR              owners, frontline teams application teams
+          │                    │                     │
+          └──── shared status, shared priorities ────┘
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">How the Roles Differ</h2>The roles are not just different job titles. They differ in who owns the plan, who executes it and what success looks like.
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">  Who Owns the Plan:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">DR:</strong> Usually owned by IT, with a DR program manager or technology resilience lead coordinating, and application and infrastructure owners responsible for their own recovery plans and runbooks.</p><p style="margin: 0;"><strong class="font-bold text-md text-[#00e673]">BCP:</strong> Owned by the business. Each business unit or service has a plan owner, typically a department head or process owner, with a continuity manager or program office setting the standard, facilitating and keeping the program honest.</p></div><h2 class="text-xl font-bold font-mono text-[#00e673]">  Who Executes It:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">DR:</strong> Engineers, database administrators, cloud and network teams, backup administrators and security teams. Most of the work happens on consoles, in runbooks and on bridge calls.</p><p style="margin: 0;"><strong class="font-bold text-md text-[#00e673]">BCP:</strong> Team leads, supervisors and frontline staff. Customer service reps switching to a manual process, warehouse staff using printed pick lists, finance moving to an alternate approval path, HR managing staff relocation. Most of the work happens on the floor, often without the systems they normally use.</p></div><h2 class="text-xl font-bold font-mono text-[#00e673]">  What Success Looks Like:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">DR:</strong> The system is restored within its RTO, with data loss within its RPO, and validated by the application owner.</p><p style="margin: 0;"><strong class="font-bold text-md text-[#00e673]">BCP:</strong> Customers keep being served, at an acceptable level, within the maximum tolerable disruption, and the business can return to normal operations in a controlled way.</p></div>
+There are overlaps. The business impact analysis (BIA) feeds both plans. Recovery priorities have to agree, or IT will restore systems in an order the business does not need. And both sides need the same incident command structure so decisions are not made twice or not at all.
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">  The Technical View:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">The hand-off between DR and BCP is where most gaps hide. If the BCP assumes a system is back in four hours and the tested cyber recovery time is three days, the business plan has a hole of almost three days that nobody owns. Recovery priorities, recovery times and dependencies should come from one shared source, ideally the application inventory or CMDB, so both plans are built on the same facts.</p></div><h2 class="text-xl font-bold font-mono text-[#00e673]">  Leadership Translation:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">DR is a technology responsibility. BCP is a business responsibility. Leadership's job is to make sure both exist, that they agree with each other and that each has a named owner who will be held to it. When a disruption hits, customers do not care which plan failed. They only see that the service stopped.</p></div>
+<h2 class="text-xl font-bold font-mono text-[#00e673]">Why "Can They Find It and Follow It?" Matters Most</h2>Here is the uncomfortable truth about business continuity plans: many of them are well written, approved, audited and completely unusable in a real event.
+
+They are 80 pages long. They are stored on a file share that is unavailable when the network is down. They are written in policy language. The contact list was correct two reorganizations ago. The person who wrote them left last year. And the people who actually need them, the shift supervisor at 3 a.m. or the team lead covering for a manager on vacation, have never seen them.
+
+A plan that cannot be found or followed under pressure has the same value as no plan at all, but with a false sense of security attached.
+
+Stress changes how people think. Under pressure, people read less, skip steps, fall back on habit and look for someone to tell them what to do. A good continuity plan is designed for that person, not for an auditor reading it calmly at a desk.
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">Making a Plan People Can Find</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Store it where the disruption will not reach it:</strong> If the plan lives only on the corporate network, a cyber event or network outage takes it away. Keep current copies in at least one location outside the main environment, such as an offline copy, a secured out-of-band platform or printed copies for the most critical teams.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Make it easy to locate:</strong> One known place, one name. "The continuity plan is in the red folder at each team lead's desk and on the emergency site" beats "it is somewhere on the risk team's file share."</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Put the first page in people's hands:</strong> Wallet cards, a one-page quick reference at each workstation, a pinned link in the team chat channel and a copy on the team lead's phone. The full plan can be long. The part people need first must be short and close at hand.</p><p style="margin: 0;"><strong class="font-bold text-md text-[#00e673]">Test that people can find it:</strong> In your next exercise, before anything else, ask a team member to pull up the plan without help. Time it. The result is often surprising.</p></div>
+<h2 class="text-xl font-bold font-mono text-[#00e673]">Making a Plan People Can Follow</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Lead with actions, not background:</strong> The first page should answer: How do I know this plan applies? What do I do in the first 30 minutes? Who do I call? Policy, scope and history go at the back.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Use checklists and short steps:</strong> One action per line, written as an instruction. "Call the facilities hotline" not "Facilities should be notified as appropriate."</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Write for the role, not the person:</strong> Name the role ("shift supervisor," "payments team lead") and keep a separate, maintained list of who fills that role today, with backups. People change jobs. Roles stay.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Include the decision points:</strong> Spell out when to escalate, who can approve a workaround and what thresholds trigger the next step. People freeze when they are not sure they are allowed to act.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Keep the language plain:</strong> Avoid acronyms that only the continuity team knows. If a new hire would not understand a sentence, rewrite it.</p><p style="margin: 0;"><strong class="font-bold text-md text-[#00e673]">Show where to get help:</strong> Every page should make it obvious who to contact if the plan does not fit the situation.</p></div>
+<h2 class="text-xl font-bold font-mono text-[#00e673]">A Quick Before and After</h2>Here is the same instruction, written two ways.
+
+BEFORE:
+  In the event of a disruption impacting the primary order management platform,
+  the Order Operations function shall, in consultation with relevant stakeholders,
+  implement appropriate manual contingency procedures as outlined in Appendix F.
+
+AFTER:
+  Order system down for more than 15 minutes?
+  1. Tell your shift lead (or call the Ops on-call line: see contact card).
+  2. Shift lead: open the red Manual Orders kit at the supervisor desk.
+  3. Take orders on Form MO-1. Write the time on every form.
+  4. Every hour, send a count of paper orders to the Ops on-call line.
+  5. When the system is back, do NOT re-enter orders until the shift lead says go.
+
+Both say roughly the same thing. Only one can be followed by a tired person, at 3 a.m., with customers waiting.
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">Practice Turns a Document Into a Habit</h2>Even the best-written plan will not be followed if people meet it for the first time during a real event. The goal of training and exercises is to make the first steps familiar enough that people do them without hesitation.
+
+<div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Train people in their role:</strong> Each person named in the plan should know what their role does in the first hour, where the plan is and who they report to. A 15-minute walkthrough once or twice a year goes a long way.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Exercise the hand-offs:</strong> Run scenarios where the business continuity team, IT recovery team and crisis team must work together, so everyone sees how their part connects.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Rotate who leads:</strong> Let backups and deputies run part of an exercise. The primary will not always be available on the real day.</p><p style="margin: 0;"><strong class="font-bold text-md text-[#00e673]">Fix what confused people:</strong> Every question asked during an exercise ("where is the form?", "who approves this?") is a change the plan needs.</p></div>
+I will go much deeper on exercises, simulations and drills in the fourth post of this series.
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">The Bottom Line</h2>Disaster recovery and business continuity are partners, not rivals. DR restores the technology. BCP keeps the business delivering for its customers while that happens, and when the problem is not technology at all. Each needs its own owners, and both need to agree on priorities and timing.
+
+But no matter who owns it, a business continuity plan earns its value in one moment: when a stressed person under pressure needs to know what to do next. If they can find it, understand it and follow it, the plan works. If they cannot, it does not matter how good it looked during the audit.
+
+In the next post, I will walk through the essential components every BCP should include, and how to keep them current as people, technology and suppliers change.
+</code></pre>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+            <div class="flex items-center gap-4">
+                <a href="https://github.com/raymonderiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
+                <a href="https://linkedin.com/in/RaymondERiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin text-lg"></i></a>
+                <a href="../contact.html" class="hover:text-white transition-colors"><i class="fa-solid fa-envelope text-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+    </script>
+</body>
+</html>

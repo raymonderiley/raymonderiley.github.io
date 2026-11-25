@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZS57X026L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-YZS57X026L');
+</script>
+<!--End google-->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCP Best Practices: Testing Your Plan Before Reality Does | Raymond E. Riley</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-[#00e673]">&lt;</span>Raymond E. Riley<span class="text-[#00e673]">/&gt;</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
+                <a href="../index.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../about.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../experience.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../certificates.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../skills.html" class="nav-link hover:text-white transition-colors flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+                <a href="../contact.html" class="px-4 py-2 rounded-lg bg-neutral-900 text-neutral-300 border border-neutral-800 hover:bg-neutral-800 hover:text-white transition-all">Contact</a>
+                <a href="../blog.html" class="px-4 py-2 rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Blog</a>
+                <a href="../masterttexs.html" class="px-2 py-1 text-xs max-w-[95px] inline-block text-center leading-tight rounded-lg bg-[#00e673] text-black font-semibold hover:bg-[#00cc55] transition-all">Exercise Simulations</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none text-xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-neutral-900 px-6 py-4 space-y-3">
+            <a href="../index.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Home<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../about.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>About<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../experience.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Experience<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../certificates.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Certification/Training<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../skills.html" class="block text-neutral-300 hover:text-white flex items-center gap-1.5"><span class="text-[#00e673]">&lt;</span>Skills<span class="text-[#00e673]">/&gt;</span></a>
+            <a href="../contact.html" class="block text-neutral-300 hover:text-white font-semibold">Contact</a>
+            <a href="../blog.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Blog<span class="text-white">/&gt;</span></a>
+            <a href="../masterttexs.html" class="block text-[#00e673] font-semibold flex items-center gap-1.5"><span class="text-white">&lt;</span>Exercise Simulations<span class="text-white">/&gt;</span></a>
+        </div>
+    </header>
+
+    <main class="relative z-10 flex-grow pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-8">
+                <a href="../blog.html" class="text-sm font-mono text-neutral-400 hover:text-[#00e673] transition-colors inline-flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Master Blog
+                </a>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Blog Article Container -->
+                <article class="p-6 md:p-8 rounded-2xl bg-neutral-950/80 border border-neutral-800 backdrop-blur-sm transition-all space-y-6">
+                    <div class="flex items-center justify-between text-xs font-mono text-neutral-500">
+                        <span>June 19, 2026</span>
+                        <span>13 min read</span>
+                    </div>
+<!--Fill in blog content here -->
+<pre class="text-sm font-mono text-neutral-400 whitespace-pre-wrap break-words"><code>
+<h2 class="text-3xl md:text-2xl font-bold mb-4 text-[#00e673] text-center">BCP Best Practices: Testing Your Plan Before Reality Does</h2>
+<h2 class="text-xl font-bold font-mono text-[#00e673]">Nobody Rises to the Occasion</h2>There is an old saying in emergency response: people do not rise to the occasion, they fall to the level of their training. Business continuity is no different. On the day of a real disruption, the plan will be followed about as well as it was practiced, and not much better.
+
+That is why testing is the single most important best practice in business continuity. A plan that has never been exercised is a theory. A plan that has been exercised, broken, fixed and exercised again is a capability.
+
+This is the final post in my business continuity series. The earlier posts covered <a href="bcp-trends.html" class="text-[#00e673] hover:underline">current trends</a>, <a href="bcp-roles.html" class="text-[#00e673] hover:underline">how DR and BCP roles differ</a> and <a href="bcp-components.html" class="text-[#00e673] hover:underline">the essential components of a BCP</a>. This one focuses on how to test: tabletop discussions, simulations and full-scale drills, what each looks like, how long each takes and what each should teach you. At the end, there is a simple template you can copy and use for your own exercises.
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">Best Practices Before You Test Anything</h2>A few principles apply to every type of exercise.
+
+<div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Start small and build up:</strong> Begin with walkthroughs and tabletops. Move to simulations and live drills only once the basics hold. Jumping straight to a full-scale drill usually produces chaos and very little learning.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Set clear objectives:</strong> Every exercise should have two to four specific objectives, such as "confirm the team can activate the manual order process within 30 minutes" or "test whether the communications team can issue a customer notice within one hour." Objectives tell you what to watch and how to judge success.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Make it safe to fail:</strong> The point of an exercise is to find problems. If people feel judged, they will hide gaps. Say it out loud at the start: "we are testing the plan, not the people."</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Use realistic scenarios:</strong> Base scenarios on your risk assessment and on real events in your industry. Plausible scenarios get people engaged. Implausible ones get eye-rolls.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Include the hand-offs:</strong> The most valuable findings usually appear where teams hand work to each other: business to IT, IT to communications, operations to suppliers.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Rotate participants:</strong> Use backups and deputies, not only the usual primary contacts. On the real day, the primary may not be available.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Capture everything:</strong> Assign a scribe or note-taker for every exercise. Findings that are not written down are forgotten by the next morning.</p><p style="margin: 0;"><strong class="font-bold text-md text-[#00e673]">Close the loop:</strong> Every exercise ends with an after-action report, tracked actions with owners and due dates, and plan updates. An exercise without follow-up is just a meeting.</p></div>
+<h2 class="text-xl font-bold font-mono text-[#00e673]">The Testing Ladder</h2>Think of testing as a ladder. Each step adds realism, effort and risk, and each builds on the confidence gained from the one below.
+
+<strong class="font-bold text-md text-[#00e673]">Effort / Realism</strong>
+    ▲
+    │                                                   [ Full-Scale Drill ] Real people, real sites, real systems. Hours to days.
+    │
+    │                  [ Functional Simulation ] Teams act out their roles in real time with injects. Half day to full day.
+    │
+    │         [ Tabletop Exercise ] Discuss the scenario and decisions. 2 to 4 hours.
+    │        
+    │ [ Plan Walkthrough ] Read and check the plan. 1 to 2 hours.
+    └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────▶ <strong class="font-bold text-md text-[#00e673]">Maturity</strong>
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">Tabletop Exercises: Talking It Through</h2>A tabletop exercise is a facilitated discussion. The team gathers in a room or on a video call, a facilitator presents a scenario and the team talks through what they would do, step by step. No systems are touched and no real actions are taken.
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">  What It Looks Like:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">A facilitator opens with a short briefing on the scenario, for example: "It is 7:15 on a Tuesday morning. Staff arriving at the main office find the building closed due to a water main break. Facilities estimates it will be closed for at least three days." The team discusses who needs to know, whether to activate the plan, where staff will work and what customers will notice. Every 20 to 30 minutes, the facilitator adds an inject, a new piece of information that changes the situation: "Remote access is slow because everyone is logging in at once." "A major customer calls asking whether their shipment will be late." "The local news is asking for a statement." The team adjusts and keeps going.</p></div><h2 class="text-xl font-bold font-mono text-[#00e673]">  How Long It Lasts:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">Most tabletops run two to four hours, including a short briefing at the start and a 30 to 45 minute "hot wash" debrief at the end. Executive tabletops are often shorter, around 90 minutes to two hours, and focus on decisions rather than detailed steps.</p></div><h2 class="text-xl font-bold font-mono text-[#00e673]">  Who Takes Part:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">The plan owner, the people in key response roles and their backups, and representatives from the teams the plan depends on (IT, facilities, communications, HR). Add a facilitator who did not write the plan, a scribe and, if useful, one or two observers to note gaps.</p></div><h2 class="text-xl font-bold font-mono text-[#00e673]">  What It Is Good For:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">Testing understanding, decision-making and coordination. Finding unclear roles, missing contacts, outdated assumptions and gaps between teams. It is the best starting point for any new plan and the most cost-effective test you can run. Aim for at least one tabletop per critical plan each year.</p></div>
+<h2 class="text-xl font-bold font-mono text-[#00e673]">Simulations: Acting It Out</h2>A simulation, sometimes called a functional exercise, goes a step further. Instead of only discussing what they would do, teams actually perform their roles, in real time, using the tools and communication channels they would use in a real event. The scenario is still controlled by a facilitation team, and production systems are usually not touched.
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">  What It Looks Like:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">Participants work from their normal desks or a designated command center. A control team sends injects through realistic channels: an email from "the facilities manager," a phone call from a role-player acting as an upset customer, a simulated system alert or a mock news article. Teams must activate their plan, open a bridge call, send real notifications through the emergency notification system, draft actual customer communications for approval, log decisions and track actions just as they would in a real event. The control team watches how information flows, where it gets stuck and how long each step takes.</p></div><h2 class="text-xl font-bold font-mono text-[#00e673]">  Examples of Simulations:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Communications simulation:</strong> Test the emergency notification system, call trees and the process for drafting, approving and sending messages to staff, customers and regulators within target times.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Crisis team simulation:</strong> The incident management team runs a full response from a command center over several hours, receiving injects from multiple business units and making escalating decisions.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Supplier outage simulation:</strong> A critical supplier "goes down." Procurement, operations and the affected business units must activate backup arrangements, contact the alternate supplier and decide on customer impact.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Cyber event simulation:</strong> The business units run their extended technology outage workarounds on paper while the IT team runs its parallel recovery exercise, with the crisis team coordinating both.</p><p style="margin: 0;"><strong class="font-bold text-md text-[#00e673]">Remote work simulation:</strong> A team works entirely from alternate locations for a day, using only the equipment and access defined in the plan.</p></div><h2 class="text-xl font-bold font-mono text-[#00e673]">  How Long It Lasts:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">Typically half a day to a full day. Larger, multi-team simulations can run across two days, sometimes with a simulated time jump ("it is now 36 hours later") to test longer-duration issues such as staff fatigue and backlog.</p></div><h2 class="text-xl font-bold font-mono text-[#00e673]">  What It Is Good For:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">Testing whether people can actually perform the plan, not just describe it. Simulations reveal timing problems, tool and access issues, communication bottlenecks and the friction that never shows up in a conference room discussion.</p></div>
+<h2 class="text-xl font-bold font-mono text-[#00e673]">Full-Scale Drills: Doing It for Real</h2>A full-scale drill is as close to a real event as an organization can safely get. People physically relocate, systems actually fail over or are restored, alternate sites are used, manual processes are run with real work, and in some cases external partners such as suppliers or emergency services take part.
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">  What It Looks Like:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">On a planned date, the organization declares a simulated loss of its primary site. Staff in critical functions travel to the alternate site or work from home under the plan. IT fails over or restores critical systems in the recovery environment. Business teams validate that they can do real work: processing real (or carefully controlled test) orders, payments or customer requests. The communications team issues internal notifications. Observers at each location time every step against the plan's objectives. At a pre-agreed time, the organization returns to normal operations, which is itself part of the test.</p></div><h2 class="text-xl font-bold font-mono text-[#00e673]">  How Long It Lasts:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">A focused full-scale drill for one service or site might run a few hours up to a day, depending on the circumstances. A broad, enterprise-level drill can run one to three days, and possibly up to a week.  Dont forget the weeks of planning beforehand. Many organizations run a full-scale drill every one to three years, depending on their size, regulatory obligations and how mature the rest of their testing is.</p></div><h2 class="text-xl font-bold font-mono text-[#00e673]">  Planning a Drill Safely:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Obtain an executive sponsor:</strong> This should be someone from your leadership and possibly a co-executive sponsor.  This provides a solid stance to the business and shows a committment by leadership</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Plan early:</strong> Give yourself two to three months to plan a large drill, including scenario design, logistics, approvals and communications.  It is strongly advised to draft a project plan for this endeavor!  Using task level direction along with details and who is responsible along with the timeline can go a long way in having success.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Get approvals:</strong> Leadership must approve the scope, the date and the stop conditions.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Protect customers:</strong> Recognize that no time is ever a good time for an exercise for the organization.  Attempt to find the lowest-volume period for those involved, decide in advance which real transactions are in scope and have a rollback plan.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Define stop conditions:</strong> Agree on exactly what would cause the drill to be halted (customer impact, safety concerns, a real incident starting) and who can call it.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Brief everyone:</strong> Make sure all participants, the service desk and key partners know a drill is happening, so nobody mistakes it for a real event.</p><p style="margin: 0;"><strong class="font-bold text-md text-[#00e673]">Measure, do not guess:</strong> Time every key step and compare it to the plan's targets. The difference between planned and actual times is your most important result.</p></div><h2 class="text-xl font-bold font-mono text-[#00e673]">  What It Is Good For:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">Proving recovery capability end to end, including the things only a real test exposes: whether the alternate site has enough desks and working network ports, whether badge access works, whether restored systems perform under real load, whether people can get there and how long it really takes to return to normal. Full-scale drills find the gaps that every other type of test assumed away.</p></div><h2 class="text-xl font-bold font-mono text-[#00e673]">  The Technical View:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">Align full-scale business drills with technical DR tests wherever possible. If IT restores a system during its own test window, use that window to have the business validate the restored service and run its workarounds in parallel. One combined test produces more realistic findings than two separate ones and uses less of everyone's time.</p></div><h2 class="text-xl font-bold font-mono text-[#00e673]">  Leadership Translation:</h2><div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;">Each step up the testing ladder costs more, but it also proves more. Tabletops show that people understand the plan. Simulations show that they can perform it. Full-scale drills show that the organization can actually recover. Leadership should expect all three over a multi-year cycle, with results and closed actions reported every time.</p></div>
+<h2 class="text-xl font-bold font-mono text-[#00e673]">After the Exercise: Where the Value Is</h2>The exercise itself is only half the work. The other half is what happens next.
+
+<div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Hold a hot wash immediately:</strong> Capture answers while they are fresh.  Spend 30 to 45 minutes right after the exercise asking three questions: 
+  <div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">     *What went well?</strong></p></div>
+  <div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">     *What did not?</strong></p></div>
+  <div style="padding-left: 4ch; white-space: normal; margin: 0;"><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">     *What should change?</strong></p></div>
+</p>
+  <p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">After-action report:</strong> Write this up within a business week. Summarize the scenario, objectives, what happened, what worked, what did not and the actions to fix it.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Track every action:</strong> Each finding becomes an action with an owner and a due date, tracked in the same system as other risk and audit issues.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Update the plan:</strong> Change the plan within an agreed timeframe, typically 30 to 60 days.</p><p style="margin: 0 0 6px 0;"><strong class="font-bold text-md text-[#00e673]">Re-test what failed:</strong> Include last exercise's failures in the next exercise's objectives, so you can prove they were fixed.</p><p style="margin: 0;"><strong class="font-bold text-md text-[#00e673]">Report to leadership:</strong> Share a short summary of findings and progress. This keeps support for the program strong and keeps owners accountable.</p></div>
+<h2 class="text-xl font-bold font-mono text-[#00e673]">A Simple Exercise Template</h2>Below is a simple template you can copy and adapt for tabletops, simulations or drills. It covers planning, running and following up on an exercise in one place.
+
+<h2 class="text-xl font-bold font-mono text-[#00e673]">The Bottom Line</h2>Testing is where a business continuity plan stops being a document and starts being a capability. Start with tabletops to build understanding, move to simulations to prove people can perform, and use full-scale drills to prove the organization can actually recover. Make it safe to find problems, measure what really happens and close every action you find.
+
+Across this series, the message has been consistent. Disruptions are broader and longer than the old binder assumed. Business continuity and disaster recovery need different owners but shared priorities. A plan has to be findable and followable under pressure. And none of that is real until it has been tested. The organizations that come through a disruption well are rarely the ones with the thickest plans. They are the ones that practiced.
+
+_______________________________________________________________________________________________________________________________________________
+
+
+=====================================================================
+                 BUSINESS CONTINUITY EXERCISE TEMPLATE
+=====================================================================
+
+SECTION 1: EXERCISE OVERVIEW
+  Exercise name: ____________________________________________
+  Exercise type: [ ] Plan walkthrough   [ ] Tabletop
+                 [ ] Simulation         [ ] Full-scale drill
+  Date / time: _________________   Planned duration: __________
+  Location / video link: ____________________________________
+  Plan(s) being tested: _____________________________________
+  Exercise sponsor: _________________________________________
+  Facilitator: _________________   Scribe: ___________________
+
+SECTION 2: OBJECTIVES (2 to 4, specific and measurable)
+  1. ________________________________________________________
+  2. ________________________________________________________
+  3. ________________________________________________________
+
+SECTION 3: SCOPE AND GROUND RULES
+  In scope (teams, sites, services, systems): ________________
+  Out of scope: _____________________________________________
+  Ground rules:
+    - We are testing the plan, not the people.
+    - Use the plan as written. Note where it does not work.
+    - Stay in the scenario. Raise questions as they come up.
+  Stop conditions (live exercises only): ____________________
+  Who can stop the exercise: ________________________________
+
+SECTION 4: PARTICIPANTS
+  Role                        Name               Backup / present?
+  Plan owner                  ________________   ________________
+  Incident lead               ________________   ________________
+  Communications lead         ________________   ________________
+  IT / DR contact             ________________   ________________
+  Other: ____________________ ________________   ________________
+
+SECTION 5: SCENARIO
+  Opening situation (what participants are told at the start):
+  ___________________________________________________________
+  ___________________________________________________________
+  Assumptions (time of day, day of week, what is unavailable):
+  ___________________________________________________________
+
+SECTION 6: INJECTS
+  #  Time     Inject (new information)        Expected response
+  1  ______   ____________________________    _________________
+  2  ______   ____________________________    _________________
+  3  ______   ____________________________    _________________
+  4  ______   ____________________________    _________________
+
+SECTION 7: DISCUSSION QUESTIONS (tabletops)
+  - Who decides to trigger the plan, if needed?
+  - Does this situation trigger the plan?
+  - What are the first three things we do?
+  - Who needs to know, and how do we reach them?
+  - What do customers notice? What do we tell them, and when?
+  - Which processes come back first? What do they depend on?
+  - What do we do if this lasts three days? Two weeks?
+
+SECTION 8: OBSERVATION LOG (scribe)
+  Time     What happened / decision made      Issue or gap noted
+  ______   ______________________________    __________________
+  ______   ______________________________    __________________
+  ______   ______________________________    __________________
+
+SECTION 9: OBJECTIVE RESULTS
+  Objective   Met / Partly met / Not met   Planned vs actual time
+  1           ________________________     ______________________
+  2           ________________________     ______________________
+  3           ________________________     ______________________
+
+SECTION 10: HOT WASH (immediately after)
+  What went well: ___________________________________________
+  What did not go well: _____________________________________
+  What should change: _______________________________________
+
+SECTION 11: ACTION ITEMS
+  #  Finding                Action           Owner      Due date
+  1  ____________________   ______________   ________   ________
+  2  ____________________   ______________   ________   ________
+  3  ____________________   ______________   ________   ________
+
+SECTION 12: SIGN-OFF
+  After-action report issued (date): ________________________
+  Plan updated (date): ______________________________________
+  Re-test scheduled for: ____________________________________
+  Plan owner sign-off: ______________________________________
+=====================================================================
+</code></pre>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="relative z-10 border-t border-neutral-900 bg-black/90 py-8 px-6 text-center text-sm text-neutral-500 font-mono">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>&copy; 2026 Raymond E. Riley. All rights reserved.</p>
+            <div class="flex items-center gap-4">
+                <a href="https://github.com/raymonderiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
+                <a href="https://linkedin.com/in/RaymondERiley" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin text-lg"></i></a>
+                <a href="../contact.html" class="hover:text-white transition-colors"><i class="fa-solid fa-envelope text-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+    </script>
+</body>
+</html>
